@@ -1,5 +1,11 @@
+import { Entry } from "./entry";
 
-
-export class Category{
+export class Category {
     
+    id: number;
+
+    name: string;   
+
+    entries: Array<Entry>;
+
 }
