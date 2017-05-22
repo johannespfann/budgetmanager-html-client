@@ -7,12 +7,14 @@ import { PageNotFoundComponent } from "./errorcomponents/page-not-found.componen
 import { LoginComponent } from "./logincomponent/login.component";
 import { BalanceComponent } from "./balancecomponent/balance.component";
 import { CategoryComponent } from "./categorycomponent/category.component";
+import { HistoryComponent } from "./historycomponent/history.component";
 
 const appRoutes: Routes = [
   { path: 'welcome',            component: WelcomeComponent },
   { path: 'newentry', component: AddEntryComponent },
   { path: 'balance', component: BalanceComponent },
   { path: 'category', component: CategoryComponent },
+  { path: 'history', component: HistoryComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }

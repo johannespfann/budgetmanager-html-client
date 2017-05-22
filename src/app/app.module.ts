@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from "./errorcomponents/page-not-found.componen
 import { LoginComponent } from "./logincomponent/login.component";
 import { BalanceComponent } from "./balancecomponent/balance.component";
 import { CategoryComponent } from "./categorycomponent/category.component";
+import { HistoryComponent } from "./historycomponent/history.component";
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, AppRoutingModule ],
@@ -20,6 +21,7 @@ import { CategoryComponent } from "./categorycomponent/category.component";
     PageNotFoundComponent,
     BalanceComponent,
     CategoryComponent,
+    HistoryComponent,
     LoginComponent
     ],
   bootstrap:    [ AppComponent ]
