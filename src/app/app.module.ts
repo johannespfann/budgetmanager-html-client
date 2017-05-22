@@ -8,6 +8,7 @@ import { AddEntryComponent } from "./addentrycomponent/add-entry.component";
 import { WelcomeComponent } from "./welcomecomponent/welcome.component";
 import { PageNotFoundComponent } from "./errorcomponents/page-not-found.component";
 import { LoginComponent } from "./logincomponent/login.component";
+import { BalanceComponent } from "./balancecomponent/balance.component";
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, AppRoutingModule ],
@@ -16,6 +17,7 @@ import { LoginComponent } from "./logincomponent/login.component";
     WelcomeComponent,
     AddEntryComponent,
     PageNotFoundComponent,
+    BalanceComponent,
     LoginComponent
     ],
   bootstrap:    [ AppComponent ]

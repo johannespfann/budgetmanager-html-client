@@ -6,7 +6,7 @@ import { Entry } from "../models/entry";
 
 
 @Component({
-    selector: 'addentry',
+    selector: 'newentry',
     templateUrl: './add-entry.component.html'
 })
 export class AddEntryComponent {

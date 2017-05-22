@@ -5,10 +5,12 @@ import { WelcomeComponent } from "./welcomecomponent/welcome.component";
 import { AddEntryComponent } from "./addentrycomponent/add-entry.component";
 import { PageNotFoundComponent } from "./errorcomponents/page-not-found.component";
 import { LoginComponent } from "./logincomponent/login.component";
+import { BalanceComponent } from "./balancecomponent/balance.component";
 
 const appRoutes: Routes = [
   { path: 'welcome',            component: WelcomeComponent },
   { path: 'newentry', component: AddEntryComponent },
+  { path: 'balance', component: BalanceComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
