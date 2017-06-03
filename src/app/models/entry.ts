@@ -5,7 +5,7 @@ export class Entry {
 
     id:number;
 
-    sum: number;
+    amount: number;
 
     memo: string;
 
