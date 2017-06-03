@@ -1,0 +1,8 @@
+{
+    "files.exclude": {
+        "**/.git": false,
+        "**/.DS_Store": false,
+        "**/*.js": true,
+        "**/*.js.map": true
+    }
+}
