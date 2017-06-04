@@ -6,7 +6,7 @@ export class MathUtil{
      * the number will returned.
      * @param value 
      */
-    public static convertToPositiv(value: number){
+    public static convertToPositiv(value: number): number{
         if(value > 0 || value == 0){
             return value;
         }
@@ -19,7 +19,7 @@ export class MathUtil{
      * the number will returned.
      * @param value 
      */
-    public static convertToNegativ(value: number){
+    public static convertToNegativ(value: number): number{
         if(value < 0 || value == 0){
             value = value
         }
