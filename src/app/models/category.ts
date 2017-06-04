@@ -3,7 +3,7 @@ export class Category {
     
     id: number;
 
-    name: string; 
+    name: string;
 
     public copy():Category{
         let category: Category = new Category();

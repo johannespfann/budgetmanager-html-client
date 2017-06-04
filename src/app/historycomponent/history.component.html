@@ -2,16 +2,15 @@
 
 <ul class="list-group">
     <li *ngFor="let entry of entries" class="list-group-item row">
-        <div>
+        <div class="col-2">
             {{entry.amount}}
         </div>
-        <div>
+        <div class="col-4">
             {{entry.category.name}}
         </div>
-        <div>
-            {{entry.current_date}}
-        </div>
-        <div>
+        <i class="fa fa-pencil-square-o col-1 offset-4" aria-hidden="true"></i>
+        <i class="fa fa-trash col-1" aria-hidden="true"></i>
+        <div class="col-12">
             {{entry.memo}}
         </div>
 

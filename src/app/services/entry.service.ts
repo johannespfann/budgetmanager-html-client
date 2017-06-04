@@ -39,10 +39,9 @@ export class EntryService{
         entry2.id = 1;
         entry2.amount = +200;
         entry2.current_date = Date.now();
-
         entry2.category = categories[2];
         entry2.memo = "Eine Notiz mit viel Inhalt. Viel Inhalt deswegen, weil es auch viel zu erzählen gibt.";
-
+        
         let entry3 = new Entry();
         entry3.id = 1;
         entry3.amount = -5.50;
