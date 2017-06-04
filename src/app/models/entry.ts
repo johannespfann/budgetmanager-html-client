@@ -15,4 +15,16 @@ export class Entry {
 
     tags: Array<Tag>;
 
+
+    public copy(): Entry{
+        let entry: Entry = new Entry();
+        entry.id = this.id;
+        entry.amount = this.amount;
+        entry.memo = this.memo;
+        entry.current_date = this.current_date;
+        entry.category = this.category;
+        entry.tags = this.tags;
+        return entry;
+    }
+
 }
