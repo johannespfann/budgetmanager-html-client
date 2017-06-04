@@ -12,6 +12,7 @@ import { BalanceComponent } from "./balancecomponent/balance.component";
 import { CategoryComponent } from "./categorycomponent/category.component";
 import { HistoryComponent } from "./historycomponent/history.component";
 import { CategoryService } from "./services/category.service";
+import { EntryService } from "./services/entry.service";
 
 @NgModule({
   imports:      [ 
@@ -28,7 +29,7 @@ import { CategoryService } from "./services/category.service";
     HistoryComponent,
     LoginComponent
     ],
-  providers: [CategoryService],
+  providers: [CategoryService, EntryService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
