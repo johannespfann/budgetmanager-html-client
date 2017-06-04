@@ -1,1 +1,20 @@
 <h1>History</h1>
+
+<ul class="list-group">
+    <li *ngFor="let entry of entries" class="list-group-item row">
+        <div>
+            {{entry.amount}}
+        </div>
+        <div>
+            {{entry.category.name}}
+        </div>
+        <div>
+            {{entry.current_date}}
+        </div>
+        <div>
+            {{entry.memo}}
+        </div>
+
+    </li>
+    
+</ul>

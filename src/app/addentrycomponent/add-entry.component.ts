@@ -5,6 +5,7 @@ import { Tag } from "../models/tag";
 import { Entry } from "../models/entry";
 import { MathUtil } from "../utils/math-util";
 import { CategoryService } from "../services/category.service";
+import { EntryService } from "../services/entry.service";
 
 const CATEGORIES: string[] = ['Allgemein','Haushalt','Einnahmen'];
 
@@ -16,21 +17,20 @@ export class AddEntryComponent {
 
     algebraicSignIsMinus: boolean = true;
 
-    amount: number = 0;
+    private amount: number;
+    private memo: string;
+    private categories: Array<Category>;
+    private category: Category;
+    private tags: Array<Tag>;
 
-    memo: string = "";
+    constructor(
+            private categoryService: CategoryService,
+            private entryService: EntryService){
 
-    categories: Array<Category>;
-
-    category: Category;
-
-    tags: Array<Tag>;
-
-    constructor(private categoryService: CategoryService){
         console.log('Invoke AddEntryComponent');
 
         this.algebraicSignIsMinus = true;
-        this.amount = 0
+        this.amount;
         this.memo = "";
         this.categories = categoryService.getCategories();
         this.category = categoryService.getDefaultCategory();
@@ -53,7 +53,7 @@ export class AddEntryComponent {
         entry.category = this.category;  
         entry.tags = this.tags;
 
-        // TODO Save Entry
+        this.entryService.addEntry(entry);
 
         console.log('save : ' + JSON.stringify(entry));
 
@@ -62,8 +62,8 @@ export class AddEntryComponent {
     }
 
     private cleanAttributes(): void {
-        this.amount = 0;
-        this.memo = "";
+        this.amount = null;
+        this.memo = null;
         this.category = this.categoryService.getDefaultCategory();
         console.log("Cleaned View");
     }

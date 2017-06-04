@@ -29,7 +29,10 @@ import { EntryService } from "./services/entry.service";
     HistoryComponent,
     LoginComponent
     ],
-  providers: [CategoryService, EntryService],
+  providers: [
+    CategoryService, 
+    EntryService
+    ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

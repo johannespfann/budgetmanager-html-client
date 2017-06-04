@@ -1,16 +1,22 @@
-<form #addEntryForm="ngForm">
+<form (ngSubmit)="save()" #addEntryForm="ngForm">
+
   <div class="form-group">
-    <label for="betrag">Betrag</label>
+    <label for="amountform">Betrag</label>
     <div class="input-group">
-      <span (click)="changeAlgebraicSignIsMinus()" class="input-group-addon" id="basic-addon1">
+      <span (click)="changeAlgebraicSignIsMinus()" class="input-group-addon">
         <i class="fa" [ngClass]="{'fa-minus': algebraicSignIsMinus, 
-                                  'fa-plus': !algebraicSignIsMinus}" 
-             aria-hidden="true">
+                                  'fa-plus': !algebraicSignIsMinus}" aria-hidden="true">
         </i>
       </span>
-     <input [(ngModel)]="amount" name="amount" type="number" min="0" class="form-control" id="amount" placeholder="Betrag"> 
+     <input [(ngModel)]="amount" name="amountform" required type="number" min="0" pattern="[^0]+"
+            class="form-control" id="amountform" placeholder="Betrag" #amountform="ngModel"> 
     </div>
-    </div>    
+    <div *ngIf="amountform.errors && (amountform.dirty || amountform.touched)" class="alert alert-danger">
+       <div [hidden]="!amountform.errors.required" >Betrag erforderlich!</div>
+       <div [hidden]="!amountform.errors.pattern" >0 als Betrag ist nicht erlaubt!</div>
+    </div>
+  </div>  
+
   <div class="form-group">
     <label for="categorySelect">Kategorie</label>
     <select [(ngModel)]="category.name" name="category" class="form-control" id="categorySelect">
@@ -18,11 +24,11 @@
     </select>
   </div>
 
-    <div class="form-group">
+  <div class="form-group">
     <label for="memo">Notiz</label>
     <textarea [(ngModel)]="memo" name="memo" class="form-control" id="memo" placeholder="Notiz" rows="2"></textarea>
   </div>
 
+  <button type="submit" class="btn btn-primary">Submit</button>
 
-  <button (click)="save()" type="submit" class="btn btn-primary">Submit</button>
 </form>
