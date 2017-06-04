@@ -9,7 +9,7 @@ export class Entry {
 
     memo: string;
 
-    current_date: string;
+    current_date: number;
 
     category: Category;
 

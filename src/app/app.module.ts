@@ -11,9 +11,13 @@ import { LoginComponent } from "./logincomponent/login.component";
 import { BalanceComponent } from "./balancecomponent/balance.component";
 import { CategoryComponent } from "./categorycomponent/category.component";
 import { HistoryComponent } from "./historycomponent/history.component";
+import { CategoryService } from "./services/category.service";
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, AppRoutingModule ],
+  imports:      [ 
+    BrowserModule, 
+    FormsModule, AppRoutingModule 
+    ],
   declarations: [ 
     AppComponent,
     WelcomeComponent,
@@ -24,6 +28,7 @@ import { HistoryComponent } from "./historycomponent/history.component";
     HistoryComponent,
     LoginComponent
     ],
-  bootstrap:    [ AppComponent ]
+  providers: [CategoryService],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
