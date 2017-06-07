@@ -1,19 +1,28 @@
-<h1>History</h1>
-
+<div class="jumbotron">
+<h2>Verlauf</h2>
 <ul class="list-group">
-    <li *ngFor="let entry of entries" class="list-group-item row">
-        <div class="col-2">
-            {{entry.amount}}
-        </div>
-        <div class="col-4">
-            {{entry.category.name}}
-        </div>
-        <i class="fa fa-pencil-square-o col-1 offset-4" aria-hidden="true"></i>
-        <i class="fa fa-trash col-1" aria-hidden="true"></i>
-        <div class="col-12">
-            {{entry.memo}}
-        </div>
-
-    </li>
     
+    <li *ngFor="let entry of entries" class="list-group-item row" style="margin-top: 1rem">
+        <div class="col-11" >
+            <div class="row">
+                <div class="col-6">
+                    {{entry.amount}}
+                </div>
+                <div class="col-6">
+                    {{entry.category.name}}
+                </div>
+                <div class="col-12">
+                    {{entry.memo}}
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="row">
+                <i class="fa fa-trash col-6" (click)="deleteEntry(entry)" style="margin-right:-2rem" aria-hidden="true"></i>
+            </div>
+        </div>
+    </li>
+
 </ul>
+
+<div>

@@ -35,17 +35,24 @@ export class CategoryService{
     }
 
     public addNewCategory(aName: string):void {
-        
+        console.log(aName);
         if(this.isAlreadyExists(aName)){
             return; // TODO Throw error
         }
-
+        console.log(aName);
         let category: Category = new Category();
         
         category.id = this.generateNewId();
         category.name = aName;
-
+        console.log(aName);
+        this.categories.push(category);
         console.log("Added new Category: " + JSON.stringify(category));
+    }
+
+    public delete(category:Category):void{
+        if(category.name != 'Allgemein'){
+            
+        }
     }
 
     private generateNewId(): number{

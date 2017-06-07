@@ -25,37 +25,8 @@ export class HistoryComponent{
         });
     }
 
-/*
-    ngOnChanges(){
-        console.log("ngOnChanges");
+    private deleteEntry(aEntry:Entry): void {
+        this.entryService.deleteEntry(aEntry);
+        this.entries = this.entryService.getEntries();
     }
-
-    ngOnInit(){
-        console.log("ngOnInit");
-    }
-
-    ngDoCheck(){
-        console.log("ngDoCheck");
-    }
-
-    ngAfterContentInit(){
-        console.log("ngAfterContentInit");
-    }
-
-    ngAfterContentChecked(){
-        console.log("ngAfterContentChecked");
-    }
-
-    ngAfterViewInit(){
-        console.log("ngAfterViewInit");
-    }
-
-    ngAfterViewChecked(){
-        console.log("ngAfterViewChecked");
-    }
-
-    ngOnDestroy(){
-        console.log("ngOnDestroy");
-    }
-*/
 }

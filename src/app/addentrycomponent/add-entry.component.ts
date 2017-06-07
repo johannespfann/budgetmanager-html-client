@@ -77,9 +77,4 @@ export class AddEntryComponent {
         }
     }
 
-    private findCategoryObject(value:string){
-        // Get all Categories
-
-    }
-
 }

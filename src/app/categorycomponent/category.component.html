@@ -1,1 +1,35 @@
-<h1>Category</h1>
+<div class="jumbotron">
+    <form (ngSubmit)="save()" #addNewCategory="ngForm">
+        <div class="form-group">
+            <label for="categoryform">Name</label>
+            <input [(ngModel)]="name" name="categoryform" required type="text" min="1" class="form-control" id="categoryform"
+                    placeholder="Name der Kategorie" #categoryform="ngModel">
+        
+            <div *ngIf="categoryform.errors && (categoryform.dirty || categoryform.touched)" class="alert alert-danger">
+                <div [hidden]="!categoryform.errors.required">Name erforderlich</div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+</div>
+
+<div class="jumbotron">
+    <h2>Kategorien</h2>
+
+    <li *ngFor="let category of categories" class="list-group-item row" style="margin-top:1rem">
+        <div class="col-11">
+            <div class="row">
+                <div class="col-6">
+                    {{category.name}}
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="row">
+                <i class="fa fa-trash col-6" (click)="deleteCategory(category)" style="margin-right:-2rem" aria-hidden="true"></i>
+            </div>
+        </div>
+    </li>
+</div>

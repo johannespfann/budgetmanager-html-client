@@ -22,10 +22,26 @@ export class EntryService{
     }
 
     public deleteEntry(aEntry:Entry){
-        // TODO
+        this.entries = this.deleteElementByIndex(
+            this.entries,this.findIndexOfElement(this.entries,aEntry));
     }
 
-    public initTestData(): Array<Entry>{
+    private findIndexOfElement(aEntries:Entry[], aEntry:Entry): number{
+        let index = -1;
+        index = aEntries.indexOf(aEntry);
+        if(index === -1){
+            throw new Error("could not find element: " + JSON.stringify(aEntry));
+        }
+        return index;      
+    }
+
+    private deleteElementByIndex(aEntries:Entry[], aIndex:number): Entry[]{
+        let removedElements = aEntries.splice(aIndex,1);
+        return aEntries;
+    }
+
+    // Delete method after testing!
+    private initTestData(): Array<Entry>{
         let categories = this.categoryService.getCategories();
 
         let entry1 = new Entry();
@@ -41,7 +57,7 @@ export class EntryService{
         entry2.current_date = Date.now();
         entry2.category = categories[2];
         entry2.memo = "Eine Notiz mit viel Inhalt. Viel Inhalt deswegen, weil es auch viel zu erzählen gibt.";
-        
+
         let entry3 = new Entry();
         entry3.id = 1;
         entry3.amount = -5.50;
