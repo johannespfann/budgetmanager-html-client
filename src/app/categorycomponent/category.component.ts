@@ -24,9 +24,6 @@ export class CategoryComponent{
         this.categories = this.categoryService.getCategories();
     }
 
-    private RenameCategory(aName:string): void{
-
-    }
 
     private deleteCategory(aCategory:Category): void {
         console.log("delete Category");

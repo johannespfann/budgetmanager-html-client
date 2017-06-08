@@ -1,36 +1,36 @@
 <div class="jumbotron">
-<form (ngSubmit)="save()" #addEntryForm="ngForm">
+  <form (ngSubmit)="save()" #addEntryForm="ngForm">
 
-  <div class="form-group">
-    <label for="amountform">Betrag</label>
-    <div class="input-group">
-      <span (click)="changeAlgebraicSignIsMinus()" class="input-group-addon">
+    <div class="form-group">
+      <label for="amountform">Betrag</label>
+      <div class="input-group">
+        <span (click)="changeAlgebraicSignIsMinus()" class="input-group-addon">
         <i class="fa" [ngClass]="{'fa-minus': algebraicSignIsMinus, 
                                   'fa-plus': !algebraicSignIsMinus}" aria-hidden="true">
         </i>
       </span>
-     <input [(ngModel)]="amount" name="amountform" required type="number" min="1" pattern="[0-9]+"
-            class="form-control" id="amountform" placeholder="Betrag" #amountform="ngModel"> 
+        <input [(ngModel)]="amount" name="amountform" required type="number" min="1" pattern="[0-9]+" class="form-control" id="amountform"
+          placeholder="Betrag" #amountform="ngModel">
+      </div>
+      <div *ngIf="amountform.errors && (amountform.dirty || amountform.touched)" class="alert alert-danger">
+        <div [hidden]="!amountform.errors.required">Betrag erforderlich</div>
+        <div [hidden]="!amountform.errors.pattern">Nur positive Zahlen</div>
+      </div>
     </div>
-    <div *ngIf="amountform.errors && (amountform.dirty || amountform.touched)" class="alert alert-danger">
-       <div [hidden]="!amountform.errors.required" >Betrag erforderlich</div>
-       <div [hidden]="!amountform.errors.pattern" >Nur positive Zahlen</div>
-    </div>
-  </div>  
 
-  <div class="form-group">
-    <label for="categorySelect">Kategorie</label>
-    <select [(ngModel)]="category.name" name="category" class="form-control" id="categorySelect">
+    <div class="form-group">
+      <label for="categorySelect">Kategorie</label>
+      <select [(ngModel)]="category.name" name="category" class="form-control" id="categorySelect">
       <option *ngFor="let value of categories">{{value.name}}</option>
     </select>
-  </div>
+    </div>
 
-  <div class="form-group">
-    <label for="memo">Notiz</label>
-    <textarea [(ngModel)]="memo" name="memo" class="form-control" id="memo" placeholder="Notiz" rows="2"></textarea>
-  </div>
+    <div class="form-group">
+      <label for="memo">Notiz</label>
+      <textarea [(ngModel)]="memo" name="memo" class="form-control" id="memo" placeholder="Notiz" rows="2"></textarea>
+    </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 
-</form>
+  </form>
 </div>

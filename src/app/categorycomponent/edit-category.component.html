@@ -1,0 +1,15 @@
+<div class="jumbotron">
+    <form (ngSubmit)="save()" #editCategory="ngForm">
+        <div class="form-group">
+            <label for="categoryform">Name</label>
+            <input [(ngModel)]="name" name="categoryform" required type="text" min="1" class="form-control" id="categoryform"
+                    placeholder="Name der Kategorie" #categoryform="ngModel">
+        
+            <div *ngIf="categoryform.errors && (categoryform.dirty || categoryform.touched)" class="alert alert-danger">
+                <div [hidden]="!categoryform.errors.required">Name erforderlich</div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Speichern</button>
+    </form>
+</div>

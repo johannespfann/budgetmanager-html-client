@@ -13,6 +13,8 @@ import { CategoryComponent } from "./categorycomponent/category.component";
 import { HistoryComponent } from "./historycomponent/history.component";
 import { CategoryService } from "./services/category.service";
 import { EntryService } from "./services/entry.service";
+import { AddCategoryComponent } from "./categorycomponent/add-category.component";
+import { EditCategoryComponent } from "./categorycomponent/edit-category.component";
 
 @NgModule({
   imports:      [ 
@@ -26,6 +28,8 @@ import { EntryService } from "./services/entry.service";
     PageNotFoundComponent,
     BalanceComponent,
     CategoryComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
     HistoryComponent,
     LoginComponent
     ],
