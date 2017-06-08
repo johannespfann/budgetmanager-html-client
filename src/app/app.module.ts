@@ -15,6 +15,7 @@ import { CategoryService } from "./services/category.service";
 import { EntryService } from "./services/entry.service";
 import { AddCategoryComponent } from "./categorycomponent/add-category.component";
 import { EditCategoryComponent } from "./categorycomponent/edit-category.component";
+import { DeleteCategoryComponent } from "./categorycomponent/delete-category.component";
 
 @NgModule({
   imports:      [ 
@@ -30,6 +31,7 @@ import { EditCategoryComponent } from "./categorycomponent/edit-category.compone
     CategoryComponent,
     AddCategoryComponent,
     EditCategoryComponent,
+    DeleteCategoryComponent,
     HistoryComponent,
     LoginComponent
     ],
@@ -39,4 +41,8 @@ import { EditCategoryComponent } from "./categorycomponent/edit-category.compone
     ],
   bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(){
+    console.log("Init Application");
+  }
+}

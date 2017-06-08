@@ -18,15 +18,16 @@ export class CategoryComponent{
         this.name = "";    
     }
 
-    private save(): void {
-        this.categoryService.addNewCategory(this.name);
-        console.log("Add new category with name: " + this.name);
-        this.categories = this.categoryService.getCategories();
-    }
-
-
     private deleteCategory(aCategory:Category): void {
         console.log("delete Category");
+    }
+
+    private editCategory(aCategory:Category): void{
+        console.log("pressed editCategory");
+    }
+
+    private addNewCategory(){
+        
     }
 
 

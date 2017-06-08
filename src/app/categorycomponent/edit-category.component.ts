@@ -6,4 +6,9 @@ import { Component } from "@angular/core";
 })
 export class EditCategoryComponent{
 
+    private name:string;
+
+    constructor(){
+        this.name = "";
+    }
 }
