@@ -16,6 +16,8 @@ import { EntryService } from "./services/entry.service";
 import { AddCategoryComponent } from "./categorycomponent/add-category.component";
 import { EditCategoryComponent } from "./categorycomponent/edit-category.component";
 import { DeleteCategoryComponent } from "./categorycomponent/delete-category.component";
+import { ComponentDirective } from "./categorycomponent/component.directive";
+import { MessagingService } from "./services/message.service";
 
 @NgModule({
   imports:      [ 
@@ -33,11 +35,18 @@ import { DeleteCategoryComponent } from "./categorycomponent/delete-category.com
     EditCategoryComponent,
     DeleteCategoryComponent,
     HistoryComponent,
-    LoginComponent
+    LoginComponent,
+    ComponentDirective
+    ],
+  entryComponents: [
+    AddCategoryComponent,
+    EditCategoryComponent,
+    DeleteCategoryComponent
     ],
   providers: [
     CategoryService, 
-    EntryService
+    EntryService,
+    MessagingService
     ],
   bootstrap: [ AppComponent ]
 })
