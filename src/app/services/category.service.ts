@@ -25,26 +25,28 @@ export class CategoryService{
         this.lastId = this.categories.length;       
     }
 
-    public getDefaultCategory(): Category{
+    public update(aCategory:Category): void {
+        
+    }
+
+    public getDefaultCategory(): Category {
         console.log("Return DefaultCategory: " + JSON.stringify(this.defaultCategory))
         return this.defaultCategory.copy();
     }
 
     public getCategories(): Array<Category>{
-        return this.categories
+        console.log("CategoryService: getCategories");
+        return this.categories;
     }
 
     public addNewCategory(aName: string):void {
-        console.log(aName);
         if(this.isAlreadyExists(aName)){
             return; // TODO Throw error
         }
-        console.log(aName);
         let category: Category = new Category();
         
         category.id = this.generateNewId();
         category.name = aName;
-        console.log(aName);
         this.categories.push(category);
         console.log("Added new Category: " + JSON.stringify(category));
     }
