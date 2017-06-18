@@ -1,4 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import { Category } from "../models/category";
+import { CategoryService } from "../services/category.service";
 
 @Component({
     selector: 'edit-category-component',
@@ -6,9 +8,18 @@ import { Component } from "@angular/core";
 })
 export class EditCategoryComponent{
 
+    @Input() category: Category;
+
     private name:string;
 
-    constructor(){
+    constructor(
+            private categoryService: CategoryService){
         this.name = "";
     }
+
+    public update(aCategory:Category): void {
+        this.categoryService.update(aCategory);
+    }
+
+
 }
