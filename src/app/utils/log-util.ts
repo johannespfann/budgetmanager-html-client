@@ -1,15 +1,15 @@
 export class LogUtil{
 
     public static info(aMessage:string) {
-        console.log(aMessage);
+        console.log('[info] ' + aMessage);
     }
 
     public static debug(aMessage: string) {
-        console.log(aMessage);
+        console.log('[debug] ' + aMessage);
     }
 
     public static error(aMessage: string) {
-        console.log(aMessage);
+        console.log('[error] ' + aMessage);
     }
 
 }
