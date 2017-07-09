@@ -18,7 +18,7 @@ export class Entry {
 
     public constructor(aAmount: number){
         this.amount = aAmount;
-        this.category = new Category('');
+        this.category = Category.create('');
         this.tags = new Array<Tag>();
     }
 
@@ -27,7 +27,7 @@ export class Entry {
         entry.creation_date = this.creation_date;
 
         // Copy Category
-        let category: Category = new Category(this.category.getName());
+        let category: Category = Category.create(this.category.getName());
         category = category.setId(this.category.getId());
 
         entry.category = category;

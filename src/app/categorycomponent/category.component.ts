@@ -9,12 +9,13 @@ import { EditCategoryComponent } from "./edit-category.component";
 import { MessagingService } from "../services/message.service";
 import { CategoryUpdatedMessage } from "../services/category-updated-message";
 import { Subscription } from "rxjs/Subscription";
+import { LogUtil } from "../utils/log-util";
 
 @Component({
-    selector : 'category-component',
-    templateUrl : './category.component.html'
+    selector: 'category-component',
+    templateUrl: './category.component.html'
 })
-export class CategoryComponent{
+export class CategoryComponent {
 
     @ViewChild(ComponentDirective) componentDirective: ComponentDirective;
 
@@ -23,11 +24,11 @@ export class CategoryComponent{
     private categories: Category[];
 
     private categoryUpdatedSubscription: Subscription;
-    
+
     constructor(
-            private categoryService:CategoryService, 
-            private componentFactoryResolver: ComponentFactoryResolver,
-            private messageService: MessagingService){
+        private categoryService: CategoryService,
+        private componentFactoryResolver: ComponentFactoryResolver,
+        private messageService: MessagingService) {
         console.log("Init CategoryComponent");
 
         this.categoryUpdatedSubscription = messageService
@@ -36,32 +37,30 @@ export class CategoryComponent{
 
         console.log("Registered CategoryUpdateMessage");
 
-        this.categories = categoryService.getCategories();  
-        this.name = ""; 
+        this.categories = categoryService.getCategories();
+        this.name = "";
     }
 
-    private addNewCategory(){
+    private addNewCategory() {
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(AddCategoryComponent);
 
         let viewContainerRef = this.componentDirective.viewContainerRef;
         viewContainerRef.clear();
 
         let componentRef = viewContainerRef.createComponent(componentFactory);
-        console.log("Add new Category");
-     
     }
 
-    private deleteCategory(aCategory:Category): void {
+    private deleteCategory(aCategory: Category): void {
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(DeleteCategoryComponent);
 
         let viewContainerRef = this.componentDirective.viewContainerRef;
         viewContainerRef.clear();
 
         let componentRef = viewContainerRef.createComponent(componentFactory);
-        console.log("delete Category");
+        (<DeleteCategoryComponent>componentRef.instance).category = aCategory;
     }
 
-    private editCategory(aCategory:Category): void{
+    private editCategory(aCategory: Category): void {
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(EditCategoryComponent);
 
         let viewContainerRef = this.componentDirective.viewContainerRef;
@@ -69,16 +68,15 @@ export class CategoryComponent{
 
         let componentRef = viewContainerRef.createComponent(componentFactory);
         (<EditCategoryComponent>componentRef.instance).category = aCategory;
-        console.log("pressed editCategory");
     }
 
-    private updateCategories(){
-        console.log("update new categories");
+    private updateCategories() {
+        LogUtil.info('Update categories');
         this.categories = this.categoryService.getCategories();
     }
 
     ngOnDestroy() {
-    this.categoryUpdatedSubscription.unsubscribe();    
+        this.categoryUpdatedSubscription.unsubscribe();
     }
 
 

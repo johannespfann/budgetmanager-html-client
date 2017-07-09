@@ -2,13 +2,13 @@
     <form #editCategory="ngForm">
         <div class="form-group">
             <label for="categoryform">Kategorie bearbeiten</label>
-            <input [(ngModel)]="category.name" name="categoryform" required type="text" min="1" class="form-control" id="categoryform"
+            <input [(ngModel)]="updatedCategory.name" name="categoryform" required type="text" min="1" class="form-control" id="categoryform"
                     placeholder="Name der Kategorie" #categoryform="ngModel">
         
             <div *ngIf="categoryform.errors && (categoryform.dirty || categoryform.touched)" class="alert alert-danger">
                 <div [hidden]="!categoryform.errors.required">Name erforderlich</div>
             </div>
         </div>
-        <button type="submit" (click)="update(category)" class="btn btn-primary">Änderung Speichern</button>
+        <button type="submit" (click)="update(updatedCategory)" class="btn btn-primary">Änderung Speichern</button>
     </form>
 </div>

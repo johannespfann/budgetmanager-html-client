@@ -14,5 +14,8 @@ export class DeleteCategoryComponent {
 
     constructor(private categoryService: CategoryService){
         LogUtil.debug('Init DeleteCategoryComponent');
+        LogUtil.debug(this.category.getName());
     }
+
+
 }
