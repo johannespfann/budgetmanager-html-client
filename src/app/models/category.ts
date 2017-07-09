@@ -1,14 +1,43 @@
 
+/**
+ * Category is implemented as a Value Object
+ */
 export class Category {
     
-    id: number;
+    private id: number;
 
-    name: string;
 
-    public copy():Category{
-        let category: Category = new Category();
+    private name: string;
+
+    public constructor(aName: string){
+        this.name = aName;
+    }
+
+    /**
+     * setter
+     */
+
+    public setId (aId: number): Category {
+        let category: Category = new Category(this.name);
+        category.id = aId;
+        return category
+    }
+
+    public setName(aName: string): Category {
+        let category: Category = new Category(aName);
         category.id = this.id;
-        category.name = this.name;
         return category;
+    }
+
+    /**
+     * getter
+     */
+
+    public getId(): number {
+        return this.id;
+    }
+
+    public getName(): string {
+        return this.name
     }
 }

@@ -24,7 +24,13 @@ export class AddCategoryComponent{
         
         console.log("Add new category!");
 
-        this.categoryService.addNewCategory(this.name);
+        if(this.name != null){
+            let category:Category = new Category(this.name);
+            this.categoryService.addNewCategory(category);
+        }
+        
+
+
         this.messageService.publish(new CategoryUpdatedMessage());
 
         this.name = "";       

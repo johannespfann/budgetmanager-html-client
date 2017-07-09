@@ -20,8 +20,8 @@ export class HistoryComponent{
 
     private sortByTime(aEntries: Entry[]): Entry[] {
         return aEntries.sort(function(a,b){
-            console.log('Compare: ' + a.current_date + ' and ' + b.current_date);
-            return b.current_date - a.current_date;
+            console.log('Compare: ' + a.getCreationDate() + ' and ' + b.getCreationDate());
+            return b.getCreationDate() - a.getCreationDate();
         });
     }
 

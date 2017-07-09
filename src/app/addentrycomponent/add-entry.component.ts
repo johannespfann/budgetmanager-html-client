@@ -39,19 +39,21 @@ export class AddEntryComponent {
 
     private save(): void {
         console.log("press save");
-        let entry:Entry = new Entry();
+        
+        let amountValue: number;
 
         if(this.algebraicSignIsMinus){
-            entry.amount = MathUtil.convertToNegativ(this.amount);
+            amountValue = MathUtil.convertToNegativ(this.amount);
         }
         else{
-            entry.amount = MathUtil.convertToPositiv(this.amount);
+            amountValue = MathUtil.convertToPositiv(this.amount);
         }
 
-        entry.memo = this.memo;
-        entry.current_date = Date.now();
-        entry.category = this.category;  
-        entry.tags = this.tags;
+        let entry:Entry = new Entry(amountValue);
+
+        entry = entry.setMemo(this.memo);
+        entry = entry.setCategory(this.category);  
+        entry = entry.setCurrentDateNow();
 
         this.entryService.addEntry(entry);
 
