@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { Category } from "../models/category";
 import { CategoryService } from "../services/category.service";
+import { LogUtil } from "../utils/log-util";
 
 @Component({
     selector: 'edit-category-component',
@@ -14,6 +15,7 @@ export class EditCategoryComponent{
 
     constructor(
             private categoryService: CategoryService){
+        LogUtil.debug('Init EditCategoryComponent');
         this.name = "";
     }
 

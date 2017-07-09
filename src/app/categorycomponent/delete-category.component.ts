@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { CategoryService } from "../services/category.service";
 import { Category } from "../models/category";
+import { LogUtil } from "../utils/log-util";
 
 
 @Component({
@@ -12,6 +13,6 @@ export class DeleteCategoryComponent {
     @Input() category: Category;
 
     constructor(private categoryService: CategoryService){
-        console.log("init DeleteCategoryComponent");
+        LogUtil.debug('Init DeleteCategoryComponent');
     }
 }

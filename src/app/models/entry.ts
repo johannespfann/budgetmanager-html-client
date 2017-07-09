@@ -18,6 +18,8 @@ export class Entry {
 
     public constructor(aAmount: number){
         this.amount = aAmount;
+        this.category = new Category('');
+        this.tags = new Array<Tag>();
     }
 
     private copyEntry(aEntry: Entry): Entry {

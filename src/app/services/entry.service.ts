@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Entry } from "../models/entry";
 import { CategoryService } from "./category.service";
+import { LogUtil } from "../utils/log-util";
 
 @Injectable()
 export class EntryService{
@@ -9,7 +10,7 @@ export class EntryService{
 
     // TODO Delete CategoryService after testing
     constructor(private categoryService: CategoryService){
-        console.log("Init EntryService");
+        LogUtil.debug("Init EntryService");
         this.entries = this.initTestData();
     }
 

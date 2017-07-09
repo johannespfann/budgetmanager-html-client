@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Category } from "../models/category";
+import { LogUtil } from "../utils/log-util";
 
 
 
@@ -8,8 +9,8 @@ export class CategoryService{
 
     private defaultCategory: Category;
 
-    lastId: number;
-    categories: Array<Category>;
+    
+    private categories: Array<Category>;
 
 
     constructor(){
@@ -17,11 +18,8 @@ export class CategoryService{
 
         let category: Category = new Category("Allgmein");
         category = category.setId(1);
-
         this.defaultCategory = category;
-
-        this.categories = this.initTestDate();
-        this.lastId = this.categories.length;       
+        this.categories = this.initTestDate();   
     }
 
     public update(aCategory:Category): void {
@@ -37,29 +35,22 @@ export class CategoryService{
         console.log("CategoryService: getCategories");
         let categories: Category[] = new Array<Category>();
         categories = this.categories.slice();
+        LogUtil.info(JSON.stringify(categories));
         return categories;
     }
 
-    public addNewCategory(aName: string):void {
-        if(this.isAlreadyExists(aName)){
+    public addNewCategory(aCategory: Category):void {
+        if(this.isAlreadyExists(aCategory.getName())){
             return; // TODO Throw error
         }
-        let category: Category = new Category(aName);
-        
-        category = category.setId(this.generateNewId());
-        this.categories.push(category);
-        console.log("Added new Category: " + JSON.stringify(category));
+        this.categories.push(aCategory);
+        console.log("Added new Category: " + JSON.stringify(aCategory));
     }
 
     public delete(category:Category):void{
         if(category.getName() != 'Allgemein'){
-            
+            // TODO
         }
-    }
-
-    private generateNewId(): number{
-        this.lastId = this.lastId + 1;
-        return this.lastId;
     }
 
     private isAlreadyExists(aName: string){
