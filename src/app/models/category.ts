@@ -16,7 +16,6 @@ export class Category {
 
     public static copy(aCategory: Category): Category {
         let category: Category = new Category();
-        LogUtil.debug(JSON.stringify(aCategory));
         category.id = aCategory.id;
         category.name = aCategory.name;
         return category;

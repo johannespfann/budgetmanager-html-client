@@ -26,7 +26,7 @@ export class AddCategoryComponent {
         if (this.name != null) {
             return;
         }
-        let category: Category = new Category(this.name);
+        let category: Category = Category.create(this.name);
         this.categoryService.addNewCategory(category);
         this.messageService.publish(new CategoryUpdatedMessage(category));
 

@@ -16,28 +16,31 @@ export class Entry {
 
     private tags: Array<Tag>;
 
-    public constructor(aAmount: number){
-        this.amount = aAmount;
-        this.category = Category.create('');
+    private constructor(){
         this.tags = new Array<Tag>();
     }
 
-    private copyEntry(aEntry: Entry): Entry {
-        let entry: Entry = new Entry(aEntry.amount);
-        entry.creation_date = this.creation_date;
-
-        // Copy Category
-        let category: Category = Category.create(this.category.getName());
-        category = category.setId(this.category.getId());
-
-        entry.category = category;
-        entry.memo = this.memo;
-
+    public static copy(aEntry: Entry): Entry {
+        let entry: Entry = Entry.create(aEntry.amount);
+        entry.creation_date = aEntry.creation_date;
+        // Copy Category if category is not undefined
+        if(aEntry.category){
+            let category: Category = Category.create(aEntry.category.getName());
+            category = category.setId(aEntry.category.getId());
+            entry.category = category;
+        }
+        entry.memo = aEntry.memo;
         // TODO Copy Tags when using tags 
         // TODO Test copy Tags - slice should not enough
         let tags: Array<Tag> = new Array<Tag>();
-        tags = this.tags.slice();
+        tags = aEntry.tags.slice();
 
+        return entry;
+    }
+
+    public static create(aAmount: number): Entry {
+        let entry: Entry = new Entry();
+        entry.amount =  aAmount;
         return entry;
     }
 
@@ -46,43 +49,43 @@ export class Entry {
      */
 
     public setId(aId: number): Entry{
-        let entry: Entry = this.copyEntry(this);
+        let entry: Entry = Entry.copy(this);
         entry.id = aId;
         return entry;
     }
 
     public setAmount(aAmount: number): Entry{
-        let entry: Entry = this.copyEntry(this);
+        let entry: Entry = Entry.copy(this);
         entry.amount = aAmount;
         return entry;
     }
 
     public setMemo(aMemo: string): Entry {
-        let entry: Entry = this.copyEntry(this);
+        let entry: Entry = Entry.copy(this);
         entry.memo = aMemo;
         return entry;
     }
 
     public setCategory(aCategory: Category): Entry {
-        let entry: Entry = this.copyEntry(this);
+        let entry: Entry = Entry.copy(this);
         entry.category = aCategory;
         return entry;
     }
 
     public setCurrentDateNow(): Entry {
-        let entry: Entry = this.copyEntry(this);
+        let entry: Entry = Entry.copy(this);
         entry.creation_date = DateUtil.getCurrentDate();
         return entry
     }
 
     public setCurrentDate(aDate: number): Entry {
-        let entry: Entry = this.copyEntry(this);
+        let entry: Entry = Entry.copy(this);
         entry.creation_date = aDate;
         return entry;
     }
 
     public addTag(aTag: Tag): Entry{
-        let entry: Entry = this.copyEntry(this);
+        let entry: Entry = Entry.copy(this);
         entry.tags.push(aTag)
         return entry;
     }

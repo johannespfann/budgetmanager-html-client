@@ -49,7 +49,7 @@ export class AddEntryComponent {
             amountValue = MathUtil.convertToPositiv(this.amount);
         }
 
-        let entry:Entry = new Entry(amountValue);
+        let entry:Entry = Entry.create(amountValue);
 
         entry = entry.setMemo(this.memo);
         entry = entry.setCategory(this.category);  
