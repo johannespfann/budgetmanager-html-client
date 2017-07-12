@@ -26,5 +26,9 @@ export class MathUtil{
         return value * -1;
     }
 
+    public static generateRandom(): number {
+        return Math.random();
+    }
+
 }
 
