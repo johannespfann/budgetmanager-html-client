@@ -12,9 +12,16 @@ export class DeleteCategoryComponent {
 
     @Input() category: Category;
 
-    constructor(private categoryService: CategoryService){
+
+
+    constructor(
+            private categoryService: CategoryService){
         LogUtil.debug('Init DeleteCategoryComponent');
-        LogUtil.debug(this.category.getName());
+    }
+
+    private ngOnInit(){
+        LogUtil.debug("OnInit of DeleteCategoryComponent"); 
+        LogUtil.debug(JSON.stringify(this.category));  
     }
 
 

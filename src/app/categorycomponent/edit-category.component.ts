@@ -21,8 +21,6 @@ export class EditCategoryComponent {
             private categoryService: CategoryService,
             private messageService: MessagingService){
         LogUtil.debug('Init EditCategoryComponent');
-
-
     }
 
     private update(aCategory: Category){

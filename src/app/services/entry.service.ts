@@ -41,6 +41,10 @@ export class EntryService{
         return aEntries;
     }
 
+    private update(oldEntry: Entry; updatedEntry: Entry){
+
+    }
+
     // TODO Delete method after testing!
     private initTestData(): Array<Entry>{
         let categories = this.categoryService.getCategories();
@@ -66,7 +70,6 @@ export class EntryService{
         entry3 = entry3.setCurrentDateNow();
         entry3 = entry3.setCategory(categories[0]);
         entry3 = entry3.setMemo(memoText);
-
 
         let entries = new Array<Entry>();
         entries.push(entry3);
