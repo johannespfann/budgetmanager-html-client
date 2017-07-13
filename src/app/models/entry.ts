@@ -1,10 +1,11 @@
 import { Tag } from "./tag";
 import { Category } from "./category";
 import { DateUtil } from "../utils/date-util";
+import { HashUtil } from "../utils/hash-util";
 
 export class Entry {
 
-    private id:number;
+    private id:string;
 
     private amount: number;
 
@@ -21,7 +22,10 @@ export class Entry {
     }
 
     public static copy(aEntry: Entry): Entry {
-        let entry: Entry = Entry.create(aEntry.amount);
+        let entry: Entry = new Entry();
+
+        entry.id = aEntry.id;
+        entry.amount = aEntry.amount;
         entry.creation_date = aEntry.creation_date;
         // Copy Category if category is not undefined
         if(aEntry.category){
@@ -40,6 +44,7 @@ export class Entry {
 
     public static create(aAmount: number): Entry {
         let entry: Entry = new Entry();
+        entry.id = HashUtil.getUniqueHash(null);
         entry.amount =  aAmount;
         return entry;
     }
@@ -47,12 +52,6 @@ export class Entry {
     /**
      * setter
      */
-
-    public setId(aId: number): Entry{
-        let entry: Entry = Entry.copy(this);
-        entry.id = aId;
-        return entry;
-    }
 
     public setAmount(aAmount: number): Entry{
         let entry: Entry = Entry.copy(this);
@@ -95,7 +94,7 @@ export class Entry {
      * getter
      */
 
-    public getId(): number {
+    public getId(): string {
         return this.id;
     }
 
