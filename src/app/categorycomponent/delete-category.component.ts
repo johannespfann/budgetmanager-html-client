@@ -16,12 +16,12 @@ export class DeleteCategoryComponent {
 
     constructor(
             private categoryService: CategoryService){
-        LogUtil.debug('Init DeleteCategoryComponent');
+        LogUtil.debug(this,'Init DeleteCategoryComponent');
     }
 
     private ngOnInit(){
-        LogUtil.debug("OnInit of DeleteCategoryComponent"); 
-        LogUtil.debug(JSON.stringify(this.category));  
+        LogUtil.debug(this,"OnInit of DeleteCategoryComponent"); 
+        LogUtil.debug(this,JSON.stringify(this.category));  
     }
 
 

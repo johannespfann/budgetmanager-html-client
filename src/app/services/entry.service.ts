@@ -38,10 +38,11 @@ export class EntryService{
 
     private deleteElementByIndex(aEntries:Entry[], aIndex:number): Entry[]{
         let removedElements = aEntries.splice(aIndex,1);
+        LogUtil.debug('Remove elements: ' + JSON.stringify(removedElements));
         return aEntries;
     }
 
-    private update(oldEntry: Entry; updatedEntry: Entry){
+    private update(oldEntry: Entry, updatedEntry: Entry){
 
     }
 
@@ -54,19 +55,16 @@ export class EntryService{
 
 
         let entry1 = Entry.create(-200);
-        entry1 = entry1.setId(1);
         entry1 = entry1.setCurrentDateNow();
         entry1 = entry1.setCategory(categories[1]);        
         entry1 = entry1.setMemo(memoText);
         
         let entry2 = Entry.create(200);
-        entry2 = entry2.setId(2);
         entry2 = entry2.setCurrentDateNow();
         entry2 = entry2.setCategory(categories[2]);
         entry2 = entry2.setMemo(memoText);
 
         let entry3 = Entry.create(-5.50);
-        entry3 = entry3.setId(3);
         entry3 = entry3.setCurrentDateNow();
         entry3 = entry3.setCategory(categories[0]);
         entry3 = entry3.setMemo(memoText);

@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { EntryService } from "../services/entry.service";
 import { CategoryService } from "../services/category.service";
 import { Entry } from "../models/entry";
+import { LogUtil } from "../utils/log-util";
 
 @Component({
     selector : 'history-component',
@@ -15,18 +16,22 @@ export class HistoryComponent{
         private entryService: EntryService,
     ){
         this.entries = this.sortByTime(entryService.getEntries());
-        console.log('Entries: ' + this.entries.length);
     }
 
     private sortByTime(aEntries: Entry[]): Entry[] {
         return aEntries.sort(function(a,b){
-            console.log('Compare: ' + a.getCreationDate() + ' and ' + b.getCreationDate());
             return b.getCreationDate() - a.getCreationDate();
         });
     }
 
     private deleteEntry(aEntry:Entry): void {
+        LogUtil.info('delete entry: ' + JSON.stringify(aEntry));
         this.entryService.deleteEntry(aEntry);
+        this.updateEntries();
+    }
+
+    private updateEntries(): void {
+        LogUtil.info('update entries')
         this.entries = this.entryService.getEntries();
     }
 }

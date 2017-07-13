@@ -29,13 +29,13 @@ export class CategoryComponent {
         private categoryService: CategoryService,
         private componentFactoryResolver: ComponentFactoryResolver,
         private messageService: MessagingService) {
-        console.log("Init CategoryComponent");
+        LogUtil.info(this,"Init CategoryComponent");
 
         this.categoryUpdatedSubscription = messageService
             .of(CategoryUpdatedMessage)
             .subscribe(this.updateCategories.bind(this));
 
-        console.log("Registered CategoryUpdateMessage");
+        LogUtil.logMessages(this,"Registered CategoryUpdateMessage");
 
         this.categories = categoryService.getCategories();
         this.name = "";
@@ -71,7 +71,7 @@ export class CategoryComponent {
     }
 
     private updateCategories() {
-        LogUtil.info('Update categories');
+        LogUtil.info(this,'Update categories');
         this.categories = this.categoryService.getCategories();
     }
 

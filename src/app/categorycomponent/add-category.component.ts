@@ -16,7 +16,7 @@ export class AddCategoryComponent {
     constructor(
             private categoryService: CategoryService,
             private messageService: MessagingService) {
-        LogUtil.debug("Init AddCategoryComponent");
+        LogUtil.debug(this,"Init AddCategoryComponent");
         this.name = "";
     }
 
