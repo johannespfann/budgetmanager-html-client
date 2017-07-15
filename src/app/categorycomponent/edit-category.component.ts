@@ -20,19 +20,19 @@ export class EditCategoryComponent {
     constructor(
             private categoryService: CategoryService,
             private messageService: MessagingService){
-        LogUtil.debug('Init EditCategoryComponent');
+        LogUtil.debug(this,'Init EditCategoryComponent');
     }
 
     private update(aCategory: Category){
-        LogUtil.info('Pressed updateCategory');
+        LogUtil.info(this,'Pressed updateCategory');
 
         this.categoryService.update(this.category, aCategory);
         this.messageService.publish(new CategoryUpdatedMessage(aCategory));
     }
 
     private ngOnInit(){
-        LogUtil.debug("OnInit of EditCategoryComponent"); 
-        LogUtil.debug(JSON.stringify(this.category));  
+        LogUtil.debug(this,"OnInit of EditCategoryComponent"); 
+        LogUtil.debug(this,JSON.stringify(this.category));  
         this.updatedCategory = Category.copy(this.category);
     }
 

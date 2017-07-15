@@ -10,7 +10,7 @@ export class EntryService{
 
     // TODO Delete CategoryService after testing
     constructor(private categoryService: CategoryService){
-        LogUtil.debug("Init EntryService");
+        LogUtil.debug(this,"Init EntryService");
         this.entries = this.initTestData();
     }
 
@@ -38,7 +38,7 @@ export class EntryService{
 
     private deleteElementByIndex(aEntries:Entry[], aIndex:number): Entry[]{
         let removedElements = aEntries.splice(aIndex,1);
-        LogUtil.debug('Remove elements: ' + JSON.stringify(removedElements));
+        LogUtil.debug(this,'Remove elements: ' + JSON.stringify(removedElements));
         return aEntries;
     }
 

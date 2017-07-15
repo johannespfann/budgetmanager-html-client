@@ -25,13 +25,13 @@ export class HistoryComponent{
     }
 
     private deleteEntry(aEntry:Entry): void {
-        LogUtil.info('delete entry: ' + JSON.stringify(aEntry));
+        LogUtil.info(this,'delete entry: ' + JSON.stringify(aEntry));
         this.entryService.deleteEntry(aEntry);
         this.updateEntries();
     }
 
     private updateEntries(): void {
-        LogUtil.info('update entries')
+        LogUtil.info(this,'update entries')
         this.entries = this.entryService.getEntries();
     }
 }

@@ -23,10 +23,10 @@ export class CategoryService{
     }
 
     public update(oldCategory:Category, updatedCategory:Category): void {
-        LogUtil.info('Update Category');
+        LogUtil.info(this,'Update Category');
 
         for(var index in this.categories){
-            LogUtil.info(index);
+            
             if(this.categories[index].getName() === oldCategory.getName()){
                 this.categories[index] = updatedCategory;
             }
@@ -42,7 +42,7 @@ export class CategoryService{
         console.log("CategoryService: getCategories");
         let categories: Category[] = new Array<Category>();
         categories = this.categories.slice();
-        LogUtil.info(JSON.stringify(categories));
+        LogUtil.info(this,JSON.stringify(categories));
         return categories;
     }
 

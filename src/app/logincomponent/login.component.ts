@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { LogUtil } from "../utils/log-util";
 
 @Component({
     selector: "login",
@@ -7,6 +8,6 @@ import { Component } from "@angular/core";
 export class LoginComponent{
 
     constructor(){
-        console.log('login component');
+        LogUtil.info(this,'Init LoginComponent');
     }
 }
