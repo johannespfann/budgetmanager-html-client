@@ -21,7 +21,7 @@ export class Entry {
         this.tags = new Array<Tag>();
     }
 
-    public static copy(aEntry: Entry): Entry {
+    private static copy(aEntry: Entry): Entry {
         let entry: Entry = new Entry();
 
         entry.id = aEntry.id;
@@ -44,8 +44,8 @@ export class Entry {
 
     public static create(aAmount: number): Entry {
         let entry: Entry = new Entry();
-        entry.id = HashUtil.getUniqueHash(null);
         entry.amount =  aAmount;
+        entry.id = HashUtil.getUniqueHash(aAmount.toString());
         return entry;
     }
 

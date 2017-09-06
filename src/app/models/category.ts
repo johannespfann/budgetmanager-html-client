@@ -6,7 +6,7 @@ import { LogUtil } from "../utils/log-util";
 
 export class Category {
     
-    private id: number;
+    private id: string;
 
     private name: string;
 
@@ -31,7 +31,7 @@ export class Category {
      * setter
      */
 
-    public setId (aId: number): Category {
+    public setId (aId: string): Category {
         let category: Category = Category.copy(this);
         category.id = aId;
         return category
@@ -47,7 +47,7 @@ export class Category {
      * getter
      */
 
-    public getId(): number {
+    public getId(): string {
         return this.id;
     }
 

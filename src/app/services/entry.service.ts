@@ -24,16 +24,17 @@ export class EntryService{
 
     public deleteEntry(aEntry:Entry){
         this.entries = this.deleteElementByIndex(
-            this.entries,this.findIndexOfElement(this.entries,aEntry));
+            this.entries,this.findIndexOfElementById(aEntry));
     }
 
-    private findIndexOfElement(aEntries:Entry[], aEntry:Entry): number{
-        let index = -1;
-        index = aEntries.indexOf(aEntry);
-        if(index === -1){
-            throw new Error("could not find element: " + JSON.stringify(aEntry));
+    private findIndexOfElementById(aEntry: Entry): number{
+        for(var index in this.entries){
+            if(aEntry.getId() == this.entries[index].getId()){
+                LogUtil.info(this, "Index" + index);
+                return Number(index);
+            }
         }
-        return index;      
+        throw new Error("could not find element: " + JSON.stringify(aEntry));
     }
 
     private deleteElementByIndex(aEntries:Entry[], aIndex:number): Entry[]{
@@ -42,8 +43,9 @@ export class EntryService{
         return aEntries;
     }
 
-    private update(oldEntry: Entry, updatedEntry: Entry){
-
+    private update(aEntry: Entry){
+        let index:number = this.findIndexOfElementById(aEntry);
+        this.entries[index] = aEntry;
     }
 
     // TODO Delete method after testing!
