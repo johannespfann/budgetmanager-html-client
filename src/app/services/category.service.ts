@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Category } from "../models/category";
 import { LogUtil } from "../utils/log-util";
+import { HashUtil } from "../utils/hash-util";
 
 
 
@@ -14,10 +15,10 @@ export class CategoryService{
 
 
     constructor(){
-        console.log("Init CategoryService");
+        LogUtil.info(this,"Init CategoryService");
 
         let category: Category = Category.create("Allgmein");
-        category = category.setId(1);
+        category = category.setId(HashUtil.getUniqueHash(category.getName()));
         this.defaultCategory = category;
         this.categories = this.initTestDate();   
     }
@@ -34,12 +35,12 @@ export class CategoryService{
     }
 
     public getDefaultCategory(): Category {
-        console.log("Return DefaultCategory: " + JSON.stringify(this.defaultCategory))
+        LogUtil.info(this,"Return DefaultCategory: " + JSON.stringify(this.defaultCategory))
         return this.defaultCategory;
     }
 
     public getCategories(): Array<Category>{
-        console.log("CategoryService: getCategories");
+         LogUtil.info(this,"CategoryService: getCategories");
         let categories: Category[] = new Array<Category>();
         categories = this.categories.slice();
         LogUtil.info(this,JSON.stringify(categories));
@@ -51,12 +52,12 @@ export class CategoryService{
             return; // TODO Throw error
         }
         this.categories.push(aCategory);
-        console.log("Added new Category: " + JSON.stringify(aCategory));
+        LogUtil.info(this,"Added new Category: " + JSON.stringify(aCategory));
     }
 
     public delete(category:Category):void{
-        if(category.getName() != 'Allgemein'){
-            // TODO
+        if(category.getName() != this.defaultCategory.getName()){
+            LogUtil.info(this,"Not implemented");
         }
     }
 
@@ -72,10 +73,10 @@ export class CategoryService{
     initTestDate(): Array<Category>{
 
         let category2: Category = Category.create("Haushalt");
-        category2 = category2.setId(2);
+        category2 = category2.setId(HashUtil.getUniqueHash(category2.getName()));
 
         let category3: Category = Category.create("Einnahmen");
-        category3 = category3.setId(3);
+        category3 = category3.setId(HashUtil.getUniqueHash(category3.getName()));
 
         let categories: Array<Category> = new Array<Category>();
         categories.push(this.defaultCategory);
