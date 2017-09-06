@@ -1,18 +1,18 @@
 export class LogUtil{
 
     public static info<T>(aObject: T,aMessage:string) {
-        console.log((<any>aObject.constructor).name + ' [info] ' + aMessage);
+        console.log(' [info] ' + (<any>aObject.constructor).name + ' : ' + aMessage);
     }
 
     public static debug<T>(aObject: T,aMessage: string) {
-        console.log((<any>aObject.constructor).name + ' [debug] ' + aMessage);
+        console.log(' [debug] ' + (<any>aObject.constructor).name + ' : ' + aMessage);
     }
 
     public static error<T>(aObject: T,aMessage: string) {
-        console.log((<any>aObject.constructor).name + ' [error] ' + aMessage);
+        console.log(' [error] ' + (<any>aObject.constructor).name + ' : ' + aMessage);
     }
 
     public static logMessages<T>(aObject: T,aMessage: string) {
-        console.log((<any>aObject.constructor).name + ' [info] ' + aMessage);
+        console.log(' [info] ' + (<any>aObject.constructor).name + ' : ' + aMessage);
     }
 }
