@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Category } from "../models/category";
 import { LogUtil } from "../utils/log-util";
 import { HashUtil } from "../utils/hash-util";
+import { MessagingService } from "./message.service";
+import { CategoriesModifiedMessage } from "./categories-modified-message";
 
 
 
@@ -14,7 +16,9 @@ export class CategoryService{
     private categories: Array<Category>;
 
 
-    constructor(){
+    constructor(
+            private messageService: MessagingService
+            ){
         LogUtil.info(this,"Init CategoryService");
 
         let category: Category = Category.create("Allgmein");
@@ -23,15 +27,17 @@ export class CategoryService{
         this.categories = this.initTestDate();   
     }
 
-    public update(oldCategory:Category, updatedCategory:Category): void {
+    public update(aCategory:Category): void {
         LogUtil.info(this,'Update Category');
-
+        
         for(var index in this.categories){
-            
-            if(this.categories[index].getName() === oldCategory.getName()){
-                this.categories[index] = updatedCategory;
+            if(this.categories[index].getId() === aCategory.getId()){
+                this.categories[index] = aCategory;
             }
         }
+
+        this.messageService.publish(new CategoriesModifiedMessage());
+
     }
 
     public getDefaultCategory(): Category {
@@ -52,6 +58,9 @@ export class CategoryService{
             return; // TODO Throw error
         }
         this.categories.push(aCategory);
+
+        this.messageService.publish(new CategoriesModifiedMessage());
+
         LogUtil.info(this,"Added new Category: " + JSON.stringify(aCategory));
     }
 
@@ -59,6 +68,9 @@ export class CategoryService{
         if(category.getName() != this.defaultCategory.getName()){
             LogUtil.info(this,"Not implemented");
         }
+
+        this.messageService.publish(new CategoriesModifiedMessage());
+
     }
 
     private isAlreadyExists(aName: string){
@@ -70,7 +82,7 @@ export class CategoryService{
         return false;
     }
 
-    initTestDate(): Array<Category>{
+    private initTestDate(): Array<Category>{
 
         let category2: Category = Category.create("Haushalt");
         category2 = category2.setId(HashUtil.getUniqueHash(category2.getName()));

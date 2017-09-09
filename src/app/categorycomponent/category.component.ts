@@ -10,6 +10,7 @@ import { MessagingService } from "../services/message.service";
 import { CategoryUpdatedMessage } from "../services/category-updated-message";
 import { Subscription } from "rxjs/Subscription";
 import { LogUtil } from "../utils/log-util";
+import { CategoriesModifiedMessage } from "../services/categories-modified-message";
 
 @Component({
     selector: 'category-component',
@@ -32,7 +33,7 @@ export class CategoryComponent {
         LogUtil.info(this,"Init CategoryComponent");
 
         this.categoryUpdatedSubscription = messageService
-            .of(CategoryUpdatedMessage)
+            .of(CategoriesModifiedMessage)
             .subscribe(this.updateCategories.bind(this));
 
         LogUtil.logMessages(this,"Registered CategoryUpdateMessage");

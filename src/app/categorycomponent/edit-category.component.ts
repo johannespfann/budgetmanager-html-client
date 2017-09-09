@@ -26,7 +26,7 @@ export class EditCategoryComponent {
     private update(aCategory: Category){
         LogUtil.info(this,'Pressed updateCategory');
 
-        this.categoryService.update(this.category, aCategory);
+        this.categoryService.update(aCategory);
         this.messageService.publish(new CategoryUpdatedMessage(aCategory));
     }
 
