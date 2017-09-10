@@ -2,7 +2,7 @@
 /**
  * Category is implemented as a Value Object
  */
-import { LogUtil } from "../utils/log-util";
+import { HashUtil } from "../utils/hash-util";
 
 export class Category {
     
@@ -23,6 +23,7 @@ export class Category {
 
     public static create(aName: string): Category {
         let category:  Category = new Category();
+        category.id = HashUtil.getUniqueHash(null);
         category.name = aName;
         return category;
     }
@@ -30,13 +31,6 @@ export class Category {
     /**
      * setter
      */
-
-    public setId (aId: string): Category {
-        let category: Category = Category.copy(this);
-        category.id = aId;
-        return category
-    }
-
     public setName(aName: string): Category {
         let category: Category = Category.copy(this);
         category.id = this.id;

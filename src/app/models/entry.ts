@@ -27,12 +27,13 @@ export class Entry {
         entry.id = aEntry.id;
         entry.amount = aEntry.amount;
         entry.creation_date = aEntry.creation_date;
+
         // Copy Category if category is not undefined
         if(aEntry.category){
-            let category: Category = Category.create(aEntry.category.getName());
-            category = category.setId(aEntry.category.getId());
+            let category: Category = Category.copy(aEntry.category);
             entry.category = category;
         }
+
         entry.memo = aEntry.memo;
         // TODO Copy Tags when using tags 
         // TODO Test copy Tags - slice should not enough

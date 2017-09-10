@@ -12,23 +12,20 @@ export class CategoryService{
 
     private defaultCategory: Category;
 
-    
     private categories: Array<Category>;
-
 
     constructor(
             private messageService: MessagingService
             ){
+        
         LogUtil.info(this,"Init CategoryService");
 
         let category: Category = Category.create("Allgmein");
-        category = category.setId(HashUtil.getUniqueHash(category.getName()));
         this.defaultCategory = category;
         this.categories = this.initTestDate();   
     }
 
     public update(aCategory:Category): void {
-        LogUtil.info(this,'Update Category');
         
         for(var index in this.categories){
             if(this.categories[index].getId() === aCategory.getId()){
@@ -38,22 +35,21 @@ export class CategoryService{
 
         this.messageService.publish(new CategoriesModifiedMessage());
 
+        LogUtil.debug(this,'Update Category');
     }
 
     public getDefaultCategory(): Category {
-        LogUtil.info(this,"Return DefaultCategory: " + JSON.stringify(this.defaultCategory))
+        LogUtil.debug(this,"Return DefaultCategory: " + JSON.stringify(this.defaultCategory))
         return Category.copy(this.defaultCategory);
     }
 
-    public getCategories(): Array<Category>{
-        LogUtil.info(this,"getCategories");
-        
+    public getCategories(): Array<Category>{      
         let newCategories: Array<Category> = new Array<Category>();
         for(let category of this.categories){
             newCategories.push(Category.copy(category));
         }
 
-        LogUtil.info(this,JSON.stringify(newCategories));
+        LogUtil.debug('Return categories: ' + this,JSON.stringify(newCategories));
         
         return newCategories;
     }
@@ -66,15 +62,17 @@ export class CategoryService{
 
         this.messageService.publish(new CategoriesModifiedMessage());
 
-        LogUtil.info(this,"Added new Category: " + JSON.stringify(aCategory));
+        LogUtil.debug(this,"Added new Category: " + JSON.stringify(aCategory));
     }
 
-    public delete(category:Category):void{
-        if(category.getName() != this.defaultCategory.getName()){
+    public delete(aCategory:Category):void{
+        if(aCategory.getName() != this.defaultCategory.getName()){
             LogUtil.info(this,"Not implemented");
         }
 
         this.messageService.publish(new CategoriesModifiedMessage());
+
+        LogUtil.debug(this,"Deleted new Category: " + JSON.stringify(aCategory));
 
     }
 
@@ -90,10 +88,7 @@ export class CategoryService{
     private initTestDate(): Array<Category>{
 
         let category2: Category = Category.create("Haushalt");
-        category2 = category2.setId(HashUtil.getUniqueHash(category2.getName()));
-
         let category3: Category = Category.create("Einnahmen");
-        category3 = category3.setId(HashUtil.getUniqueHash(category3.getName()));
 
         let categories: Array<Category> = new Array<Category>();
         categories.push(this.defaultCategory);
@@ -102,7 +97,4 @@ export class CategoryService{
 
         return categories;
     }
-
-
-
 }
