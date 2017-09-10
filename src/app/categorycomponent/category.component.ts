@@ -22,14 +22,15 @@ export class CategoryComponent {
 
     private name: string;
 
-    private categories: Category[];
+    private categories: Array<Category>;
 
     private categoryUpdatedSubscription: Subscription;
 
     constructor(
-        private categoryService: CategoryService,
-        private componentFactoryResolver: ComponentFactoryResolver,
-        private messageService: MessagingService) {
+            private categoryService: CategoryService,
+            private componentFactoryResolver: ComponentFactoryResolver,
+            private messageService: MessagingService) {
+        
         LogUtil.info(this,"Init CategoryComponent");
 
         this.categoryUpdatedSubscription = messageService

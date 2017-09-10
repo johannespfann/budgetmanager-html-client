@@ -42,15 +42,20 @@ export class CategoryService{
 
     public getDefaultCategory(): Category {
         LogUtil.info(this,"Return DefaultCategory: " + JSON.stringify(this.defaultCategory))
-        return this.defaultCategory;
+        return Category.copy(this.defaultCategory);
     }
 
     public getCategories(): Array<Category>{
-         LogUtil.info(this,"CategoryService: getCategories");
-        let categories: Category[] = new Array<Category>();
-        categories = this.categories.slice();
-        LogUtil.info(this,JSON.stringify(categories));
-        return categories;
+        LogUtil.info(this,"getCategories");
+        
+        let newCategories: Array<Category> = new Array<Category>();
+        for(let category of this.categories){
+            newCategories.push(Category.copy(category));
+        }
+
+        LogUtil.info(this,JSON.stringify(newCategories));
+        
+        return newCategories;
     }
 
     public addNewCategory(aCategory: Category):void {
