@@ -6,6 +6,7 @@ import { Message } from "./message";
 
 @Injectable()
 export class MessagingService {
+    
     private message$: Subject<Message>
 
     constructor(){
@@ -21,4 +22,5 @@ export class MessagingService {
         const channel = (<any>messageType).name;
         return this.message$.filter(m => m.channel === channel).map(m => m.data);
     }
+
 }

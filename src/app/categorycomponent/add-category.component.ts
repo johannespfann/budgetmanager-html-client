@@ -2,8 +2,8 @@ import { Component, EventEmitter, Output } from "@angular/core";
 import { Category } from "../models/category";
 import { CategoryService } from "../services/category.service";
 import { MessagingService } from "../services/message.service";
-import { CategoryUpdatedMessage } from "../services/category-updated-message";
 import { LogUtil } from "../utils/log-util";
+import { CategoriesModifiedMessage } from "../services/categories-modified-message";
 
 @Component({
     selector: 'add-category-component',
@@ -21,21 +21,22 @@ export class AddCategoryComponent {
     }
 
     public save(): void {
-
-        console.log("Add new category!");
-        if (this.name != null) {
+ 
+        LogUtil.info(this,"Add new category! " +  this.name);
+        
+        if (this.name == null) {
             return;
         }
+        
+        console.log("1");
         let category: Category = Category.create(this.name);
+        console.log("2");
         this.categoryService.addNewCategory(category);
-        this.messageService.publish(new CategoryUpdatedMessage(category));
-
+        console.log("3");
         this.clearView();
     }
 
     private clearView(): void {
         this.name = "";
     }
-
-
 }

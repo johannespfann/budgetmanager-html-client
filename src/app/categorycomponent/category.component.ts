@@ -7,7 +7,6 @@ import { AddCategoryComponent } from "./add-category.component";
 import { DeleteCategoryComponent } from "./delete-category.component";
 import { EditCategoryComponent } from "./edit-category.component";
 import { MessagingService } from "../services/message.service";
-import { CategoryUpdatedMessage } from "../services/category-updated-message";
 import { Subscription } from "rxjs/Subscription";
 import { LogUtil } from "../utils/log-util";
 import { CategoriesModifiedMessage } from "../services/categories-modified-message";

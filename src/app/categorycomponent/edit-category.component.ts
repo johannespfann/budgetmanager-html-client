@@ -3,7 +3,7 @@ import { Category } from "../models/category";
 import { CategoryService } from "../services/category.service";
 import { LogUtil } from "../utils/log-util";
 import { MessagingService } from "../services/message.service";
-import { CategoryUpdatedMessage } from "../services/category-updated-message";
+import { CategoriesModifiedMessage } from "../services/categories-modified-message";
 
 @Component({
     selector: 'edit-category-component',
@@ -27,7 +27,6 @@ export class EditCategoryComponent {
         LogUtil.info(this,'Pressed updateCategory');
 
         this.categoryService.update(aCategory);
-        this.messageService.publish(new CategoryUpdatedMessage(aCategory));
     }
 
     private ngOnInit(){

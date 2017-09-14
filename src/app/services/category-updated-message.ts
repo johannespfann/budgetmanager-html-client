@@ -1,12 +1,14 @@
-import { Message } from "./message";
+
 import { Category } from "../models/category";
+import { CategoriesModifiedMessage } from "./categories-modified-message";
 
-export class CategoryUpdatedMessage {
-
+export class CategoryUpdatedMessage extends CategoriesModifiedMessage {
+    
     private category: Category;
 
-    constructor(aCategory: Category){
-        console.log("Init CategoryUpdatedMessage");
+    constructor(aCategory:Category){
+        super();
+
         this.category = aCategory;
     }
 
@@ -14,4 +16,5 @@ export class CategoryUpdatedMessage {
         return this.category;
     }
 
+    
 }

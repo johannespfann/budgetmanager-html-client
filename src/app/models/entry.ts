@@ -21,7 +21,7 @@ export class Entry {
         this.tags = new Array<Tag>();
     }
 
-    private static copy(aEntry: Entry): Entry {
+    public static copy(aEntry: Entry): Entry {
         let entry: Entry = new Entry();
 
         entry.id = aEntry.id;
@@ -49,6 +49,7 @@ export class Entry {
         entry.id = HashUtil.getUniqueHash(aAmount.toString());
         return entry;
     }
+
 
     /**
      * setter

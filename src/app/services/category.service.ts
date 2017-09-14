@@ -4,6 +4,7 @@ import { LogUtil } from "../utils/log-util";
 import { HashUtil } from "../utils/hash-util";
 import { MessagingService } from "./message.service";
 import { CategoriesModifiedMessage } from "./categories-modified-message";
+import { CategoryUpdatedMessage } from "./category-updated-message";
 
 
 
@@ -34,6 +35,7 @@ export class CategoryService{
         }
 
         this.messageService.publish(new CategoriesModifiedMessage());
+        this.messageService.publish(new CategoryUpdatedMessage(Category.copy(aCategory)));
 
         LogUtil.debug(this,'Update Category');
     }

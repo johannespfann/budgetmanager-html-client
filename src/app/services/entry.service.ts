@@ -2,20 +2,46 @@ import { Injectable } from "@angular/core";
 import { Entry } from "../models/entry";
 import { CategoryService } from "./category.service";
 import { LogUtil } from "../utils/log-util";
+import { Category } from "../models/category";
+import { Subscription } from "rxjs";
+import { MessagingService } from "./message.service";
+import { CategoriesModifiedMessage } from "./categories-modified-message";
 
 @Injectable()
 export class EntryService{
 
     private entries: Array<Entry>;
 
+    private categoryUpdatedSubscription: Subscription;
+
     // TODO Delete CategoryService after testing
-    constructor(private categoryService: CategoryService){
+    constructor(
+            private categoryService: CategoryService,
+            private messageService: MessagingService){
         LogUtil.debug(this,"Init EntryService");
         this.entries = this.initTestData();
+
+        this.categoryUpdatedSubscription = messageService
+            .of(CategoriesModifiedMessage)
+            .subscribe(this.updateCategories.bind(this));
+    }
+
+    private updateCategories(): void{
+        LogUtil.info(this,'updatedCategories has these entries: ');
+
+        for(let entry of this.entries){
+            LogUtil.info(this,'  - ' + entry.getId());
+        }
     }
 
     public getEntries(): Array<Entry>{
-        return this.entries;
+        let newEntries: Array<Entry> = new Array<Entry>();
+
+        for(let entry of this.entries){
+            newEntries.push(Entry.copy(entry));
+        }
+
+        return newEntries;
     }
 
     public addEntry(aEntry:Entry): void{
@@ -47,6 +73,7 @@ export class EntryService{
         let index:number = this.findIndexOfElementById(aEntry);
         this.entries[index] = aEntry;
     }
+
 
     // TODO Delete method after testing!
     private initTestData(): Array<Entry>{
