@@ -10,6 +10,7 @@ import { MessagingService } from "../services/message.service";
 import { Subscription } from "rxjs/Subscription";
 import { LogUtil } from "../utils/log-util";
 import { CategoriesModifiedMessage } from "../services/categories-modified-message";
+import { CategoryUpdatedMessage } from "../services/category-updated-message";
 
 @Component({
     selector: 'category-component',
@@ -25,6 +26,8 @@ export class CategoryComponent {
 
     private categoryUpdatedSubscription: Subscription;
 
+    private categoryTest: Subscription;
+
     constructor(
             private categoryService: CategoryService,
             private componentFactoryResolver: ComponentFactoryResolver,
@@ -35,6 +38,11 @@ export class CategoryComponent {
         this.categoryUpdatedSubscription = messageService
             .of(CategoriesModifiedMessage)
             .subscribe(this.updateCategories.bind(this));
+
+        this.categoryTest = messageService.of(CategoryUpdatedMessage).subscribe((m: CategoryUpdatedMessage) => {
+            console.log(' => Message' + m.getCategory().getName());
+        })
+        
 
         LogUtil.logMessages(this,"Registered CategoryUpdateMessage");
 

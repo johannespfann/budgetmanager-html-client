@@ -4,6 +4,7 @@ import { CategoryService } from "../services/category.service";
 import { LogUtil } from "../utils/log-util";
 import { MessagingService } from "../services/message.service";
 import { CategoriesModifiedMessage } from "../services/categories-modified-message";
+import { CategoryUpdatedMessage } from "../services/category-updated-message";
 
 @Component({
     selector: 'edit-category-component',
@@ -25,7 +26,7 @@ export class EditCategoryComponent {
 
     private update(aCategory: Category){
         LogUtil.info(this,'Pressed updateCategory');
-
+        this.messageService.publish(new CategoryUpdatedMessage(aCategory));
         this.categoryService.update(aCategory);
     }
 
