@@ -46,6 +46,7 @@ export class Entry {
     public static create(aAmount: number): Entry {
         let entry: Entry = new Entry();
         entry.amount =  aAmount;
+        entry.creation_date = DateUtil.getCurrentDate();
         entry.id = HashUtil.getUniqueHash(aAmount.toString());
         return entry;
     }
@@ -65,14 +66,6 @@ export class Entry {
 
     public setCategory(aCategory: Category): void {
         this.category = aCategory;
-    }
-
-    public setCurrentDateNow(): void {
-        this.creation_date = DateUtil.getCurrentDate();
-    }
-
-    public setCurrentDate(aDate: number): void {
-        this.creation_date = aDate;
     }
 
     public addTag(aTag: Tag): void{

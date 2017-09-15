@@ -58,7 +58,6 @@ export class AddEntryComponent {
         LogUtil.info(this,"Category: " + JSON.stringify(this.category));
 
         entry.setCategory(this.category);  
-        entry.setCurrentDateNow();
 
         this.entryService.addEntry(entry);
 

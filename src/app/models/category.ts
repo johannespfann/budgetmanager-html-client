@@ -1,7 +1,4 @@
 
-/**
- * Category is implemented as a Value Object
- */
 import { HashUtil } from "../utils/hash-util";
 
 export class Category {
@@ -31,10 +28,8 @@ export class Category {
     /**
      * setter
      */
-    public setName(aName: string): Category {
-        let category: Category = Category.copy(this);
-        category.id = this.id;
-        return category;
+    public setName(aName: string): void {
+        this.id = this.id;
     }
 
     /**

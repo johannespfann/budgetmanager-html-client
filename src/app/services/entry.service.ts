@@ -101,17 +101,14 @@ export class EntryService{
 
 
         let entry1 = Entry.create(-200);
-        entry1.setCurrentDateNow();
         entry1.setCategory(categories[1]);        
         entry1.setMemo(memoText);
         
         let entry2 = Entry.create(200);
-        entry2.setCurrentDateNow();
         entry2.setCategory(categories[2]);
         entry2.setMemo(memoText);
 
         let entry3 = Entry.create(-5.50);
-        entry3.setCurrentDateNow();
         entry3.setCategory(categories[0]);
         entry3.setMemo(memoText);
 
