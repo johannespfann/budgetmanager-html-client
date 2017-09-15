@@ -10,6 +10,8 @@ import { MessagingService } from "../services/message.service";
 import { Subscription } from "rxjs/Subscription";
 import { LogUtil } from "../utils/log-util";
 import { CategoryUpdatedMessage } from "../services/category-updated-message";
+import { CategoryAddedMessage } from "../services/category-added-message";
+import { CategoryDeletedMessage } from "../services/category-deleted-message";
 
 @Component({
     selector: 'category-component',
@@ -23,9 +25,11 @@ export class CategoryComponent {
 
     private categories: Array<Category>;
 
+    private categoryAddedSubscription: Subscription;
+
     private categoryUpdatedSubscription: Subscription;
 
-    private categoryTest: Subscription;
+    private categoryDeletedSubscription: Subscription;
 
     constructor(
             private categoryService: CategoryService,
@@ -34,15 +38,25 @@ export class CategoryComponent {
         
         LogUtil.info(this,"Init CategoryComponent");
 
-        //this.categoryUpdatedSubscription = messageService
-        //    .of(CategoriesModifiedMessage)
-        //    .subscribe(this.updateCategories.bind(this));
+        this.categoryDeletedSubscription = messageService
+            .of(CategoryDeletedMessage)
+            .subscribe((data: CategoryDeletedMessage) => {
+                this.updateCategories(data.getCategory());
+            });
 
-        this.categoryTest = messageService.of(CategoryUpdatedMessage).subscribe((m: CategoryUpdatedMessage) => {
-            console.log(' => Message' + m.getCategory().getName());
-        })
-        
+        this.categoryAddedSubscription = messageService
+            .of(CategoryAddedMessage)
+            .subscribe((data: CategoryAddedMessage) => {
+                this.updateCategories(data.getCategory());
+            });
 
+        this.categoryUpdatedSubscription = messageService
+            .of(CategoryUpdatedMessage)
+            .subscribe((data: CategoryUpdatedMessage) => {
+                this.updateCategories(data.getCategory());
+            });
+
+    
         LogUtil.logMessages(this,"Registered CategoryUpdateMessage");
 
         this.categories = categoryService.getCategories();
@@ -78,13 +92,15 @@ export class CategoryComponent {
         (<EditCategoryComponent>componentRef.instance).category = aCategory;
     }
 
-    private updateCategories() {
+    private updateCategories(aCategory:Category) {
         LogUtil.info(this,'Update categories');
         this.categories = this.categoryService.getCategories();
     }
 
     ngOnDestroy() {
         this.categoryUpdatedSubscription.unsubscribe();
+        this.categoryDeletedSubscription.unsubscribe();
+        this.categoryAddedSubscription.unsubscribe();
     }
 
 
