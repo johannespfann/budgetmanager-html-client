@@ -55,40 +55,28 @@ export class Entry {
      * setter
      */
 
-    public setAmount(aAmount: number): Entry{
-        let entry: Entry = Entry.copy(this);
-        entry.amount = aAmount;
-        return entry;
+    public setAmount(aAmount: number): void{
+        this.amount = aAmount;
     }
 
-    public setMemo(aMemo: string): Entry {
-        let entry: Entry = Entry.copy(this);
-        entry.memo = aMemo;
-        return entry;
+    public setMemo(aMemo: string): void {
+        this.memo = aMemo;
     }
 
-    public setCategory(aCategory: Category): Entry {
-        let entry: Entry = Entry.copy(this);
-        entry.category = aCategory;
-        return entry;
+    public setCategory(aCategory: Category): void {
+        this.category = aCategory;
     }
 
-    public setCurrentDateNow(): Entry {
-        let entry: Entry = Entry.copy(this);
-        entry.creation_date = DateUtil.getCurrentDate();
-        return entry
+    public setCurrentDateNow(): void {
+        this.creation_date = DateUtil.getCurrentDate();
     }
 
-    public setCurrentDate(aDate: number): Entry {
-        let entry: Entry = Entry.copy(this);
-        entry.creation_date = aDate;
-        return entry;
+    public setCurrentDate(aDate: number): void {
+        this.creation_date = aDate;
     }
 
-    public addTag(aTag: Tag): Entry{
-        let entry: Entry = Entry.copy(this);
-        entry.tags.push(aTag)
-        return entry;
+    public addTag(aTag: Tag): void{
+        this.tags.push(aTag)
     }
 
 

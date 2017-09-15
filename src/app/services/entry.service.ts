@@ -5,6 +5,7 @@ import { LogUtil } from "../utils/log-util";
 import { Category } from "../models/category";
 import { Subscription } from "rxjs";
 import { MessagingService } from "./message.service";
+import { CategoryUpdatedMessage } from "./category-updated-message";
 
 
 @Injectable()
@@ -21,17 +22,33 @@ export class EntryService{
         LogUtil.debug(this,"Init EntryService");
         this.entries = this.initTestData();
 
-        //this.categoryUpdatedSubscription = messageService
-        //    .of(CategoriesModifiedMessage)
-        //    .subscribe(this.updateCategories.bind(this));
+        this.categoryUpdatedSubscription = messageService
+            .of(CategoryUpdatedMessage)
+            .subscribe((data: CategoryUpdatedMessage) => {
+                this.updateCategories(Category.copy(data.getCategory()));
+            });
     }
 
-    private updateCategories(): void{
-        LogUtil.info(this,'updatedCategories has these entries: ');
+    private updateCategories(aCategory: Category): void{
+        LogUtil.info(this,'updatedCategories has these entries: ' + aCategory.getName());
 
         for(let entry of this.entries){
-            LogUtil.info(this,'  - ' + entry.getId());
+            console.log(entry.getId() + ' : ' + entry.getCategory().getName());
         }
+
+        for(let entry of this.entries){
+            if(entry.getCategory().getId() == aCategory.getId()){
+                entry.setCategory(aCategory);
+
+
+            }
+        }
+
+        for(let entry of this.entries){
+            console.log(entry.getId() + ' : ' + entry.getCategory().getName());
+        }
+
+
     }
 
     public getEntries(): Array<Entry>{
@@ -84,19 +101,19 @@ export class EntryService{
 
 
         let entry1 = Entry.create(-200);
-        entry1 = entry1.setCurrentDateNow();
-        entry1 = entry1.setCategory(categories[1]);        
-        entry1 = entry1.setMemo(memoText);
+        entry1.setCurrentDateNow();
+        entry1.setCategory(categories[1]);        
+        entry1.setMemo(memoText);
         
         let entry2 = Entry.create(200);
-        entry2 = entry2.setCurrentDateNow();
-        entry2 = entry2.setCategory(categories[2]);
-        entry2 = entry2.setMemo(memoText);
+        entry2.setCurrentDateNow();
+        entry2.setCategory(categories[2]);
+        entry2.setMemo(memoText);
 
         let entry3 = Entry.create(-5.50);
-        entry3 = entry3.setCurrentDateNow();
-        entry3 = entry3.setCategory(categories[0]);
-        entry3 = entry3.setMemo(memoText);
+        entry3.setCurrentDateNow();
+        entry3.setCategory(categories[0]);
+        entry3.setMemo(memoText);
 
         let entries = new Array<Entry>();
         entries.push(entry3);

@@ -53,12 +53,12 @@ export class AddEntryComponent {
 
         let entry:Entry = Entry.create(amountValue);
 
-        entry = entry.setMemo(this.memo);
+        entry.setMemo(this.memo);
 
         LogUtil.info(this,"Category: " + JSON.stringify(this.category));
 
-        entry = entry.setCategory(this.category);  
-        entry = entry.setCurrentDateNow();
+        entry.setCategory(this.category);  
+        entry.setCurrentDateNow();
 
         this.entryService.addEntry(entry);
 
@@ -83,5 +83,11 @@ export class AddEntryComponent {
             this.algebraicSignIsMinus = true;
         }
     }
+
+    private changed(aCategory: Category){
+        LogUtil.info(this,'Changed: ' + JSON.stringify(aCategory));
+    }
+
+    
 
 }
