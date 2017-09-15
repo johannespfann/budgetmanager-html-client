@@ -3,7 +3,6 @@ import { Category } from "../models/category";
 import { CategoryService } from "../services/category.service";
 import { MessagingService } from "../services/message.service";
 import { LogUtil } from "../utils/log-util";
-import { CategoriesModifiedMessage } from "../services/categories-modified-message";
 
 @Component({
     selector: 'add-category-component',
@@ -28,11 +27,8 @@ export class AddCategoryComponent {
             return;
         }
         
-        console.log("1");
         let category: Category = Category.create(this.name);
-        console.log("2");
         this.categoryService.addNewCategory(category);
-        console.log("3");
         this.clearView();
     }
 

@@ -9,7 +9,6 @@ import { EditCategoryComponent } from "./edit-category.component";
 import { MessagingService } from "../services/message.service";
 import { Subscription } from "rxjs/Subscription";
 import { LogUtil } from "../utils/log-util";
-import { CategoriesModifiedMessage } from "../services/categories-modified-message";
 import { CategoryUpdatedMessage } from "../services/category-updated-message";
 
 @Component({
@@ -35,9 +34,9 @@ export class CategoryComponent {
         
         LogUtil.info(this,"Init CategoryComponent");
 
-        this.categoryUpdatedSubscription = messageService
-            .of(CategoriesModifiedMessage)
-            .subscribe(this.updateCategories.bind(this));
+        //this.categoryUpdatedSubscription = messageService
+        //    .of(CategoriesModifiedMessage)
+        //    .subscribe(this.updateCategories.bind(this));
 
         this.categoryTest = messageService.of(CategoryUpdatedMessage).subscribe((m: CategoryUpdatedMessage) => {
             console.log(' => Message' + m.getCategory().getName());

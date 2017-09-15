@@ -5,7 +5,7 @@ import { LogUtil } from "../utils/log-util";
 import { Category } from "../models/category";
 import { Subscription } from "rxjs";
 import { MessagingService } from "./message.service";
-import { CategoriesModifiedMessage } from "./categories-modified-message";
+
 
 @Injectable()
 export class EntryService{
@@ -21,9 +21,9 @@ export class EntryService{
         LogUtil.debug(this,"Init EntryService");
         this.entries = this.initTestData();
 
-        this.categoryUpdatedSubscription = messageService
-            .of(CategoriesModifiedMessage)
-            .subscribe(this.updateCategories.bind(this));
+        //this.categoryUpdatedSubscription = messageService
+        //    .of(CategoriesModifiedMessage)
+        //    .subscribe(this.updateCategories.bind(this));
     }
 
     private updateCategories(): void{

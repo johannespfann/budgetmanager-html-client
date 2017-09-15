@@ -2,8 +2,6 @@ import { Component, Input } from "@angular/core";
 import { Category } from "../models/category";
 import { CategoryService } from "../services/category.service";
 import { LogUtil } from "../utils/log-util";
-import { MessagingService } from "../services/message.service";
-import { CategoriesModifiedMessage } from "../services/categories-modified-message";
 import { CategoryUpdatedMessage } from "../services/category-updated-message";
 
 @Component({
@@ -19,14 +17,12 @@ export class EditCategoryComponent {
     private name:string;
 
     constructor(
-            private categoryService: CategoryService,
-            private messageService: MessagingService){
+            private categoryService: CategoryService,){
         LogUtil.debug(this,'Init EditCategoryComponent');
     }
 
     private update(aCategory: Category){
         LogUtil.info(this,'Pressed updateCategory');
-        this.messageService.publish(new CategoryUpdatedMessage(aCategory));
         this.categoryService.update(aCategory);
     }
 

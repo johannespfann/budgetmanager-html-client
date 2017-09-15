@@ -3,8 +3,9 @@ import { Category } from "../models/category";
 import { LogUtil } from "../utils/log-util";
 import { HashUtil } from "../utils/hash-util";
 import { MessagingService } from "./message.service";
-import { CategoriesModifiedMessage } from "./categories-modified-message";
 import { CategoryUpdatedMessage } from "./category-updated-message";
+import { CategoryAddedMessage } from "./category-added-message";
+import { CategoryDeletedMessage } from "./category-deleted-message";
 
 
 
@@ -34,7 +35,6 @@ export class CategoryService{
             }
         }
 
-        this.messageService.publish(new CategoriesModifiedMessage());
         this.messageService.publish(new CategoryUpdatedMessage(Category.copy(aCategory)));
 
         LogUtil.debug(this,'Update Category');
@@ -62,7 +62,7 @@ export class CategoryService{
         }
         this.categories.push(aCategory);
 
-        this.messageService.publish(new CategoriesModifiedMessage());
+        this.messageService.publish(new CategoryAddedMessage(Category.copy(aCategory)));
 
         LogUtil.debug(this,"Added new Category: " + JSON.stringify(aCategory));
     }
@@ -72,7 +72,7 @@ export class CategoryService{
             LogUtil.info(this,"Not implemented");
         }
 
-        this.messageService.publish(new CategoriesModifiedMessage());
+        this.messageService.publish(new CategoryDeletedMessage(aCategory,null));
 
         LogUtil.debug(this,"Deleted new Category: " + JSON.stringify(aCategory));
 
