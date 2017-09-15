@@ -84,10 +84,4 @@ export class AddEntryComponent {
         }
     }
 
-    private changed(aCategory: Category){
-        LogUtil.info(this,'Changed: ' + JSON.stringify(aCategory));
-    }
-
-    
-
 }
