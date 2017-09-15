@@ -1,6 +1,5 @@
 
 import { Category } from "../models/category";
-import { CategoriesModifiedMessage } from "./categories-modified-message";
 
 export class CategoryUpdatedMessage {
     
