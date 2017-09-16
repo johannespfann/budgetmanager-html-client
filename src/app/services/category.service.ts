@@ -58,7 +58,9 @@ export class CategoryService{
 
     public addNewCategory(aCategory: Category):void {
         if(this.isAlreadyExists(aCategory.getName())){
-            return; // TODO Throw error
+            // TODO handle error in front-end
+            LogUtil.error(this,'Category already exists: ' + aCategory.getName());
+            return; 
         }
         this.categories.push(aCategory);
 
