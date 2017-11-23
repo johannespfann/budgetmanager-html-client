@@ -1,4 +1,4 @@
-import { NgModule }      from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'
 
@@ -18,6 +18,7 @@ import { EditCategoryComponent } from "./categorycomponent/edit-category.compone
 import { DeleteCategoryComponent } from "./categorycomponent/delete-category.component";
 import { ComponentDirective } from "./categorycomponent/component.directive";
 import { MessagingService } from "./services/message.service";
+import { StartupService } from "./services/startup.service";
 
 @NgModule({
   imports:      [ 
@@ -46,7 +47,14 @@ import { MessagingService } from "./services/message.service";
   providers: [
     CategoryService, 
     EntryService,
-    MessagingService
+    MessagingService,
+    StartupService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (startupService: StartupService) => function() {return startupService.onStartup()},
+      deps: [StartupService],
+      multi: true
+    }
     ],
   bootstrap: [ AppComponent ]
 })
