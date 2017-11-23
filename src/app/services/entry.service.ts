@@ -6,6 +6,8 @@ import { Category } from "../models/category";
 import { Subscription } from "rxjs";
 import { MessagingService } from "./message.service";
 import { CategoryUpdatedMessage } from "./category-updated-message";
+import { CategoryDeletedMessage } from "./category-deleted-message";
+import { EntriesModifiedMessage } from "./entries-modified-message";
 
 
 @Injectable()
@@ -15,7 +17,8 @@ export class EntryService{
 
     private categoryUpdatedSubscription: Subscription;
 
-    // TODO Delete CategoryService after testing
+    private categoryDeletedSubscription: Subscription;
+
     constructor(
             private categoryService: CategoryService,
             private messageService: MessagingService){
@@ -25,30 +28,32 @@ export class EntryService{
         this.categoryUpdatedSubscription = messageService
             .of(CategoryUpdatedMessage)
             .subscribe((data: CategoryUpdatedMessage) => {
-                this.updateCategories(Category.copy(data.getCategory()));
+                this.updateCategory(Category.copy(data.getCategory()));
+            });
+
+        this.categoryDeletedSubscription = messageService
+            .of(CategoryDeletedMessage)
+            .subscribe((data: CategoryDeletedMessage) => {
+                this.replaceCategory(data.getCategory(),data.getFallBackCategory());
             });
     }
 
-    private updateCategories(aCategory: Category): void{
-        LogUtil.info(this,'updatedCategories has these entries: ' + aCategory.getName());
+    private replaceCategory(aFromCategory: Category, aToCategory: Category){
+        this.entries.filter(entry => {
+           if(entry.getCategory().getId() == aFromCategory.getId()){
+               entry.setCategory(aToCategory);
+           } 
+        });
 
-        for(let entry of this.entries){
-            console.log(entry.getId() + ' : ' + entry.getCategory().getName());
-        }
+        this.messageService.publish(new EntriesModifiedMessage());
+    }
 
-        for(let entry of this.entries){
-            if(entry.getCategory().getId() == aCategory.getId()){
+    private updateCategory(aCategory: Category): void{
+        this.entries.filter(entry => {
+             if(entry.getCategory().getId() == aCategory.getId()){
                 entry.setCategory(aCategory);
-
-
             }
-        }
-
-        for(let entry of this.entries){
-            console.log(entry.getId() + ' : ' + entry.getCategory().getName());
-        }
-
-
+        });
     }
 
     public getEntries(): Array<Entry>{

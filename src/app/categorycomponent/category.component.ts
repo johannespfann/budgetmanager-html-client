@@ -56,9 +56,6 @@ export class CategoryComponent {
                 this.updateCategories(data.getCategory());
             });
 
-    
-        LogUtil.logMessages(this,"Registered CategoryUpdateMessage");
-
         this.categories = categoryService.getCategories();
         this.name = "";
     }

@@ -1,13 +1,20 @@
 <div class="jumbotron">
-    <form (ngSubmit)="save()" #editCategory="ngForm">
+    <h4>Kategorie <b>{{category.name}}</b> löschen</h4>
+    
+    <form (ngSubmit)="deleteCategory()" #editCategory="ngForm">
         <div class="form-group">
-            <label for="categoryform">Kategorie löschen</label>
-            <input [(ngModel)]="category.name" name="categoryform" required type="text" min="1" class="form-control" id="categoryform"
-                    placeholder="Name der Kategorie" #categoryform="ngModel">
-        
-            <div *ngIf="categoryform.errors && (categoryform.dirty || categoryform.touched)" class="alert alert-danger">
-                <div [hidden]="!categoryform.errors.required">Name erforderlich</div>
+            
+            <label for="categorySelect">Kategorie</label>
+
+            <!--<div *ngIf="isDeletable"> 
+                Hallo, ist löschbar
             </div>
+            -->
+
+            <select (change)="changed(selectedCategory)" [(ngModel)]="selectedCategory" name="category" class="form-control" id="categorySelect">
+                <option  *ngFor="let categ of categories" [ngValue]="categ">{{categ.name}}</option>
+            </select>
+            
         </div>
         <button type="submit" class="btn btn-primary">Kategorie löschen</button>
     </form>
