@@ -19,7 +19,6 @@ export class CategoryService {
     constructor(
         private messageService: MessagingService
     ) {
-
         LogUtil.info(this, "Init CategoryService");
 
         let category: Category = Category.create("Allgmein");

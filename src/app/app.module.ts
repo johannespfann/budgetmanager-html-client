@@ -19,6 +19,11 @@ import { DeleteCategoryComponent } from "./categorycomponent/delete-category.com
 import { ComponentDirective } from "./categorycomponent/component.directive";
 import { MessagingService } from "./services/message.service";
 import { StartupService } from "./services/startup.service";
+import { TagService } from './services/tag.service';
+
+export function initApp(startupService: StartupService){
+  return () => startupService.onStartup();
+}
 
 @NgModule({
   imports:      [ 
@@ -48,13 +53,14 @@ import { StartupService } from "./services/startup.service";
     CategoryService, 
     EntryService,
     MessagingService,
+    TagService,
     StartupService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (startupService: StartupService) => function() {return startupService.onStartup()},
-      deps: [StartupService],
+      useFactory: initApp,
+      deps: [StartupService, EntryService, CategoryService, TagService],
       multi: true
-    }
+    },
     ],
   bootstrap: [ AppComponent ]
 })
