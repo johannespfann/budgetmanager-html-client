@@ -20,6 +20,8 @@ import { ComponentDirective } from "./categorycomponent/component.directive";
 import { MessagingService } from "./services/message.service";
 import { StartupService } from "./services/startup.service";
 import { TagService } from './services/tag.service';
+import { EntryAPIService } from './services/entry.api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 export function initApp(startupService: StartupService){
   return () => startupService.onStartup();
@@ -27,6 +29,7 @@ export function initApp(startupService: StartupService){
 
 @NgModule({
   imports:      [ 
+    HttpClientModule,
     BrowserModule, 
     FormsModule, AppRoutingModule 
     ],
@@ -54,6 +57,7 @@ export function initApp(startupService: StartupService){
     EntryService,
     MessagingService,
     TagService,
+    EntryAPIService,
     StartupService,
     {
       provide: APP_INITIALIZER,
