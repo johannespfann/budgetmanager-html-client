@@ -8,6 +8,7 @@ import { LoginComponent } from "./logincomponent/login.component";
 import { BalanceComponent } from "./balancecomponent/balance.component";
 import { CategoryComponent } from "./categorycomponent/category.component";
 import { HistoryComponent } from "./historycomponent/history.component";
+import { RegisterComponent } from './logincomponent/register.component';
 
 const appRoutes: Routes = [
   { path: 'welcome',            component: WelcomeComponent },
@@ -16,6 +17,7 @@ const appRoutes: Routes = [
   { path: 'category', component: CategoryComponent },
   { path: 'history', component: HistoryComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'bm-register', component: RegisterComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

@@ -20,6 +20,9 @@ import { ComponentDirective } from "./categorycomponent/component.directive";
 import { MessagingService } from "./services/message.service";
 import { StartupService } from "./services/startup.service";
 import { TagService } from './services/tag.service';
+import { LoginService } from './services/login.service';
+import { RegisterComponent } from './logincomponent/register.component';
+
 
 export function initApp(startupService: StartupService){
   return () => startupService.onStartup();
@@ -42,7 +45,8 @@ export function initApp(startupService: StartupService){
     DeleteCategoryComponent,
     HistoryComponent,
     LoginComponent,
-    ComponentDirective
+    RegisterComponent,
+    ComponentDirective,
     ],
   entryComponents: [
     AddCategoryComponent,
@@ -55,6 +59,7 @@ export function initApp(startupService: StartupService){
     MessagingService,
     TagService,
     StartupService,
+    LoginService,
     {
       provide: APP_INITIALIZER,
       useFactory: initApp,
