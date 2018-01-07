@@ -20,14 +20,12 @@ import { ComponentDirective } from "./categorycomponent/component.directive";
 import { MessagingService } from "./services/message.service";
 import { StartupService } from "./services/startup.service";
 import { TagService } from './services/tag.service';
-<<<<<<< HEAD
 import { EntryAPIService } from './services/entry.api.service';
 import { HttpClientModule } from '@angular/common/http';
-=======
 import { LoginService } from './services/login.service';
 import { RegisterComponent } from './logincomponent/register.component';
+import { ActivateComponent } from './logincomponent/activate.component';
 
->>>>>>> 590fc8204278ea53625ee1cc615c4c285d1aac44
 
 export function initApp(startupService: StartupService){
   return () => startupService.onStartup();
@@ -52,12 +50,8 @@ export function initApp(startupService: StartupService){
     HistoryComponent,
     LoginComponent,
     RegisterComponent,
+    ActivateComponent,
     ComponentDirective,
-    ],
-  entryComponents: [
-    AddCategoryComponent,
-    EditCategoryComponent,
-    DeleteCategoryComponent
     ],
   providers: [
     CategoryService, 

@@ -1,0 +1,33 @@
+<div class="jumbotron">
+    <form>
+        <h3>Aktivierungscode für {{username}}</h3>
+        <p>Es wurde eine E-Mail an {{email}} versendet. Bla Bla Bla ...</p>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputActivationCoce" placeholder="Aktivierungscode">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Code versenden</button>
+            </div>
+        </div>
+    </form>
+
+    <p>Wenn Sie keine Email erhalten haben, können Sie diese noch einmal anfordern. Falls die Email-Adresse falsche ist, ändern
+        Sie diese im darunterliegenden Feld. Die Email wird dann automatisch für Ihren Account neu gesetzt.</p>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <input type="text" [(ngModel)]="email" class="form-control" id="inputNewEmail" placeholder="Email bitte hier eingeben">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Email nochmal versenden </button>
+        </div>
+    </div>
+
+</div>

@@ -7,8 +7,7 @@ import { EntryAPIService } from './services/entry.api.service';
 }) 
 export class AppComponent  { 
   
-  constructor(private entryServ: EntryAPIService){
-      entryServ.getContent()
-        .subscribe(value => console.log(value));
+  constructor(){
   }
+     
 }

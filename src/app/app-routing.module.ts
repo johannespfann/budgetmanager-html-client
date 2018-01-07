@@ -9,6 +9,7 @@ import { BalanceComponent } from "./balancecomponent/balance.component";
 import { CategoryComponent } from "./categorycomponent/category.component";
 import { HistoryComponent } from "./historycomponent/history.component";
 import { RegisterComponent } from './logincomponent/register.component';
+import { ActivateComponent } from './logincomponent/activate.component';
 
 const appRoutes: Routes = [
   { path: 'welcome',            component: WelcomeComponent },
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
   { path: 'history', component: HistoryComponent },
   { path: 'login', component: LoginComponent },
   { path: 'bm-register', component: RegisterComponent},
+  { path: 'bm-activate/:username', component: ActivateComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

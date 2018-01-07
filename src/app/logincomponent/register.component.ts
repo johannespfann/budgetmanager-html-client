@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from "@angular/core";
 import { LogUtil } from "../utils/log-util";
 import { LoginService } from "../services/login.service";
@@ -17,7 +18,9 @@ export class RegisterComponent{
     private passwordrepeat;
 
 
-    constructor(private loginService: LoginService){
+    constructor(
+        private loginService: LoginService,
+        private router: Router){
         LogUtil.info(this,'Init RegisterComponent');
     }
 
@@ -37,5 +40,7 @@ export class RegisterComponent{
             .subscribe(m => {
                 LogUtil.info(this, JSON.stringify(m));
             });
+
+        this.router.navigate(['/bm-activate',user.name]);
     }
 }
