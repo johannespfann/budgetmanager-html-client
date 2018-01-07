@@ -1,5 +1,8 @@
 import { Component } from "@angular/core";
 import { LogUtil } from "../utils/log-util";
+import { LoginService } from "../services/login.service";
+import { User } from "../models/user";
+import { stringify } from "@angular/core/src/util";
 
 
 @Component({
@@ -14,7 +17,7 @@ export class RegisterComponent{
     private passwordrepeat;
 
 
-    constructor(){
+    constructor(private loginService: LoginService){
         LogUtil.info(this,'Init RegisterComponent');
     }
 
@@ -22,9 +25,17 @@ export class RegisterComponent{
     public pressRegister(){
 
         LogUtil.info(this,'pressed register');
-
+        let user:User = new User();
         
+        user.name = "johannes"
 
+        user.email = "johannes.pfann@gmx.net";
+
+        this.password = "keymaster";
+
+        this.loginService.registerUser(user,this.password)
+            .subscribe(m => {
+                LogUtil.info(this, JSON.stringify(m));
+            });
     }
-
 }
