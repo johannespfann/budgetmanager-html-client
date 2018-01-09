@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { LogUtil } from "../utils/log-util";
 import { ActivatedRoute } from "@angular/router";
+import { LoginService } from "../services/login.service";
 
 
 @Component({
@@ -10,12 +11,19 @@ import { ActivatedRoute } from "@angular/router";
 export class ActivateComponent{
     
     private username: string;
+    private email: string;
+    private activationCode: string;
 
-    constructor(private route: ActivatedRoute){
+    constructor(
+        private route: ActivatedRoute,
+        private loginService: LoginService){
+
         LogUtil.info(this,'Init ActivateComponent');
-        this.username = route.snapshot.paramMap.get('username');
+        LogUtil.info(this,this.username = route.snapshot.paramMap.get('username'));
+        LogUtil.info(this,this.username = route.snapshot.paramMap.get('email'));
+    }
 
-        //this.user = route.snapshot.data()
-
+    public activateUser(): void{
+        this.loginService.activateUser(this.username,this.activationCode);
     }
 }

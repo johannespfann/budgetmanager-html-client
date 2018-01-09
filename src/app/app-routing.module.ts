@@ -19,7 +19,7 @@ const appRoutes: Routes = [
   { path: 'history', component: HistoryComponent },
   { path: 'login', component: LoginComponent },
   { path: 'bm-register', component: RegisterComponent},
-  { path: 'bm-activate/:username', component: ActivateComponent},
+  { path: 'bm-activate/:username/email/:email', component: ActivateComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

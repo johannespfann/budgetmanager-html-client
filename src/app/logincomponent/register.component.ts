@@ -11,36 +11,57 @@ import { stringify } from "@angular/core/src/util";
     templateUrl: './register.component.html'
 })
 export class RegisterComponent{
-
-    private name;
-    private email;
-    private password;
-    private passwordrepeat;
+    
+    private name: string;
+    private email: string;
+    private password: string;
+    private passwordrepeat: string;
 
 
     constructor(
         private loginService: LoginService,
         private router: Router){
-        LogUtil.info(this,'Init RegisterComponent');
     }
 
 
     public pressRegister(){
-
-        LogUtil.info(this,'pressed register');
         let user:User = new User();
-        
-        user.name = "johannes"
 
-        user.email = "johannes.pfann@gmx.net";
+        if(!this.inputIsCorrect()){
+            return;
+        }
 
-        this.password = "keymaster";
+        user.name = this.name;
+        user.email = this.email;
 
         this.loginService.registerUser(user,this.password)
             .subscribe(m => {
-                LogUtil.info(this, JSON.stringify(m));
+                LogUtil.info(this, JSON.stringify(m.username));
+                this.router.navigate(['/bm-activate',m.username, 'email', user.email]);
             });
+    }
 
-        this.router.navigate(['/bm-activate',user.name]);
+    private inputIsCorrect(): boolean {
+        if(!this.name){
+            LogUtil.info(this,'name was undefined: ' + this.name);
+            return false;
+        }
+
+        if(!this.email){
+            LogUtil.info(this,'email was undefined: ' + this.email);
+            return false
+        }
+
+        if(!this.password){
+            LogUtil.info(this,'password was undefined: ' + this.password);
+            return false;
+        }
+
+        if(!this.passwordrepeat){
+            LogUtil.info(this,'passwordrepeat was undefined: ' + this.passwordrepeat);
+            return false;
+        }
+
+        return true;
     }
 }
