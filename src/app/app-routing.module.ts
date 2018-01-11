@@ -18,6 +18,7 @@ const appRoutes: Routes = [
   { path: 'category', component: CategoryComponent },
   { path: 'history', component: HistoryComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'login/:email', component: LoginComponent },
   { path: 'bm-register', component: RegisterComponent},
   { path: 'bm-activate/:username/email/:email', component: ActivateComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },

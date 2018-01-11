@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { LogUtil } from "../utils/log-util";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { LoginService } from "../services/login.service";
 
 
@@ -16,14 +16,42 @@ export class ActivateComponent{
 
     constructor(
         private route: ActivatedRoute,
+        private router: Router,
         private loginService: LoginService){
 
         LogUtil.info(this,'Init ActivateComponent');
-        LogUtil.info(this,this.username = route.snapshot.paramMap.get('username'));
-        LogUtil.info(this,this.username = route.snapshot.paramMap.get('email'));
+        this.username = route.snapshot.paramMap.get('username');
+        this.email = route.snapshot.paramMap.get('email');
+
+        LogUtil.info(this,'Username: ' + this.username);
+        LogUtil.info(this,'email: ' + this.email);
+
     }
 
     public activateUser(): void{
-        this.loginService.activateUser(this.username,this.activationCode);
+        LogUtil.info(this,"ActivationCode: " + this.activationCode);
+        this.loginService.activateUser(this.username,this.activationCode)
+        .subscribe(
+            data => {
+                LogUtil.info(this,JSON.stringify(data));
+                this.router.navigate(['/login',data]);
+            },
+            error => {
+                // TODO
+                LogUtil.error(this,'ups: ' + error);
+            }
+        );
+    }
+
+    public resendEmail(): void{
+        this.loginService.resendActivationEmail(this.username, this.email)
+        .subscribe(
+            data => {
+
+            },
+            error => {
+                LogUtil.error(this,'ups: ' + error);
+            }
+        );;
     }
 }
