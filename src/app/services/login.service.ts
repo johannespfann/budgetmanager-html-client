@@ -10,15 +10,13 @@ export class LoginService {
     
     private user: User;
 
-    private baseURL: string = "http://192.168.2.103:8081/budget/";
-    //private baseURL: string = "http://192.168.2.106:8081/budget/";
+    //private baseURL: string = "http://192.168.2.103:8081/budget/";
+    private baseURL: string = "http://192.168.2.106:8081/budget/";
 
     constructor(
         private http: HttpClient) {
             
         LogUtil.info(this,'Init LoginService');
-
-
     }
 
     public registerUser(aUser: User, aPassword: String): Observable<any>{
@@ -34,6 +32,9 @@ export class LoginService {
         return this.http.post(this.baseURL + "activate/resendemail/username/" + aName + "/email/" + aEmail,"");
     }
 
+    public login(aEmail: string, aPassword: String): Observable<any> {
+        return this.http.post(this.baseURL + "user/login/" + aEmail, aPassword);
+    }
 
 
 }
