@@ -32,9 +32,8 @@ export class LoginComponent {
             return;
         }
 
-        this.loginService.login(this.identifier, this.password).subscribe(
-            data => {
-                LogUtil.info(this, data.accesstoken);
-            });      
+        this.loginService.login(this.identifier, this.password);
+
+        
     }
 }
