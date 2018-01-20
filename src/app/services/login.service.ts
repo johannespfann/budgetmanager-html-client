@@ -10,8 +10,8 @@ export class LoginService {
     
     private user: User;
 
-    //private baseURL: string = "http://192.168.2.103:8081/budget/";
-    private baseURL: string = "http://192.168.2.106:8081/budget/";
+    private baseURL: string = "http://192.168.2.103:8081/budget/";
+    //private baseURL: string = "http://192.168.2.106:8081/budget/";
 
     constructor(
         private http: HttpClient) {
