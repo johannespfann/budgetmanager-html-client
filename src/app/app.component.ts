@@ -20,7 +20,6 @@ export class AppComponent {
   private isLogedIn: boolean = false;
 
   private user: User;
-  // private applicationService: ApplicationService
 
   constructor(
     private router: Router,
@@ -31,10 +30,12 @@ export class AppComponent {
     this.loginSubscription = messageService
       .of(LogedInMessage)
       .subscribe((message: LogedInMessage) => {
+        LogUtil.info(this, "Receive message login message");      
         this.user = message.getUser();
-        LogUtil.info(this, "Get User: " + this.user.name);      
+        LogUtil.info(this, "Get User of message: " + message.getUser().name + " : " + message.getUser().accesstoken + " : " + message.getUser().email);      
         this.showLoginAccount();
       });
+
   }
 
 
@@ -62,8 +63,8 @@ export class AppComponent {
     this.isLogedIn = false;
   }
 
-
   ngOnDestroy() {
+    LogUtil.info(this, "unsubsribe loginSubscription");
     this.loginSubscription.unsubscribe();
   }
 

@@ -8,6 +8,7 @@ import { MessagingService } from "./message.service";
 import { LogedInMessage } from "./logedin-message";
 import { Router } from "@angular/router";
 import { ApplicationService } from "../application/application.service";
+import { Response } from "_debugger";
 
 @Injectable()
 export class LoginService {
@@ -48,17 +49,20 @@ export class LoginService {
         let observable: Observable<any> = this.http.post(this.baseURL + "user/login/" + aEmail, aPassword);
         observable.subscribe(
             data => {
-                this.accessToken = data.accessToken;
+                this.accessToken = data.accesstoken;
 
                 let user: User = new User();
-                user.email = data.email;
-                user.accesstoken = this.accessToken;
                 user.name = data.username;
+                user.email = data.email;
+                
+                user.accesstoken = this.accessToken;
+                
 
                 LogUtil.info(this, "## Erhalte Response ## ");
-                LogUtil.info(this, "Username   : " + data.username);
-                LogUtil.info(this, "Email      : " + data.email);
-                LogUtil.info(this, "accesstoken: " + data.accesstoken);
+                LogUtil.info(this, "Username   : " + user.name);
+                LogUtil.info(this, "Email      : " + user.email);
+                LogUtil.info(this, "accesstoken: " + user.accesstoken);
+                LogUtil.info(this, "accesstoken from data: " + data.accesstoken);
 
                 this.messageService.publish(new LogedInMessage(user));
 
@@ -68,7 +72,11 @@ export class LoginService {
     }
 
     public logout(aEmail: String, accessToken: String): void {
-       this.http.post(this.baseURL + "user/logout/" + aEmail, accessToken);                    
+        LogUtil.info(this, "logout user " + aEmail + " and token " + accessToken);
+        // TODO dosnt work
+       this.http.put(this.baseURL + "user/logout/" + aEmail, accessToken).subscribe( (data) => {
+           LogUtil.info(this, "ok!");
+       });                    
     }
 
 
