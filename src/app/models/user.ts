@@ -1,5 +1,4 @@
 
-
 export class User{
 
     public name: string;
@@ -8,7 +7,7 @@ export class User{
     public accesstoken: string;
 
     constructor(){
-
+    
     }
 
 }

@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { RegisterComponent } from './logincomponent/register.component';
 import { ActivateComponent } from './logincomponent/activate.component';
+import { ApplicationService } from './application/application.service';
 
 
 export function initApp(startupService: StartupService){
@@ -61,6 +62,7 @@ export function initApp(startupService: StartupService){
     EntryAPIService,
     StartupService,
     LoginService,
+    ApplicationService,
     {
       provide: APP_INITIALIZER,
       useFactory: initApp,
@@ -72,6 +74,5 @@ export function initApp(startupService: StartupService){
 })
 export class AppModule { 
   constructor(){
-    console.log("Init Application");
   }
 }
