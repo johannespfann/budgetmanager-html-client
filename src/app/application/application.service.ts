@@ -4,41 +4,32 @@ import { LogedInMessage } from "../services/logedin-message";
 import { MessagingService } from "../services/message.service";
 import { User } from "../models/user";
 import { AppConfiguration } from "./application-configuration";
-import { BrowserStorage } from "./browser-storage";
 import { Observable } from "rxjs/Observable";
-
-
-
 
 export class ApplicationService {
 
     private user: User;
 
-    private storage: BrowserStorage;
-
     constructor() {
         LogUtil.info(this, "Init ApplicationService");
-        // get local user if exists and puplish message
-        this.storage = new BrowserStorage();
-        if (this.storage.isCurrentUserExists()) {
-            this.user = this.storage.getCurrentUser();
-        }
     }
 
     public currentUserExists(): boolean {
-        return this.storage.isCurrentUserExists();
+        if(this.user){
+            return true;
+        }
+        return false
     }
 
     private getAccessToken(): String {
-        return this.storage.getCurrentUser().getAccessToken();
+        return this.user.accesstoken;
     }
 
     private getCurrentUser(): User {
-        return this.storage.getCurrentUser();
+        return this.user;
     }
 
-    private setCurrentUser(aUser: User): void {
-        this.storage.persistCurrentUser(aUser);
+    public setCurrentUser(aUser: User): void {
         this.user = aUser;
     }
 

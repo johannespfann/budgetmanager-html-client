@@ -2,13 +2,11 @@ import { Injectable } from "@angular/core";
 import { LogUtil } from "../utils/log-util";
 import { Observable } from "rxjs/Observable";
 import { User } from "../models/user";
-import { HttpClient } from "@angular/common/http";
-import { HttpResponse } from "@angular/common/http/src/response";
 import { MessagingService } from "./message.service";
 import { LogedInMessage } from "./logedin-message";
 import { Router } from "@angular/router";
 import { ApplicationService } from "../application/application.service";
-import { Response } from "_debugger";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class LoginService {
@@ -27,7 +25,6 @@ export class LoginService {
         private router: Router) {
 
         LogUtil.info(this, 'Init LoginService');
-        
         this.baseURL = applicationService.getApplicationConfig().getBaseUrl();
     }
 
@@ -54,10 +51,8 @@ export class LoginService {
                 let user: User = new User();
                 user.name = data.username;
                 user.email = data.email;
-                
                 user.accesstoken = this.accessToken;
                 
-
                 LogUtil.info(this, "## Erhalte Response ## ");
                 LogUtil.info(this, "Username   : " + user.name);
                 LogUtil.info(this, "Email      : " + user.email);
@@ -71,13 +66,15 @@ export class LoginService {
             });
     }
 
-    public logout(aEmail: String, accessToken: String): void {
-        LogUtil.info(this, "logout user " + aEmail + " and token " + accessToken);
-        // TODO dosnt work
-       this.http.put(this.baseURL + "user/logout/" + aEmail, accessToken).subscribe( (data) => {
+    public logout(aName: String, accessToken: String): void {
+        LogUtil.info(this, "logout user " + aName + " and token " + accessToken);
+        
+       let httpHeaders: HttpHeaders = new HttpHeaders();
+       httpHeaders = httpHeaders.set('Authorization', 'BASIC ' + aName + ':' + accessToken);
+
+    LogUtil.info(this,httpHeaders.get('Authorization'));
+       this.http.post(this.baseURL + "user/logout/" + aName, accessToken).subscribe( (data) => {
            LogUtil.info(this, "ok!");
        });                    
     }
-
-
 }

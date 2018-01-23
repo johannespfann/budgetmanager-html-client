@@ -32,6 +32,7 @@ export class AppComponent {
       .subscribe((message: LogedInMessage) => {
         LogUtil.info(this, "Receive message login message");      
         this.user = message.getUser();
+        applicationService.setCurrentUser(message.getUser());
         LogUtil.info(this, "Get User of message: " + message.getUser().name + " : " + message.getUser().accesstoken + " : " + message.getUser().email);      
         this.showLoginAccount();
       });
@@ -49,7 +50,7 @@ export class AppComponent {
     LogUtil.info(this, "Get User: " + this.user.accesstoken);
     if (this.user) {
       LogUtil.info(this, "logout");
-      this.loginServcie.logout(this.user.email, this.user.accesstoken);
+      this.loginServcie.logout(this.user.name, this.user.accesstoken);
     }
     this.hideLoginAccount();
     this.router.navigate(['/login']);
