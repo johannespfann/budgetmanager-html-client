@@ -7,6 +7,7 @@ import { LogedInMessage } from "./logedin-message";
 import { Router } from "@angular/router";
 import { ApplicationService } from "../application/application.service";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CategoryRestApiService } from "./category-rest-api.service";
 
 @Injectable()
 export class LoginService {
@@ -22,7 +23,8 @@ export class LoginService {
         private applicationService: ApplicationService,
         private http: HttpClient,
         private messageService: MessagingService,
-        private router: Router) {
+        private router: Router,
+        private categoryApi: CategoryRestApiService) {
 
         LogUtil.info(this, 'Init LoginService');
         this.baseURL = applicationService.getApplicationConfig().getBaseUrl();
@@ -59,10 +61,11 @@ export class LoginService {
                 LogUtil.info(this, "accesstoken: " + user.accesstoken);
                 LogUtil.info(this, "accesstoken from data: " + data.accesstoken);
 
+                this.applicationService.setCurrentUser(user);
+
                 this.messageService.publish(new LogedInMessage(user));
 
                 this.router.navigate(['/welcome']);
-
             });
     }
 
@@ -71,21 +74,18 @@ export class LoginService {
 
         let httpHeaders: HttpHeaders = new HttpHeaders();
 
-
         httpHeaders = httpHeaders.append("Content-Type", 'application/json');
-
-        httpHeaders = httpHeaders.append('Accept', 'text/plain');
+        //httpHeaders = httpHeaders.append('Accept', 'text/plain');
         //httpHeaders = httpHeaders.append('Allow', 'POST, GET, OPTIONS, DELETE, PUT');
         //httpHeaders = httpHeaders.append('Allow', '*');
         //httpHeaders = httpHeaders.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
         //httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
         //httpHeaders = httpHeaders.append('Access-Control-Allow-Credentials', 'true');
         //httpHeaders = httpHeaders.append('Access-Control-Allow-Headers', "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
-        httpHeaders = httpHeaders.append("Authorization", "Basic " + "name:pw");
+        //httpHeaders = httpHeaders.append("Authorization", "Basic " + "name:pw");
 
-
-        LogUtil.info(this, httpHeaders.get('Authorization'));
-        this.http.post(this.baseURL + "user/logout/" + aName, accessToken, { headers: httpHeaders })
+        //LogUtil.info(this, httpHeaders.get('Authorization'));
+        this.http.post(this.baseURL + "user/logout/" + aName, accessToken)
             .subscribe((data) => {
                 LogUtil.info(this, "ok!");
             });

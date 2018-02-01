@@ -21,15 +21,16 @@ export class ApplicationService {
         return false
     }
 
-    private getAccessToken(): String {
+    private getAccessToken(): string {
         return this.user.accesstoken;
     }
 
-    private getCurrentUser(): User {
+    public getCurrentUser(): User {
         return this.user;
     }
 
     public setCurrentUser(aUser: User): void {
+        LogUtil.info(this, 'Set user to applicationservice: ' + aUser.name);
         this.user = aUser;
     }
 

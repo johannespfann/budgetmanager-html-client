@@ -20,6 +20,9 @@ export class AddEntryComponent {
     private amount: number;
     private memo: string;
     private categories: Array<Category>;
+
+    private 
+
     private category: Category;
     private tags: Array<Tag>;
 
@@ -32,7 +35,10 @@ export class AddEntryComponent {
         this.algebraicSignIsMinus = true;
         this.amount;
         this.memo = "";
-        this.categories = categoryService.getCategories();
+        
+        categoryService.getCategories().subscribe((categories: Array<Category>) => {
+            this.categories = categories;
+        });
         this.category = categoryService.getDefaultCategory();
 
         LogUtil.info(this,'DefaultCategory: ' + JSON.stringify(this.category));

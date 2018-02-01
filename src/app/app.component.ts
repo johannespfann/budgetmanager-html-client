@@ -37,6 +37,20 @@ export class AppComponent {
         this.showLoginAccount();
       });
 
+
+      this.loginWithDummyUser();
+
+  }
+
+  /**
+   * TODO Delete - just for developing
+   */
+  private loginWithDummyUser(): any {
+    let user: User = new User();
+    user.name = "johannes-1234";
+    user.email = "johannes@pfann.de"
+    user.accesstoken = "123456";
+    this.loginServcie.login(user.email,"key");
   }
 
 

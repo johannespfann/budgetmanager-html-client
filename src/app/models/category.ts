@@ -3,9 +3,9 @@ import { HashUtil } from "../utils/hash-util";
 
 export class Category {
     
-    private id: string;
+    public id: string;
 
-    private name: string;
+    public name: string;
 
     private constructor(){
         // Default

@@ -56,7 +56,9 @@ export class CategoryComponent {
                 this.updateCategories(data.getCategory());
             });
 
-        this.categories = categoryService.getCategories();
+        categoryService.getCategories().subscribe((categories: Array<Category>){
+            this.categories = categories;
+        })
         this.name = "";
     }
 

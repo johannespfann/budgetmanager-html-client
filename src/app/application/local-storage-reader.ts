@@ -6,7 +6,7 @@ export class LocalStorageReader{
         this.localStorage = aLocalStorage;
     }
 
-    public getValue(aKey: String): any {
+    public getValue(aKey: string): any {
         return this.localStorage.getItem(aKey + '');
     }
 }

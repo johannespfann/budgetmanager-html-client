@@ -6,7 +6,7 @@ import { stringify } from "querystring";
 
 export class BrowserStorage{
 
-    private LOGIN_USER: String = 'budgetmanager_user';
+    private LOGIN_USER: string = 'budgetmanager_user';
 
     private writer: LocalStorageWriter;
     private reader: LocalStorageReader;

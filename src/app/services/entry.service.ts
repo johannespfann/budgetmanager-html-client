@@ -23,7 +23,6 @@ export class EntryService{
             private categoryService: CategoryService,
             private messageService: MessagingService){
         LogUtil.debug(this,"Init EntryService");
-        this.entries = this.initTestData();
 
         this.categoryUpdatedSubscription = messageService
             .of(CategoryUpdatedMessage)
@@ -96,32 +95,4 @@ export class EntryService{
         this.entries[index] = aEntry;
     }
 
-
-    // TODO Delete method after testing!
-    private initTestData(): Array<Entry>{
-        let categories = this.categoryService.getCategories();
-
-        let memoText: string = "Eine Notiz mit viel Inhalt." 
-                + " Viel Inhalt deswegen, weil es auch viel zu erzählen gibt.";
-
-
-        let entry1 = Entry.create(-200);
-        entry1.setCategory(categories[1]);        
-        entry1.setMemo(memoText);
-        
-        let entry2 = Entry.create(200);
-        entry2.setCategory(categories[2]);
-        entry2.setMemo(memoText);
-
-        let entry3 = Entry.create(-5.50);
-        entry3.setCategory(categories[0]);
-        entry3.setMemo(memoText);
-
-        let entries = new Array<Entry>();
-        entries.push(entry3);
-        entries.push(entry2);
-        entries.push(entry1);
-
-        return entries;
-    }
 }

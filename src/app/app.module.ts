@@ -26,6 +26,7 @@ import { LoginService } from './services/login.service';
 import { RegisterComponent } from './logincomponent/register.component';
 import { ActivateComponent } from './logincomponent/activate.component';
 import { ApplicationService } from './application/application.service';
+import { CategoryRestApiService } from './services/category-rest-api.service';
 
 
 export function initApp(startupService: StartupService){
@@ -56,6 +57,7 @@ export function initApp(startupService: StartupService){
     ],
   providers: [
     CategoryService, 
+    CategoryRestApiService,
     EntryService,
     MessagingService,
     TagService,

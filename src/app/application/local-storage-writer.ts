@@ -9,7 +9,7 @@ export class LocalStorageWriter{
         this.localStorage = aLocalStorage;
     }
 
-    public persist(aKey: String, aValue: any){
+    public persist(aKey: string, aValue: any){
         LogUtil.info(this,'Persist Item with key: ' + aKey + ' and Value: ' + aValue);
         this.localStorage.setItem(aKey + '',aValue) + '';
     }

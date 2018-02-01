@@ -6,6 +6,10 @@ import { MessagingService } from "./message.service";
 import { CategoryUpdatedMessage } from "./category-updated-message";
 import { CategoryAddedMessage } from "./category-added-message";
 import { CategoryDeletedMessage } from "./category-deleted-message";
+import { CategoryRestApiService } from './category-rest-api.service';
+import { ApplicationService } from '../application/application.service';
+import { User } from '../models/user';
+import { Observable } from 'rxjs/Observable';
 
 
 
@@ -17,13 +21,14 @@ export class CategoryService {
     private categories: Array<Category>;
 
     constructor(
-        private messageService: MessagingService
+        private messageService: MessagingService,
+        private applicationService: ApplicationService,
+        private categoryRestService: CategoryRestApiService
     ) {
         LogUtil.info(this, "Init CategoryService");
 
         let category: Category = Category.create("Allgmein");
         this.defaultCategory = category;
-        this.categories = this.initTestDate();
     }
 
     public update(aCategory: Category): void {
@@ -44,15 +49,8 @@ export class CategoryService {
         return Category.copy(this.defaultCategory);
     }
 
-    public getCategories(): Array<Category> {
-        let newCategories: Array<Category> = new Array<Category>();
-        for (let category of this.categories) {
-            newCategories.push(Category.copy(category));
-        }
-
-        LogUtil.debug('Return categories: ' + this, JSON.stringify(newCategories));
-
-        return newCategories;
+    public getCategories(): Observable<Array<Category>> {
+        return this.categoryRestService.getCategories(this.applicationService.getCurrentUser());
     }
 
     public addNewCategory(aCategory: Category): void {
@@ -98,18 +96,5 @@ export class CategoryService {
             }
         }
         return false;
-    }
-
-    private initTestDate(): Array<Category> {
-
-        let category2: Category = Category.create("Haushalt");
-        let category3: Category = Category.create("Einnahmen");
-
-        let categories: Array<Category> = new Array<Category>();
-        categories.push(this.defaultCategory);
-        categories.push(category2);
-        categories.push(category3);
-
-        return categories;
     }
 }
