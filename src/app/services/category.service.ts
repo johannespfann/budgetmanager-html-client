@@ -22,7 +22,7 @@ export class CategoryService {
 
     constructor(
         private messageService: MessagingService,
-        private applicationService: ApplicationService,
+        private appService: ApplicationService,
         private categoryRestService: CategoryRestApiService
     ) {
         LogUtil.info(this, "Init CategoryService");
@@ -50,7 +50,7 @@ export class CategoryService {
     }
 
     public getCategories(): Observable<Array<Category>> {
-        return this.categoryRestService.getCategories(this.applicationService.getCurrentUser());
+        return this.categoryRestService.getCategories(this.appService.getCurrentUser());
     }
 
     public addNewCategory(aCategory: Category): void {
@@ -59,7 +59,9 @@ export class CategoryService {
             LogUtil.error(this, 'Category already exists: ' + aCategory.getName());
             return;
         }
-        this.categories.push(aCategory);
+
+
+        this.categoryRestService.addCategory(this.appService.getCurrentUser(),aCategory).subscribe(data => { data });
 
         this.messageService.publish(new CategoryAddedMessage(Category.copy(aCategory)));
 

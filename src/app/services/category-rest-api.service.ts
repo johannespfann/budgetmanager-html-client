@@ -18,6 +18,7 @@ export class CategoryRestApiService {
         private applicationService: ApplicationService,
         private http: HttpClient){
 
+        LogUtil.info(this, "Init CategoryRestService");
         this.base_url = applicationService.getApplicationConfig().getBaseUrl();
     }
 
@@ -25,11 +26,15 @@ export class CategoryRestApiService {
         return this.http.get<Array<Category>>(this.base_url + 'category/all/' + aUser.name)
         .pipe(
             tap((categories: Array<Category>) => {
+                // TODO FILTER
                 categories.forEach(category => LogUtil.info(this, category.name))
             })
-        );
+        );  
     }
 
+    public addCategory(aUser: User,aCategory: Category): Observable<any> {
+        return this.http.put(this.base_url + 'category/add/' + aUser.name, JSON.stringify(aCategory));
+    }
 }
 
 /*

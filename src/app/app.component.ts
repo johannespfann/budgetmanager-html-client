@@ -27,13 +27,16 @@ export class AppComponent {
     private messageService: MessagingService,
     private applicationService: ApplicationService) {
 
+      LogUtil.info(this,"Init Application");
+
     this.loginSubscription = messageService
       .of(LogedInMessage)
       .subscribe((message: LogedInMessage) => {
         LogUtil.info(this, "Receive message login message");      
         this.user = message.getUser();
         applicationService.setCurrentUser(message.getUser());
-        LogUtil.info(this, "Get User of message: " + message.getUser().name + " : " + message.getUser().accesstoken + " : " + message.getUser().email);      
+        LogUtil.info(this, "Get User of message: " + message.getUser().name + " : " + message.getUser().accesstoken + " : " + message.getUser().email);     
+        
         this.showLoginAccount();
       });
 
@@ -51,6 +54,7 @@ export class AppComponent {
     user.email = "johannes@pfann.de"
     user.accesstoken = "123456";
     this.loginServcie.login(user.email,"key");
+
   }
 
 
@@ -82,5 +86,6 @@ export class AppComponent {
     LogUtil.info(this, "unsubsribe loginSubscription");
     this.loginSubscription.unsubscribe();
   }
+
 
 }

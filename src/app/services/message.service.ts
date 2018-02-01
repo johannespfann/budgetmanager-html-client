@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs/Rx";
 import { Message } from "./message";
+import { LogUtil } from "../utils/log-util";
 
 @Injectable()
 export class MessagingService {
@@ -8,6 +9,7 @@ export class MessagingService {
     private message$: Subject<Message>
 
     constructor(){
+        LogUtil.info(this, "Init MessagingService");
         this.message$ = new Subject<Message>();
     }
 

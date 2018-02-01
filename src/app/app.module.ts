@@ -15,7 +15,6 @@ import { CategoryService } from "./services/category.service";
 import { EntryService } from "./services/entry.service";
 import { AddCategoryComponent } from "./categorycomponent/add-category.component";
 import { EditCategoryComponent } from "./categorycomponent/edit-category.component";
-import { DeleteCategoryComponent } from "./categorycomponent/delete-category.component";
 import { ComponentDirective } from "./categorycomponent/component.directive";
 import { MessagingService } from "./services/message.service";
 import { StartupService } from "./services/startup.service";
@@ -27,6 +26,7 @@ import { RegisterComponent } from './logincomponent/register.component';
 import { ActivateComponent } from './logincomponent/activate.component';
 import { ApplicationService } from './application/application.service';
 import { CategoryRestApiService } from './services/category-rest-api.service';
+import { DeleteCategoryComponent } from './categorycomponent/delete-category.component';
 
 
 export function initApp(startupService: StartupService){
@@ -37,7 +37,8 @@ export function initApp(startupService: StartupService){
   imports:      [ 
     HttpClientModule,
     BrowserModule, 
-    FormsModule, AppRoutingModule 
+    FormsModule, 
+    AppRoutingModule,
     ],
   declarations: [ 
     AppComponent,
@@ -72,7 +73,11 @@ export function initApp(startupService: StartupService){
       multi: true
     },
     ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  entryComponents: [
+    DeleteCategoryComponent, 
+    EditCategoryComponent, 
+    AddCategoryComponent]
 })
 export class AppModule { 
   constructor(){

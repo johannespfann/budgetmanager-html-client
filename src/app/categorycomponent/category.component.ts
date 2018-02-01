@@ -56,7 +56,7 @@ export class CategoryComponent {
                 this.updateCategories(data.getCategory());
             });
 
-        categoryService.getCategories().subscribe((categories: Array<Category>){
+        categoryService.getCategories().subscribe((categories: Array<Category>) => {
             this.categories = categories;
         })
         this.name = "";
@@ -93,7 +93,9 @@ export class CategoryComponent {
 
     private updateCategories(aCategory:Category) {
         LogUtil.info(this,'Update categories');
-        this.categories = this.categoryService.getCategories();
+        this.categoryService.getCategories().subscribe( (categories: Array<Category>) => {
+            this.categories = categories;
+        });
     }
 
     ngOnDestroy() {

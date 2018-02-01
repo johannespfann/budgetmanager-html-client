@@ -11,7 +11,7 @@ import { CategoryDeletedMessage } from "../services/category-deleted-message";
     selector: 'delete-category-component',
     templateUrl: './delete-category.component.html'
 })
-export class DeleteCategoryComponent implements OnInit {
+export class DeleteCategoryComponent{
 
     @Input() category: Category;
 
@@ -41,8 +41,15 @@ export class DeleteCategoryComponent implements OnInit {
         LogUtil.debug(this,JSON.stringify(this.category));  
 
         this.defaultCategory = this.categoryService.getDefaultCategory();
-        this.categories = this.filterCurrentCategory(this.categoryService.getCategories(),this.category);
+        //this.categories = this.filterCurrentCategory(,this.category);
+
+        this.categoryService.getCategories().subscribe((categories: Array<Category>) => {
+            this.categories = this.filterCurrentCategory(categories, this.category);
+        })
     }
+
+
+
 
     public changed(aCategory: Category): void{
         LogUtil.info(this,'Selected: ' + aCategory.getName());
@@ -54,14 +61,12 @@ export class DeleteCategoryComponent implements OnInit {
         LogUtil.info(this,' - Delete : ' + this.category.getName());
         LogUtil.info(this,' - Replace: ' + this.selectedCategory.getName());
         
-        this.categoryService.delete(this.category, this.selectedCategory);
+        //this.categoryService.delete(this.category, this.selectedCategory);
     }
 
     private filterCurrentCategory(aCategories: Array<Category>, aCategory: Category): Array<Category>{
         return aCategories.filter(category => category.getId() != aCategory.getId());
     }
-
-
 
 
 }
