@@ -33,7 +33,8 @@ export class CategoryRestApiService {
     }
 
     public addCategory(aUser: User,aCategory: Category): Observable<any> {
-        return this.http.put(this.base_url + 'category/add/' + aUser.name, JSON.stringify(aCategory));
+        LogUtil.info(this, "Category: " + JSON.stringify(aCategory));
+        return this.http.post(this.base_url + 'category/add/' + aUser.name, JSON.stringify(aCategory));
     }
 }
 

@@ -54,14 +54,14 @@ export class CategoryService {
     }
 
     public addNewCategory(aCategory: Category): void {
-        if (this.isAlreadyExists(aCategory.getName())) {
-            // TODO handle error in front-end
-            LogUtil.error(this, 'Category already exists: ' + aCategory.getName());
-            return;
-        }
+        //if (this.isAlreadyExists(aCategory.getName())) {
+        //    // TODO handle error in front-end
+        //    LogUtil.error(this, 'Category already exists: ' + aCategory.getName());
+        //    return;
+        //}
 
-
-        this.categoryRestService.addCategory(this.appService.getCurrentUser(),aCategory).subscribe(data => { data });
+        this.categoryRestService.addCategory(this.appService.getCurrentUser(),aCategory)
+            .subscribe(data => LogUtil.info(this, "Response: " + data));
 
         this.messageService.publish(new CategoryAddedMessage(Category.copy(aCategory)));
 

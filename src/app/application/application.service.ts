@@ -26,9 +26,6 @@ export class ApplicationService {
     }
 
     public getCurrentUser(): User {
-        LogUtil.info(this, 'User.name  : ' + this.user.name);
-        LogUtil.info(this, 'User.email : ' + this.user.email);
-        LogUtil.info(this, 'User.token : ' + this.user.accesstoken);
         return this.user;
     }
 
