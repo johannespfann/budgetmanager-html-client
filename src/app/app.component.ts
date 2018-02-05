@@ -35,6 +35,7 @@ export class AppComponent {
         LogUtil.info(this, "Receive message login message");      
         this.user = message.getUser();
         applicationService.setCurrentUser(message.getUser());
+
         LogUtil.info(this, "Get User of message: " + message.getUser().name + " : " + message.getUser().accesstoken + " : " + message.getUser().email);     
         
         this.showLoginAccount();

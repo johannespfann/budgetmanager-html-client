@@ -33,25 +33,30 @@ export class CategoryService {
 
     public update(aCategory: Category): void {
 
-        for (var index in this.categories) {
-            if (this.categories[index].getId() === aCategory.getId()) {
-                this.categories[index] = aCategory;
-            }
-        }
+        this.categoryRestService.updateCategory(this.appService.getCurrentUser(), aCategory)
+            .subscribe();
 
-        this.messageService.publish(new CategoryUpdatedMessage(Category.copy(aCategory)));
+        //for (var index in this.categories) {
+        //    if (this.categories[index].getId() === aCategory.getId()) {
+        //        this.categories[index] = aCategory;
+        //    }
+        //}
+
+        //this.messageService.publish(new CategoryUpdatedMessage(Category.copy(aCategory)));
 
         LogUtil.debug(this, 'Update Category');
     }
 
-    public getDefaultCategory(): Category {
-        LogUtil.debug(this, "Return DefaultCategory: " + JSON.stringify(this.defaultCategory))
-        return Category.copy(this.defaultCategory);
+    public getDefaultCategory(): Observable<Category> {
+
+        return this.categoryRestService.getDefaultCategory(this.appService.getCurrentUser())
+    
     }
 
     public getCategories(): Observable<Array<Category>> {
         return this.categoryRestService.getCategories(this.appService.getCurrentUser());
     }
+
 
     public addNewCategory(aCategory: Category): void {
         //if (this.isAlreadyExists(aCategory.getName())) {
@@ -61,7 +66,7 @@ export class CategoryService {
         //}
 
         this.categoryRestService.addCategory(this.appService.getCurrentUser(),aCategory)
-            .subscribe(data => LogUtil.info(this, "Response: " + data));
+            .subscribe();
 
         this.messageService.publish(new CategoryAddedMessage(Category.copy(aCategory)));
 
@@ -71,24 +76,29 @@ export class CategoryService {
     public delete(aCategory: Category, aFallBackCategory: Category): void {
 
         if (aFallBackCategory || aCategory) {
-            if (aFallBackCategory.getId() == aCategory.getId()) {
+            if (aFallBackCategory.hash == aCategory.hash) {
                 return;
             }
-        }
+        } 
 
-        if (aCategory.getName() == this.defaultCategory.getName()) {
+        if (aCategory.name == this.defaultCategory.name) {
             LogUtil.error(this, 'Category are not allowed to delete!');
             return;
         }
 
-        this.categories.filter(category => {
-            if (aCategory.getId() == category.getId()) {
-                let index = this.categories.findIndex(cat => cat.getId() == category.getId());
-                this.categories.splice(index, 1);
-            }
-        });
+        this.categoryRestService
+            .deleteCategory(this.appService.getCurrentUser(),aCategory,aFallBackCategory)
+            .subscribe(data => data);
 
-        this.messageService.publish(new CategoryDeletedMessage(aCategory, aFallBackCategory));
+        //this.categories.filter(category => {
+        //    if (aCategory.getId() == category.getId()) {
+        //        let index = this.categories.findIndex(cat => cat.getId() == category.getId());
+        //        this.categories.splice(index, 1);
+        //    }
+        //});
+
+        
+        //this.messageService.publish(new CategoryDeletedMessage(aCategory, aFallBackCategory));
     }
 
     private isAlreadyExists(aName: string) {

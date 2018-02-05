@@ -39,7 +39,10 @@ export class AddEntryComponent {
         categoryService.getCategories().subscribe((categories: Array<Category>) => {
             this.categories = categories;
         });
-        this.category = categoryService.getDefaultCategory();
+        
+        categoryService.getDefaultCategory().subscribe((data:Category) => {
+            this.category = data;
+        });
 
         LogUtil.info(this,'DefaultCategory: ' + JSON.stringify(this.category));
     }
@@ -76,7 +79,11 @@ export class AddEntryComponent {
     private cleanAttributes(): void {
         this.amount = null;
         this.memo = null;
-        this.category = this.categoryService.getDefaultCategory();
+
+        this.categoryService.getDefaultCategory().subscribe((data:Category) => {
+            this.category = data;
+        });
+        
         LogUtil.info(this,'Cleaned View');
     }
 

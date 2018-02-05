@@ -6,7 +6,9 @@ import { Observable } from "rxjs/Observable";
 import { LogUtil } from "../utils/log-util";
 import { Category } from "../models/category";
 
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';    
+
+import { Observer } from "rxjs/Observer";
 
 
 @Injectable()
@@ -35,6 +37,21 @@ export class CategoryRestApiService {
     public addCategory(aUser: User,aCategory: Category): Observable<any> {
         LogUtil.info(this, "Category: " + JSON.stringify(aCategory));
         return this.http.post(this.base_url + 'category/add/' + aUser.name, JSON.stringify(aCategory));
+    }
+
+    public deleteCategory(aUser: User, aCategoryToDelete: Category, aCategoryToReplace:Category): Observable<any>{
+        LogUtil.info(this, "CategoryToDelete : " + JSON.stringify(aCategoryToDelete));
+        LogUtil.info(this, "CategoryToReplace: " + JSON.stringify(aCategoryToReplace));
+        return this.http.delete(this.base_url + "category/delete/" + aCategoryToDelete.hash + "/replace/" + aCategoryToReplace.hash);
+    }
+
+    public updateCategory(aUser: User, aCategory): Observable<any>{
+        LogUtil.info(this,"Update category: " + JSON.stringify(aCategory));
+        return this.http.patch(this.base_url + "category/update/" + aCategory.hash, aCategory);
+    }
+
+    public getDefaultCategory(aUser: User): Observable<Category> {
+        return this.http.get<Category>(this.base_url + "category/default/" + aUser.email);
     }
 }
 

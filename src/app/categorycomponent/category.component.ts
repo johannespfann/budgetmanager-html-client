@@ -59,6 +59,11 @@ export class CategoryComponent {
         categoryService.getCategories().subscribe((categories: Array<Category>) => {
             this.categories = categories;
         })
+
+        this.categoryService.getDefaultCategory().subscribe((data:Category) => {
+           LogUtil.info(this,"DefaultCategories: " + JSON.stringify(data));
+        });
+
         this.name = "";
     }
 
@@ -70,7 +75,7 @@ export class CategoryComponent {
 
         let componentRef = viewContainerRef.createComponent(componentFactory);
     }
-
+ 
     private deleteCategory(aCategory: Category): void {
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(DeleteCategoryComponent);
 
