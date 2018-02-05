@@ -47,7 +47,7 @@ export class CategoryRestApiService {
 
     public updateCategory(aUser: User, aCategory): Observable<any>{
         LogUtil.info(this,"Update category: " + JSON.stringify(aCategory));
-        return this.http.patch(this.base_url + "category/update/" + aCategory.hash, aCategory);
+        return this.http.post(this.base_url + "category/update/" + aCategory.hash, JSON.stringify(aCategory));
     }
 
     public getDefaultCategory(aUser: User): Observable<Category> {
