@@ -19,7 +19,6 @@ import { ComponentDirective } from "./categorycomponent/component.directive";
 import { MessagingService } from "./services/message.service";
 import { StartupService } from "./services/startup.service";
 import { TagService } from './services/tag.service';
-import { EntryAPIService } from './services/entry.api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { RegisterComponent } from './logincomponent/register.component';
@@ -27,6 +26,7 @@ import { ActivateComponent } from './logincomponent/activate.component';
 import { ApplicationService } from './application/application.service';
 import { CategoryRestApiService } from './services/category-rest-api.service';
 import { DeleteCategoryComponent } from './categorycomponent/delete-category.component';
+import { EntryRestApiService } from './services/entry-rest-api.service';
 
 
 export function initApp(startupService: StartupService){
@@ -62,9 +62,9 @@ export function initApp(startupService: StartupService){
     EntryService,
     MessagingService,
     TagService,
-    EntryAPIService,
     StartupService,
     LoginService,
+    EntryRestApiService,
     ApplicationService,
     {
       provide: APP_INITIALIZER,
