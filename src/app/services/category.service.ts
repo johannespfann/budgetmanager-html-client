@@ -27,28 +27,19 @@ export class CategoryService {
     ) {
         LogUtil.info(this, "Init CategoryService");
 
-        let category: Category = Category.create("Allgmein");
-        this.defaultCategory = category;
+        categoryRestService.getDefaultCategory(this.appService.getCurrentUser()).subscribe(
+            data => this.defaultCategory = data
+        )
     }
 
     public update(aCategory: Category): void {
-
         this.categoryRestService.updateCategory(this.appService.getCurrentUser(), aCategory)
-            .subscribe();
+            .subscribe(data => this.messageService.publish(new CategoryUpdatedMessage(Category.copy(aCategory)))
+        );
 
-        //for (var index in this.categories) {
-        //    if (this.categories[index].getId() === aCategory.getId()) {
-        //        this.categories[index] = aCategory;
-        //    }
-        //}
-
-        //this.messageService.publish(new CategoryUpdatedMessage(Category.copy(aCategory)));
-
-        LogUtil.debug(this, 'Update Category');
     }
 
     public getDefaultCategory(): Observable<Category> {
-
         return this.categoryRestService.getDefaultCategory(this.appService.getCurrentUser())
     
     }
@@ -59,17 +50,9 @@ export class CategoryService {
 
 
     public addNewCategory(aCategory: Category): void {
-        //if (this.isAlreadyExists(aCategory.getName())) {
-        //    // TODO handle error in front-end
-        //    LogUtil.error(this, 'Category already exists: ' + aCategory.getName());
-        //    return;
-        //}
-
-        this.categoryRestService.addCategory(this.appService.getCurrentUser(),aCategory)
-            .subscribe();
-
-        this.messageService.publish(new CategoryAddedMessage(Category.copy(aCategory)));
-
+        this.categoryRestService.addCategory(this.appService.getCurrentUser(),aCategory).subscribe(
+            data => this.messageService.publish(new CategoryAddedMessage(Category.copy(aCategory)))
+        );
         LogUtil.debug(this, "Added new Category: " + JSON.stringify(aCategory));
     }
 
@@ -87,26 +70,11 @@ export class CategoryService {
         }
 
         this.categoryRestService
-            .deleteCategory(this.appService.getCurrentUser(),aCategory,aFallBackCategory)
-            .subscribe(data => data);
-
-        //this.categories.filter(category => {
-        //    if (aCategory.getId() == category.getId()) {
-        //        let index = this.categories.findIndex(cat => cat.getId() == category.getId());
-        //        this.categories.splice(index, 1);
-        //    }
-        //});
+            .deleteCategory(this.appService.getCurrentUser(),aCategory,aFallBackCategory).subscribe(
+                data => this.messageService.publish(new CategoryDeletedMessage(aCategory, aFallBackCategory))
+            );
 
         
-        //this.messageService.publish(new CategoryDeletedMessage(aCategory, aFallBackCategory));
     }
 
-    private isAlreadyExists(aName: string) {
-        for (let category of this.categories) {
-            if (category.getName() === aName) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

@@ -8,6 +8,9 @@ import { MessagingService } from "./message.service";
 import { CategoryUpdatedMessage } from "./category-updated-message";
 import { CategoryDeletedMessage } from "./category-deleted-message";
 import { EntriesModifiedMessage } from "./entries-modified-message";
+import { Observable } from "rxjs/Observable";
+import { EntryAPIService } from "./entry.api.service";
+import { ApplicationService } from "../application/application.service";
 
 
 @Injectable()
@@ -20,8 +23,10 @@ export class EntryService{
     private categoryDeletedSubscription: Subscription;
 
     constructor(
+            private entryApiService: EntryAPIService,
             private categoryService: CategoryService,
-            private messageService: MessagingService){
+            private messageService: MessagingService,
+            private appService: ApplicationService){
         LogUtil.debug(this,"Init EntryService");
 
         this.categoryUpdatedSubscription = messageService
@@ -39,7 +44,7 @@ export class EntryService{
 
     private replaceCategory(aFromCategory: Category, aToCategory: Category){
         this.entries.filter(entry => {
-           if(entry.getCategory().getId() == aFromCategory.getId()){
+           if(entry.getCategory().hash == aFromCategory.hash){
                entry.setCategory(aToCategory);
            } 
         });
@@ -49,20 +54,16 @@ export class EntryService{
 
     private updateCategory(aCategory: Category): void{
         this.entries.filter(entry => {
-             if(entry.getCategory().getId() == aCategory.getId()){
+            if(entry.getCategory().hash == aCategory.hash){
                 entry.setCategory(aCategory);
             }
         });
     }
 
-    public getEntries(): Array<Entry>{
-        let newEntries: Array<Entry> = new Array<Entry>();
+    public getEntries(): Observable<Array<Entry>{
 
-        for(let entry of this.entries){
-            newEntries.push(Entry.copy(entry));
-        }
-
-        return newEntries;
+        //return this.entryApiService.getEntries(this.appService.getCurrentUser())
+        return new Observable<Array<Entry>>();
     }
 
     public addEntry(aEntry:Entry): void{

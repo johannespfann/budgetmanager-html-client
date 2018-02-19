@@ -23,8 +23,7 @@ export class LoginService {
         private applicationService: ApplicationService,
         private http: HttpClient,
         private messageService: MessagingService,
-        private router: Router,
-        private categoryApi: CategoryRestApiService) {
+        private router: Router) {
 
         LogUtil.info(this, 'Init LoginService');
         this.baseURL = applicationService.getApplicationConfig().getBaseUrl();

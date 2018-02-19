@@ -25,22 +25,4 @@ export class Category {
         return category;
     }
 
-    /**
-     * setter
-     */
-    public setName(aName: string): void {
-        this.hash = this.hash;
-    }
-
-    /**
-     * getter
-     */
-
-    public getId(): string {
-        return this.hash;
-    }
-
-    public getName(): string {
-        return this.name
-    }
 }

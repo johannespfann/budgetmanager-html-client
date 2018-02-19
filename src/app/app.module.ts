@@ -65,13 +65,7 @@ export function initApp(startupService: StartupService){
     EntryAPIService,
     StartupService,
     LoginService,
-    ApplicationService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initApp,
-      deps: [StartupService, EntryService, CategoryService, TagService],
-      multi: true
-    },
+    ApplicationService
     ],
   bootstrap: [ AppComponent ],
   entryComponents: [
