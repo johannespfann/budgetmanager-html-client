@@ -15,23 +15,26 @@ export class HistoryComponent{
     constructor(
         private entryService: EntryService,
     ){
-        this.entries = this.sortByTime(entryService.getEntries());
-    }
-
-    private sortByTime(aEntries: Entry[]): Entry[] {
-        return aEntries.sort(function(a,b){
-            return b.getCreationDate() - a.getCreationDate();
-        });
+        entryService.getEntries().subscribe(
+            (data: Array<Entry>) => {
+                this.entries = data;
+            }
+        )
     }
 
     private deleteEntry(aEntry:Entry): void {
         LogUtil.info(this,'delete entry: ' + JSON.stringify(aEntry));
-        this.entryService.deleteEntry(aEntry);
-        this.updateEntries();
+        this.entryService.deleteEntry(aEntry).subscribe(
+            data => this.updateEntries();
+        );
+        
     }
 
     private updateEntries(): void {
-        LogUtil.info(this,'update entries')
-        this.entries = this.entryService.getEntries();
+        this.entryService.getEntries().subscribe(
+            (data: Array<Entry>) => {
+                this.entries = data;
+            }
+        )
     }
 }

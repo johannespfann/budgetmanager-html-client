@@ -6,6 +6,8 @@ import { Entry } from "../models/entry";
 import { AppConfiguration } from "../application/application-configuration";
 import { ApplicationService } from "../application/application.service";
 import { User } from "../models/user";
+import { tap } from "rxjs/operators";
+
 
 
 @Injectable()
@@ -20,15 +22,21 @@ export class EntryAPIService{
             LogUtil.info(this,"Init EntryAPIService");
 
             this.baseURL = appService.getApplicationConfig().getBaseUrl();
-
     }
 
-    public getEntries(aUser:User): Observable<any> {
-        return this.http.get<any>(this.baseURL + aUser.email).map(
-            (data: Array<any>) => {
-                data.forEach( entry => LogUtil.info(this, JSON.stringify(entry)))
-            }
+    public delete(aUser:User, aEntry: Entry): Observable<any> {
+        return this.http.delete(this.baseURL + 'entries/owner/'+aUser.email+'/delete/'+aEntry.hash);
+    }
+
+    public save(aUser: User, aEntry: Entry): Observable<any> {
+        return this.http.post(this.baseURL + 'entries/owner/'+aUser.email+'/add', aEntry);
+    }
+
+    public getEntries(aUser:User): Observable<Array<Entry>> {
+        return this.http.get<Array<Entry>>(this.baseURL + 'entries/owner/'+aUser.email+'/all').pipe(
+            tap((entries: Array<Entry>) => {
+                entries.forEach(entry => JSON.stringify(entry))
+            } )
         );
     }
-
 }

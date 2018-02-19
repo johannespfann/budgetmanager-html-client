@@ -36,7 +36,6 @@ export class CategoryService {
         this.categoryRestService.updateCategory(this.appService.getCurrentUser(), aCategory)
             .subscribe(data => this.messageService.publish(new CategoryUpdatedMessage(Category.copy(aCategory)))
         );
-
     }
 
     public getDefaultCategory(): Observable<Category> {
@@ -73,8 +72,6 @@ export class CategoryService {
             .deleteCategory(this.appService.getCurrentUser(),aCategory,aFallBackCategory).subscribe(
                 data => this.messageService.publish(new CategoryDeletedMessage(aCategory, aFallBackCategory))
             );
-
-        
     }
 
 }

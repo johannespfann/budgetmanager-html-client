@@ -68,11 +68,14 @@ export class AddEntryComponent {
 
         entry.setCategory(this.category);  
 
-        this.entryService.addEntry(entry);
+        this.entryService.addEntry(entry).subscribe(
+            data => {
+                LogUtil.info(this,'save : ' + JSON.stringify(entry));
+                this.cleanAttributes();
+            }
+        );
 
-        LogUtil.info(this,'save : ' + JSON.stringify(entry));
-
-        this.cleanAttributes();
+        
 
     }
 
