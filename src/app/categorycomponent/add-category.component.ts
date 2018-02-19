@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { Category } from "../models/category";
 import { CategoryService } from "../services/category.service";
-import { MessagingService } from "../services/message.service";
+import { MessagingService } from "../messages/message.service";
 import { LogUtil } from "../utils/log-util";
 
 @Component({

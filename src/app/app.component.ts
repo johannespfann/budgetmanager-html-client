@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { MessagingService } from './services/message.service';
+import { MessagingService } from './messages/message.service';
 import { Subscription } from 'rxjs/Subscription';
-import { LogedInMessage } from './services/logedin-message';
+import { LogedInMessage } from './messages/logedin-message';
 import { LogUtil } from './utils/log-util';
 import { User } from './models/user';
 import { BrowserStorage } from './application/browser-storage';

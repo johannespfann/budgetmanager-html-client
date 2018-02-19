@@ -1,7 +1,7 @@
 import { LogUtil } from "../utils/log-util";
 import { Subscription } from "rxjs";
-import { LogedInMessage } from "../services/logedin-message";
-import { MessagingService } from "../services/message.service";
+import { LogedInMessage } from "../messages/logedin-message";
+import { MessagingService } from "../messages/message.service";
 import { User } from "../models/user";
 import { AppConfiguration } from "./application-configuration";
 import { Observable } from "rxjs/Observable";

@@ -25,7 +25,7 @@ export class HistoryComponent{
     private deleteEntry(aEntry:Entry): void {
         LogUtil.info(this,'delete entry: ' + JSON.stringify(aEntry));
         this.entryService.deleteEntry(aEntry).subscribe(
-            data => this.updateEntries();
+            data => this.updateEntries()
         );
         
     }

@@ -16,7 +16,7 @@ import { EntryService } from "./services/entry.service";
 import { AddCategoryComponent } from "./categorycomponent/add-category.component";
 import { EditCategoryComponent } from "./categorycomponent/edit-category.component";
 import { ComponentDirective } from "./categorycomponent/component.directive";
-import { MessagingService } from "./services/message.service";
+import { MessagingService } from "./messages/message.service";
 import { StartupService } from "./services/startup.service";
 import { TagService } from './services/tag.service';
 import { EntryAPIService } from './services/entry.api.service';
