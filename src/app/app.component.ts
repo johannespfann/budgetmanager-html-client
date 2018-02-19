@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { LogedInMessage } from './messages/logedin-message';
 import { LogUtil } from './utils/log-util';
 import { User } from './models/user';
-import { BrowserStorage } from './application/browser-storage';
 import { ApplicationService } from './application/application.service';
 import { LoginService } from './services/login.service';
 import { Router } from '@angular/router';
