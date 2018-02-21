@@ -52,7 +52,6 @@ export class CategoryService {
         this.categoryRestService.addCategory(this.appService.getCurrentUser(),aCategory).subscribe(
             data => this.messageService.publish(new CategoryAddedMessage(Category.copy(aCategory)))
         );
-        LogUtil.debug(this, "Added new Category: " + JSON.stringify(aCategory));
     }
 
     public delete(aCategory: Category, aFallBackCategory: Category): void {

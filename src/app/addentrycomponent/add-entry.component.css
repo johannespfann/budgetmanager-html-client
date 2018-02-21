@@ -1,0 +1,13 @@
+.tags-container{
+    background-color: white;
+    display: flex;
+}
+
+.tags-item {
+    padding: 5px;
+}
+
+.tags-input {
+    padding: 5px;
+    border: none;
+}

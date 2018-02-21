@@ -17,7 +17,7 @@ export class HistoryComponent{
     ){
         entryService.getEntries().subscribe(
             (data: Array<Entry>) => {
-                this.entries = data;
+                this.entries = this.sortByTime(data);
             }
         )
     }
@@ -33,8 +33,15 @@ export class HistoryComponent{
     private updateEntries(): void {
         this.entryService.getEntries().subscribe(
             (data: Array<Entry>) => {
-                this.entries = data;
+                this.entries = this.sortByTime(data);
             }
         )
+    }
+
+    private sortByTime(aEntries: Entry[]): Entry[] {
+        return aEntries.sort(function(a:Entry, b:Entry){
+            return b.created_at.getTime() - a.created_at.getTime();
+        });
+
     }
 }

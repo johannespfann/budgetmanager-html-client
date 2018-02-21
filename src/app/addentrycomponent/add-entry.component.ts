@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, style } from "@angular/core";
 
 import { Category } from "../models/category";
 import { Tag } from "../models/tag";
@@ -11,7 +11,8 @@ import { LogUtil } from "../utils/log-util";
 
 @Component({
     selector: 'newentry',
-    templateUrl: './add-entry.component.html'
+    templateUrl: './add-entry.component.html',
+    styleUrls: ['./add-entry.component.css']
 })
 export class AddEntryComponent {
 

@@ -33,10 +33,8 @@ export class EntryAPIService{
     }
 
     public getEntries(aUser:User): Observable<Array<Entry>> {
-        return this.http.get<Array<Entry>>(this.baseURL + 'entries/owner/'+aUser.email+'/all').pipe(
-            tap((entries: Array<Entry>) => {
-                entries.forEach(entry => JSON.stringify(entry))
-            } )
-        );
+        return this.http.get<Array<Entry>>(this.baseURL + 'entries/owner/'+aUser.email+'/all').map( (entries: Array<Entry>) => {
+            return entries.map( entry => entry = Entry.copy(entry) )
+        })
     }
 }
