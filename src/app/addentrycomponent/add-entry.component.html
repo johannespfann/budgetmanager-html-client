@@ -31,12 +31,24 @@
       <textarea [(ngModel)]="memo" name="memo" class="form-control" id="memo" placeholder="Notiz" rows="2"></textarea>
     </div>
 
+   
     <div class="tags-container">
-      <label class="tags-item">#asdfasdf </label><label class="tags-item">#asdfasdf</label><label class="tags-item">#asdfasdf</label><input class="tags-input" type="text" value="" placeholder=" ... new tags">
+        <span *ngFor="let item of tags" class="badge badge-pill badge-info tag-item">
+          {{item.name}} <i (click)="deleteTag(item)" class="fa fa-times-circle"></i>
+        </span>
 
+   
+        <input class="tags-input" type="text" value="" placeholder=" ... new tags">
+  
     </div>
+
+
 
     <button type="submit" class="btn btn-primary">Submit</button>
 
   </form>
+
+
+
+
 </div>

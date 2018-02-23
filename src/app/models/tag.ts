@@ -2,8 +2,6 @@
 
 export class Tag{
 
-    public id: string;
-
     public name: string;
     
     constructor(){
@@ -13,7 +11,6 @@ export class Tag{
     public copy(aTag: Tag): Tag {
         let tag: Tag = new Tag();
         tag.name = aTag.name;
-        tag.id = aTag.id;
         return tag;
     }
 

@@ -22,8 +22,6 @@ export class AddEntryComponent {
     private memo: string;
     private categories: Array<Category>;
 
-    private 
-
     private category: Category;
     private tags: Array<Tag>;
 
@@ -45,7 +43,25 @@ export class AddEntryComponent {
             this.category = data;
         });
 
-        LogUtil.info(this,'DefaultCategory: ' + JSON.stringify(this.category));
+        this.tags = new Array<Tag>();
+        
+        let tagOne: Tag = new Tag();
+        tagOne.name = "unwichtig"; 
+
+        let tagTwo: Tag = new Tag();
+        tagTwo.name = "luxus";
+
+        let tagThree: Tag = new Tag();
+        tagThree.name = "putzen";
+
+        this.tags.push(tagOne);
+        this.tags.push(tagTwo);
+        this.tags.push(tagThree);
+
+    }
+
+    private deleteTag(aTag: Tag): void {
+        LogUtil.info(this,"clicked deleteTag " + aTag.name);
     }
 
 
