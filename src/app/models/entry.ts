@@ -16,10 +16,13 @@ export class Entry {
 
     public created_at: Date;
 
+    public tags:Array<Tag>;
+
     
 
 
     private constructor(){
+        this.tags = new Array<Tag>();
     }
 
     public static copy(aEntry: Entry): Entry {
@@ -35,7 +38,8 @@ export class Entry {
 
         entry.created_at = new Date(aEntry.created_at);
         entry.memo = aEntry.memo;
-
+        entry.tags = aEntry.tags;
+        
         return entry;
     }
 

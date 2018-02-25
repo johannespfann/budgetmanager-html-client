@@ -25,6 +25,8 @@ export class AddEntryComponent {
     private category: Category;
     private tags: Array<Tag>;
 
+    private currentTag: string;
+
     constructor(
             private categoryService: CategoryService,
             private entryService: EntryService){
@@ -61,7 +63,33 @@ export class AddEntryComponent {
     }
 
     private deleteTag(aTag: Tag): void {
+        this.tags = this.tags.filter(tag => aTag != tag);
         LogUtil.info(this,"clicked deleteTag " + aTag.name);
+    }
+
+    private saveTag(event: any): void{
+        
+        if(this.currentTag.includes(" ")){
+
+            let temp: Array<string> = this.currentTag.split(" ");
+            let preparedTagName: string = temp[0];
+
+            preparedTagName = preparedTagName.replace(" ","");
+            if(preparedTagName == ""){
+
+                this.currentTag = "";
+                return;
+            }
+
+            let tag: Tag = new Tag();
+            tag.name = preparedTagName;
+
+            this.tags.push(tag);
+
+            this.currentTag = "";
+
+        }
+        
     }
 
 
@@ -83,7 +111,9 @@ export class AddEntryComponent {
 
         LogUtil.info(this,"Category: " + JSON.stringify(this.category));
 
-        entry.setCategory(this.category);  
+        entry.category = this.category;  
+
+        entry.tags = this.tags;
 
         this.entryService.addEntry(entry).subscribe(
             data => {
@@ -91,8 +121,6 @@ export class AddEntryComponent {
                 this.cleanAttributes();
             }
         );
-
-        
 
     }
 

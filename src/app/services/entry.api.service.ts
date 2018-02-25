@@ -18,9 +18,7 @@ export class EntryAPIService{
     constructor(
         private http: HttpClient,
         private appService: ApplicationService){
-            
             LogUtil.info(this,"Init EntryAPIService");
-
             this.baseURL = appService.getApplicationConfig().getBaseUrl();
     }
 
