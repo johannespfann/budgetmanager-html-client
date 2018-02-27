@@ -16,8 +16,7 @@ import { EntryService } from "./services/entry.service";
 import { AddCategoryComponent } from "./categorycomponent/add-category.component";
 import { EditCategoryComponent } from "./categorycomponent/edit-category.component";
 import { ComponentDirective } from "./categorycomponent/component.directive";
-import { MessagingService } from "./services/message.service";
-import { StartupService } from "./services/startup.service";
+import { MessagingService } from "./messages/message.service";
 import { TagService } from './services/tag.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
@@ -27,11 +26,8 @@ import { ApplicationService } from './application/application.service';
 import { CategoryRestApiService } from './services/category-rest-api.service';
 import { DeleteCategoryComponent } from './categorycomponent/delete-category.component';
 import { EntryRestApiService } from './services/entry-rest-api.service';
+import { EntryAPIService } from './services/entry.api.service';
 
-
-export function initApp(startupService: StartupService){
-  return () => startupService.onStartup();
-}
 
 @NgModule({
   imports:      [ 
@@ -62,16 +58,9 @@ export function initApp(startupService: StartupService){
     EntryService,
     MessagingService,
     TagService,
-    StartupService,
+    EntryAPIService,
     LoginService,
-    EntryRestApiService,
-    ApplicationService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initApp,
-      deps: [StartupService, EntryService, CategoryService, TagService],
-      multi: true
-    },
+    ApplicationService
     ],
   bootstrap: [ AppComponent ],
   entryComponents: [

@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { Category } from "../models/category";
 import { CategoryService } from "../services/category.service";
 import { LogUtil } from "../utils/log-util";
-import { CategoryUpdatedMessage } from "../services/category-updated-message";
+import { CategoryUpdatedMessage } from "../messages/category-updated-message";
 
 @Component({
     selector: 'edit-category-component',

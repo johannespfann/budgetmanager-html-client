@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { LogUtil } from "../utils/log-util";
 import { Observable } from "rxjs/Observable";
 import { User } from "../models/user";
-import { MessagingService } from "./message.service";
-import { LogedInMessage } from "./logedin-message";
+import { MessagingService } from "../messages/message.service";
+import { LogedInMessage } from "../messages/logedin-message";
 import { Router } from "@angular/router";
 import { ApplicationService } from "../application/application.service";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -23,8 +23,7 @@ export class LoginService {
         private applicationService: ApplicationService,
         private http: HttpClient,
         private messageService: MessagingService,
-        private router: Router,
-        private categoryApi: CategoryRestApiService) {
+        private router: Router) {
 
         LogUtil.info(this, 'Init LoginService');
         this.baseURL = applicationService.getApplicationConfig().getBaseUrl();

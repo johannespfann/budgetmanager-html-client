@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Category } from "../models/category";
 import { LogUtil } from "../utils/log-util";
 import { HashUtil } from "../utils/hash-util";
-import { MessagingService } from "./message.service";
-import { CategoryUpdatedMessage } from "./category-updated-message";
-import { CategoryAddedMessage } from "./category-added-message";
-import { CategoryDeletedMessage } from "./category-deleted-message";
+import { MessagingService } from "../messages/message.service";
+import { CategoryUpdatedMessage } from "../messages/category-updated-message";
+import { CategoryAddedMessage } from "../messages/category-added-message";
+import { CategoryDeletedMessage } from "../messages/category-deleted-message";
 import { CategoryRestApiService } from './category-rest-api.service';
 import { ApplicationService } from '../application/application.service';
 import { User } from '../models/user';
@@ -27,28 +27,18 @@ export class CategoryService {
     ) {
         LogUtil.info(this, "Init CategoryService");
 
-        let category: Category = Category.create("Allgmein");
-        this.defaultCategory = category;
+        categoryRestService.getDefaultCategory(this.appService.getCurrentUser()).subscribe(
+            data => this.defaultCategory = data
+        )
     }
 
     public update(aCategory: Category): void {
-
         this.categoryRestService.updateCategory(this.appService.getCurrentUser(), aCategory)
-            .subscribe();
-
-        //for (var index in this.categories) {
-        //    if (this.categories[index].getId() === aCategory.getId()) {
-        //        this.categories[index] = aCategory;
-        //    }
-        //}
-
-        //this.messageService.publish(new CategoryUpdatedMessage(Category.copy(aCategory)));
-
-        LogUtil.debug(this, 'Update Category');
+            .subscribe(data => this.messageService.publish(new CategoryUpdatedMessage(Category.copy(aCategory)))
+        );
     }
 
     public getDefaultCategory(): Observable<Category> {
-
         return this.categoryRestService.getDefaultCategory(this.appService.getCurrentUser())
     
     }
@@ -59,18 +49,9 @@ export class CategoryService {
 
 
     public addNewCategory(aCategory: Category): void {
-        //if (this.isAlreadyExists(aCategory.getName())) {
-        //    // TODO handle error in front-end
-        //    LogUtil.error(this, 'Category already exists: ' + aCategory.getName());
-        //    return;
-        //}
-
-        this.categoryRestService.addCategory(this.appService.getCurrentUser(),aCategory)
-            .subscribe();
-
-        this.messageService.publish(new CategoryAddedMessage(Category.copy(aCategory)));
-
-        LogUtil.debug(this, "Added new Category: " + JSON.stringify(aCategory));
+        this.categoryRestService.addCategory(this.appService.getCurrentUser(),aCategory).subscribe(
+            data => this.messageService.publish(new CategoryAddedMessage(Category.copy(aCategory)))
+        );
     }
 
     public delete(aCategory: Category, aFallBackCategory: Category): void {
@@ -87,26 +68,9 @@ export class CategoryService {
         }
 
         this.categoryRestService
-            .deleteCategory(this.appService.getCurrentUser(),aCategory,aFallBackCategory)
-            .subscribe(data => data);
-
-        //this.categories.filter(category => {
-        //    if (aCategory.getId() == category.getId()) {
-        //        let index = this.categories.findIndex(cat => cat.getId() == category.getId());
-        //        this.categories.splice(index, 1);
-        //    }
-        //});
-
-        
-        //this.messageService.publish(new CategoryDeletedMessage(aCategory, aFallBackCategory));
+            .deleteCategory(this.appService.getCurrentUser(),aCategory,aFallBackCategory).subscribe(
+                data => this.messageService.publish(new CategoryDeletedMessage(aCategory, aFallBackCategory))
+            );
     }
 
-    private isAlreadyExists(aName: string) {
-        for (let category of this.categories) {
-            if (category.getName() === aName) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

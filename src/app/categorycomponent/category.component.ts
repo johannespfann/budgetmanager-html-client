@@ -6,12 +6,12 @@ import { ComponentDirective } from "./component.directive";
 import { AddCategoryComponent } from "./add-category.component";
 import { DeleteCategoryComponent } from "./delete-category.component";
 import { EditCategoryComponent } from "./edit-category.component";
-import { MessagingService } from "../services/message.service";
+import { MessagingService } from "../messages/message.service";
 import { Subscription } from "rxjs/Subscription";
 import { LogUtil } from "../utils/log-util";
-import { CategoryUpdatedMessage } from "../services/category-updated-message";
-import { CategoryAddedMessage } from "../services/category-added-message";
-import { CategoryDeletedMessage } from "../services/category-deleted-message";
+import { CategoryUpdatedMessage } from "../messages/category-updated-message";
+import { CategoryAddedMessage } from "../messages/category-added-message";
+import { CategoryDeletedMessage } from "../messages/category-deleted-message";
 
 @Component({
     selector: 'category-component',

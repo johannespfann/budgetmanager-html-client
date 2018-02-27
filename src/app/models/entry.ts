@@ -2,20 +2,24 @@ import { Tag } from "./tag";
 import { Category } from "./category";
 import { DateUtil } from "../utils/date-util";
 import { HashUtil } from "../utils/hash-util";
+import { LogUtil } from "../utils/log-util";
 
 export class Entry {
 
-    private id:string;
+    public hash:string;
 
-    private amount: number;
+    public amount: number;
 
-    private memo: string;
+    public memo: string;
 
-    private creation_date: number;
+    public category: Category;
 
-    private category: Category;
+    public created_at: Date;
 
-    private tags: Array<Tag>;
+    public tags:Array<Tag>;
+
+    
+
 
     private constructor(){
         this.tags = new Array<Tag>();
@@ -24,30 +28,26 @@ export class Entry {
     public static copy(aEntry: Entry): Entry {
         let entry: Entry = new Entry();
 
-        entry.id = aEntry.id;
+        entry.hash = aEntry.hash;
         entry.amount = aEntry.amount;
-        entry.creation_date = aEntry.creation_date;
 
-        // Copy Category if category is not undefined
         if(aEntry.category){
             let category: Category = Category.copy(aEntry.category);
             entry.category = category;
         }
 
+        entry.created_at = new Date(aEntry.created_at);
         entry.memo = aEntry.memo;
-        // TODO Copy Tags when using tags 
-        // TODO Test copy Tags - slice should not enough
-        let tags: Array<Tag> = new Array<Tag>();
-        tags = aEntry.tags.slice();
-
+        entry.tags = aEntry.tags;
+        
         return entry;
     }
 
     public static create(aAmount: number): Entry {
         let entry: Entry = new Entry();
         entry.amount =  aAmount;
-        entry.creation_date = DateUtil.getCurrentDate();
-        entry.id = HashUtil.getUniqueHash(aAmount.toString());
+        entry.created_at = new Date();
+        entry.hash = HashUtil.getUniqueHash(aAmount.toString());
         return entry;
     }
 
@@ -68,17 +68,13 @@ export class Entry {
         this.category = aCategory;
     }
 
-    public addTag(aTag: Tag): void{
-        this.tags.push(aTag)
-    }
-
 
     /**
      * getter
      */
 
     public getId(): string {
-        return this.id;
+        return this.hash;
     }
 
     public getAmount(): number {
@@ -89,16 +85,12 @@ export class Entry {
         return this.memo;
     }
 
-    public getCreationDate(): number{
-        return this.creation_date;
-    }
-
     public getCategory(): Category {
         return this.category;
     }
 
-    public getTags(): Tag[] {
-        return this.tags;
+    public getCreated_at(): Date {
+        return this.created_at;
     }
 
 }

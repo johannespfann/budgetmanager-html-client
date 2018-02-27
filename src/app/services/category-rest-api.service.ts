@@ -25,18 +25,16 @@ export class CategoryRestApiService {
     }
 
     public getCategories(aUser: User): Observable<Array<Category>> {
-        return this.http.get<Array<Category>>(this.base_url + 'category/all/' + aUser.name)
+        return this.http.get<Array<Category>>(this.base_url + 'category/owner/'+aUser.name+ '/all/')
         .pipe(
             tap((categories: Array<Category>) => {
-                // TODO FILTER
                 categories.forEach(category => LogUtil.info(this, category.name))
             })
         );  
     }
 
     public addCategory(aUser: User,aCategory: Category): Observable<any> {
-        LogUtil.info(this, "Category: " + JSON.stringify(aCategory));
-        return this.http.post(this.base_url + 'category/add/' + aUser.name, JSON.stringify(aCategory));
+        return this.http.post(this.base_url + 'category/owner/'+aUser.name+'/add', aCategory);
     }
 
     public deleteCategory(aUser: User, aCategoryToDelete: Category, aCategoryToReplace:Category): Observable<any>{
@@ -47,17 +45,10 @@ export class CategoryRestApiService {
 
     public updateCategory(aUser: User, aCategory): Observable<any>{
         LogUtil.info(this,"Update category: " + JSON.stringify(aCategory));
-        return this.http.post(this.base_url + "category/update/" + aCategory.hash, JSON.stringify(aCategory));
+        return this.http.patch(this.base_url + 'category/update', aCategory);
     }
 
     public getDefaultCategory(aUser: User): Observable<Category> {
-        return this.http.get<Category>(this.base_url + "category/default/" + aUser.email);
+        return this.http.get<Category>(this.base_url + 'category/owner/' + aUser.email + '/default');
     }
 }
-
-/*
-return this.http.post(Constants.WEBSERVICE_ADDRESS + "/priceTag", null, {headers: headers})
-    .map((res: Response) => {
-      return new PriceTag(res.json());
-    });
-*/

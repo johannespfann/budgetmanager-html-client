@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, style } from "@angular/core";
 
 import { Category } from "../models/category";
 import { Tag } from "../models/tag";
@@ -11,7 +11,8 @@ import { LogUtil } from "../utils/log-util";
 
 @Component({
     selector: 'newentry',
-    templateUrl: './add-entry.component.html'
+    templateUrl: './add-entry.component.html',
+    styleUrls: ['./add-entry.component.css']
 })
 export class AddEntryComponent {
 
@@ -21,10 +22,10 @@ export class AddEntryComponent {
     private memo: string;
     private categories: Array<Category>;
 
-    private 
-
     private category: Category;
     private tags: Array<Tag>;
+
+    private currentTag: string;
 
     constructor(
             private categoryService: CategoryService,
@@ -44,7 +45,53 @@ export class AddEntryComponent {
             this.category = data;
         });
 
-        LogUtil.info(this,'DefaultCategory: ' + JSON.stringify(this.category));
+        this.tags = new Array<Tag>();
+        
+        /*let tagOne: Tag = new Tag();
+        tagOne.name = "unwichtig"; 
+
+        let tagTwo: Tag = new Tag();
+        tagTwo.name = "luxus";
+
+        let tagThree: Tag = new Tag();
+        tagThree.name = "putzen";
+
+        this.tags.push(tagOne);
+        this.tags.push(tagTwo);
+        this.tags.push(tagThree);
+*/
+    }
+
+    private deleteTag(aTag: Tag): void {
+        this.tags = this.tags.filter(tag => aTag != tag);
+        LogUtil.info(this,"clicked deleteTag " + aTag.name);
+    }
+
+    private saveTag(event: any): void{
+        
+        if(this.currentTag.includes(" ")){
+
+            let temp: Array<string> = this.currentTag.split(" ");
+            let preparedTagName: string = temp[0];
+
+            preparedTagName = preparedTagName.replace(" ","");
+            if(preparedTagName == ""){
+
+                this.currentTag = "";
+                return;
+            }
+
+            let tag: Tag = new Tag();
+            tag.name = preparedTagName;
+
+            this.tags.push(tag);
+
+            this.currentTag = "";
+
+            LogUtil.info(this, "Add new Tag: size of tags: " + this.tags.length);
+
+        }
+        
     }
 
 
@@ -66,13 +113,18 @@ export class AddEntryComponent {
 
         LogUtil.info(this,"Category: " + JSON.stringify(this.category));
 
-        entry.setCategory(this.category);  
+        entry.category = this.category;  
 
-        this.entryService.addEntry(entry);
+        entry.tags = this.tags;
 
-        LogUtil.info(this,'save : ' + JSON.stringify(entry));
-
-        this.cleanAttributes();
+        LogUtil.info(this, "Add new Entry: size of tags: " + entry.tags.length);
+        LogUtil.info(this,  JSON.stringify(entry));
+        this.entryService.addEntry(entry).subscribe(
+            data => {
+                LogUtil.info(this,'save : ' + JSON.stringify(entry));
+                this.cleanAttributes();
+            }
+        );
 
     }
 
