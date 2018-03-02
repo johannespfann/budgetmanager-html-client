@@ -1,5 +1,4 @@
 .tags-container{
-    background-color: white;
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
@@ -10,11 +9,13 @@
 }
 
 .tags-input {
+    background-color: #eceeef;
     padding: 5px;
     border: none;
 }
 
 .tags-input:focus {
+    background-color: #eceeef;
     border: none;
     outline: none;
 }

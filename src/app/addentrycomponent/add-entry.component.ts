@@ -7,6 +7,7 @@ import { MathUtil } from "../utils/math-util";
 import { CategoryService } from "../services/category.service";
 import { EntryService } from "../services/entry.service";
 import { LogUtil } from "../utils/log-util";
+import { TagService } from "../services/tag.service";
 
 
 @Component({
@@ -25,9 +26,12 @@ export class AddEntryComponent {
     private category: Category;
     private tags: Array<Tag>;
 
+    private possibleTags: Array<Tag>;
+
     private currentTag: string;
 
     constructor(
+            private tagService: TagService,
             private categoryService: CategoryService,
             private entryService: EntryService){
 
@@ -45,21 +49,12 @@ export class AddEntryComponent {
             this.category = data;
         });
 
+        tagService.getTags().subscribe( (tags: Array<Tag>) => {
+            this.possibleTags = tags 
+        });
+
         this.tags = new Array<Tag>();
         
-        /*let tagOne: Tag = new Tag();
-        tagOne.name = "unwichtig"; 
-
-        let tagTwo: Tag = new Tag();
-        tagTwo.name = "luxus";
-
-        let tagThree: Tag = new Tag();
-        tagThree.name = "putzen";
-
-        this.tags.push(tagOne);
-        this.tags.push(tagTwo);
-        this.tags.push(tagThree);
-*/
     }
 
     private deleteTag(aTag: Tag): void {
@@ -131,6 +126,7 @@ export class AddEntryComponent {
     private cleanAttributes(): void {
         this.amount = null;
         this.memo = null;
+        this.tags = new Array<Tag>();
 
         this.categoryService.getDefaultCategory().subscribe((data:Category) => {
             this.category = data;

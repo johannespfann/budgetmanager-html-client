@@ -25,8 +25,10 @@ import { ActivateComponent } from './logincomponent/activate.component';
 import { ApplicationService } from './application/application.service';
 import { CategoryRestApiService } from './services/category-rest-api.service';
 import { DeleteCategoryComponent } from './categorycomponent/delete-category.component';
-import { EntryRestApiService } from './services/entry-rest-api.service';
 import { EntryAPIService } from './services/entry.api.service';
+import { EditEntryComponent } from './historycomponent/edit-entry.component';
+import { HistoryDirective } from './historycomponent/history.directive';
+import { TagRestApiService } from './services/tag-rest-api.service';
 
 
 @NgModule({
@@ -51,6 +53,8 @@ import { EntryAPIService } from './services/entry.api.service';
     RegisterComponent,
     ActivateComponent,
     ComponentDirective,
+    HistoryDirective,
+    EditEntryComponent
     ],
   providers: [
     CategoryService, 
@@ -60,10 +64,12 @@ import { EntryAPIService } from './services/entry.api.service';
     TagService,
     EntryAPIService,
     LoginService,
-    ApplicationService
+    ApplicationService,
+    TagRestApiService
     ],
   bootstrap: [ AppComponent ],
   entryComponents: [
+    EditEntryComponent,
     DeleteCategoryComponent, 
     EditCategoryComponent, 
     AddCategoryComponent]
