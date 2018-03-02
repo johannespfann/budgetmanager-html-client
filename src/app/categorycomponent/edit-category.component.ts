@@ -17,7 +17,7 @@ export class EditCategoryComponent {
     private name:string;
 
     constructor(
-            private categoryService: CategoryService,){
+            private categoryService: CategoryService){
         LogUtil.debug(this,'Init EditCategoryComponent');
     }
 

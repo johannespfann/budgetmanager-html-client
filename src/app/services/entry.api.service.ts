@@ -35,4 +35,8 @@ export class EntryAPIService{
             return entries.map( entry => entry = Entry.copy(entry) )
         })
     }
+
+    public update(aUser:User, aEntry: Entry): Observable<any> {
+        return this.http.patch(this.baseURL + 'entries/owner/'+aUser.email+'/update', aEntry);
+    } 
 }

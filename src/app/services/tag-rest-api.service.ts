@@ -3,12 +3,11 @@ import { ApplicationService } from "../application/application.service";
 import { HttpClient } from "@angular/common/http";
 import { LogUtil } from "../utils/log-util";
 import { User } from "../models/user";
-import { Entry } from "../models/entry";
-import { Observable } from "rxjs/Observable";
-
+import { Tag } from "../models/tag";
+import { Observable } from "rxjs";
 
 @Injectable()
-export class EntryRestApiService {
+export class TagRestApiService {
 
     private base_url: string;
 
@@ -20,12 +19,7 @@ export class EntryRestApiService {
         this.base_url = applicationService.getApplicationConfig().getBaseUrl();
     }
 
-    public getEntries(aUser:User): Observable<Array<Entry>> {
-        return this.http.get<Array<Entry>>(this.base_url + "entries/all/" + aUser.email);
+    public getTags(aUser:User): Observable<Array<Tag>> {
+        return this.http.get<Array<Tag>>(this.base_url + "tags/owner/"+aUser.email+"/all");
     }
-
-    public addEntry(aUser:User, aEntry:Entry): Observable<any> {
-        return this.http.post(this.base_url + "entries/add/" + aUser.email,aEntry);
-    }
-
 }

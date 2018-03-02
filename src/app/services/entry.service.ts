@@ -16,6 +16,7 @@ import { ApplicationService } from "../application/application.service";
 @Injectable()
 export class EntryService{
 
+
     constructor(
             private entryApiService: EntryAPIService,
             private appService: ApplicationService){
@@ -31,7 +32,11 @@ export class EntryService{
     }
 
     public deleteEntry(aEntry:Entry): Observable<any> {
-        return this.entryApiService.delete(this.appService.getCurrentUser(),aEntry)
+        return this.entryApiService.delete(this.appService.getCurrentUser(),aEntry);
+    }
+
+    public update(aEntry:Entry): Observable<any> {
+        return this.entryApiService.update(this.appService.getCurrentUser(),aEntry);
     }
 
 }
