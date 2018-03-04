@@ -35,9 +35,11 @@
           <span *ngFor="let item of tags" class="badge badge-pill badge-info tag-item">
             {{item.name}} <i (click)="deleteTag(item)" class="fa fa-times-circle"></i>
           </span>
-  
-          <input (keyup)="saveTag($event)" name="taginput" [(ngModel)]="currentTag" class="tags-input" type="text" value="" placeholder=" ... ">
-    
+
+          <input (keyup)="saveTag($event)" list="tags-datalist" name="taginput" [(ngModel)]="currentTag" class="tags-input" type="text" value="" placeholder=" ... ">
+          <datalist id="tags-datalist">
+            <option *ngFor="let item of possibleTags">{{item.name}}</option>
+          </datalist>
       </div>
   
       <button type="submit" class="btn btn-primary">Speichern</button>

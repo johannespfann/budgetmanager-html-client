@@ -1,10 +1,12 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Entry } from "../models/entry";
 import { EntryService } from "../services/entry.service";
 import { LogUtil } from "../utils/log-util";
 import { Tag } from "../models/tag";
 import { Category } from "../models/category";
 import { CategoryService } from "../services/category.service";
+import { TagService } from "../services/tag.service";
+
 
 @Component({
     selector: 'edit-entry-component',
@@ -15,12 +17,15 @@ export class EditEntryComponent {
 
     @Input() entry: Entry;
 
+    @Output() someEvent = new EventEmitter();
+
     private categoriesStrings: Array<string>;
     private selectedCategoryName: string;
 
     private categories: Array<Category>;
     private selectedCategory: Category;
 
+    private possibleTags: Array<Tag>;
 
     private currentTag: string; 
 
@@ -34,18 +39,22 @@ export class EditEntryComponent {
     private editEntry: Entry;
 
     constructor(
+        private tagService: TagService,
         private entryService: EntryService,
         private categoryservice: CategoryService) {
             LogUtil.debug(this,'Init EditEntryComponent');
 
         categoryservice.getCategories().subscribe( (categories: Array<Category>) => {
             this.categories = categories;
-
             this.categoriesStrings = new Array<string>();
+            
             this.categories.forEach( (category: Category) => {
                 this.categoriesStrings.push(category.name);
             });
-            
+        });
+
+        tagService.getTags().subscribe( (tags: Array<Tag>) => {
+            this.possibleTags = tags 
         });
     }
 
@@ -64,7 +73,7 @@ export class EditEntryComponent {
         this.editEntry.category = this.selectedCategory;
         this.editEntry.tags = this.tags;
 
-        this.entryService.update(this.editEntry).subscribe();
+        this.entryService.update(this.editEntry).subscribe( data => this.someEvent.emit(""));
 
     }
 
@@ -77,19 +86,15 @@ export class EditEntryComponent {
 
             preparedTagName = preparedTagName.replace(" ","");
             if(preparedTagName == ""){
-
                 this.currentTag = "";
                 return;
             }
 
             let tag: Tag = new Tag();
             tag.name = preparedTagName;
-
             this.tags.push(tag);
-
             this.currentTag = "";
 
-            LogUtil.info(this, "Add new Tag: size of tags: " + this.tags.length);
         }
         
     }
@@ -110,7 +115,6 @@ export class EditEntryComponent {
         this.hash = this.editEntry.hash;
         this.selectedCategoryName = this.editEntry.category.name;
         this.selectedCategory = this.editEntry.category;
-
     }
 
 

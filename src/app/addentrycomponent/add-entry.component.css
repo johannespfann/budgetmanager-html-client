@@ -19,3 +19,7 @@
     border: none;
     outline: none;
 }
+
+.repeat-padding{
+    padding-left: 1em;
+}

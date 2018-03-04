@@ -91,7 +91,6 @@ export class AddEntryComponent {
 
 
     private save(): void {
-        LogUtil.info(this,'press save');
         
         let amountValue: number;
 
@@ -120,7 +119,6 @@ export class AddEntryComponent {
                 this.cleanAttributes();
             }
         );
-
     }
 
     private cleanAttributes(): void {
@@ -132,7 +130,6 @@ export class AddEntryComponent {
             this.category = data;
         });
         
-        LogUtil.info(this,'Cleaned View');
     }
 
     private changeAlgebraicSignIsMinus(): void {
@@ -143,11 +140,5 @@ export class AddEntryComponent {
             this.algebraicSignIsMinus = true;
         }
     }
-
-    private changed(aCategory: Category){
-        LogUtil.info(this,'Changed: ' + JSON.stringify(aCategory));
-    }
-
-    
 
 }
