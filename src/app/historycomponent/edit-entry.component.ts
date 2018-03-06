@@ -38,6 +38,8 @@ export class EditEntryComponent {
 
     private editEntry: Entry;
 
+    private algebraicSignIsMinus: boolean = true;
+
     constructor(
         private tagService: TagService,
         private entryService: EntryService,
@@ -102,12 +104,9 @@ export class EditEntryComponent {
 
     private deleteTag(aTag: Tag): void {
         this.tags = this.tags.filter(tag => aTag != tag);
-        LogUtil.info(this,"clicked deleteTag " + aTag.name);
     }
 
     private ngOnInit(){
-        LogUtil.debug(this,"OnInit of EditCategoryComponent"); 
-        LogUtil.debug(this,JSON.stringify(this.entry)); 
         this.editEntry = Entry.copy(this.entry);
         this.amount = this.editEntry.amount;
         this.memo = this.editEntry.memo;
@@ -116,5 +115,14 @@ export class EditEntryComponent {
         this.hash = this.editEntry.hash;
         this.selectedCategoryName = this.editEntry.category.name;
         this.selectedCategory = this.editEntry.category;
+    }
+
+    private changeAlgebraicSignIsMinus(): void {
+        if(this.algebraicSignIsMinus){
+            this.algebraicSignIsMinus = false;
+        }
+        else{
+            this.algebraicSignIsMinus = true;
+        }
     }
 }
