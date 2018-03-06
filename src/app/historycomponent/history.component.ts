@@ -73,6 +73,7 @@ export class HistoryComponent{
     }
 
     public clearEntryEditComponent(){
+        this.updateEntries();
         if(this.viewContainerRef){
             this.viewContainerRef.clear();
         }

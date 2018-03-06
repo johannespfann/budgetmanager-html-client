@@ -64,8 +64,7 @@ export class EditEntryComponent {
     private changed(){
         LogUtil.info(this,"Selected " + this.selectedCategoryName);
         this.selectedCategory = this.categories.find((category: Category) => category.name == this.selectedCategoryName);
-        LogUtil.info(this, this.selectedCategory.name);
-        
+        LogUtil.info(this, this.selectedCategory.name); 
     }
 
     private update(){
@@ -76,7 +75,10 @@ export class EditEntryComponent {
         this.editEntry.category = this.selectedCategory;
         this.editEntry.tags = this.tags;
 
-        this.entryService.update(this.editEntry).subscribe(data => this.messageService.publish(new EntryUpdatedMessage(this.editEntry)));
+        this.entryService.update(this.editEntry).subscribe(data => {
+            this.clearAttributes();
+            this.messageService.publish(new EntryUpdatedMessage(this.editEntry))
+        });
 
     }
 
@@ -99,11 +101,10 @@ export class EditEntryComponent {
             this.currentTag = "";
 
         }
-        
     }
 
     private deleteTag(aTag: Tag): void {
-        this.tags = this.tags.filter(tag => aTag != tag);
+        this.tags = this.tags.filter(tag => aTag != tag);  
     }
 
     private ngOnInit(){
@@ -124,5 +125,13 @@ export class EditEntryComponent {
         else{
             this.algebraicSignIsMinus = true;
         }
+    }
+
+    private clearAttributes():void {
+        this.tags = new Array<Tag>();
+        this.amount = 0;
+        this.algebraicSignIsMinus = true;
+        this.memo = "";
+        this.categories = null;
     }
 }
