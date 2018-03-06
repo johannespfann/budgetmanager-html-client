@@ -32,6 +32,7 @@ export class HistoryComponent{
         )
 
         messageService.of(EntryUpdatedMessage).subscribe( (message: EntryUpdatedMessage) => {
+            this.updateEntries();
             this.clearEntryEditComponent();
         } );
     }
@@ -73,7 +74,6 @@ export class HistoryComponent{
     }
 
     public clearEntryEditComponent(){
-        this.updateEntries();
         if(this.viewContainerRef){
             this.viewContainerRef.clear();
         }

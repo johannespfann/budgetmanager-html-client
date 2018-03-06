@@ -31,6 +31,8 @@ export class CategoryComponent {
 
     private categoryDeletedSubscription: Subscription;
 
+    private viewContainerRef;
+
     constructor(
             private categoryService: CategoryService,
             private componentFactoryResolver: ComponentFactoryResolver,
@@ -41,18 +43,21 @@ export class CategoryComponent {
         this.categoryDeletedSubscription = messageService
             .of(CategoryDeletedMessage)
             .subscribe((data: CategoryDeletedMessage) => {
+                this.cleanViewContainerReference();
                 this.updateCategories(data.getCategory());
             });
 
         this.categoryAddedSubscription = messageService
             .of(CategoryAddedMessage)
             .subscribe((data: CategoryAddedMessage) => {
+                this.cleanViewContainerReference();
                 this.updateCategories(data.getCategory());
             });
 
         this.categoryUpdatedSubscription = messageService
             .of(CategoryUpdatedMessage)
             .subscribe((data: CategoryUpdatedMessage) => {
+                this.cleanViewContainerReference();
                 this.updateCategories(data.getCategory());
             });
 
@@ -70,30 +75,36 @@ export class CategoryComponent {
     private addNewCategory() {
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(AddCategoryComponent);
 
-        let viewContainerRef = this.componentDirective.viewContainerRef;
-        viewContainerRef.clear();
+        this.viewContainerRef = this.componentDirective.viewContainerRef;
+        this.viewContainerRef.clear();
 
-        let componentRef = viewContainerRef.createComponent(componentFactory);
+        let componentRef = this.viewContainerRef.createComponent(componentFactory);
     }
  
     private deleteCategory(aCategory: Category): void {
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(DeleteCategoryComponent);
 
-        let viewContainerRef = this.componentDirective.viewContainerRef;
-        viewContainerRef.clear();
+        this.viewContainerRef = this.componentDirective.viewContainerRef;
+        this.viewContainerRef.clear();
 
-        let componentRef = viewContainerRef.createComponent(componentFactory);
+        let componentRef = this.viewContainerRef.createComponent(componentFactory);
         (<DeleteCategoryComponent>componentRef.instance).category = aCategory;
     }
 
     private editCategory(aCategory: Category): void {
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(EditCategoryComponent);
 
-        let viewContainerRef = this.componentDirective.viewContainerRef;
-        viewContainerRef.clear();
+        this.viewContainerRef = this.componentDirective.viewContainerRef;
+        this.viewContainerRef.clear();
 
-        let componentRef = viewContainerRef.createComponent(componentFactory);
+        let componentRef = this.viewContainerRef.createComponent(componentFactory);
         (<EditCategoryComponent>componentRef.instance).category = aCategory;
+    }
+
+    private cleanViewContainerReference(){
+        if(this.viewContainerRef){
+            this.viewContainerRef.clear();
+        }
     }
 
     private updateCategories(aCategory:Category) {
