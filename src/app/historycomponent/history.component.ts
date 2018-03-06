@@ -5,6 +5,8 @@ import { Entry } from "../models/entry";
 import { LogUtil } from "../utils/log-util";
 import { EditEntryComponent } from "./edit-entry.component";
 import { HistoryDirective } from "./history.directive";
+import { MessagingService } from "../messages/message.service";
+import { EntryUpdatedMessage } from "../messages/entry-updated-message";
 
 @Component({
     selector : 'history-component',
@@ -14,10 +16,12 @@ export class HistoryComponent{
 
     @ViewChild(HistoryDirective) componentDirective: HistoryDirective;
 
+    private viewContainerRef;
 
     private entries: Entry[];
 
     constructor(
+        private messageService: MessagingService,
         private componentFactoryResolver: ComponentFactoryResolver,
         private entryService: EntryService,
     ){
@@ -26,6 +30,10 @@ export class HistoryComponent{
                 this.entries = this.sortByTime(data);
             }
         )
+
+        messageService.of(EntryUpdatedMessage).subscribe( (message: EntryUpdatedMessage) => {
+            this.clearEntryEditComponent();
+        } );
     }
 
     private editEntry(aEntry: Entry): void {
@@ -33,10 +41,10 @@ export class HistoryComponent{
         
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(EditEntryComponent);
 
-        let viewContainerRef = this.componentDirective.viewContainerRef;
-        viewContainerRef.clear();
+        this.viewContainerRef = this.componentDirective.viewContainerRef;
+        this.viewContainerRef.clear();
 
-        let componentRef = viewContainerRef.createComponent(componentFactory);
+        let componentRef = this.viewContainerRef.createComponent(componentFactory);
         (<EditEntryComponent>componentRef.instance).entry = aEntry;
 
     }
@@ -62,5 +70,11 @@ export class HistoryComponent{
             return b.created_at.getTime() - a.created_at.getTime();
         });
 
+    }
+
+    public clearEntryEditComponent(){
+        if(this.viewContainerRef){
+            this.viewContainerRef.clear();
+        }
     }
 }

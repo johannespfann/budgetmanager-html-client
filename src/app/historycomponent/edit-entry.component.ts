@@ -6,6 +6,8 @@ import { Tag } from "../models/tag";
 import { Category } from "../models/category";
 import { CategoryService } from "../services/category.service";
 import { TagService } from "../services/tag.service";
+import { MessagingService } from "../messages/message.service";
+import { EntryUpdatedMessage } from "../messages/entry-updated-message";
 
 
 @Component({
@@ -16,8 +18,6 @@ import { TagService } from "../services/tag.service";
 export class EditEntryComponent {
 
     @Input() entry: Entry;
-
-    @Output() someEvent = new EventEmitter();
 
     private categoriesStrings: Array<string>;
     private selectedCategoryName: string;
@@ -41,7 +41,8 @@ export class EditEntryComponent {
     constructor(
         private tagService: TagService,
         private entryService: EntryService,
-        private categoryservice: CategoryService) {
+        private categoryservice: CategoryService,
+        private messageService: MessagingService) {
             LogUtil.debug(this,'Init EditEntryComponent');
 
         categoryservice.getCategories().subscribe( (categories: Array<Category>) => {
@@ -73,7 +74,7 @@ export class EditEntryComponent {
         this.editEntry.category = this.selectedCategory;
         this.editEntry.tags = this.tags;
 
-        this.entryService.update(this.editEntry).subscribe( data => this.someEvent.emit(""));
+        this.entryService.update(this.editEntry).subscribe(data => this.messageService.publish(new EntryUpdatedMessage(this.editEntry)));
 
     }
 
@@ -116,7 +117,4 @@ export class EditEntryComponent {
         this.selectedCategoryName = this.editEntry.category.name;
         this.selectedCategory = this.editEntry.category;
     }
-
-
-
 }
