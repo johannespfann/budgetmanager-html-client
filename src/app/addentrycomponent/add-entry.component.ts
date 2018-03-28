@@ -30,6 +30,9 @@ export class AddEntryComponent {
 
     private currentTag: string;
 
+
+    private isPeriodical: boolean = false;
+
     constructor(
             private tagService: TagService,
             private categoryService: CategoryService,
@@ -138,6 +141,15 @@ export class AddEntryComponent {
         }
         else{
             this.algebraicSignIsMinus = true;
+        }
+    }
+
+    private changePeriodical(){
+        if(this.isPeriodical){
+            this.isPeriodical = false;
+        }
+        else{
+            this.isPeriodical = true;
         }
     }
 

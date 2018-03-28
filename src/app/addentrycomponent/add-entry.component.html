@@ -5,10 +5,10 @@
       <label for="amountform">Betrag</label>
       <div class="input-group">
         <span (click)="changeAlgebraicSignIsMinus()" class="input-group-addon">
-        <i class="fa" [ngClass]="{'fa-minus': algebraicSignIsMinus, 
+          <i class="fa" [ngClass]="{'fa-minus': algebraicSignIsMinus, 
                                   'fa-plus': !algebraicSignIsMinus}" aria-hidden="true">
-        </i>
-      </span>
+          </i>
+        </span>
         <input [(ngModel)]="amount" name="amountform" required type="number" min="1" pattern="[0-9]+" class="form-control" id="amountform"
           placeholder="Betrag" #amountform="ngModel">
       </div>
@@ -20,9 +20,9 @@
 
     <div class="form-group">
       <label for="categorySelect">Kategorie</label>
-      
+
       <select (change)="changed(category)" [(ngModel)]="category" name="category" class="form-control" id="categorySelect">
-        <option  *ngFor="let categ of categories" [ngValue]="categ">{{categ.name}}</option>
+        <option *ngFor="let categ of categories" [ngValue]="categ">{{categ.name}}</option>
       </select>
     </div>
 
@@ -32,21 +32,46 @@
     </div>
 
     <div class="tags-container">
-        <span *ngFor="let item of tags" class="badge badge-pill badge-info tag-item">
-          {{item.name}} <i (click)="deleteTag(item)" class="fa fa-times-circle"></i>
-        </span>
+      <span *ngFor="let item of tags" class="badge badge-pill badge-info tag-item">
+        {{item.name}}
+        <i (click)="deleteTag(item)" class="fa fa-times-circle"></i>
+      </span>
 
-        <input (keyup)="saveTag($event)" list="tags-datalist" name="taginput" [(ngModel)]="currentTag" class="tags-input" type="text" value="" placeholder=" ... ">
-        <datalist id="tags-datalist">
-          <option *ngFor="let item of possibleTags">{{item.name}}</option>
-        </datalist>
+      <input (keyup)="saveTag($event)" list="tags-datalist" name="taginput" [(ngModel)]="currentTag" class="tags-input" type="text"
+        value="" placeholder=" ... ">
+      <datalist id="tags-datalist">
+        <option *ngFor="let item of possibleTags">{{item.name}}</option>
+      </datalist>
     </div>
 
     <div class="input-group-text">
-      <input type="checkbox" aria-label="Checkbox for following text input"><label class="font-weight-light repeat-padding">Wiederkehrend</label>
+      <input type="checkbox" (click)="changePeriodical()">
+      <label class="font-weight-light repeat-padding">Wiederkehrend</label>
     </div>
 
+
+    <div *ngIf="isPeriodical">
+
+
+      <div class="dropdown show">
+
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Bitte wählen
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="#">täglich</a>
+          <a class="dropdown-item" href="#">wöchentlich</a>
+          <a class="dropdown-item" href="#">monatlich</a>
+        </div>
+      </div>
+
+    </div>
+
+    <br>
+    
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-  
+
 </div>
