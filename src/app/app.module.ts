@@ -29,6 +29,8 @@ import { EntryAPIService } from './services/entry.api.service';
 import { EditEntryComponent } from './historycomponent/edit-entry.component';
 import { HistoryDirective } from './historycomponent/history.directive';
 import { TagRestApiService } from './services/tag-rest-api.service';
+import { RotationEntryService } from './services/rotation-entry.service';
+import { RotationEntryRestApiService } from './services/rotation-entry-rest-api.service';
 
 
 @NgModule({
@@ -65,7 +67,9 @@ import { TagRestApiService } from './services/tag-rest-api.service';
     EntryAPIService,
     LoginService,
     ApplicationService,
-    TagRestApiService
+    TagRestApiService,
+    RotationEntryService,
+    RotationEntryRestApiService
     ],
   bootstrap: [ AppComponent ],
   entryComponents: [

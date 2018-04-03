@@ -9,6 +9,6 @@ export class AppConfiguration{
     }
 
     public getBaseUrl(): string {
-        return "http://192.168.2.103:8081/budget/";
+        return "http://localhost:8081/budget/";
     }
 }
