@@ -26,9 +26,9 @@ export class AddEntryComponent {
     private categories: Array<Category>;
 
     private category: Category;
-    private tags: Array<Tag>;
+    private tags: Tag[];
 
-    private possibleTags: Array<Tag>;
+    private possibleTags: Tag[];
 
     private currentTag: string;
 
@@ -68,37 +68,6 @@ export class AddEntryComponent {
 
     }
 
-    private deleteTag(aTag: Tag): void {
-        this.tags = this.tags.filter(tag => aTag != tag);
-        LogUtil.info(this, "clicked deleteTag " + aTag.name);
-    }
-
-    private saveTag(event: any): void {
-
-        if (this.currentTag.includes(" ")) {
-
-            let temp: Array<string> = this.currentTag.split(" ");
-            let preparedTagName: string = temp[0];
-
-            preparedTagName = preparedTagName.replace(" ", "");
-            if (preparedTagName == "") {
-
-                this.currentTag = "";
-                return;
-            }
-
-            let tag: Tag = new Tag();
-            tag.name = preparedTagName;
-
-            this.tags.push(tag);
-
-            this.currentTag = "";
-
-            LogUtil.info(this, "Add new Tag: size of tags: " + this.tags.length);
-
-        }
-
-    }
 
 
     private save(): void {

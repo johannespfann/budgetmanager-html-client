@@ -2,7 +2,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'
 
-import { AppComponent }  from './app.component';
+import { AppComponent } from './app.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { AddEntryComponent } from "./addentrycomponent/add-entry.component";
 import { WelcomeComponent } from "./welcomecomponent/welcome.component";
@@ -32,16 +32,16 @@ import { TagRestApiService } from './services/tag-rest-api.service';
 import { RotationEntryService } from './services/rotation-entry.service';
 import { RotationEntryRestApiService } from './services/rotation-entry-rest-api.service';
 import { RotationEntryComponent } from './rotationentrycomponent/rotation-entry.component';
-
+import { TagsComponent } from './tags';
 
 @NgModule({
-  imports:      [ 
+  imports: [
     HttpClientModule,
-    BrowserModule, 
-    FormsModule, 
+    BrowserModule,
+    FormsModule,
     AppRoutingModule,
-    ],
-  declarations: [ 
+  ],
+  declarations: [
     AppComponent,
     WelcomeComponent,
     AddEntryComponent,
@@ -58,10 +58,11 @@ import { RotationEntryComponent } from './rotationentrycomponent/rotation-entry.
     ComponentDirective,
     HistoryDirective,
     EditEntryComponent,
-    RotationEntryComponent
-    ],
+    RotationEntryComponent,
+    TagsComponent
+  ],
   providers: [
-    CategoryService, 
+    CategoryService,
     CategoryRestApiService,
     EntryService,
     MessagingService,
@@ -72,15 +73,16 @@ import { RotationEntryComponent } from './rotationentrycomponent/rotation-entry.
     TagRestApiService,
     RotationEntryService,
     RotationEntryRestApiService
-    ],
-  bootstrap: [ AppComponent ],
+  ],
+  bootstrap: [AppComponent],
   entryComponents: [
     EditEntryComponent,
-    DeleteCategoryComponent, 
-    EditCategoryComponent, 
-    AddCategoryComponent]
+    DeleteCategoryComponent,
+    EditCategoryComponent,
+    AddCategoryComponent
+  ]
 })
-export class AppModule { 
-  constructor(){
+export class AppModule {
+  constructor() {
   }
 }

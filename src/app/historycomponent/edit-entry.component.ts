@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Input, Output, EventEmitter, ViewChild } from "@angular/core";
 import { Entry } from "../models/entry";
 import { EntryService } from "../services/entry.service";
 import { LogUtil } from "../utils/log-util";
@@ -8,6 +8,7 @@ import { CategoryService } from "../services/category.service";
 import { TagService } from "../services/tag.service";
 import { MessagingService } from "../messages/message.service";
 import { EntryUpdatedMessage } from "../messages/entry-updated-message";
+import { TagsComponent } from '../tags';
 
 @Component({
     selector: 'edit-entry-component',
@@ -18,20 +19,24 @@ export class EditEntryComponent {
 
     @Input() entry: Entry;
 
+    //@ViewChild('tagsComponent1')
+    @ViewChild(TagsComponent)
+    public tagsComponent: TagsComponent;
+
     private categoriesStrings: Array<string>;
     private selectedCategoryName: string;
 
     private categories: Array<Category>;
     private selectedCategory: Category;
 
-    private possibleTags: Array<Tag>;
+    private possibleTags: Tag[];
 
     private currentTag: string; 
     
     private amount: number;
     private memo: string;
     private category: Category;
-    private tags: Array<Tag>;
+    private tags: Tag[];
     private hash: string;
 
     private editEntry: Entry;
@@ -80,29 +85,12 @@ export class EditEntryComponent {
 
     }
 
-    private saveTag(event: any): void{
-        
-        if(this.currentTag.includes(" ")){
-
-            let temp: Array<string> = this.currentTag.split(" ");
-            let preparedTagName: string = temp[0];
-
-            preparedTagName = preparedTagName.replace(" ","");
-            if(preparedTagName == ""){
-                this.currentTag = "";
-                return;
-            }
-
-            let tag: Tag = new Tag();
-            tag.name = preparedTagName;
-            this.tags.push(tag);
-            this.currentTag = "";
-
-        }
+    public onTagAdded(aEvent:Tag){
+        console.log("onTagAdded", aEvent, this.tags);
     }
 
-    private deleteTag(aTag: Tag): void {
-        this.tags = this.tags.filter(tag => aTag != tag);  
+    public onTagDeleted(aEvent:Tag){
+        console.log("onTagDeleted", aEvent, this.tags);
     }
 
     private ngOnInit(){
@@ -126,7 +114,7 @@ export class EditEntryComponent {
     }
 
     private clearAttributes():void {
-        this.tags = new Array<Tag>();
+        this.tags.splice(0, this.tags.length);
         this.amount = 0;
         this.algebraicSignIsMinus = true;
         this.memo = "";
