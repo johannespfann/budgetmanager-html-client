@@ -23,5 +23,13 @@ export class RotationEntryRestApiService {
         return this.http.post(this.base_url + 'jobs/owner/'+aUser.email+'/add', aRotationEntry);
     }
 
+    public getRotationEntries(aUser:User): Observable<Array<RotationEntry>> {
+        return this.http.get<Array<RotationEntry>>(this.base_url + 'jobs/owner/' +aUser.email+'/all');
+    }
+
+    public deleteRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {
+        return this.http.delete(this.base_url + 'jobs/owner/' + aUser.email + '/delete/' + aRotationEntry.hash);
+    }
+
 
 }

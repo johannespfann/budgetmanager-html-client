@@ -19,4 +19,12 @@ export class RotationEntryService{
         return this.rotationEntryRestApiService.addRotationEntry(aRotationEntry, this.appService.getCurrentUser());
     }
 
+    public getRotationEntries(): Observable<Array<RotationEntry>> {
+        return this.rotationEntryRestApiService.getRotationEntries(this.appService.getCurrentUser());
+    }
+
+    public deleteRotationEntry(aRotationEntry: RotationEntry): Observable<any> {
+        return this.rotationEntryRestApiService.deleteRotationEntry(this.appService.getCurrentUser(), aRotationEntry);
+    }
+
 }

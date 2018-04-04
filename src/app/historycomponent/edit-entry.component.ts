@@ -9,7 +9,6 @@ import { TagService } from "../services/tag.service";
 import { MessagingService } from "../messages/message.service";
 import { EntryUpdatedMessage } from "../messages/entry-updated-message";
 
-
 @Component({
     selector: 'edit-entry-component',
     templateUrl: './edit-entry.component.html',
@@ -28,7 +27,6 @@ export class EditEntryComponent {
     private possibleTags: Array<Tag>;
 
     private currentTag: string; 
-
     
     private amount: number;
     private memo: string;

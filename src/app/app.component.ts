@@ -16,7 +16,7 @@ export class AppComponent {
 
   private loginSubscription: Subscription;
 
-  private isLogedIn: boolean = false;
+  public isLogedIn: boolean = false;
 
   private user: User;
 
