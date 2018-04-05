@@ -31,7 +31,7 @@ export class RotationEntry{
     public rotation_strategy: string;
 
 
-    private constructor(){
+    public constructor(){
         // default;
     }
 

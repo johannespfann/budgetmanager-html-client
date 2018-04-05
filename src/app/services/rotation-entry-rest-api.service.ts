@@ -19,17 +19,19 @@ export class RotationEntryRestApiService {
         this.base_url = applicationService.getApplicationConfig().getBaseUrl();
     }
 
-    public addRotationEntry(aRotationEntry: RotationEntry, aUser: User): Observable<any> {
-        return this.http.post(this.base_url + 'jobs/owner/'+aUser.email+'/add', aRotationEntry);
+    public addRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {
+        return this.http.post(this.base_url + 'jobs/owner/' + aUser.email + '/add', aRotationEntry);
     }
 
-    public getRotationEntries(aUser:User): Observable<Array<RotationEntry>> {
-        return this.http.get<Array<RotationEntry>>(this.base_url + 'jobs/owner/' +aUser.email+'/all');
+    public getRotationEntries(aUser: User): Observable<Array<RotationEntry>> {
+        return this.http.get<Array<RotationEntry>>(this.base_url + 'jobs/owner/' + aUser.email + '/all');
     }
 
     public deleteRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {
         return this.http.delete(this.base_url + 'jobs/owner/' + aUser.email + '/delete/' + aRotationEntry.hash);
     }
 
-
+    public updateRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {
+        return this.http.patch(this.base_url + 'jobs/owner/' + aUser.email + '/update', aRotationEntry);
+    }
 }

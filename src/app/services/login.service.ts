@@ -74,16 +74,7 @@ export class LoginService {
         let httpHeaders: HttpHeaders = new HttpHeaders();
 
         httpHeaders = httpHeaders.append("Content-Type", 'application/json');
-        //httpHeaders = httpHeaders.append('Accept', 'text/plain');
-        //httpHeaders = httpHeaders.append('Allow', 'POST, GET, OPTIONS, DELETE, PUT');
-        //httpHeaders = httpHeaders.append('Allow', '*');
-        //httpHeaders = httpHeaders.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
-        //httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
-        //httpHeaders = httpHeaders.append('Access-Control-Allow-Credentials', 'true');
-        //httpHeaders = httpHeaders.append('Access-Control-Allow-Headers', "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
-        //httpHeaders = httpHeaders.append("Authorization", "Basic " + "name:pw");
 
-        //LogUtil.info(this, httpHeaders.get('Authorization'));
         this.http.post(this.baseURL + "user/logout/" + aName, accessToken)
             .subscribe((data) => {
                 LogUtil.info(this, "ok!");

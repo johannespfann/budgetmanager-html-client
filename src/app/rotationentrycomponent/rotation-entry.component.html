@@ -1,5 +1,32 @@
+<rotation-entry-edit *ngIf="editViewIsVisiable" [rotationEntry]="selectedRotationEntry" (updatedDone)="closeUpdate($event)"></rotation-entry-edit>
+
 <div class="jumbotron">
     <h2>Daueraufträge</h2>
 
+    <ul class="list-group">
+    
+            <li *ngFor="let entry of rotationEntries" class="list-group-item row" style="margin-top: 1rem">
+                <div class="col-11" >
+                    <div class="row">
+                        <div class="col-6">
+                            {{entry.amount}}
+                        </div>
+                        <div class="col-6">
+                            {{entry.category.name}}
+                        </div>
+                        <div class="col-12">
+                            {{entry.memo}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="row">
+                            <i class="fa fa-pencil-square-o col-6" (click)="editEntry(entry)"  aria-hidden="true"></i>
+                        <i class="fa fa-trash col-6" (click)="deleteEntry(entry)" style="margin-right:-2rem" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </li>
+        
+        </ul>
     
     <div>

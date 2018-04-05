@@ -10,9 +10,11 @@ import { CategoryComponent } from "./categorycomponent/category.component";
 import { HistoryComponent } from "./historycomponent/history.component";
 import { RegisterComponent } from './logincomponent/register.component';
 import { ActivateComponent } from './logincomponent/activate.component';
+import { RotationEntryComponent } from './rotationentrycomponent/rotation-entry.component';
 
 const appRoutes: Routes = [
-  { path: 'welcome',            component: WelcomeComponent },
+  { path: 'welcome', component: WelcomeComponent },
+  { path: 'rotationjobs', component: RotationEntryComponent},
   { path: 'newentry', component: AddEntryComponent },
   { path: 'balance', component: BalanceComponent },
   { path: 'category', component: CategoryComponent },

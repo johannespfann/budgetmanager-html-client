@@ -14,29 +14,29 @@ import { ApplicationService } from "../application/application.service";
 
 
 @Injectable()
-export class EntryService{
+export class EntryService {
 
 
     constructor(
-            private entryApiService: EntryAPIService,
-            private appService: ApplicationService){
-        LogUtil.debug(this,"Init EntryService");
+        private entryApiService: EntryAPIService,
+        private appService: ApplicationService) {
+        LogUtil.debug(this, "Init EntryService");
     }
 
-    public getEntries(): Observable<Array<Entry>>{
+    public getEntries(): Observable<Array<Entry>> {
         return this.entryApiService.getEntries(this.appService.getCurrentUser());
     }
 
-    public addEntry(aEntry:Entry): Observable<any>{
-        return this.entryApiService.save(this.appService.getCurrentUser(),aEntry);
+    public addEntry(aEntry: Entry): Observable<any> {
+        return this.entryApiService.save(this.appService.getCurrentUser(), aEntry);
     }
 
-    public deleteEntry(aEntry:Entry): Observable<any> {
-        return this.entryApiService.delete(this.appService.getCurrentUser(),aEntry);
+    public deleteEntry(aEntry: Entry): Observable<any> {
+        return this.entryApiService.delete(this.appService.getCurrentUser(), aEntry);
     }
 
-    public update(aEntry:Entry): Observable<any> {
-        return this.entryApiService.update(this.appService.getCurrentUser(),aEntry);
+    public update(aEntry: Entry): Observable<any> {
+        return this.entryApiService.update(this.appService.getCurrentUser(), aEntry);
     }
 
 }

@@ -1,0 +1,57 @@
+<div class="jumbotron">
+    <form (ngSubmit)="save()" #addEntryForm="ngForm">
+
+        <div class="form-group">
+            <label for="amountform">Betrag</label>
+            <div class="input-group">
+                <span (click)="changeAlgebraicSignIsMinus()" class="input-group-addon">
+                    <i class="fa" [ngClass]="{'fa-minus': algebraicSignIsMinus, 
+                                        'fa-plus': !algebraicSignIsMinus}" aria-hidden="true">
+                    </i>
+                </span>
+                <input [(ngModel)]="amount" name="amountform" required type="number" min="1" pattern="[0-9]+" class="form-control" id="amountform"
+                    placeholder="Betrag" #amountform="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="categorySelect">Kategorie</label>
+
+            <select (change)="changed()" [(ngModel)]="selectedCategoryName" name="selectedCategoryName" class="form-control" id="categorySelect">
+                <option *ngFor="let categ of categoriesStrings" [ngValue]="categ">{{categ}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="memo">Notiz</label>
+            <textarea [(ngModel)]="rotationEntry.memo" name="memo" class="form-control" id="memo" placeholder="Notiz" rows="2"></textarea>
+        </div>
+
+        <tags [tags]="tags" [possibleTags]="possibleTags"></tags>
+
+
+        <div class="form-group row">
+            <label for="example-date-input" class="col-2 col-form-label">Beginnt am:</label>
+            <div class="col-10">
+                <input class="form-control" type="date" [ngModel]="startRotationDate | date:'yyyy-MM-dd'" (ngModelChange)="startRotationDate=$event"
+                    id="example-date-input" name="rotationStartDate">
+            </div>
+        </div>
+
+        <fieldset class="form-group">
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked> Monatlich
+                </label>
+            </div>
+            <div class="form-check">
+            </div>
+        </fieldset>
+
+
+        <br>
+
+        <button type="submit" class="btn btn-primary float-right">Bearbeiten</button>
+    </form>
+
+</div>

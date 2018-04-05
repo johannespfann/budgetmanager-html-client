@@ -6,17 +6,17 @@ import { Observable } from "rxjs/Observable";
 import { ApplicationService } from "../application/application.service";
 
 @Injectable()
-export class RotationEntryService{
+export class RotationEntryService {
 
     constructor(
         private rotationEntryRestApiService: RotationEntryRestApiService,
-        private appService: ApplicationService){
+        private appService: ApplicationService) {
 
-        LogUtil.info(this,"Init RotationEntryService");
+        LogUtil.info(this, "Init RotationEntryService");
     }
 
     public addRotationEntry(aRotationEntry: RotationEntry): Observable<any> {
-        return this.rotationEntryRestApiService.addRotationEntry(aRotationEntry, this.appService.getCurrentUser());
+        return this.rotationEntryRestApiService.addRotationEntry(this.appService.getCurrentUser(), aRotationEntry);
     }
 
     public getRotationEntries(): Observable<Array<RotationEntry>> {
@@ -27,4 +27,7 @@ export class RotationEntryService{
         return this.rotationEntryRestApiService.deleteRotationEntry(this.appService.getCurrentUser(), aRotationEntry);
     }
 
+    public updateRotationEntry(aRotationEntry: RotationEntry): Observable<any> {
+        return this.rotationEntryRestApiService.updateRotationEntry(this.appService.getCurrentUser(), aRotationEntry);
+    }
 }

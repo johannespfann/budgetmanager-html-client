@@ -33,6 +33,7 @@ import { RotationEntryService } from './services/rotation-entry.service';
 import { RotationEntryRestApiService } from './services/rotation-entry-rest-api.service';
 import { RotationEntryComponent } from './rotationentrycomponent/rotation-entry.component';
 import { TagsComponent } from './tags';
+import { RotationEntryEditComponent } from './rotationentrycomponent/rotation-entry-edit.component';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { TagsComponent } from './tags';
     HistoryDirective,
     EditEntryComponent,
     RotationEntryComponent,
+    RotationEntryEditComponent,
     TagsComponent
   ],
   providers: [
