@@ -10,6 +10,7 @@ import { LogUtil } from "../utils/log-util";
 import { TagService } from "../services/tag.service";
 import { RotationEntry } from "../models/rotationentry";
 import { RotationEntryService } from "../services/rotation-entry.service";
+import { RotationUtil } from "../rotationentrycomponent/rotationutil";
 
 
 @Component({
@@ -92,11 +93,12 @@ export class AddEntryComponent {
         entry.tags = this.tags;
 
         if (this.isPeriodical) {
-             let rotationEntry: RotationEntry = RotationEntry.create(this.amount,"6672");
+             let rotationEntry: RotationEntry = RotationEntry.create(amountValue,"6672");
              rotationEntry.category = this.category;
              rotationEntry.last_executed = null;
              rotationEntry.start_at = this.startRotationDate;
-             rotationEntry.tags = "tag; bla; asdf";
+             // TODO
+             rotationEntry.tags = RotationUtil.convertToString(this.tags);
              rotationEntry.memo = this.memo;
              rotationEntry.end_at = null;
 
@@ -108,8 +110,7 @@ export class AddEntryComponent {
              )
 
         }
-
-        /*
+        
         if (!this.isPeriodical) {
             LogUtil.info(this, "Add new Entry: size of tags: " + entry.tags.length);
             LogUtil.info(this, JSON.stringify(entry));
@@ -120,7 +121,7 @@ export class AddEntryComponent {
                 }
             );
         }
-        */
+        
 
     }
 
