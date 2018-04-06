@@ -50,6 +50,7 @@ export class RotationEntryComponent {
     public closeUpdate(aEvent: boolean){
         LogUtil.info(this,'closeUpdated was invoked: ' + aEvent);
         this.editViewIsVisiable = aEvent;
+        this.updateView();
     }
 
 

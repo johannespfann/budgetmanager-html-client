@@ -34,4 +34,5 @@ export class RotationEntryRestApiService {
     public updateRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {
         return this.http.patch(this.base_url + 'jobs/owner/' + aUser.email + '/update', aRotationEntry);
     }
+    
 }

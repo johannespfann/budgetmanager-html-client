@@ -27,9 +27,6 @@ export class TagsComponent {
 
     }
 
-    public clear() {
-    }
-
     private saveTag(event: any): void {
 
         if (this.currentTag.includes(" ")) {

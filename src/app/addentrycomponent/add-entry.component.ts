@@ -93,7 +93,7 @@ export class AddEntryComponent {
         entry.tags = this.tags;
 
         if (this.isPeriodical) {
-             let rotationEntry: RotationEntry = RotationEntry.create(amountValue,"6672");
+             let rotationEntry: RotationEntry = RotationEntry.create(amountValue,"66122");
              rotationEntry.category = this.category;
              rotationEntry.last_executed = null;
              rotationEntry.start_at = this.startRotationDate;
