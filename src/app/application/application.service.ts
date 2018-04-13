@@ -38,4 +38,8 @@ export class ApplicationService {
         return new AppConfiguration();
     }
 
+    public getEncryptionKey(): string {
+        return "pw!3*oj+kn5#3";
+    }
+
 }

@@ -1,5 +1,6 @@
 import { Category } from "./category";
 import { HashUtil } from "../utils/hash-util";
+import { Tag } from "./tag";
 
 export class RotationEntry{
 
@@ -26,7 +27,7 @@ export class RotationEntry{
 
     public category: Category;
 
-    public tags: string;
+    public tags: Tag[];
 
     public rotation_strategy: string;
 

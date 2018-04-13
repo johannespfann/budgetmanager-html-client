@@ -98,7 +98,9 @@ export class AddEntryComponent {
              rotationEntry.last_executed = null;
              rotationEntry.start_at = this.startRotationDate;
              // TODO
-             rotationEntry.tags = RotationUtil.convertToString(this.tags);
+             LogUtil.info(this,JSON.stringify(this.tags));
+             rotationEntry.tags = this.tags;
+             LogUtil.info(this,JSON.stringify(rotationEntry.tags));
              rotationEntry.memo = this.memo;
              rotationEntry.end_at = null;
 

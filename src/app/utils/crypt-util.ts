@@ -1,19 +1,19 @@
 
 export class CryptUtil{
 
-    public static encryptString(aMessage: string): string {
+    public static encryptString(aKey: string, aMessage: string): string {
         return '';
     }
 
-    public static decryptString(aMessage: string): string {
+    public static decryptString(aKey: string, aMessage: string): string {
         return '';
     }
 
-    public static encryptNumber(aMessage: number): number {
+    public static encryptNumber(aKey: string, aMessage: number): number {
         return 0;
     }
 
-    public static decryptNumber(aMessage: number): number {
+    public static decryptNumber(aKey: string, aMessage: number): number {
         return 0;
     }
 

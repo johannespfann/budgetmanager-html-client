@@ -7,6 +7,7 @@ import { RotationUtil } from "./rotationutil";
 import { TagService } from "../services/tag.service";
 import { CategoryService } from "../services/category.service";
 import { RotationEntryService } from "../services/rotation-entry.service";
+import { MathUtil } from "../utils/math-util";
 
 
 @Component({
@@ -20,6 +21,8 @@ export class RotationEntryEditComponent implements  OnInit{
 
     @Output()
     public updatedDone = new EventEmitter<boolean>();
+
+    private algebraicSignIsMinus: boolean = true;
 
     private amount: number;
     private memo: string;
@@ -80,7 +83,19 @@ export class RotationEntryEditComponent implements  OnInit{
 
     public save(){
         let rotationEntry = new RotationEntry();
-        rotationEntry.amount = this.amount;
+        
+        
+
+        let amountValue: number;
+
+        if (this.algebraicSignIsMinus) {
+            amountValue = MathUtil.convertToNegativ(this.amount);
+        }
+        else {
+            amountValue = MathUtil.convertToPositiv(this.amount);
+        }
+
+        rotationEntry.amount = amountValue;
         rotationEntry.category = this.selectedCategory;
         rotationEntry.end_at = this.end_at;
         rotationEntry.hash = this.hash;
@@ -88,7 +103,7 @@ export class RotationEntryEditComponent implements  OnInit{
         rotationEntry.memo = this.memo;
         rotationEntry.rotation_strategy = this.rotation_strategy;
         rotationEntry.start_at = this.startRotationDate;
-        rotationEntry.tags = RotationUtil.convertToString(this.tags);
+        rotationEntry.tags = this.tags;
 
         this.rotationEntryService.updateRotationEntry(rotationEntry).subscribe(
             data => {
@@ -102,13 +117,32 @@ export class RotationEntryEditComponent implements  OnInit{
     private initView(): void {
         this.hash = this.rotationEntry.hash;
         this.amount = this.rotationEntry.amount;
+
+        if(this.amount > 0){
+            this.algebraicSignIsMinus = false;
+        }
+        else{
+            this.algebraicSignIsMinus = true;
+        }
+
+        this.amount = MathUtil.convertToPositiv(this.amount);
+
         this.memo = this.rotationEntry.memo;
         this.end_at = this.rotationEntry.end_at;
         this.selectedCategory = this.rotationEntry.category;
         this.selectedCategoryName = this.rotationEntry.category.name
-        this.tags = RotationUtil.convertToTagArray(this.rotationEntry.tags);
+        this.tags = this.rotationEntry.tags;
         this.startRotationDate = this.rotationEntry.start_at;
         this.rotation_strategy = this.rotationEntry.rotation_strategy;
+    }
+
+    private changeAlgebraicSignIsMinus(): void {
+        if (this.algebraicSignIsMinus) {
+            this.algebraicSignIsMinus = false;
+        }
+        else {
+            this.algebraicSignIsMinus = true;
+        }
     }
 
 
