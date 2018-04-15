@@ -35,11 +35,7 @@ export class EntryAPIService {
         return this.http.get<Array<Entry>>(this.baseURL + 'entries/owner/' + aUser.email + '/all')
             .map((entries: Array<Entry>) => {
                 return entries.map(entry => {
-                    let encryptEntry: Entry = Entry.copy(entry);
-                    //encryptEntry.amount = CryptUtil.encryptNumber(this.appService.getEncryptionKey(), entry.amount);
-                    //encryptEntry.memo = CryptUtil.encryptString(this.appService.getEncryptionKey(),entry.memo);
-
-                    
+                    LogUtil.info(this, JSON.stringify(entry))
                     return Entry.copy(entry);
                 }
             )

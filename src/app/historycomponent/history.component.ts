@@ -1,6 +1,5 @@
 import { Component, ViewChild, ComponentFactoryResolver } from "@angular/core";
 import { EntryService } from "../services/entry.service";
-import { CategoryService } from "../services/category.service";
 import { Entry } from "../models/entry";
 import { LogUtil } from "../utils/log-util";
 import { EditEntryComponent } from "./edit-entry.component";

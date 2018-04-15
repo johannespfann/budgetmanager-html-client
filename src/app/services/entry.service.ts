@@ -1,12 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Entry } from "../models/entry";
-import { CategoryService } from "./category.service";
 import { LogUtil } from "../utils/log-util";
-import { Category } from "../models/category";
 import { Subscription } from "rxjs";
 import { MessagingService } from "../messages/message.service";
-import { CategoryUpdatedMessage } from "../messages/category-updated-message";
-import { CategoryDeletedMessage } from "../messages/category-deleted-message";
 import { EntriesModifiedMessage } from "../messages/entries-modified-message";
 import { Observable } from "rxjs/Observable";
 import { EntryAPIService } from "./entry.api.service";

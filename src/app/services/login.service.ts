@@ -7,7 +7,6 @@ import { LogedInMessage } from "../messages/logedin-message";
 import { Router } from "@angular/router";
 import { ApplicationService } from "../application/application.service";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CategoryRestApiService } from "./category-rest-api.service";
 
 @Injectable()
 export class LoginService {

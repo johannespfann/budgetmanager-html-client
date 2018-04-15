@@ -1,4 +1,3 @@
-import { Category } from "./category";
 import { HashUtil } from "../utils/hash-util";
 import { Tag } from "./tag";
 
@@ -24,8 +23,6 @@ export class RotationEntry{
     public amount: number;
 
     public memo: string;
-
-    public category: Category;
 
     public tags: Tag[];
 

@@ -1,11 +1,9 @@
 import { Component, Input, AfterViewInit, AfterViewChecked, OnInit, EventEmitter, Output } from "@angular/core";
 import { LogUtil } from "../utils/log-util";
 import { RotationEntry } from "../models/rotationentry";
-import { Category } from "../models/category";
 import { Tag } from "../models/tag";
 import { RotationUtil } from "./rotationutil";
 import { TagService } from "../services/tag.service";
-import { CategoryService } from "../services/category.service";
 import { RotationEntryService } from "../services/rotation-entry.service";
 import { MathUtil } from "../utils/math-util";
 
@@ -26,12 +24,7 @@ export class RotationEntryEditComponent implements  OnInit{
 
     private amount: number;
     private memo: string;
-    private categories: Category[];
 
-    private category: Category;
-
-    private selectedCategory: Category;
-    private selectedCategoryName: string;
 
     private tags: Tag[];
 
@@ -53,21 +46,10 @@ export class RotationEntryEditComponent implements  OnInit{
 
     constructor(
         private rotationEntryService: RotationEntryService,
-        private tagService: TagService,
-        private categoryservice: CategoryService,
+        private tagService: TagService
     ){
         LogUtil.info(this,'Init RotationEntryEditComponent');
         
-        categoryservice.getCategories().subscribe( (categories: Array<Category>) => {
-            this.categories = categories;
-            this.categoriesStrings = new Array<string>();
-            
-            this.categories.forEach( (category: Category) => {
-                this.categoriesStrings.push(category.name);
-                
-            });
-        });
-
         tagService.getTags().subscribe( (tags: Array<Tag>) => {
             this.possibleTags = tags 
         });
@@ -77,14 +59,9 @@ export class RotationEntryEditComponent implements  OnInit{
         this.initView();
     }
 
-    private changed(){
-        this.selectedCategory = this.categories.find((category: Category) => category.name == this.selectedCategoryName);
-    }
-
     public save(){
         let rotationEntry = new RotationEntry();
-        
-        
+      
 
         let amountValue: number;
 
@@ -96,7 +73,6 @@ export class RotationEntryEditComponent implements  OnInit{
         }
 
         rotationEntry.amount = amountValue;
-        rotationEntry.category = this.selectedCategory;
         rotationEntry.end_at = this.end_at;
         rotationEntry.hash = this.hash;
         rotationEntry.last_executed = this.last_executed;
@@ -129,8 +105,6 @@ export class RotationEntryEditComponent implements  OnInit{
 
         this.memo = this.rotationEntry.memo;
         this.end_at = this.rotationEntry.end_at;
-        this.selectedCategory = this.rotationEntry.category;
-        this.selectedCategoryName = this.rotationEntry.category.name
         this.tags = this.rotationEntry.tags;
         this.startRotationDate = this.rotationEntry.start_at;
         this.rotation_strategy = this.rotationEntry.rotation_strategy;

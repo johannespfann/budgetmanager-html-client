@@ -1,5 +1,4 @@
 import { Tag } from "./tag";
-import { Category } from "./category";
 import { DateUtil } from "../utils/date-util";
 import { HashUtil } from "../utils/hash-util";
 import { LogUtil } from "../utils/log-util";
@@ -11,8 +10,6 @@ export class Entry {
     public amount: number;
 
     public memo: string;
-
-    public category: Category;
 
     public created_at: Date;
 
@@ -30,11 +27,6 @@ export class Entry {
 
         entry.hash = aEntry.hash;
         entry.amount = aEntry.amount;
-
-        if(aEntry.category){
-            let category: Category = Category.copy(aEntry.category);
-            entry.category = category;
-        }
 
         entry.created_at = new Date(aEntry.created_at);
         entry.memo = aEntry.memo;
@@ -64,9 +56,6 @@ export class Entry {
         this.memo = aMemo;
     }
 
-    public setCategory(aCategory: Category): void {
-        this.category = aCategory;
-    }
 
 
     /**
@@ -85,9 +74,6 @@ export class Entry {
         return this.memo;
     }
 
-    public getCategory(): Category {
-        return this.category;
-    }
 
     public getCreated_at(): Date {
         return this.created_at;
