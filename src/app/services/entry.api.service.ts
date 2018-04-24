@@ -38,7 +38,7 @@ export class EntryAPIService {
                     LogUtil.info(this, JSON.stringify(entry))
                     return Entry.copy(entry);
                 }
-            )
+                )
             })
     }
 

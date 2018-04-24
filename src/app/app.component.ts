@@ -7,6 +7,9 @@ import { User } from './models/user';
 import { ApplicationService } from './application/application.service';
 import { LoginService } from './services/login.service';
 import { Router } from '@angular/router';
+import * as crypto from 'crypto-js';
+import { CryptUtil } from './utils/crypt-util';
+
 
 @Component({
   selector: 'my-app',
@@ -27,6 +30,16 @@ export class AppComponent {
     private applicationService: ApplicationService) {
 
       LogUtil.info(this,"Init Application");
+
+      var message = CryptUtil.encryptString("keymaster", "ABCD");
+      LogUtil.info(this,message);
+
+      var plainMessage = CryptUtil.decryptString("keymaster", message);
+      LogUtil.info(this,plainMessage);
+
+      var plainKey = "1322"
+      LogUtil.info(this, 'Convert: ' + CryptUtil.countAsNumber(plainKey) +'')
+ 
 
     this.loginSubscription = messageService
       .of(LogedInMessage)

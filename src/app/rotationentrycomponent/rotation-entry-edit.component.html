@@ -15,14 +15,6 @@
         </div>
 
         <div class="form-group">
-            <label for="categorySelect">Kategorie</label>
-
-            <select (change)="changed()" [(ngModel)]="selectedCategoryName" name="selectedCategoryName" class="form-control" id="categorySelect">
-                <option *ngFor="let categ of categoriesStrings" [ngValue]="categ">{{categ}}</option>
-            </select>
-        </div>
-
-        <div class="form-group">
             <label for="memo">Notiz</label>
             <textarea [(ngModel)]="memo" name="memo" class="form-control" id="memo" placeholder="Notiz" rows="2"></textarea>
         </div>

@@ -18,7 +18,7 @@ export class Entry {
     
 
 
-    private constructor(){
+    public constructor(){
         this.tags = new Array<Tag>();
     }
 
