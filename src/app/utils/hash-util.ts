@@ -1,4 +1,5 @@
 import { MathUtil } from "./math-util";
+import * as CryptoJS from 'crypto-js';
 
 export class HashUtil {
 
@@ -7,8 +8,7 @@ export class HashUtil {
      * @param aInput 
      */
     public static getUniqueHash(aInput: string): string {
-        let unique: string = '';
-        unique = unique + MathUtil.generateRandom();
+        let unique = CryptoJS.SHA1(MathUtil.generateRandom());
         return unique;
     }
 
