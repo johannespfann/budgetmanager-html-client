@@ -7,7 +7,7 @@ import { User } from './models/user';
 import { ApplicationService } from './application/application.service';
 import { LoginService } from './services/login.service';
 import { Router } from '@angular/router';
-import * as crypto from 'crypto-js';
+import * as CryptoJS from 'crypto-js';
 import { CryptUtil } from './utils/crypt-util';
 
 
@@ -29,17 +29,22 @@ export class AppComponent {
     private messageService: MessagingService,
     private applicationService: ApplicationService) {
 
-      LogUtil.info(this,"Init Application");
+    LogUtil.info(this,"Init Application");
 
-      var message = CryptUtil.encryptString("keymaster", "ABCD");
-      LogUtil.info(this,message);
+    var text = "#rawString#";
+    var key = CryptoJS.enc.Base64.parse("#base64Key#");
+    var iv  = CryptoJS.enc.Base64.parse("#base64IV#");
 
-      var plainMessage = CryptUtil.decryptString("keymaster", message);
-      LogUtil.info(this,plainMessage);
+    var encrypted = CryptoJS.AES.encrypt(text, key, {iv: iv});
+    console.log(encrypted.toString());
+    //HSPHS3zn4MAhEw3GQjLUKQ==
+    //HSPHS3zn4MAhEw3GQjLUKQ==
+    //HSPHS3zn4MAhEw3GQjLUKQ==
 
-      var plainKey = "1322"
-      LogUtil.info(this, 'Convert: ' + CryptUtil.countAsNumber(plainKey) +'')
- 
+    var decrypted = CryptoJS.AES.decrypt(encrypted, key, {iv: iv});
+    console.log(decrypted.toString(CryptoJS.enc.Utf8));
+
+
 
     this.loginSubscription = messageService
       .of(LogedInMessage)

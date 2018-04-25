@@ -13,11 +13,9 @@ export class Entry {
 
     public created_at: Date;
 
-    public tags:Array<Tag>;
+    public tags:Tag[];
 
     
-
-
     public constructor(){
         this.tags = new Array<Tag>();
     }
@@ -39,7 +37,8 @@ export class Entry {
         let entry: Entry = new Entry();
         entry.amount =  aAmount;
         entry.created_at = new Date();
-        entry.hash = HashUtil.getUniqueHash(aAmount.toString());
+        entry.hash = HashUtil.getUniqueHash().toString();
+        console.log(entry.hash.toString());
         return entry;
     }
 

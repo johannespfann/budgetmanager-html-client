@@ -3,8 +3,24 @@ import { LogUtil } from './log-util';
 
 export class CryptUtil{
 
-    private static maxSize: number = 9;
+    public static encryptStringWithoutSalt(aKey: string, aMessage: string): string {
+        var key = CryptoJS.enc.Base64.parse("#base64Key#");
+        var iv  = CryptoJS.enc.Base64.parse("#base64IV#");
 
+        var encrypted = CryptoJS.AES.encrypt(aMessage, aKey, {iv: iv});
+        return this.wrapEncryptedStringMessage(encrypted.toString());
+    }
+
+    public static decryptStringWithoutSalt(aKey: string, aMessage: string): string {
+        var key = CryptoJS.enc.Base64.parse("#base64Key#");
+        var iv  = CryptoJS.enc.Base64.parse("#base64IV#");
+        if(this.isStringEncrypted(aMessage)){
+            return CryptoJS.AES.decrypt(this.extractEncryptedStringMessage(aMessage), aKey, {iv: iv});
+        }
+        LogUtil.info(this,'Message: ' + aMessage + ' -> was not encrypted');
+        return aMessage;
+    }
+  
     public static encryptString(aKey: string, aMessage: string): string {
         var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(aMessage), aKey);
         return this.wrapEncryptedStringMessage(ciphertext.toString());
@@ -18,31 +34,6 @@ export class CryptUtil{
         LogUtil.info(this,'Message: ' + aMessage + ' -> was not encrypted');
         return aMessage
     }
-
-    /**
-     * @param aKey 
-     * @param aMessage 
-     */
-    public static encryptNumber(aKey: string, aMessage: number): number {
-        var convertKey = this.countAsNumber(aKey);
-        return aMessage;
-    }
-
-    public static countAsNumber(aKey: string): number {
-        var index = 0;
-        var charNumber: number = 0;
-        while(index < aKey.length){
-            charNumber = charNumber + aKey[index].charCodeAt(0);
-            index++;
-        }
-        return charNumber;
-    }
-
-    public static decryptNumber(aKey: string, aMessage: number): number {
-        return aMessage;
-    }
-
-    
 
     public static isStringEncrypted(aMessage: string): boolean{
         if(aMessage.charAt(0) != '{'){
