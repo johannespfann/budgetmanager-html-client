@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import { CryptUtil } from './utils/crypt-util';
 
-
+// https://stackoverflow.com/questions/16600509/aes-encrypt-in-cryptojs-and-decrypt-in-coldfusion
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html'
