@@ -31,18 +31,42 @@ export class AppComponent {
 
     LogUtil.info(this,"Init Application");
 
-    var text = "#rawString#";
-    var key = CryptoJS.enc.Base64.parse("#base64Key#");
+    
+
+
+    // asdf -> {Moi3HD1daz82yC7qGalL/Q==}
+
+    // luxus -> {U2FsdGVkX180F+yhVlzNMvQu+iV3Pz0tIPOWWpoPwsk=}
+    // luxus -> {U2FsdGVkX19Jm62vMJdxy716mycN6oPycSAIZLAspDw=}
+    // lucus -> {U5ScW5bDP+vVBPrKaB+V/Q==}
+    // luxus -> {U5ScW5bDP+vVBPrKaB+V/Q==}
+    // luxus -> {U5ScW5bDP+vVBPrKaB+V/Q==}
+    // luxus -> {U2FsdGVkX1+wsYc/pNxiof/Yft3xM08BYpiYJxsuDBc=}
+
+    // {BimMGw1o4A9KGCxp6a7MwQ==}
+    // {BimMGw1o4A9KGCxp6a7MwQ==}
+
+    // {d6+mvFuS2aCLjzk0SJpvWA==}
+    // {8Rini6LOg8y+t/7gqrdaKQ==}
+    var text = "luxus";
+    var key = "testpw"
     var iv  = CryptoJS.enc.Base64.parse("#base64IV#");
 
-    var encrypted = CryptoJS.AES.encrypt(text, key, {iv: iv});
-    console.log(encrypted.toString());
     //HSPHS3zn4MAhEw3GQjLUKQ==
     //HSPHS3zn4MAhEw3GQjLUKQ==
     //HSPHS3zn4MAhEw3GQjLUKQ==
 
-    var decrypted = CryptoJS.AES.decrypt(encrypted, key, {iv: iv});
-    console.log(decrypted.toString(CryptoJS.enc.Utf8));
+    let value = CryptUtil.encryptStringWithoutSalt(key, text);
+    console.log("-> " + value);
+
+    console.log("Stringify encrypted: " + JSON.stringify(value))
+
+    let newValue = CryptUtil.decryptStringWithoutSalt(key, value);
+    console.log("--> " + newValue);
+
+    console.log("Stringify result: " + JSON.stringify(newValue))
+    
+
 
 
 

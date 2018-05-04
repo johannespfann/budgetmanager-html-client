@@ -37,11 +37,12 @@ export class EntryTransformer {
             var newTag: Tag = new Tag();
             if (this.encryptValue) {
                 newTag.name = CryptUtil.encryptStringWithoutSalt(this.key, tag.name);
+                console.log("convert Tag -> {" +tag.name+ "} to -> " + newTag.name );
             }
             else {
                 newTag.name = tag.name;
             }
-
+            LogUtil.info(this, JSON.stringify(newTag))
             return newTag;
         });
         LogUtil.info(this, "to -> " + JSON.stringify(entryServer));
