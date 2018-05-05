@@ -17,7 +17,7 @@ export class HistoryComponent{
 
     private viewContainerRef;
 
-    private entries: Entry[];
+    public entries: Entry[];
 
     constructor(
         private messageService: MessagingService,

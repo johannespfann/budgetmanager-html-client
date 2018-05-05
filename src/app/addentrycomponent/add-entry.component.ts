@@ -18,21 +18,21 @@ import { RotationUtil } from "../rotationentrycomponent/rotationutil";
 })
 export class AddEntryComponent {
 
-    private algebraicSignIsMinus: boolean = true;
+    public algebraicSignIsMinus: boolean = true;
 
-    private amount: number;
+    public amount: number;
     
-    private memo: string;
+    public memo: string;
 
-    private tags: Tag[];
+    public tags: Tag[];
 
-    private possibleTags: Tag[];
+    public possibleTags: Tag[];
 
-    private currentTag: string;
+    public currentTag: string;
 
-    private startRotationDate: Date;
+    public startRotationDate: Date;
 
-    private isPeriodical: boolean = false;
+    public isPeriodical: boolean = false;
 
     constructor(
         private tagService: TagService,
@@ -56,7 +56,7 @@ export class AddEntryComponent {
         this.tags = new Array<Tag>();
     }
 
-    private save(): void {
+    public save(): void {
 
         let amountValue: number;
 
@@ -116,7 +116,7 @@ export class AddEntryComponent {
 
     }
 
-    private changeAlgebraicSignIsMinus(): void {
+    public changeAlgebraicSignIsMinus(): void {
         if (this.algebraicSignIsMinus) {
             this.algebraicSignIsMinus = false;
         }
@@ -125,7 +125,7 @@ export class AddEntryComponent {
         }
     }
 
-    private changePeriodical() {
+    public changePeriodical() {
         if (this.isPeriodical) {
             this.isPeriodical = false;
         }

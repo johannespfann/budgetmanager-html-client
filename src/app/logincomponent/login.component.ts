@@ -9,11 +9,11 @@ import { LoginService } from "../services/login.service";
 })
 export class LoginComponent {
 
-    private identifier: string;
+    public identifier: string;
 
-    private password: string;
+    public password: string;
 
-    private accessToken: string;
+    public accessToken: string;
 
 
     constructor(

@@ -21,21 +21,21 @@ export class EditEntryComponent {
     @ViewChild(TagsComponent)
     public tagsComponent: TagsComponent;
 
-    private categoriesStrings: Array<string>;
+    public categoriesStrings: Array<string>;
 
-    private possibleTags: Tag[];
+    public possibleTags: Tag[];
 
-    private currentTag: string; 
+    public currentTag: string; 
     
-    private amount: number;
-    private memo: string;
+    public amount: number;
+    public memo: string;
 
-    private tags: Tag[];
-    private hash: string;
+    public tags: Tag[];
+    public hash: string;
 
-    private editEntry: Entry;
+    public editEntry: Entry;
 
-    private algebraicSignIsMinus: boolean = true;
+    public algebraicSignIsMinus: boolean = true;
 
     constructor(
         private tagService: TagService,
@@ -48,7 +48,7 @@ export class EditEntryComponent {
         });
     }
 
-    private update(){
+    public update(){
         LogUtil.info(this,'Pressed updateCategory');
 
         this.editEntry.amount = this.amount;
@@ -78,7 +78,7 @@ export class EditEntryComponent {
         this.hash = this.editEntry.hash;
     }
 
-    private changeAlgebraicSignIsMinus(): void {
+    public changeAlgebraicSignIsMinus(): void {
         if(this.algebraicSignIsMinus){
             this.algebraicSignIsMinus = false;
         }

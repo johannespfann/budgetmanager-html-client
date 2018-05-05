@@ -10,9 +10,9 @@ import { LoginService } from "../services/login.service";
 })
 export class ActivateComponent{
     
-    private username: string;
-    private email: string;
-    private activationCode: string;
+    public username: string;
+    public email: string;
+    public activationCode: string;
 
     constructor(
         private route: ActivatedRoute,

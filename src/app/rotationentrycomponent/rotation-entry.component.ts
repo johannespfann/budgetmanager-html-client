@@ -12,7 +12,7 @@ import { LogUtil } from "../utils/log-util";
 export class RotationEntryComponent {
 
 
-    private rotationEntries: RotationEntry[];
+    public rotationEntries: RotationEntry[];
 
     public editViewIsVisiable: boolean = false;
 

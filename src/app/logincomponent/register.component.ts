@@ -12,10 +12,10 @@ import { stringify } from "@angular/core/src/util";
 })
 export class RegisterComponent{
     
-    private name: string;
-    private email: string;
-    private password: string;
-    private passwordrepeat: string;
+    public name: string;
+    public email: string;
+    public password: string;
+    public passwordrepeat: string;
 
 
     constructor(
@@ -41,7 +41,7 @@ export class RegisterComponent{
             });
     }
 
-    private inputIsCorrect(): boolean {
+    public inputIsCorrect(): boolean {
         if(!this.name){
             LogUtil.info(this,'name was undefined: ' + this.name);
             return false;

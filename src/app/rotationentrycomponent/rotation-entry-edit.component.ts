@@ -20,29 +20,29 @@ export class RotationEntryEditComponent implements  OnInit{
     @Output()
     public updatedDone = new EventEmitter<boolean>();
 
-    private algebraicSignIsMinus: boolean = true;
+    public algebraicSignIsMinus: boolean = true;
 
-    private amount: number;
-    private memo: string;
+    public amount: number;
+    public memo: string;
 
 
-    private tags: Tag[];
+    public tags: Tag[];
 
-    private possibleTags: Tag[];
+    public possibleTags: Tag[];
 
-    private currentTag: string;
+    public currentTag: string;
 
-    private startRotationDate: Date; 
+    public startRotationDate: Date; 
 
-    private hash: string;
+    public hash: string;
 
-    private rotation_strategy: string;
+    public rotation_strategy: string;
 
-    private end_at: Date;
+    public end_at: Date;
 
-    private last_executed: Date;
+    public last_executed: Date;
 
-    private categoriesStrings: Array<string>;
+    public categoriesStrings: Array<string>;
 
     constructor(
         private rotationEntryService: RotationEntryService,
@@ -110,7 +110,7 @@ export class RotationEntryEditComponent implements  OnInit{
         this.rotation_strategy = this.rotationEntry.rotation_strategy;
     }
 
-    private changeAlgebraicSignIsMinus(): void {
+    public changeAlgebraicSignIsMinus(): void {
         if (this.algebraicSignIsMinus) {
             this.algebraicSignIsMinus = false;
         }
