@@ -31,45 +31,6 @@ export class AppComponent {
 
     LogUtil.info(this,"Init Application");
 
-    
-
-
-    // asdf -> {Moi3HD1daz82yC7qGalL/Q==}
-
-    // luxus -> {U2FsdGVkX180F+yhVlzNMvQu+iV3Pz0tIPOWWpoPwsk=}
-    // luxus -> {U2FsdGVkX19Jm62vMJdxy716mycN6oPycSAIZLAspDw=}
-    // lucus -> {U5ScW5bDP+vVBPrKaB+V/Q==}
-    // luxus -> {U5ScW5bDP+vVBPrKaB+V/Q==}
-    // luxus -> {U5ScW5bDP+vVBPrKaB+V/Q==}
-    // luxus -> {U2FsdGVkX1+wsYc/pNxiof/Yft3xM08BYpiYJxsuDBc=}
-
-    // {BimMGw1o4A9KGCxp6a7MwQ==}
-    // {BimMGw1o4A9KGCxp6a7MwQ==}
-
-    // {d6+mvFuS2aCLjzk0SJpvWA==}
-    // {8Rini6LOg8y+t/7gqrdaKQ==}
-    var text = "luxus";
-    var key = "testpw"
-    var iv  = CryptoJS.enc.Base64.parse("#base64IV#");
-
-    //HSPHS3zn4MAhEw3GQjLUKQ==
-    //HSPHS3zn4MAhEw3GQjLUKQ==
-    //HSPHS3zn4MAhEw3GQjLUKQ==
-
-    let value = CryptUtil.encryptStringWithoutSalt(key, text);
-    console.log("-> " + value);
-
-    console.log("Stringify encrypted: " + JSON.stringify(value))
-
-    let newValue = CryptUtil.decryptStringWithoutSalt(key, value);
-    console.log("--> " + newValue);
-
-    console.log("Stringify result: " + JSON.stringify(newValue))
-    
-
-
-
-
     this.loginSubscription = messageService
       .of(LogedInMessage)
       .subscribe((message: LogedInMessage) => {
@@ -77,8 +38,7 @@ export class AppComponent {
         this.user = message.getUser();
         applicationService.setCurrentUser(message.getUser());
 
-        LogUtil.info(this, "Get User of message: " + message.getUser().name + " : " + message.getUser().accesstoken + " : " + message.getUser().email);     
-        
+        LogUtil.info(this, "Get User of message: " + message.getUser().name + " : " + message.getUser().accesstoken + " : " + message.getUser().email);        
         this.showLoginAccount();
       });
 
@@ -92,10 +52,10 @@ export class AppComponent {
    */
   private loginWithDummyUser(): any {
     let user: User = new User();
-    user.name = "johannes-1234";
-    user.email = "johannes@pfann.de"
-    user.accesstoken = "123456";
-    this.loginServcie.login(user.email,"key");
+    user.name = "johannes-8274";
+    user.email = "jopfann@gmail.com"
+    user.accesstoken = "45345345";
+    this.loginServcie.login(user.email,"keymaster");
 
   }
 

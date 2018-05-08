@@ -39,7 +39,7 @@ export class ApplicationService {
     }
 
     public getEncryptionKey(): string {
-        return "pw!3*oj+kn5#3";
+        return "pw4laura!johannes";
     }
 
 }

@@ -5,7 +5,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "npm run build:app",
+    "build:app": "ng build --prod --app app ",
+    "build:app-remote": "ng build --prod --app app --base-href=/budget/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -23,6 +25,7 @@
     "@angular/router": "^5.0.0",
     "core-js": "^2.4.1",
     "crypto-js": "^3.1.9-1",
+    "font-awesome": "^4.7.0",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },
