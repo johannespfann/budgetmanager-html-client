@@ -21,8 +21,8 @@ export class RotationEntryRestApiService {
 
         LogUtil.info(this, "Init RotationEntryRestApiService");
         this.base_url = applicationService.getApplicationConfig().getBaseUrl();
-        this.rotationEntryTranformer = new RotationEntryTransformer();
-
+        let password: string = applicationService.getApplicationConfig().getCryptPassword();
+        this.rotationEntryTranformer = new RotationEntryTransformer(password);
     }
 
     public addRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {

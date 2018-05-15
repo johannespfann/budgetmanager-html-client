@@ -9,8 +9,8 @@ export class RotationEntryTransformer {
     private key: string;
     private encryptValue = true;
 
-    constructor() {
-        this.key = "testpw";
+    constructor(aPassword: string) {
+        this.key = aPassword;
     }
 
     public transformRotationEntryServer(aServerEntry: RotationEntryServer): RotationEntry {
@@ -29,7 +29,6 @@ export class RotationEntryTransformer {
 
         rotationEntry.tags = aServerEntry.tags.map((tag: Tag) => {
             var newTag: Tag = new Tag();
-            //newTag.name = CryptUtil.encryptString(this.key, tag.name);
             newTag.name = CryptUtil.decryptStringWithoutSalt(this.key,tag.name);
             return newTag;
         });
