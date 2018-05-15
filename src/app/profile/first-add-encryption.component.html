@@ -1,0 +1,23 @@
+<div class="form-group row">
+    <label for="inputName" class="col-sm-2 col-form-label">Schlüssel</label>
+    <div class="col-sm-8">
+        <p>Vergeben Sie einen Schlüssel um Ihre Inhalte zu verschlüsseln.</p>
+        <input [(ngModel)]="key" name="key" type="password" class="form-control" id="inputKey" placeholder="Schlüssel">
+        <input [(ngModel)]="keyrepeat" name="keyrepreat" type="password" class="form-control" id="inputKeyrepeat" placeholder="Schlüssel Wiederholen">
+    </div>
+    
+</div>
+
+<div class="form-group row">
+    <label for="inputName" class="col-sm-2 col-form-label">Prüftext</label>
+    <div class="col-sm-8">
+        <p>Vergeben Sie einen Prüftext um später selbst zu kontrollieren ob der vergebene Schlüssel Ihren Inhalt korrekt entshlüselt.</p>
+        <input [(ngModel)]="validationText" name="validatetext" type="text" class="form-control" id="inputvalidatetext" placeholder="Validierungstext">
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="offset-sm-2 col-sm-8">
+        <button (click)="saveKey()" class="btn btn-primary">Verschlüsseln</button>
+    </div>
+</div>

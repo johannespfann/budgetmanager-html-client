@@ -103,8 +103,7 @@ export class AddEntryComponent {
                 }
             );
         }
-        
-
+    
     }
 
     private cleanAttributes(): void {

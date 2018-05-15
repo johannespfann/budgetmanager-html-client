@@ -10,6 +10,10 @@ export class ApplicationService {
 
     private user: User;
 
+    private baseUrl: string = "http://localhost:8081/budget/";
+
+    private encryptKey: string = "pw4laura!johannes";
+
     constructor() {
         LogUtil.info(this, "Init ApplicationService");
     }
@@ -35,11 +39,11 @@ export class ApplicationService {
     }
 
     public getApplicationConfig(): AppConfiguration {
-        return new AppConfiguration();
+        return new AppConfiguration(this.baseUrl,this.encryptKey);
     }
 
     public getEncryptionKey(): string {
-        return "pw4laura!johannes";
+        return this.encryptKey;
     }
 
 }

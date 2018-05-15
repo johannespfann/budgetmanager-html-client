@@ -41,24 +41,7 @@ export class AppComponent {
         LogUtil.info(this, "Get User of message: " + message.getUser().name + " : " + message.getUser().accesstoken + " : " + message.getUser().email);        
         this.showLoginAccount();
       });
-
-
-      this.loginWithDummyUser();
-
   }
-
-  /**
-   * TODO Delete - just for developing
-   */
-  private loginWithDummyUser(): any {
-    let user: User = new User();
-    user.name = "johannes-8274";
-    user.email = "jopfann@gmail.com"
-    user.accesstoken = "45345345";
-    this.loginServcie.login(user.email,"keymaster");
-
-  }
-
 
   public login(): void {
     LogUtil.info(this, "Pressed login");
@@ -88,6 +71,4 @@ export class AppComponent {
     LogUtil.info(this, "unsubsribe loginSubscription");
     this.loginSubscription.unsubscribe();
   }
-
-
 }

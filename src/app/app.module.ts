@@ -27,6 +27,11 @@ import { RotationEntryRestApiService } from './services/rotation-entry-rest-api.
 import { RotationEntryComponent } from './rotationentrycomponent/rotation-entry.component';
 import { TagsComponent } from './tags';
 import { RotationEntryEditComponent } from './rotationentrycomponent/rotation-entry-edit.component';
+import { ProfileComponent } from './profile/profile.component';
+import { EncryptionComponent } from './profile/encryption.component';
+import { FirstAddEncryptionComponent } from './profile/first-add-encryption.component';
+import { SetEncryptionKeyComponent } from './profile/set-encryption-key.component';
+import { EncryptSerice } from './services/encrypt.service';
 
 @NgModule({
   imports: [
@@ -37,6 +42,10 @@ import { RotationEntryEditComponent } from './rotationentrycomponent/rotation-en
   ],
   declarations: [
     AppComponent,
+    ProfileComponent,
+    EncryptionComponent,
+    FirstAddEncryptionComponent,
+    SetEncryptionKeyComponent,
     WelcomeComponent,
     AddEntryComponent,
     PageNotFoundComponent,
@@ -60,7 +69,8 @@ import { RotationEntryEditComponent } from './rotationentrycomponent/rotation-en
     ApplicationService,
     TagRestApiService,
     RotationEntryService,
-    RotationEntryRestApiService
+    RotationEntryRestApiService,
+    EncryptSerice
   ],
   bootstrap: [AppComponent],
   entryComponents: [
