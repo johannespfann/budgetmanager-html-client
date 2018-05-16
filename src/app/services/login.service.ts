@@ -21,8 +21,7 @@ export class LoginService {
     constructor(
         private applicationService: ApplicationService,
         private http: HttpClient,
-        private messageService: MessagingService,
-        private router: Router) {
+        private messageService: MessagingService) {
 
         LogUtil.info(this, 'Init LoginService');
         this.baseURL = applicationService.getApplicationConfig().getBaseUrl();
@@ -41,30 +40,8 @@ export class LoginService {
         return this.http.post(this.baseURL + "activate/resendemail/username/" + aName + "/email/" + aEmail, "");
     }
 
-    public login(aEmail: String, aPassword: String): void {
-
-        let observable: Observable<any> = this.http.post(this.baseURL + "user/login/" + aEmail, aPassword);
-        observable.subscribe(
-            data => {
-                this.accessToken = data.accesstoken;
-
-                let user: User = new User();
-                user.name = data.username;
-                user.email = data.email;
-                user.accesstoken = this.accessToken;
-
-                LogUtil.info(this, "## Erhalte Response ## ");
-                LogUtil.info(this, "Username   : " + user.name);
-                LogUtil.info(this, "Email      : " + user.email);
-                LogUtil.info(this, "accesstoken: " + user.accesstoken);
-                LogUtil.info(this, "accesstoken from data: " + data.accesstoken);
-
-                this.applicationService.setCurrentUser(user);
-
-                this.messageService.publish(new LogedInMessage(user));
-
-                this.router.navigate(['/welcome']);
-            });
+    public login(aEmail: String, aPassword: String): Observable<any> {
+        return this.http.post(this.baseURL + "user/login/" + aEmail, aPassword);
     }
 
     public logout(aName: String, accessToken: String): void {

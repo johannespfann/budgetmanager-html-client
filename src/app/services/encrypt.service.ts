@@ -12,8 +12,7 @@ export class EncryptSerice {
     constructor(
         private applicationService: ApplicationService,
         private http: HttpClient){
-
-            this.base = applicationService.getApplicationConfig().getBaseUrl();
+        this.base = applicationService.getApplicationConfig().getBaseUrl();
     }
 
     public isEncrypted(aUser: User): Observable<boolean> {

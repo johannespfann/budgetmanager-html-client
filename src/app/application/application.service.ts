@@ -5,17 +5,22 @@ import { MessagingService } from "../messages/message.service";
 import { User } from "../models/user";
 import { AppConfiguration } from "./application-configuration";
 import { Observable } from "rxjs/Observable";
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class ApplicationService {
 
     private user: User;
 
     private baseUrl: string = "http://localhost:8081/budget/";
 
-    private encryptKey: string = "pw4laura!johannes";
+    private encryptionkey: string;
 
     constructor() {
         LogUtil.info(this, "Init ApplicationService");
+    }
+
+    public initApplication(): void {
     }
 
     public currentUserExists(): boolean {
@@ -39,11 +44,15 @@ export class ApplicationService {
     }
 
     public getApplicationConfig(): AppConfiguration {
-        return new AppConfiguration(this.baseUrl,this.encryptKey);
+        return new AppConfiguration(this.baseUrl);
     }
 
     public getEncryptionKey(): string {
-        return this.encryptKey;
+        return this.encryptionkey;
+    }
+
+    public setEncryptionKey(aEncryptionKey: string): void {
+        this.encryptionkey = aEncryptionKey;
     }
 
 }

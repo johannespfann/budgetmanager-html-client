@@ -32,6 +32,12 @@ import { EncryptionComponent } from './profile/encryption.component';
 import { FirstAddEncryptionComponent } from './profile/first-add-encryption.component';
 import { SetEncryptionKeyComponent } from './profile/set-encryption-key.component';
 import { EncryptSerice } from './services/encrypt.service';
+import { AppService } from './application/app.service';
+
+export function initApplication(appService: AppService) {
+  console.log("here ...");
+  return () => appService.initAppService();
+}
 
 @NgModule({
   imports: [
@@ -66,11 +72,11 @@ import { EncryptSerice } from './services/encrypt.service';
     TagService,
     EntryAPIService,
     LoginService,
-    ApplicationService,
     TagRestApiService,
     RotationEntryService,
     RotationEntryRestApiService,
-    EncryptSerice
+    EncryptSerice,
+    ApplicationService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

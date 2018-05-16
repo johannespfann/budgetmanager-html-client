@@ -10,32 +10,35 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 
-      <li class="nav-item">
+      <li *ngIf="isLogedIn && encryptKeyIsValid" class="nav-item">
         <a class="nav-link" routerLink="/newentry">
           <i class="fa fa-plus" aria-hidden="true"></i> Neuer Eintrag</a>
       </li>
 
-      <li class="nav-item">
+      <li *ngIf="isLogedIn && encryptKeyIsValid" class="nav-item">
           <a class="nav-link" routerLink="/rotationjobs">
             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Daueraufträge</a>
         </li>
 
-      <li class="nav-item">
+      <li *ngIf="isLogedIn && encryptKeyIsValid" class="nav-item">
         <a class="nav-link" routerLink="/balance">
           <i class="fa fa-balance-scale" aria-hidden="true"></i> Bilanz</a>
       </li>
 
-      <li class="nav-item">
+      <li *ngIf="isLogedIn && encryptKeyIsValid" class="nav-item">
         <a class="nav-link" routerLink="/history">
           <i class="fa fa-history" aria-hidden="true"></i> Verlauf</a>
       </li>
+
+      
 
     </ul>
 
     <div>
       <span *ngIf="isLogedIn" class="navbar-text">
-        {{user.name}}
+        <a routerLink="/profile"><i class="fa fa-user"> </i> {{user.name}}</a>
       </span>
+      
       <button *ngIf="!isLogedIn" (click)="login()" type="button" class="btn btn-outline-primary">Login</button>
       <button *ngIf="isLogedIn" (click)="logout()" type="button" class="btn btn-outline-primary">Logout</button>
     </div>

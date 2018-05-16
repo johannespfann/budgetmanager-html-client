@@ -6,9 +6,9 @@ export class AppConfiguration{
 
     private password;
 
-    constructor(aBaseUrl: string, aCryptPassword: string){
+    constructor(aBaseUrl: string){
         this.server_url = aBaseUrl;
-        this.password = aCryptPassword;
+        this.password = "pw4laura!johannes";
     }
     // environment
     public getBaseUrl(): string {
