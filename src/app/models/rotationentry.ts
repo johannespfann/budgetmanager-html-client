@@ -37,7 +37,7 @@ export class RotationEntry{
         let rotationEntry: RotationEntry = new RotationEntry();
         rotationEntry.amount = aAmount;
         rotationEntry.rotation_strategy = aRotation_strategy;
-        rotationEntry.hash = HashUtil.getUniqueHash();
+        rotationEntry.hash = HashUtil.getUniqueHash().toString();
         return rotationEntry;
     }
 }

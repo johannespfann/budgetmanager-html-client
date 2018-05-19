@@ -12,9 +12,9 @@ import { EncryptionReadyMessage } from "../messages/encryption-ready-message";
 })
 export class SetEncryptionKeyComponent {
 
-    public key: string = '';
+    public key: string = String();
 
-    public encryptedValidationText: string = '';
+    public encryptedValidationText: string = String();
 
     public pressedValidateTest: boolean;
 
@@ -23,6 +23,7 @@ export class SetEncryptionKeyComponent {
         private encryptService: EncryptSerice,
         private messageService: MessagingService) {
 
+        this.encryptedValidationText = '  ';
         this.key = localStorage.getItem("encryptkey");
 
     }
@@ -30,7 +31,6 @@ export class SetEncryptionKeyComponent {
     public testKey(): void {
         this.encryptService.getEncryptionText(this.applicationService.getCurrentUser())
             .subscribe((data: any) => {
-                LogUtil.info(this, '--> Returned: ' + data);
                 this.encryptedValidationText = CryptUtil.decryptString(this.key, data.text);
                 this.pressedValidateTest = true;
             });

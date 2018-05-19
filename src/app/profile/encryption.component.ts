@@ -8,9 +8,7 @@ import { LogUtil } from "../utils/log-util";
     templateUrl: './encryption.component.html'
 })
 export class EncryptionComponent implements OnInit {
-
-
-
+    
     /**
      * Properties for view
      */

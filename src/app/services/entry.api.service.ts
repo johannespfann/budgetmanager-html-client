@@ -25,7 +25,7 @@ export class EntryAPIService {
         private appService: ApplicationService) {
         LogUtil.info(this, "Init EntryAPIService");
         this.baseURL = appService.getApplicationConfig().getBaseUrl();
-        this.entryTransformer = new EntryTransformer();
+        this.entryTransformer = new EntryTransformer(appService.getEncryptionKey());
     }
 
     public delete(aUser: User, aEntry: Entry): Observable<any> {
@@ -44,7 +44,6 @@ export class EntryAPIService {
                 serverEntries.forEach((entry:EntryServer) => {
                     entries.push(this.entryTransformer.transformEntryServer(entry))
                 })
-
                 return entries;
             })
     }

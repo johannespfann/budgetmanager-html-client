@@ -29,8 +29,6 @@ export class FirstAddEncryptionComponent{
            this.encryptService
             .setEncryptionText(this.applicationService.getCurrentUser(),CryptUtil.encryptString(this.key,this.validationText))
             .subscribe( data => {
-                LogUtil.info(this, 'Saved text: ' + this.validationText + ' :with key ' + this.key);
-
                 this.setKeyIsDone.emit(true);
             });
         }
@@ -38,14 +36,11 @@ export class FirstAddEncryptionComponent{
 
     private isCorrectKey(key: string, keyrepeat: string): boolean {
         if(!(key.length > 0)){
-            LogUtil.info(this,"key war leer: " + key);
             return false;
         }
         if(key == keyrepeat){
-            LogUtil.info(this,"key gleich mit keyrepeat: " + key + ' ' + keyrepeat);
             return true;
         }
-        LogUtil.info(this,"return false: " + key + ' ' + keyrepeat);
         return false;
     }
 }

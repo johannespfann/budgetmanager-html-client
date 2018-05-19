@@ -10,8 +10,8 @@ export class EntryTransformer {
 
     private encryptValue = true;
 
-    constructor() {
-        this.key = "testpw";
+    constructor(aPassword: string) {
+        this.key = aPassword;
     }
 
     public transformEntry(aEntry: Entry): EntryServer {

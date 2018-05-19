@@ -21,13 +21,15 @@ export class RotationEntryRestApiService {
 
         LogUtil.info(this, "Init RotationEntryRestApiService");
         this.base_url = applicationService.getApplicationConfig().getBaseUrl();
-        let password: string = applicationService.getApplicationConfig().getCryptPassword();
-        this.rotationEntryTranformer = new RotationEntryTransformer(password);
+        let key: string = applicationService.getEncryptionKey();
+
+        this.rotationEntryTranformer = new RotationEntryTransformer(applicationService.getEncryptionKey());
     }
 
     public addRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {
+        let rotEntryTransformer = new RotationEntryTransformer(this.applicationService.getEncryptionKey())
         return this.http.post(this.base_url + 'jobs/owner/' + aUser.email + '/add', 
-                            this.rotationEntryTranformer.transformRotationEntry(aRotationEntry));
+                            rotEntryTransformer.transformRotationEntry(aRotationEntry));
     }
 
     public getRotationEntries(aUser: User): Observable<Array<RotationEntry>> {
@@ -37,7 +39,7 @@ export class RotationEntryRestApiService {
                             
                             entries.forEach( (rotServerEntry: RotationEntryServer) => {
                                 newEntries.push(this.rotationEntryTranformer.transformRotationEntryServer(rotServerEntry));
-                            })
+                            });
 
                             return newEntries;
                          });

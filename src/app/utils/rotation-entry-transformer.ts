@@ -17,21 +17,28 @@ export class RotationEntryTransformer {
         LogUtil.info(this, "transformRotationEntryServer: " + JSON.stringify(aServerEntry));
         var rotationEntry: RotationEntry = new RotationEntry();
 
-        rotationEntry.hash = aServerEntry.hash;
+
+        rotationEntry.hash = aServerEntry.hash.toString();
+
         rotationEntry.memo = CryptUtil.decryptString(this.key, aServerEntry.memo);
 
         let amountString: string = CryptUtil.decryptString(this.key, aServerEntry.amount);
+
         rotationEntry.amount = Number(amountString);
 
         rotationEntry.start_at = new Date(aServerEntry.start_at);
+
         rotationEntry.end_at = new Date(aServerEntry.end_at);
+
         rotationEntry.last_executed = new Date(aServerEntry.last_executed);
 
         rotationEntry.tags = aServerEntry.tags.map((tag: Tag) => {
             var newTag: Tag = new Tag();
+
             newTag.name = CryptUtil.decryptStringWithoutSalt(this.key,tag.name);
             return newTag;
         });
+
         rotationEntry.rotation_strategy = aServerEntry.rotation_strategy;
         LogUtil.info(this, "to -> : " + JSON.stringify(rotationEntry));
 
@@ -41,10 +48,13 @@ export class RotationEntryTransformer {
     public transformRotationEntry(aEntry: RotationEntry): RotationEntryServer {
         LogUtil.info(this, "transformRotationEntry: " + JSON.stringify(aEntry));
         var rotationEntryServer: RotationEntryServer = new RotationEntryServer();
-        rotationEntryServer.hash = aEntry.hash;
+        rotationEntryServer.hash = aEntry.hash.toString();
+        
         
         if (this.encryptValue) {
+           
             rotationEntryServer.amount = CryptUtil.encryptString(this.key, aEntry.amount.toString());
+           
         }
         else{
             rotationEntryServer.amount = aEntry.amount.toString();
