@@ -7,6 +7,7 @@ import { TagService } from "../services/tag.service";
 import { MessagingService } from "../messages/message.service";
 import { EntryUpdatedMessage } from "../messages/entry-updated-message";
 import { TagsComponent } from '../tags';
+import { MathUtil } from "../utils/math-util";
 
 @Component({
     selector: 'edit-entry-component',
@@ -15,7 +16,8 @@ import { TagsComponent } from '../tags';
 })
 export class EditEntryComponent {
 
-    @Input() entry: Entry;
+    @Input() 
+    public entry: Entry;
 
     //@ViewChild('tagsComponent1')
     @ViewChild(TagsComponent)
@@ -41,6 +43,7 @@ export class EditEntryComponent {
         private tagService: TagService,
         private entryService: EntryService,
         private messageService: MessagingService) {
+    
             LogUtil.debug(this,'Init EditEntryComponent');
 
         tagService.getTags().subscribe( (tags: Array<Tag>) => {
@@ -48,10 +51,26 @@ export class EditEntryComponent {
         });
     }
 
+    private ngOnInit(){
+        this.editEntry = Entry.copy(this.entry);
+        this.amount = this.initAmount(this.editEntry.amount);
+        this.memo = this.editEntry.memo;
+        this.tags = this.editEntry.tags;
+        this.hash = this.editEntry.hash;
+    }
+
+
     public update(){
         LogUtil.info(this,'Pressed updateCategory');
 
-        this.editEntry.amount = this.amount;
+        let amountValue: number;
+        if (this.algebraicSignIsMinus) {
+            this.editEntry.amount = MathUtil.convertToNegativ(this.amount);
+        }
+        else {
+            this.editEntry.amount = MathUtil.convertToPositiv(this.amount);
+        }
+
         this.editEntry.memo = this.memo;
         this.editEntry.tags = this.tags;
 
@@ -59,7 +78,17 @@ export class EditEntryComponent {
             this.clearAttributes();
             this.messageService.publish(new EntryUpdatedMessage(this.editEntry))
         });
+    }
 
+    private initAmount(aAmount: number): number {
+        if(aAmount >= 0){
+            this.algebraicSignIsMinus = false;
+            return aAmount;
+        }
+        else{
+            this.algebraicSignIsMinus = true;
+            return aAmount * (-1);
+        }
     }
 
     public onTagAdded(aEvent:Tag){
@@ -68,14 +97,6 @@ export class EditEntryComponent {
 
     public onTagDeleted(aEvent:Tag){
         console.log("onTagDeleted", aEvent, this.tags);
-    }
-
-    private ngOnInit(){
-        this.editEntry = Entry.copy(this.entry);
-        this.amount = this.editEntry.amount;
-        this.memo = this.editEntry.memo;
-        this.tags = this.editEntry.tags;
-        this.hash = this.editEntry.hash;
     }
 
     public changeAlgebraicSignIsMinus(): void {

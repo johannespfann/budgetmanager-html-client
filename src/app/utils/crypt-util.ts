@@ -17,7 +17,7 @@ export class CryptUtil{
     }
 
     public static decryptStringWithoutSalt(aKey: string, aMessage: string): string {
-        LogUtil.info(this, "decryptMsg: " + aMessage + " with key: " + aKey);
+        LogUtil.debug(this, "decryptMsg: " + aMessage + " with key: " + aKey);
         var preparedMessage: string = String(aMessage)
         var key: string = this.basekey;
         if(this.isStringEncrypted(preparedMessage)){
@@ -31,11 +31,13 @@ export class CryptUtil{
     }
   
     public static encryptString(aKey: string, aMessage: string): string {
+        LogUtil.debug(this,'Encrypt -> ' + aMessage + ' with key: ' + aKey);
         var ciphertext = CryptoJS.AES.encrypt(String(aMessage), aKey);
         return this.wrapEncryptedStringMessage(ciphertext.toString());
     }
 
     public static decryptString(aKey: string, aMessage: string): string {
+        LogUtil.debug(this,'Decrypt -> ' + aMessage + ' with key: ' + aKey);
         let preparedMessage: string = String(aMessage);    
         if(this.isStringEncrypted(preparedMessage)){
             let extractedMessage: string = this.extractEncryptedStringMessage(preparedMessage);

@@ -6,27 +6,21 @@ import { LogUtil } from "./log-util";
 
 export class EntryTransformer {
 
-    private key: string;
-
     private encryptValue = true;
 
-    constructor(aPassword: string) {
-        this.key = aPassword;
-    }
-
-    public transformEntry(aEntry: Entry): EntryServer {
+    public transformEntry(aPassword: string, aEntry: Entry): EntryServer {
         LogUtil.info(this, "transformEntry: " + JSON.stringify(aEntry));
         var entryServer: EntryServer = new EntryServer();
         entryServer.hash = aEntry.hash;
         if (this.encryptValue) {
-            entryServer.amount = CryptUtil.encryptString(this.key, aEntry.amount.toString());
+            entryServer.amount = CryptUtil.encryptString(aPassword, aEntry.amount.toString());
         }
         else {
             entryServer.amount = aEntry.amount.toString();
         }
 
         if (this.encryptValue) {
-            entryServer.memo = CryptUtil.encryptString(this.key, aEntry.memo);
+            entryServer.memo = CryptUtil.encryptString(aPassword, aEntry.memo);
         }
         else {
             entryServer.memo = aEntry.memo;
@@ -36,7 +30,7 @@ export class EntryTransformer {
         entryServer.tags = aEntry.tags.map((tag: Tag) => {
             var newTag: Tag = new Tag();
             if (this.encryptValue) {
-                newTag.name = CryptUtil.encryptStringWithoutSalt(this.key, tag.name);
+                newTag.name = CryptUtil.encryptStringWithoutSalt(aPassword, tag.name);
                 console.log("convert Tag -> {" +tag.name+ "} to -> " + newTag.name );
             }
             else {
@@ -49,16 +43,16 @@ export class EntryTransformer {
         return entryServer;
     }
 
-    public transformEntryServer(aEntryServer: EntryServer): Entry {
+    public transformEntryServer(aPassword: string, aEntryServer: EntryServer): Entry {
         LogUtil.info(this, "transformEntryServer -> " + JSON.stringify(aEntryServer));
         var entry: Entry = new Entry();
         entry.hash = aEntryServer.hash;
-        entry.amount = Number(CryptUtil.decryptString(this.key, aEntryServer.amount));
+        entry.amount = Number(CryptUtil.decryptString(aPassword, aEntryServer.amount));
         entry.created_at = new Date(aEntryServer.created_at);
-        entry.memo = CryptUtil.decryptString(this.key, aEntryServer.memo);
+        entry.memo = CryptUtil.decryptString(aPassword, aEntryServer.memo);
         entry.tags = aEntryServer.tags.map((tag: Tag) => {
             var newTag: Tag = new Tag();
-            newTag.name = CryptUtil.decryptStringWithoutSalt(this.key, tag.name);
+            newTag.name = CryptUtil.decryptStringWithoutSalt(aPassword, tag.name);
             return newTag;
         });
         LogUtil.info(this, "to -> " + JSON.stringify(entry));

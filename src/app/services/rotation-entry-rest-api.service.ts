@@ -27,6 +27,12 @@ export class RotationEntryRestApiService {
     }
 
     public addRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {
+
+        if(!this.applicationService.isReadyForRestServices()){
+            return new Observable<any>();
+        }
+
+
         let rotEntryTransformer = new RotationEntryTransformer(this.applicationService.getEncryptionKey())
         return this.http.post(this.base_url + 'jobs/owner/' + aUser.email + '/add', 
                             rotEntryTransformer.transformRotationEntry(aRotationEntry));

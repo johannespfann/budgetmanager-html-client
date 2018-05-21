@@ -100,6 +100,9 @@ export class AddEntryComponent {
                 data => {
                     LogUtil.info(this, 'save : ' + JSON.stringify(entry));
                     this.cleanAttributes();
+                },
+                error => {
+                    LogUtil.info(this, error);
                 }
             );
         }

@@ -35,41 +35,41 @@ export class AppComponent {
     private messageService: MessagingService,
     private applicationService: ApplicationService) {
 
-    LogUtil.info(this,"Init Application");
+    LogUtil.info(this, "Init Application");
 
     this.loginSubscription = messageService
-    .of(LogedInMessage)
-    .subscribe((message: LogedInMessage) => {   
-      this.user = message.getUser();
-      applicationService.setCurrentUser(this.user);
-      this.showLoginAccount();
-    });
+      .of(LogedInMessage)
+      .subscribe((message: LogedInMessage) => {
+        this.user = message.getUser();
+        applicationService.setCurrentUser(this.user);
+        this.showLoginAccount();
+      });
 
     this.encryptionReadySubscription = messageService
-    .of(EncryptionReadyMessage)
-    .subscribe( data => {
-      this.encryptKeyIsValid = true;
-      this.applicationService.setEncryptionKey(localStorage.getItem('encryptkey'));
-    });
+      .of(EncryptionReadyMessage)
+      .subscribe(data => {
+        this.encryptKeyIsValid = true;
+        this.applicationService.setEncryptionKey(localStorage.getItem('encryptkey'));
+      });
 
     let savedUser: User = this.loadLocalUserCredentials();
 
-    if(savedUser){
-      this.loginServcie.login(savedUser.name,savedUser.password).subscribe(data => {
-          LogUtil.info(this,JSON.stringify(data));
-          let newUser = new User();
-          newUser.accesstoken = data.accesstoken;
-          newUser.name = data.username;
-          newUser.email = data.email;
-          this.user = newUser;
-          this.messageService.publish(new LogedInMessage(newUser));
-          applicationService.setCurrentUser(newUser);
+    if (savedUser) {
+      this.loginServcie.login(savedUser.name, savedUser.password).subscribe(data => {
+        LogUtil.info(this, JSON.stringify(data));
+        let newUser = new User();
+        newUser.accesstoken = data.accesstoken;
+        newUser.name = data.username;
+        newUser.email = data.email;
+        this.user = newUser;
+        this.messageService.publish(new LogedInMessage(newUser));
+        applicationService.setCurrentUser(newUser);
 
-          let encryptKey: string = localStorage.getItem('encryptkey');
+        let encryptKey: string = localStorage.getItem('encryptkey');
 
-          if(encryptKey){
-            this.encryptKeyIsValid = true;
-          }
+        if (encryptKey) {
+          this.encryptKeyIsValid = true;
+        }
       });
     }
 
@@ -80,7 +80,7 @@ export class AppComponent {
     let username = localStorage.getItem('username');
     let password = localStorage.getItem('password');
 
-    if(username == null || password == null){
+    if (username == null || password == null) {
       return null;
     }
 

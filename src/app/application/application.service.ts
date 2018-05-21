@@ -55,4 +55,8 @@ export class ApplicationService {
         this.encryptionkey = aEncryptionKey;
     }
 
+    public isReadyForRestServices(): boolean {
+        return false;
+    }
+
 }
