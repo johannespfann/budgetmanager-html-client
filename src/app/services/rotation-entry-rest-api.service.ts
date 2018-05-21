@@ -13,38 +13,38 @@ export class RotationEntryRestApiService {
 
     private base_url: string;
 
-    private rotationEntryTranformer: RotationEntryTransformer;
-
     constructor(
         private applicationService: ApplicationService,
         private http: HttpClient) {
 
         LogUtil.info(this, "Init RotationEntryRestApiService");
         this.base_url = applicationService.getApplicationConfig().getBaseUrl();
-        let key: string = applicationService.getEncryptionKey();
-
-        this.rotationEntryTranformer = new RotationEntryTransformer(applicationService.getEncryptionKey());
     }
 
     public addRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {
 
         if(!this.applicationService.isReadyForRestServices()){
-            return new Observable<any>();
+            return Observable.create( result  => { result.error("No restservice available!");});
         }
 
-
-        let rotEntryTransformer = new RotationEntryTransformer(this.applicationService.getEncryptionKey())
+        let rotEntryTransformer = new RotationEntryTransformer()
         return this.http.post(this.base_url + 'jobs/owner/' + aUser.email + '/add', 
-                            rotEntryTransformer.transformRotationEntry(aRotationEntry));
+                            rotEntryTransformer.transformRotationEntry(this.applicationService.getEncryptionKey(), aRotationEntry));
     }
 
     public getRotationEntries(aUser: User): Observable<Array<RotationEntry>> {
+
+        if(!this.applicationService.isReadyForRestServices()){
+            return Observable.create( result  => { result.error("No restservice available!");});
+        }
+
+        let rotationEntryTranformer = new RotationEntryTransformer()
         return this.http.get<Array<RotationEntryServer>>(this.base_url + 'jobs/owner/' + aUser.email + '/all')
                         .map( (entries: RotationEntryServer[]) => { 
                             let newEntries: RotationEntry[] = new Array<RotationEntry>();
                             
                             entries.forEach( (rotServerEntry: RotationEntryServer) => {
-                                newEntries.push(this.rotationEntryTranformer.transformRotationEntryServer(rotServerEntry));
+                                newEntries.push(rotationEntryTranformer.transformRotationEntryServer(this.applicationService.getEncryptionKey(), rotServerEntry));
                             });
 
                             return newEntries;
@@ -52,11 +52,23 @@ export class RotationEntryRestApiService {
     }
 
     public deleteRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {
-        return this.http.delete(this.base_url + 'jobs/owner/' + aUser.email + '/delete/' + this.rotationEntryTranformer.transformRotationEntry(aRotationEntry).hash);
+
+        if(!this.applicationService.isReadyForRestServices()){
+            return Observable.create( result  => { result.error("No restservice available!");});
+        }
+
+        let rotationEntryTranformer = new RotationEntryTransformer();
+        return this.http.delete(this.base_url + 'jobs/owner/' + aUser.email + '/delete/' + rotationEntryTranformer.transformRotationEntry(this.applicationService.getEncryptionKey(), aRotationEntry).hash);
     }
 
     public updateRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {
-        return this.http.patch(this.base_url + 'jobs/owner/' + aUser.email + '/update', this.rotationEntryTranformer.transformRotationEntry(aRotationEntry));
+
+        if(!this.applicationService.isReadyForRestServices()){
+            return Observable.create( result  => { result.error("No restservice available!");});
+        }
+
+        let rotationEntryTranformer = new RotationEntryTransformer()
+        return this.http.patch(this.base_url + 'jobs/owner/' + aUser.email + '/update', rotationEntryTranformer.transformRotationEntry(this.applicationService.getEncryptionKey(), aRotationEntry));
     }
     
 }

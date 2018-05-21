@@ -24,6 +24,10 @@ export class RotationEntryComponent {
         rotationEntryService.getRotationEntries().subscribe(
             (aRotationEntries: RotationEntry[]) => {
                 this.rotationEntries = aRotationEntries;
+            },
+            error => {
+                LogUtil.debug(this, 'Error was cacked! -> ' + error);
+                this.rotationEntries = new Array<RotationEntry>();
             }
         )
     }
@@ -43,6 +47,10 @@ export class RotationEntryComponent {
         this.rotationEntryService.getRotationEntries().subscribe(
             (data: RotationEntry[]) => {
                 this.rotationEntries = data;
+            },
+            error => {
+                LogUtil.debug(this, 'Error was cacked! -> ' + error);
+                this.rotationEntries = new Array<RotationEntry>();
             }
         )
     }

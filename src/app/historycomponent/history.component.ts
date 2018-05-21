@@ -27,6 +27,10 @@ export class HistoryComponent{
         entryService.getEntries().subscribe(
             (data: Array<Entry>) => {
                 this.entries = this.sortByTime(data);
+            },
+            error => {
+                LogUtil.info(this,'Error was cached! -> ' + error);
+                this.entries = new Array<Entry>();
             }
         )
 
@@ -52,7 +56,8 @@ export class HistoryComponent{
     private deleteEntry(aEntry:Entry): void {
         LogUtil.info(this,'delete entry: ' + JSON.stringify(aEntry));
         this.entryService.deleteEntry(aEntry).subscribe(
-            data => this.updateEntries()
+            data => {this.updateEntries()},
+            error => {LogUtil.info(this,'Error was cacked! -> ' + error);}
         );
         
     }
@@ -61,6 +66,10 @@ export class HistoryComponent{
         this.entryService.getEntries().subscribe(
             (data: Array<Entry>) => {
                 this.entries = this.sortByTime(data);
+            },
+            error => {
+                LogUtil.info(this,'Error was cached! -> ' + error);
+                this.entries = new Array<Entry>();
             }
         )
     }

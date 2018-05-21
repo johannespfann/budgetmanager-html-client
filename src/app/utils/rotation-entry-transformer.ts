@@ -6,23 +6,18 @@ import { LogUtil } from "./log-util";
 
 export class RotationEntryTransformer {
 
-    private key: string;
     private encryptValue = true;
 
-    constructor(aPassword: string) {
-        this.key = aPassword;
-    }
-
-    public transformRotationEntryServer(aServerEntry: RotationEntryServer): RotationEntry {
+    public transformRotationEntryServer(aPassword: string, aServerEntry: RotationEntryServer): RotationEntry {
         LogUtil.info(this, "transformRotationEntryServer: " + JSON.stringify(aServerEntry));
         var rotationEntry: RotationEntry = new RotationEntry();
 
 
         rotationEntry.hash = aServerEntry.hash.toString();
 
-        rotationEntry.memo = CryptUtil.decryptString(this.key, aServerEntry.memo);
+        rotationEntry.memo = CryptUtil.decryptString(aPassword, aServerEntry.memo);
 
-        let amountString: string = CryptUtil.decryptString(this.key, aServerEntry.amount);
+        let amountString: string = CryptUtil.decryptString(aPassword, aServerEntry.amount);
 
         rotationEntry.amount = Number(amountString);
 
@@ -35,7 +30,7 @@ export class RotationEntryTransformer {
         rotationEntry.tags = aServerEntry.tags.map((tag: Tag) => {
             var newTag: Tag = new Tag();
 
-            newTag.name = CryptUtil.decryptStringWithoutSalt(this.key,tag.name);
+            newTag.name = CryptUtil.decryptStringWithoutSalt(aPassword,tag.name);
             return newTag;
         });
 
@@ -45,7 +40,7 @@ export class RotationEntryTransformer {
         return rotationEntry;
     }
 
-    public transformRotationEntry(aEntry: RotationEntry): RotationEntryServer {
+    public transformRotationEntry(aPassword: string, aEntry: RotationEntry): RotationEntryServer {
         LogUtil.info(this, "transformRotationEntry: " + JSON.stringify(aEntry));
         var rotationEntryServer: RotationEntryServer = new RotationEntryServer();
         rotationEntryServer.hash = aEntry.hash.toString();
@@ -53,7 +48,7 @@ export class RotationEntryTransformer {
         
         if (this.encryptValue) {
            
-            rotationEntryServer.amount = CryptUtil.encryptString(this.key, aEntry.amount.toString());
+            rotationEntryServer.amount = CryptUtil.encryptString(aPassword, aEntry.amount.toString());
            
         }
         else{
@@ -61,7 +56,7 @@ export class RotationEntryTransformer {
         }
         
         if (this.encryptValue) {
-            rotationEntryServer.memo = CryptUtil.encryptString(this.key, aEntry.memo);
+            rotationEntryServer.memo = CryptUtil.encryptString(aPassword, aEntry.memo);
         }
         else{
             rotationEntryServer.memo =aEntry.memo;
@@ -74,7 +69,7 @@ export class RotationEntryTransformer {
         rotationEntryServer.tags = aEntry.tags.map((tag: Tag) => {
             var newTag: Tag = new Tag();
             if(this.encryptValue){
-                newTag.name = CryptUtil.encryptStringWithoutSalt(this.key,tag.name);
+                newTag.name = CryptUtil.encryptStringWithoutSalt(aPassword,tag.name);
             }
             else{
                 newTag.name = tag.name;

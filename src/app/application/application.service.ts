@@ -56,6 +56,23 @@ export class ApplicationService {
     }
 
     public isReadyForRestServices(): boolean {
+        if(this.isLoggedIn() && this.encryptionKeyReady()){
+            return true;
+        }
+        return false;
+    }
+
+    public isLoggedIn(): boolean {
+        if(this.user){
+            return true;
+        }
+        return false;
+    }
+
+    public encryptionKeyReady(): boolean {
+        if(this.encryptionkey){
+            return true;
+        }
         return false;
     }
 

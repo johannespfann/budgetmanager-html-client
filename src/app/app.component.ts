@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import { CryptUtil } from './utils/crypt-util';
 import { EncryptionReadyMessage } from './messages/encryption-ready-message';
+import { EncryptLocalStorage } from './utils/encryption-localstorage';
 
 // https://stackoverflow.com/questions/16600509/aes-encrypt-in-cryptojs-and-decrypt-in-coldfusion
 @Component({
@@ -27,6 +28,8 @@ export class AppComponent {
 
   public encryptKeyIsValid: boolean = false;
 
+  private encryptionLocalStorage: EncryptLocalStorage;
+
   private user: User;
 
   constructor(
@@ -37,6 +40,7 @@ export class AppComponent {
 
     LogUtil.info(this, "Init Application");
 
+    this.encryptionLocalStorage = new EncryptLocalStorage();
     this.loginSubscription = messageService
       .of(LogedInMessage)
       .subscribe((message: LogedInMessage) => {
@@ -65,15 +69,14 @@ export class AppComponent {
         this.messageService.publish(new LogedInMessage(newUser));
         applicationService.setCurrentUser(newUser);
 
-        let encryptKey: string = localStorage.getItem('encryptkey');
+        let encryptKey: string = this.encryptionLocalStorage.getEncryptionKey(savedUser);
 
         if (encryptKey) {
           this.encryptKeyIsValid = true;
+          this.applicationService.setEncryptionKey(encryptKey);
         }
       });
     }
-
-
   }
 
   private loadLocalUserCredentials(): any {
