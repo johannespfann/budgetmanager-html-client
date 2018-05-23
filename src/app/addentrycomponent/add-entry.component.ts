@@ -9,6 +9,7 @@ import { TagService } from "../services/tag.service";
 import { RotationEntry } from "../models/rotationentry";
 import { RotationEntryService } from "../services/rotation-entry.service";
 import { RotationUtil } from "../rotationentrycomponent/rotationutil";
+import { DateUtil } from "../utils/date-util";
 
 
 @Component({
@@ -34,6 +35,10 @@ export class AddEntryComponent {
 
     public isPeriodical: boolean = false;
 
+    public isMonthly: boolean = false;
+
+    public isQuarterly: boolean = false;
+
     constructor(
         private tagService: TagService,
         private entryService: EntryService,
@@ -48,6 +53,8 @@ export class AddEntryComponent {
         this.algebraicSignIsMinus = true;
         this.amount;
         this.memo = "";
+        this.isMonthly = true;
+        this.isQuarterly = false;
 
         tagService.getTags().subscribe((tags: Array<Tag>) => {
             this.possibleTags = tags
@@ -74,7 +81,7 @@ export class AddEntryComponent {
         entry.tags = this.tags;
 
         if (this.isPeriodical) {
-             let rotationEntry: RotationEntry = RotationEntry.create(amountValue,"66122");  
+             let rotationEntry: RotationEntry = RotationEntry.create(amountValue,this.getRotationStrategy());  
              rotationEntry.last_executed = null;
              rotationEntry.start_at = this.startRotationDate;
              // TODO
@@ -82,7 +89,7 @@ export class AddEntryComponent {
              rotationEntry.tags = this.tags;
              LogUtil.info(this,JSON.stringify(rotationEntry.tags));
              rotationEntry.memo = this.memo;
-             rotationEntry.end_at = null;
+             rotationEntry.end_at = DateUtil.getMaximumDate();
 
              this.rotationEntryService.addRotationEntry(rotationEntry).subscribe(
                  data => {
@@ -114,6 +121,8 @@ export class AddEntryComponent {
         this.memo = null;
         this.tags = new Array<Tag>();
         this.isPeriodical = false;
+        this.isMonthly = true;
+        this.isQuarterly = false;
     
 
     }
@@ -134,6 +143,32 @@ export class AddEntryComponent {
         else {
             this.isPeriodical = true;
         }
+    }
+
+    private getRotationStrategy(): string {
+        if(this.isMonthly){
+            return '66122';
+        }
+        if(this.isQuarterly){
+            return '36133';
+        }
+    }
+
+    private showRadioButtons(): void {
+        LogUtil.info(this, "Monatlich     : " + JSON.stringify(this.isMonthly));
+        LogUtil.info(this, "Quartalsweise : " + JSON.stringify(this.isQuarterly));
+    }
+
+    public setMonthly(): void {
+        this.isMonthly = true;
+        this.isQuarterly = false;
+        this.showRadioButtons();
+    }
+
+    public setQuarterly(): void {
+        this.isMonthly = false;
+        this.isQuarterly = true;
+        this.showRadioButtons();
     }
 
 }

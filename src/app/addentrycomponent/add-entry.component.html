@@ -43,11 +43,15 @@
       <fieldset class="form-group">
         <div class="form-check">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+          <input type="radio" (click)="setMonthly()" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
            Monatlich
           </label>
         </div>
         <div class="form-check">
+          <label class="form-check-label">
+           <input type="radio" (click)="setQuarterly()" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+               Quartalsweise
+          </label>
         </div>
       </fieldset>
 
