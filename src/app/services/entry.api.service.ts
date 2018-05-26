@@ -33,7 +33,12 @@ export class EntryAPIService {
             return Observable.create( result  => { result.error("No restservice available!");});
         }
 
-        return this.http.delete(this.appService.getApplicationConfig().getBaseUrl() + 'entries/owner/' + aUser.email + '/delete/' + aEntry.hash);
+        return this.http.delete(
+            this.appService.getApplicationConfig().getBaseUrl() + 
+            'entries/owner/' + 
+            aUser.email + 
+            '/delete/' + 
+            aEntry.hash);
     }
 
     public save(aUser: User, aEntry: Entry): Observable<any> {
@@ -58,6 +63,7 @@ export class EntryAPIService {
                 serverEntries.forEach((entry:EntryServer) => {
                     entries.push(this.entryTransformer.transformEntryServer(this.appService.getEncryptionKey(),entry))
                 })
+                
                 return entries;
             })
     }

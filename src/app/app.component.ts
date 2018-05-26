@@ -11,6 +11,8 @@ import * as CryptoJS from 'crypto-js';
 import { CryptUtil } from './utils/crypt-util';
 import { EncryptionReadyMessage } from './messages/encryption-ready-message';
 import { EncryptLocalStorage } from './utils/encryption-localstorage';
+import { TagStatisticService } from './services/Tag-statistic.service';
+import { TagStatistic } from './models/tagstatistic';
 
 // https://stackoverflow.com/questions/16600509/aes-encrypt-in-cryptojs-and-decrypt-in-coldfusion
 @Component({
@@ -36,10 +38,12 @@ export class AppComponent {
     private router: Router,
     private loginServcie: LoginService,
     private messageService: MessagingService,
-    private applicationService: ApplicationService) {
+    private applicationService: ApplicationService,
+    private tagStatiscticService: TagStatisticService) {
 
     LogUtil.info(this, "Init Application");
 
+    
     this.encryptionLocalStorage = new EncryptLocalStorage();
     this.loginSubscription = messageService
       .of(LogedInMessage)
@@ -53,7 +57,9 @@ export class AppComponent {
       .of(EncryptionReadyMessage)
       .subscribe(data => {
         this.encryptKeyIsValid = true;
-        this.applicationService.setEncryptionKey(localStorage.getItem('encryptkey'));
+        this.applicationService.setEncryptionKey(
+          this.encryptionLocalStorage.getEncryptionKey(
+            this.applicationService.getCurrentUser()));
       });
 
     let savedUser: User = this.loadLocalUserCredentials();
@@ -117,4 +123,5 @@ export class AppComponent {
     this.loginSubscription.unsubscribe();
     this.encryptionReadySubscription.unsubscribe();
   }
+
 }

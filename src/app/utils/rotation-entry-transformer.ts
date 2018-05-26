@@ -14,26 +14,18 @@ export class RotationEntryTransformer {
 
 
         rotationEntry.hash = aServerEntry.hash.toString();
-
         rotationEntry.memo = CryptUtil.decryptString(aPassword, aServerEntry.memo);
-
         let amountString: string = CryptUtil.decryptString(aPassword, aServerEntry.amount);
-
         rotationEntry.amount = Number(amountString);
-
         rotationEntry.start_at = new Date(aServerEntry.start_at);
-
         rotationEntry.end_at = new Date(aServerEntry.end_at);
-
         rotationEntry.last_executed = new Date(aServerEntry.last_executed);
-
         rotationEntry.tags = aServerEntry.tags.map((tag: Tag) => {
             var newTag: Tag = new Tag();
 
             newTag.name = CryptUtil.decryptStringWithoutSalt(aPassword,tag.name);
             return newTag;
         });
-
         rotationEntry.rotation_strategy = aServerEntry.rotation_strategy;
         LogUtil.info(this, "to -> : " + JSON.stringify(rotationEntry));
 
