@@ -76,7 +76,7 @@ export class EditEntryComponent {
 
         this.entryService.update(this.editEntry).subscribe(data => {
             this.clearAttributes();
-            this.messageService.publish(new EntryUpdatedMessage(this.editEntry))
+            this.messageService.publish(new EntryUpdatedMessage())
         });
     }
 
