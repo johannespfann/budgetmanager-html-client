@@ -5,6 +5,7 @@ import { LoginService } from "../services/login.service";
 import { MessagingService } from "../messages/message.service";
 import { LogedInMessage } from "../messages/logedin-message";
 import { User } from "../models/user";
+import { AuthenticationFacade } from "../utils/authentication-facade";
 
 @Component({
     selector: 'login',
@@ -16,7 +17,8 @@ export class LoginComponent {
 
     public password: string;
 
-    public accessToken: string;
+
+    private authenticationLocalStorage: AuthenticationFacade;
 
 
     constructor(
@@ -26,7 +28,7 @@ export class LoginComponent {
         private messageService: MessagingService) {
 
         LogUtil.info(this, 'Init LoginComponent');
-
+            this.authenticationLocalStorage = new AuthenticationFacade();
         this.identifier = route.snapshot.paramMap.get('email');
     }
 
@@ -41,21 +43,20 @@ export class LoginComponent {
             let user: User = new User();
             user.name = data.username;
             user.email = data.email;
-            user.accesstoken = this.accessToken;
+            user.password = this.password;
+            user.accesstoken = data.accessToken;
 
-            LogUtil.info(this, "## Erhalte Response ## ");
+            LogUtil.info(this, "## Erhalte Login-Response ## ");
             LogUtil.info(this, "Username   : " + user.name);
             LogUtil.info(this, "Email      : " + user.email);
             LogUtil.info(this, "accesstoken: " + user.accesstoken);
-            LogUtil.info(this, "accesstoken from data: " + data.accesstoken);
-            
-            localStorage.setItem('username',user.name);
-            localStorage.setItem('password',this.password);
-
+       
+            this.authenticationLocalStorage.saveUser(user);
             this.messageService.publish(new LogedInMessage(user));
             this.router.navigate(['/welcome']);
         })
 
-        
     }
+
+    
 }

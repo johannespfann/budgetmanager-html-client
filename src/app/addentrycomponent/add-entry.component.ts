@@ -10,6 +10,10 @@ import { RotationEntry } from "../models/rotationentry";
 import { RotationEntryService } from "../services/rotation-entry.service";
 import { RotationUtil } from "../rotationentrycomponent/rotationutil";
 import { DateUtil } from "../utils/date-util";
+import { TagStatisticFacade } from "../utils/tag-statistic-facade";
+import { TagStatisticService } from "../services/Tag-statistic.service";
+import { ApplicationService } from "../application/application.service";
+import { TagStatistic } from "../models/tagstatistic";
 
 
 @Component({
@@ -39,13 +43,20 @@ export class AddEntryComponent {
 
     public isQuarterly: boolean = false;
 
+    private tagStatisticFacade: TagStatisticFacade;
+
     constructor(
-        private tagService: TagService,
         private entryService: EntryService,
-        private rotationEntryService: RotationEntryService) {
+        private rotationEntryService: RotationEntryService,
+        private tagStatisticService: TagStatisticService,
+        private applicationService: ApplicationService) {
 
         LogUtil.info(this, 'Invoke AddEntryComponent');
+        this.tagStatisticFacade = new TagStatisticFacade();
 
+        // let ordertTagStatistics: TagStatistic[] = TODO
+        
+        this.updateTagsFromStatistic();
         this.startRotationDate = new Date();
 
         LogUtil.info(this, 'Date: ' + this.startRotationDate.toLocaleDateString());
@@ -55,10 +66,6 @@ export class AddEntryComponent {
         this.memo = "";
         this.isMonthly = true;
         this.isQuarterly = false;
-
-        tagService.getTags().subscribe((tags: Array<Tag>) => {
-            this.possibleTags = tags
-        });
 
         this.tags = new Array<Tag>();
     }
@@ -94,6 +101,9 @@ export class AddEntryComponent {
              this.rotationEntryService.addRotationEntry(rotationEntry).subscribe(
                  data => {
                      LogUtil.info(this, "save : " + JSON.stringify(rotationEntry));
+
+                     this.persistTagToStatistic(this.tags);
+                     this.updateTagsFromStatistic();
                      this.cleanAttributes();
                  }
              )
@@ -106,6 +116,8 @@ export class AddEntryComponent {
             this.entryService.addEntry(entry).subscribe(
                 data => {
                     LogUtil.info(this, 'save : ' + JSON.stringify(entry));
+                    this.persistTagToStatistic(this.tags);
+                    this.updateTagsFromStatistic();
                     this.cleanAttributes();
                 },
                 error => {
@@ -113,7 +125,6 @@ export class AddEntryComponent {
                 }
             );
         }
-    
     }
 
     private cleanAttributes(): void {
@@ -123,8 +134,24 @@ export class AddEntryComponent {
         this.isPeriodical = false;
         this.isMonthly = true;
         this.isQuarterly = false;
-    
+    }
 
+    private persistTagToStatistic(aTags: Tag[]): void {
+        aTags.forEach((tag:Tag) => {
+            this.tagStatisticFacade.pushTag(this.applicationService.getCurrentUser(),tag);
+        });
+        this.tagStatisticService.persistTagStatistic(this.tagStatisticFacade.getTagStatisticValues(this.applicationService.getCurrentUser()))
+        .subscribe( data => LogUtil.debug(this, 'Persisted tagStatistics: ' + JSON.stringify(data)));
+    }
+
+    private updateTagsFromStatistic(): void {
+        this.possibleTags = new Array<Tag>();
+        let tagStatistics: TagStatistic[] = this.tagStatisticFacade.getTagStatisticValues(this.applicationService.getCurrentUser());
+        tagStatistics.forEach( (tagStatistic: TagStatistic) => {
+            let tag: Tag = new Tag();
+            tag.name = tagStatistic.name;
+            this.possibleTags.push(tag);
+        });
     }
 
     public changeAlgebraicSignIsMinus(): void {

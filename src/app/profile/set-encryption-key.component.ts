@@ -5,7 +5,7 @@ import { CryptUtil } from "../utils/crypt-util";
 import { LogUtil } from "../utils/log-util";
 import { MessagingService } from "../messages/message.service";
 import { EncryptionReadyMessage } from "../messages/encryption-ready-message";
-import { EncryptLocalStorage } from "../utils/encryption-localstorage";
+import { EncryptionFacade } from "../utils/encryption-facade";
 import { User } from "../models/user";
 
 @Component({
@@ -19,7 +19,7 @@ export class SetEncryptionKeyComponent {
     public encryptedValidationText: string = String();
     public pressedValidateTest: boolean;
 
-    private encryptionLocalStorage: EncryptLocalStorage;
+    private encryptionFacade: EncryptionFacade;
     private user: User;
 
     constructor(
@@ -28,11 +28,11 @@ export class SetEncryptionKeyComponent {
         private messageService: MessagingService,
         private elRef: ElementRef,
     ) {
-        this.encryptionLocalStorage = new EncryptLocalStorage();
+        this.encryptionFacade = new EncryptionFacade();
         this.user = applicationService.getCurrentUser();
         if (this.user) {
-            if (this.encryptionLocalStorage.isEncryptionSaved(this.user)) {
-                this.key = this.encryptionLocalStorage.getEncryptionKey(this.user);
+            if (this.encryptionFacade.isEncryptionSaved(this.user)) {
+                this.key = this.encryptionFacade.getEncryptionKey(this.user);
                 this.isClickedRemember = true;
             }
         }
@@ -50,7 +50,7 @@ export class SetEncryptionKeyComponent {
         if (this.pressedValidateTest) {
             this.applicationService.setEncryptionKey(this.key);
             if(this.isClickedRemember){
-                this.encryptionLocalStorage.saveEncryptionKey(this.applicationService.getCurrentUser(), this.key)
+                this.encryptionFacade.saveEncryptionKey(this.applicationService.getCurrentUser(), this.key)
             }
             this.messageService.publish(new EncryptionReadyMessage());
         }
@@ -59,7 +59,7 @@ export class SetEncryptionKeyComponent {
     public switchRememberCheckbox(): void {
         if(this.isClickedRemember){
             this.isClickedRemember = false;
-            this.encryptionLocalStorage.deleteLocalStoredEncryptionKey(this.applicationService.getCurrentUser());
+            this.encryptionFacade.deleteLocalStoredEncryptionKey(this.applicationService.getCurrentUser());
         }
         else {
             this.isClickedRemember = true;

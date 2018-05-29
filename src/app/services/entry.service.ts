@@ -16,7 +16,6 @@ export class EntryService {
         private entryApiService: EntryAPIService,
         private appService: ApplicationService) {
         LogUtil.debug(this, "Init EntryService");
-
     }
 
     public getEntries(): Observable<Entry[]> {
