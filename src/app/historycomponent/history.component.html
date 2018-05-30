@@ -4,16 +4,9 @@
 <h2>Verlauf</h2>
 <ul class="list-group">
     
-    <li *ngFor="let entry of entries" class="list-group-item row" style="margin-top: 1rem">
-        <div class="col-11" >
-            <div class="row">
-                <div class="col-6">
-                    {{entry.amount}}
-                </div>
-                <div class="col-12">
-                    {{entry.memo}}
-                </div>
-            </div>
+    <li *ngFor="let entry of entries" class="list-group-item row" style="margin-top: 0.2rem">
+        <div class="col-10 col-sm-11" >
+            {{entry.amount}}  {{entry.memo}}
         </div>
         <div class="col-1">
             <div class="row">

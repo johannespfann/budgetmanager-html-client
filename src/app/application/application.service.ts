@@ -12,8 +12,8 @@ export class ApplicationService {
 
     private user: User;
 
-    //private baseUrl: string = "http://pfann.org:8081/budget/";
-    private baseUrl: string = "http://localhost:8081/budget/";
+    private baseUrl: string = "http://pfann.org:8081/budget/";
+    //private baseUrl: string = "http://localhost:8081/budget/";
 
     private encryptionkey: string;
 
