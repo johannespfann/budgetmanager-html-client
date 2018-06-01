@@ -19,7 +19,15 @@
       <textarea [(ngModel)]="memo" name="memo" class="form-control" id="memo" placeholder="Notiz" rows="2"></textarea>
     </div>
 
-    <tags [tags]="tags" [possibleTags]="possibleTags"></tags>
+
+    <div *ngIf="!isPeriodical" class="form-group">
+        <label for="example-date-input">Erstellen für den:</label>
+        <div>
+          <input class="form-control" type="date" [ngModel]="createEntryDate | date:'yyyy-MM-dd'" (ngModelChange)="createEntryDate=$event" id="example-date-input" name="rotationStartDate">
+        </div>
+    </div>
+
+    <tags [tags]="tags" [possibleTags]="possibleTags" (tagAdded)="onAddedTag($event)" (tagDeleted)="onTagDeleted($event)"  ></tags>
 
     <div class="input-group-text">
       <input type="checkbox" (click)="changePeriodical()">
@@ -48,13 +56,15 @@
                Quartalsweise
           </label>
         </div>
+        <div class="form-check">
+            <label class="form-check-label">
+             <input type="radio" (click)="setYearly()" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3">
+                 Järhlich
+            </label>
+          </div>
       </fieldset>
-
-
     </div>
-
     <br>
-    
     <button type="submit" class="btn btn-primary float-right">Submit</button>
   </form>
 

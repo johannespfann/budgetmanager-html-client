@@ -19,7 +19,7 @@
             <textarea [(ngModel)]="memo" name="memo" class="form-control" id="memo" placeholder="Notiz" rows="2"></textarea>
         </div>
 
-        <tags [tags]="tags" [possibleTags]="possibleTags"></tags>
+        <tags [tags]="tags" [possibleTags]="possibleTags" (tagAdded)="onAddedTag($event)" (tagDeleted)="onTagDeleted($event)"  ></tags>
 
 
         <div class="form-group row">

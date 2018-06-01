@@ -1,13 +1,17 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from "@angular/core";
-import { Entry } from "../models/entry";
-import { EntryService } from "../services/entry.service";
-import { LogUtil } from "../utils/log-util";
-import { Tag } from "../models/tag";
-import { TagService } from "../services/tag.service";
-import { MessagingService } from "../messages/message.service";
-import { EntryUpdatedMessage } from "../messages/entry-updated-message";
+import { Entry } from '../models/entry';
+import { EntryService } from '../services/entry.service';
+import { LogUtil } from '../utils/log-util';
+import { Tag } from '../models/tag';
+import { TagService } from '../services/tag.service';
+import { MessagingService } from '../messages/message.service';
+import { EntryUpdatedMessage } from '../messages/entry-updated-message';
 import { TagsComponent } from '../tags';
-import { MathUtil } from "../utils/math-util";
+import { MathUtil } from '../utils/math-util';
+import { TagStatisticFacade } from '../utils/tag-statistic-facade';
+import { TagStatistic } from "../models/tagstatistic";
+import { TagStatisticService } from "../services/Tag-statistic.service";
+import { ApplicationService } from "../application/application.service";
 
 @Component({
     selector: 'edit-entry-component',
@@ -16,42 +20,43 @@ import { MathUtil } from "../utils/math-util";
 })
 export class EditEntryComponent {
 
-    @Input() 
+    @Input()
     public entry: Entry;
 
-    //@ViewChild('tagsComponent1')
+    // @ViewChild('tagsComponent1')
     @ViewChild(TagsComponent)
     public tagsComponent: TagsComponent;
 
-    public categoriesStrings: Array<string>;
 
-    public possibleTags: Tag[];
-
-    public currentTag: string; 
-    
     public amount: number;
     public memo: string;
 
-    public tags: Tag[];
     public hash: string;
 
     public editEntry: Entry;
 
-    public algebraicSignIsMinus: boolean = true;
+    public algebraicSignIsMinus = true;
+    public tags: Tag[];
+    public possibleTags: Tag[];
+
+    private tagStatisticBrowserStorageFacade: TagStatisticFacade;
 
     constructor(
         private tagService: TagService,
         private entryService: EntryService,
-        private messageService: MessagingService) {
-    
-            LogUtil.debug(this,'Init EditEntryComponent');
+        private messageService: MessagingService,
+        private tagStatisticService: TagStatisticService,
+        private applicationService: ApplicationService) {
 
-        tagService.getTags().subscribe( (tags: Array<Tag>) => {
-            this.possibleTags = tags 
-        });
+            LogUtil.debug(this, 'Init EditEntryComponent');
+
+            this.tagStatisticBrowserStorageFacade = new TagStatisticFacade(this.applicationService.getCurrentUser());
+
+            this.updateTagStatistics();
+            this.resetAttributes();
     }
 
-    private ngOnInit(){
+    private ngOnInit() {
         this.editEntry = Entry.copy(this.entry);
         this.amount = this.initAmount(this.editEntry.amount);
         this.memo = this.editEntry.memo;
@@ -60,58 +65,88 @@ export class EditEntryComponent {
     }
 
 
-    public update(){
-        LogUtil.info(this,'Pressed updateCategory');
+    public update() {
+        LogUtil.info(this, 'Pressed updateCategory');
 
-        let amountValue: number;
+        const amountValue = 0;
         if (this.algebraicSignIsMinus) {
             this.editEntry.amount = MathUtil.convertToNegativ(this.amount);
-        }
-        else {
+        } else {
             this.editEntry.amount = MathUtil.convertToPositiv(this.amount);
         }
 
         this.editEntry.memo = this.memo;
         this.editEntry.tags = this.tags;
 
+        this.persistTagToStatistic();
         this.entryService.update(this.editEntry).subscribe(data => {
-            this.clearAttributes();
-            this.messageService.publish(new EntryUpdatedMessage())
+            this.resetAttributes();
+            this.messageService.publish(new EntryUpdatedMessage());
         });
     }
 
     private initAmount(aAmount: number): number {
-        if(aAmount >= 0){
+        if (aAmount >= 0){
             this.algebraicSignIsMinus = false;
             return aAmount;
-        }
-        else{
+        } else{
             this.algebraicSignIsMinus = true;
             return aAmount * (-1);
         }
     }
 
-    public onTagAdded(aEvent:Tag){
-        console.log("onTagAdded", aEvent, this.tags);
-    }
-
-    public onTagDeleted(aEvent:Tag){
-        console.log("onTagDeleted", aEvent, this.tags);
-    }
-
     public changeAlgebraicSignIsMinus(): void {
-        if(this.algebraicSignIsMinus){
+        if (this.algebraicSignIsMinus){
             this.algebraicSignIsMinus = false;
-        }
-        else{
+        } else{
             this.algebraicSignIsMinus = true;
         }
     }
 
-    private clearAttributes():void {
-        this.tags.splice(0, this.tags.length);
+    private resetAttributes(): void {
+        this.tags = new Array<Tag>();
         this.amount = 0;
         this.algebraicSignIsMinus = true;
-        this.memo = "";
+        this.memo = '';
+        this.updateTagStatistics();
     }
+
+    private persistTagToStatistic(): void {
+        this.tagStatisticService.persistTagStatistic(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())
+        .subscribe( data => {
+                LogUtil.info(this, 'Persist the following tagStatistics: ' + JSON.stringify(this.tagStatisticBrowserStorageFacade.getTagStatisticValues()))
+            });
+    }
+
+    private updateTagStatistics(): void {
+        this.tagStatisticService.getTagStatistic().subscribe((tags: TagStatistic[])=>{
+            LogUtil.info(this, 'Get the following tags -> ' + JSON.stringify(tags));
+           this.tagStatisticBrowserStorageFacade.persistTagStatisctics(tags);
+           this.refreshPossibleTags();
+        });
+    }
+
+    public onAddedTag(tag: Tag): void {
+        LogUtil.info(this, 'added new Tag' + JSON.stringify(tag));
+        this.tagStatisticBrowserStorageFacade.pushTag(tag);
+        this.refreshPossibleTags();
+    }
+
+    public onTagDeleted(tag: Tag): void {
+        LogUtil.info(this, 'removed new Tag' + JSON.stringify(tag));
+        this.tagStatisticBrowserStorageFacade.deleteTag(tag);
+        this.refreshPossibleTags();
+    }
+
+    public refreshPossibleTags(): void {
+        const tagStatisticList: TagStatistic[] = this.tagStatisticBrowserStorageFacade.getTagStatisticValues();
+        this.possibleTags = [];
+        tagStatisticList.forEach((data: TagStatistic) => {
+            const tag: Tag = new Tag();
+            tag.name = data.name;
+            this.possibleTags.push(tag);
+        });
+    }
+
+
 }

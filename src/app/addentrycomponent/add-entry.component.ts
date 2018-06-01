@@ -23,27 +23,21 @@ import { TagStatistic } from "../models/tagstatistic";
 })
 export class AddEntryComponent {
 
-    public algebraicSignIsMinus: boolean = true;
-
-    public amount: number;
     
+    public algebraicSignIsMinus: boolean = true;
+    public amount: number;
     public memo: string;
-
-    public tags: Tag[];
-
-    public possibleTags: Tag[];
-
-    public currentTag: string;
+    public createEntryDate: Date;
 
     public startRotationDate: Date;
+    public isPeriodical = false;
+    public isMonthly = false;
+    public isQuarterly = false;
+    public isYearly = false;
 
-    public isPeriodical: boolean = false;
-
-    public isMonthly: boolean = false;
-
-    public isQuarterly: boolean = false;
-
-    private tagStatisticFacade: TagStatisticFacade;
+    private tagStatisticBrowserStorageFacade: TagStatisticFacade;
+    public tags: Tag[];
+    public possibleTags: Tag[];
 
     constructor(
         private entryService: EntryService,
@@ -52,73 +46,56 @@ export class AddEntryComponent {
         private applicationService: ApplicationService) {
 
         LogUtil.info(this, 'Invoke AddEntryComponent');
-        this.tagStatisticFacade = new TagStatisticFacade();
 
-        // let ordertTagStatistics: TagStatistic[] = TODO
-        
-        this.updateTagsFromStatistic();
-        this.startRotationDate = new Date();
+        this.tagStatisticBrowserStorageFacade = new TagStatisticFacade(this.applicationService.getCurrentUser());
 
-        LogUtil.info(this, 'Date: ' + this.startRotationDate.toLocaleDateString());
-
-        this.algebraicSignIsMinus = true;
-        this.amount;
-        this.memo = "";
-        this.isMonthly = true;
-        this.isQuarterly = false;
-
-        this.tags = new Array<Tag>();
+        this.updateTagStatistics();
+        this.resetAttributes();
     }
 
     public save(): void {
 
         let amountValue: number;
-
         if (this.algebraicSignIsMinus) {
             amountValue = MathUtil.convertToNegativ(this.amount);
-        }
-        else {
+        } else {
             amountValue = MathUtil.convertToPositiv(this.amount);
         }
 
-        let entry: Entry = Entry.create(amountValue);
+        const entry: Entry = Entry.create(amountValue);
 
         entry.setMemo(this.memo);
 
         entry.tags = this.tags;
+        entry.created_at = this.createEntryDate;
 
         if (this.isPeriodical) {
-             let rotationEntry: RotationEntry = RotationEntry.create(amountValue,this.getRotationStrategy());  
+             const rotationEntry: RotationEntry = RotationEntry.create(amountValue,this.getRotationStrategy());  
              rotationEntry.last_executed = null;
              rotationEntry.start_at = this.startRotationDate;
              // TODO
-             LogUtil.info(this,JSON.stringify(this.tags));
+             LogUtil.info(this, JSON.stringify(this.tags));
              rotationEntry.tags = this.tags;
-             LogUtil.info(this,JSON.stringify(rotationEntry.tags));
+             LogUtil.info(this, JSON.stringify(rotationEntry.tags));
              rotationEntry.memo = this.memo;
              rotationEntry.end_at = DateUtil.getMaximumDate();
 
              this.rotationEntryService.addRotationEntry(rotationEntry).subscribe(
                  data => {
-                     LogUtil.info(this, "save : " + JSON.stringify(rotationEntry));
+                     LogUtil.info(this, 'save : ' + JSON.stringify(rotationEntry));
 
-                     this.persistTagToStatistic(this.tags);
-                     this.updateTagsFromStatistic();
-                     this.cleanAttributes();
-                 }
-             )
-
+                     this.persistTagToStatistic();
+                     this.resetAttributes();
+                 });
         }
-        
         if (!this.isPeriodical) {
-            LogUtil.info(this, "Add new Entry: size of tags: " + entry.tags.length);
+            LogUtil.info(this, 'Add new Entry: size of tags: ' + entry.tags.length);
             LogUtil.info(this, JSON.stringify(entry));
             this.entryService.addEntry(entry).subscribe(
                 data => {
                     LogUtil.info(this, 'save : ' + JSON.stringify(entry));
-                    this.persistTagToStatistic(this.tags);
-                    this.updateTagsFromStatistic();
-                    this.cleanAttributes();
+                    this.persistTagToStatistic();
+                    this.resetAttributes();
                 },
                 error => {
                     LogUtil.info(this, error);
@@ -127,38 +104,40 @@ export class AddEntryComponent {
         }
     }
 
-    private cleanAttributes(): void {
+    private resetAttributes(): void {
         this.amount = null;
         this.memo = null;
         this.tags = new Array<Tag>();
+        if (this.isPeriodical) {
+            this.changePeriodical();
+        }
         this.isPeriodical = false;
         this.isMonthly = true;
         this.isQuarterly = false;
+        this.isYearly = false;
+        this.isPeriodical = false;
+        this.createEntryDate = new Date();
+        this.startRotationDate = new Date();
+        this.updateTagStatistics();
     }
 
-    private persistTagToStatistic(aTags: Tag[]): void {
-        aTags.forEach((tag:Tag) => {
-            this.tagStatisticFacade.pushTag(this.applicationService.getCurrentUser(),tag);
-        });
-        this.tagStatisticService.persistTagStatistic(this.tagStatisticFacade.getTagStatisticValues(this.applicationService.getCurrentUser()))
-        .subscribe( data => LogUtil.debug(this, 'Persisted tagStatistics: ' + JSON.stringify(data)));
+    private persistTagToStatistic(): void {
+        this.tagStatisticService.persistTagStatistic(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())
+        .subscribe( data => LogUtil.info(this, 'Persist the following tagStatistics: ' + JSON.stringify(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())));
     }
 
-    private updateTagsFromStatistic(): void {
-        this.possibleTags = new Array<Tag>();
-        let tagStatistics: TagStatistic[] = this.tagStatisticFacade.getTagStatisticValues(this.applicationService.getCurrentUser());
-        tagStatistics.forEach( (tagStatistic: TagStatistic) => {
-            let tag: Tag = new Tag();
-            tag.name = tagStatistic.name;
-            this.possibleTags.push(tag);
+    private updateTagStatistics(): void {
+        this.tagStatisticService.getTagStatistic().subscribe((tags: TagStatistic[])=>{
+            LogUtil.info(this, 'Get the following tags -> ' + JSON.stringify(tags));
+           this.tagStatisticBrowserStorageFacade.persistTagStatisctics(tags);
+           this.refreshPossibleTags();
         });
     }
 
     public changeAlgebraicSignIsMinus(): void {
         if (this.algebraicSignIsMinus) {
             this.algebraicSignIsMinus = false;
-        }
-        else {
+        } else {
             this.algebraicSignIsMinus = true;
         }
     }
@@ -166,36 +145,70 @@ export class AddEntryComponent {
     public changePeriodical() {
         if (this.isPeriodical) {
             this.isPeriodical = false;
-        }
-        else {
+        } else {
             this.isPeriodical = true;
         }
     }
 
     private getRotationStrategy(): string {
-        if(this.isMonthly){
+        if (this.isMonthly) {
             return '66122';
         }
-        if(this.isQuarterly){
+        if (this.isQuarterly) {
             return '36133';
+        }
+        if (this.isYearly) {
+            return '5679';
         }
     }
 
     private showRadioButtons(): void {
-        LogUtil.info(this, "Monatlich     : " + JSON.stringify(this.isMonthly));
-        LogUtil.info(this, "Quartalsweise : " + JSON.stringify(this.isQuarterly));
+        LogUtil.info(this, 'Monatlich     : ' + JSON.stringify(this.isMonthly));
+        LogUtil.info(this, 'Quartalsweise : ' + JSON.stringify(this.isQuarterly));
+        LogUtil.info(this, 'Jährlich      :'  + JSON.stringify(this.isYearly));
     }
 
     public setMonthly(): void {
         this.isMonthly = true;
         this.isQuarterly = false;
+        this.isYearly = false;
         this.showRadioButtons();
     }
 
     public setQuarterly(): void {
         this.isMonthly = false;
         this.isQuarterly = true;
+        this.isYearly = false;
         this.showRadioButtons();
+    }
+
+    public setYearly(): void {
+        this.isMonthly = false;
+        this.isQuarterly = false;
+        this.isYearly = true;
+        this.showRadioButtons();
+    }
+
+    public onAddedTag(tag: Tag): void {
+        LogUtil.info(this, 'added new Tag' + JSON.stringify(tag));
+        this.tagStatisticBrowserStorageFacade.pushTag(tag);
+        this.refreshPossibleTags();
+    }
+
+    public onTagDeleted(tag: Tag): void {
+        LogUtil.info(this, 'removed new Tag' + JSON.stringify(tag));
+        this.tagStatisticBrowserStorageFacade.deleteTag(tag);
+        this.refreshPossibleTags();
+    }
+
+    public refreshPossibleTags(): void {
+        const tagStatisticList: TagStatistic[] = this.tagStatisticBrowserStorageFacade.getTagStatisticValues();
+        this.possibleTags = [];
+        tagStatisticList.forEach((tagStatistic: TagStatistic) => {
+            const tag: Tag = new Tag();
+            tag.name = tagStatistic.name;
+            this.possibleTags.push(tag);
+        });
     }
 
 }

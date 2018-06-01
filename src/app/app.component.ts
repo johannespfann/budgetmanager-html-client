@@ -48,7 +48,6 @@ export class AppComponent {
 
     LogUtil.info(this, "Init Application");
 
-    this.tagStatisticFacade = new TagStatisticFacade();
     this.encryptionFacade = new EncryptionFacade();
     this.authenticationLocalStorage = new AuthenticationFacade();
 
@@ -73,11 +72,6 @@ export class AppComponent {
         if (encryptKey) {
           this.encryptKeyIsValid = true;
           this.applicationService.setEncryptionKey(encryptKey);
-
-          this.tagStatiscticService.getTagStatistic().subscribe( (data: TagStatistic[]) => {
-            LogUtil.debug(this, 'Get and perist tagstatistics to localStorage: ' + JSON.stringify(data));
-            this.tagStatisticFacade.persistTagStatisctics(savedUser,data);
-          });
         }
       });
     }
