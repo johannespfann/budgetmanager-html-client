@@ -3,7 +3,6 @@ import { Entry } from '../models/entry';
 import { EntryService } from '../services/entry.service';
 import { LogUtil } from '../utils/log-util';
 import { Tag } from '../models/tag';
-import { TagService } from '../services/tag.service';
 import { MessagingService } from '../messages/message.service';
 import { EntryUpdatedMessage } from '../messages/entry-updated-message';
 import { TagsComponent } from '../tags';
@@ -42,7 +41,6 @@ export class EditEntryComponent {
     private tagStatisticBrowserStorageFacade: TagStatisticFacade;
 
     constructor(
-        private tagService: TagService,
         private entryService: EntryService,
         private messageService: MessagingService,
         private tagStatisticService: TagStatisticService,

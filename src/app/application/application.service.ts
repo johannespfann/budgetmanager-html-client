@@ -1,10 +1,9 @@
 import { LogUtil } from "../utils/log-util";
-import { Subscription } from "rxjs";
 import { LogedInMessage } from "../messages/logedin-message";
 import { MessagingService } from "../messages/message.service";
 import { User } from "../models/user";
 import { AppConfiguration } from "./application-configuration";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 
 @Injectable()

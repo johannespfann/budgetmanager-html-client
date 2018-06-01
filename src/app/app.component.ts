@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MessagingService } from './messages/message.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { LogedInMessage } from './messages/logedin-message';
 import { LogUtil } from './utils/log-util';
 import { User } from './models/user';

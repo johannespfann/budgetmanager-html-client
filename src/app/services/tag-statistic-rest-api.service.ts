@@ -6,7 +6,8 @@ import { ApplicationService } from "../application/application.service";
 import { LogUtil } from "../utils/log-util";
 import { TagStatisticTransformer } from "../utils/tagstatistic-transformer";
 import { User } from "../models/user";
-import { Observable } from "rxjs";
+import { Observable, pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class TagStatisticRestApiService{
@@ -25,21 +26,23 @@ export class TagStatisticRestApiService{
     public getTagStatistics(aUser: User): Observable<Array<TagStatistic>> {
         
         if(!this.appService.isReadyForRestServices()){
-            return Observable.create( result  => { result.error("No restservice available!");});
+            return Observable.create( result  => { result.error('No restservice available!');});
         }
 
         var encryptKey = this.appService.getEncryptionKey();
+        const basePath = this.appService.getApplicationConfig().getBaseUrl();
+        return this.http.get<Array<TagStatisticServer>>(basePath + 'tagstatistic/owner/' + aUser.name + '/all')
+        .pipe(
+            map((tagStatisticServers: TagStatisticServer[]) => {
+                const newTagStatistic = new Array<TagStatistic>();
 
-        return this.http.get<Array<TagStatisticServer>>(this.appService.getApplicationConfig().getBaseUrl() +'tagstatistic/owner/' + aUser.name + '/all')
-        .map((tagStatisticServers: TagStatisticServer[]) => {
-            let newTagStatistic = new Array<TagStatistic>();
+                tagStatisticServers.forEach( (tagServer: TagStatisticServer) => {
+                    newTagStatistic.push(this.tagStatisticTransformer.transformTagStatisticServer(encryptKey, tagServer));
+                });
 
-            tagStatisticServers.forEach( (tagServer: TagStatisticServer) => {
-                newTagStatistic.push(this.tagStatisticTransformer.transformTagStatisticServer(encryptKey, tagServer));
+                return newTagStatistic;
             })
-
-            return newTagStatistic;
-        }); 
+        );
     }
 
     public persistTagStatistics(aUser: User, aTagStatistics: TagStatistic[]): Observable<any> {

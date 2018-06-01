@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { LogUtil } from "../utils/log-util";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { User } from "../models/user";
 import { MessagingService } from "../messages/message.service";
 import { LogedInMessage } from "../messages/logedin-message";

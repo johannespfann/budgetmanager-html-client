@@ -12,7 +12,6 @@ import { BalanceComponent } from "./balancecomponent/balance.component";
 import { HistoryComponent } from "./historycomponent/history.component";
 import { EntryService } from "./services/entry.service";
 import { MessagingService } from "./messages/message.service";
-import { TagService } from './services/tag.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { RegisterComponent } from './logincomponent/register.component';
@@ -21,7 +20,6 @@ import { ApplicationService } from './application/application.service';
 import { EntryAPIService } from './services/entry.api.service';
 import { EditEntryComponent } from './historycomponent/edit-entry.component';
 import { HistoryDirective } from './historycomponent/history.directive';
-import { TagRestApiService } from './services/tag-rest-api.service';
 import { RotationEntryService } from './services/rotation-entry.service';
 import { RotationEntryRestApiService } from './services/rotation-entry-rest-api.service';
 import { RotationEntryComponent } from './rotationentrycomponent/rotation-entry.component';
@@ -71,10 +69,8 @@ export function initApplication(appService: AppService) {
   providers: [
     EntryService,
     MessagingService,
-    TagService,
     EntryAPIService,
     LoginService,
-    TagRestApiService,
     RotationEntryService,
     RotationEntryRestApiService,
     EncryptSerice,

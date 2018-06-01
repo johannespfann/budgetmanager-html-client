@@ -2,7 +2,8 @@ import { LogUtil } from "../utils/log-util";
 import { Injectable } from "@angular/core";
 import { RotationEntryRestApiService } from "./rotation-entry-rest-api.service";
 import { RotationEntry } from "../models/rotationentry";
-import { Observable } from "rxjs/Observable";
+import { Observable, pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ApplicationService } from "../application/application.service";
 
 @Injectable()

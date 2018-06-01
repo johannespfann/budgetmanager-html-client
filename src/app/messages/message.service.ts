@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs/Rx";
 import { Message } from "./message";
 import { LogUtil } from "../utils/log-util";
+import { Observable, Subject ,pipe } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 @Injectable()
 export class MessagingService {
@@ -20,7 +21,9 @@ export class MessagingService {
 
     public of<T>(messageType: { new(...args: any[]): T }): Observable<T> {
         const channel = (<any>messageType).name;
-        return this.message$.filter(m => m.channel === channel).map(m => m.data);
+        return this.message$.pipe(
+            filter(m => m.channel === channel),
+            map(m => m.data)
+        );
     }
-
 }

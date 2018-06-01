@@ -1,4 +1,4 @@
-import { Component, style } from "@angular/core";
+import { Component } from "@angular/core";
 
 import { Tag } from "../models/tag";
 import { Entry } from "../models/entry";
