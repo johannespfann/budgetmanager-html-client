@@ -6,8 +6,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "npm run build:app",
-    "build:app": "ng build --prod --app app ",
-    "build:app-remote": "ng build --prod --app app --base-href=/budget/",
+    "build:app": "ng build --prod --project=app ",
+    "build:app-remote": "ng build --prod  --project=app --base-href=/budget/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
