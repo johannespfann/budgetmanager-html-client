@@ -1,33 +1,33 @@
-import { LogUtil } from "../utils/log-util";
-import { LogedInMessage } from "../messages/logedin-message";
-import { MessagingService } from "../messages/message.service";
-import { User } from "../models/user";
-import { AppConfiguration } from "./application-configuration";
-import { Observable } from "rxjs";
-import { Injectable } from "@angular/core";
+import { LogUtil } from '../utils/log-util';
+import { LogedInMessage } from '../messages/logedin-message';
+import { MessagingService } from '../messages/message.service';
+import { User } from '../models/user';
+import { AppConfiguration } from './application-configuration';
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ApplicationService {
 
     private user: User;
 
-    //private baseUrl: string = "http://pfann.org:8081/budget/";
-    private baseUrl: string = "http://localhost:8081/budget/";
+    //private baseUrl = 'http://pfann.org:8081/budget/';
+     private baseUrl = 'http://localhost:8081/budget/';
 
     private encryptionkey: string;
 
     constructor() {
-        LogUtil.info(this, "Init ApplicationService");
+        LogUtil.info(this, 'Init ApplicationService');
     }
 
     public initApplication(): void {
     }
 
     public currentUserExists(): boolean {
-        if(this.user){
+        if (this.user) {
             return true;
         }
-        return false
+        return false;
     }
 
     private getAccessToken(): string {
@@ -56,21 +56,21 @@ export class ApplicationService {
     }
 
     public isReadyForRestServices(): boolean {
-        if(this.isLoggedIn() && this.encryptionKeyReady()){
+        if (this.isLoggedIn() && this.encryptionKeyReady()){
             return true;
         }
         return false;
     }
 
     public isLoggedIn(): boolean {
-        if(this.user){
+        if (this.user){
             return true;
         }
         return false;
     }
 
     public encryptionKeyReady(): boolean {
-        if(this.encryptionkey){
+        if (this.encryptionkey){
             return true;
         }
         return false;

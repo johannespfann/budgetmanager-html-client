@@ -23,8 +23,7 @@ import { TagStatistic } from "../models/tagstatistic";
 })
 export class AddEntryComponent {
 
-    
-    public algebraicSignIsMinus: boolean = true;
+    public algebraicSignIsMinus = true;
     public amount: number;
     public memo: string;
     public createEntryDate: Date;

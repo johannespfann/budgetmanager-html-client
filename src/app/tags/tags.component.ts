@@ -4,8 +4,8 @@ import { Input, Component, Output, EventEmitter } from "@angular/core";
 
 @Component({
     selector: "tags",
-    templateUrl: "./tags.component.html",
-    styleUrls: ["./tags.component.css"]
+    templateUrl: './tags.component.html',
+    styleUrls: ['./tags.component.css']
 })
 export class TagsComponent {
 
@@ -29,21 +29,21 @@ export class TagsComponent {
 
     public saveTag(event: any): void {
 
-        if (this.currentTag.includes(" ")) {
+        if (this.currentTag.includes(' ')) {
 
-            let temp: Array<string> = this.currentTag.split(" ");
+            let temp: Array<string> = this.currentTag.split(' ');
             let preparedTagName: string = temp[0];
 
-            preparedTagName = preparedTagName.replace(" ", "");
-            if (preparedTagName == "") {
-                this.currentTag = "";
+            preparedTagName = preparedTagName.replace(' ', '');
+            if (preparedTagName === '') {
+                this.currentTag = '';
                 return;
             }
 
             let tag: Tag = new Tag();
             tag.name = preparedTagName;
             this.tags.push(tag);
-            this.currentTag = "";
+            this.currentTag = '';
             this.tagAdded.emit(tag);
         }
     }

@@ -1,11 +1,11 @@
-import { Component, ViewChild, ComponentFactoryResolver } from "@angular/core";
-import { EntryService } from "../services/entry.service";
-import { Entry } from "../models/entry";
-import { LogUtil } from "../utils/log-util";
-import { EditEntryComponent } from "./edit-entry.component";
-import { HistoryDirective } from "./history.directive";
-import { MessagingService } from "../messages/message.service";
-import { EntryUpdatedMessage } from "../messages/entry-updated-message";
+import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { EntryService } from '../services/entry.service';
+import { Entry } from '../models/entry';
+import { LogUtil } from '../utils/log-util';
+import { EditEntryComponent } from './edit-entry.component';
+import { HistoryDirective } from './history.directive';
+import { MessagingService } from '../messages/message.service';
+import { EntryUpdatedMessage } from '../messages/entry-updated-message';
 
 @Component({
     selector : 'history-component',
@@ -29,10 +29,10 @@ export class HistoryComponent{
                 this.entries = this.sortByTime(data);
             },
             error => {
-                LogUtil.info(this,'Error was cached! -> ' + error);
+                LogUtil.info(this, 'Error was cached! -> ' + error);
                 this.entries = new Array<Entry>();
             }
-        )
+        );
 
         messageService.of(EntryUpdatedMessage).subscribe( (message: EntryUpdatedMessage) => {
             this.updateEntries();
@@ -41,7 +41,7 @@ export class HistoryComponent{
     }
 
     private editEntry(aEntry: Entry): void {
-        LogUtil.info(this,'edit entry: ' + JSON.stringify(aEntry));
+        LogUtil.info(this, 'edit entry: ' + JSON.stringify(aEntry));
         
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(EditEntryComponent);
 
@@ -53,11 +53,11 @@ export class HistoryComponent{
 
     }
 
-    private deleteEntry(aEntry:Entry): void {
-        LogUtil.info(this,'delete entry: ' + JSON.stringify(aEntry));
+    private deleteEntry(aEntry: Entry): void {
+        LogUtil.info(this, 'delete entry: ' + JSON.stringify(aEntry));
         this.entryService.deleteEntry(aEntry).subscribe(
-            data => {this.updateEntries()},
-            error => {LogUtil.info(this,'Error was cacked! -> ' + error);}
+            data => {this.updateEntries(); },
+            error => {LogUtil.info(this, 'Error was cacked! -> ' + error); }
         );
         
     }
@@ -68,21 +68,21 @@ export class HistoryComponent{
                 this.entries = this.sortByTime(data);
             },
             error => {
-                LogUtil.info(this,'Error was cached! -> ' + error);
+                LogUtil.info(this, 'Error was cached! -> ' + error);
                 this.entries = new Array<Entry>();
             }
-        )
+        );
     }
 
     private sortByTime(aEntries: Entry[]): Entry[] {
-        return aEntries.sort(function(a:Entry, b:Entry){
+        return aEntries.sort(function(a: Entry, b: Entry){
             return b.created_at.getTime() - a.created_at.getTime();
         });
 
     }
 
-    public clearEntryEditComponent(){
-        if(this.viewContainerRef){
+    public clearEntryEditComponent() {
+        if (this.viewContainerRef) {
             this.viewContainerRef.clear();
         }
     }
