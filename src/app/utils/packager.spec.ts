@@ -38,16 +38,9 @@ describe('packager', function () {
         entries.push(entrieThird);
         entries.push(entrieFourth);
 
-        //entries.forEach( data => console.log(JSON.stringify(data)));
 
         let packager: Packager = new Packager();
         let entryPackages: EntryPackage[] = packager.splitInMonth(entries);
-
-        console.log('RESULT ' + JSON.stringify(entryPackages));
-        entryPackages.forEach( (data: EntryPackage) => {
-            console.log('Neues ENTRYPACKAGE');
-            data.entries.forEach( data2 => console.log(data2));
-        });
 
         expect(entryPackages.length === 3);
     });

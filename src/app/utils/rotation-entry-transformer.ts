@@ -9,7 +9,6 @@ export class RotationEntryTransformer {
     private encryptValue = true;
 
     public transformRotationEntryServer(aPassword: string, aServerEntry: RotationEntryServer): RotationEntry {
-        LogUtil.info(this, "transformRotationEntryServer: " + JSON.stringify(aServerEntry));
         var rotationEntry: RotationEntry = new RotationEntry();
 
 
@@ -27,13 +26,11 @@ export class RotationEntryTransformer {
             return newTag;
         });
         rotationEntry.rotation_strategy = aServerEntry.rotation_strategy;
-        LogUtil.info(this, "to -> : " + JSON.stringify(rotationEntry));
 
         return rotationEntry;
     }
 
     public transformRotationEntry(aPassword: string, aEntry: RotationEntry): RotationEntryServer {
-        LogUtil.info(this, "transformRotationEntry: " + JSON.stringify(aEntry));
         var rotationEntryServer: RotationEntryServer = new RotationEntryServer();
         rotationEntryServer.hash = aEntry.hash.toString();
         
@@ -71,7 +68,6 @@ export class RotationEntryTransformer {
         });
 
         rotationEntryServer.rotation_strategy = aEntry.rotation_strategy;
-        LogUtil.info(this, "to -> : " + JSON.stringify(rotationEntryServer));
         return rotationEntryServer;
     }
 

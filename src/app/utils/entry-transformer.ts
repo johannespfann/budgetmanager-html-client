@@ -9,8 +9,7 @@ export class EntryTransformer {
     private encryptValue = true;
 
     public transformEntry(aPassword: string, aEntry: Entry): EntryServer {
-        LogUtil.info(this, "transformEntry: " + JSON.stringify(aEntry));
-        var entryServer: EntryServer = new EntryServer();
+        const entryServer: EntryServer = new EntryServer();
         entryServer.hash = aEntry.hash;
         if (this.encryptValue) {
             entryServer.amount = CryptUtil.encryptString(aPassword, aEntry.amount.toString());
@@ -31,20 +30,16 @@ export class EntryTransformer {
             var newTag: Tag = new Tag();
             if (this.encryptValue) {
                 newTag.name = CryptUtil.encryptStringWithoutSalt(aPassword, tag.name);
-                console.log("convert Tag -> {" +tag.name+ "} to -> " + newTag.name );
             }
             else {
                 newTag.name = tag.name;
             }
-            LogUtil.info(this, JSON.stringify(newTag))
             return newTag;
         });
-        LogUtil.info(this, "to -> " + JSON.stringify(entryServer));
         return entryServer;
     }
 
     public transformEntryServer(aPassword: string, aEntryServer: EntryServer): Entry {
-        LogUtil.info(this, "transformEntryServer -> " + JSON.stringify(aEntryServer));
         var entry: Entry = new Entry();
         entry.hash = aEntryServer.hash;
         entry.amount = Number(CryptUtil.decryptString(aPassword, aEntryServer.amount));
@@ -55,7 +50,6 @@ export class EntryTransformer {
             newTag.name = CryptUtil.decryptStringWithoutSalt(aPassword, tag.name);
             return newTag;
         });
-        LogUtil.info(this, "to -> " + JSON.stringify(entry));
         return entry;
     }
 }

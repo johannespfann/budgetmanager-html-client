@@ -1,71 +1,54 @@
 import { EntryPackage } from '../historycomponent/entry-package';
 import { Entry } from '../models/entry';
+import { DateUtil } from './date-util';
 
 export class Packager {
 
     public splitInMonth(entries: Entry[]): EntryPackage[] {
-        console.log('Start to split entries: ' + entries.length);
-        let entryPackages: EntryPackage[] = [];
-        let entriesTemp: Entry[] = entries;
+        const entryPackages: EntryPackage[] = [];
+        const entriesTemp: Entry[] = entries.slice(0);
 
-        entries.forEach( data => console.log('--> ') + JSON.stringify(data));
-        console.log('Start to split entries: ' + JSON.stringify(entries));
-
-        let index = 0;
-        while(true) {
-            console.log('Neuer Schleifendurchlauf');
-            
-            if (entriesTemp.length === 0){
-                console.log('keine entries mehr da -> break');
+        while (true) {
+            if (entriesTemp.length === 0) {
                 break;
             }
 
             entries.forEach( (entry: Entry) => {
-                console.log('nehme entry ' + JSON.stringify(entry));
+                const packagename: string = DateUtil.getNameOfMonth(entry.created_at) + '/' + entry.created_at.getFullYear();
                 let foundEntries: Entry[] = [];
-                console.log(' und ueberpruefe mit: ');
-                
+
                 foundEntries = entriesTemp.filter( (entryFilter: Entry) => {
-                    console.log(' -> ' + JSON.stringify(entryFilter.amount));
                     return this.isInSameMonth(entry.created_at, entryFilter);
                 });
 
-                console.log('Found Entries: ' + foundEntries.length);
 
                 foundEntries.forEach((entryDelete: Entry) => {
                     this.removeElement(entriesTemp, entryDelete);
                 });
 
-
-                console.log('Found Entries: ' + foundEntries.length);
-                if(foundEntries.length > 0) {
-                    let entryPackage = new EntryPackage();
+                if (foundEntries.length > 0) {
+                    const entryPackage = new EntryPackage();
                     entryPackage.entries = foundEntries;
-                    console.log('Push entryPackage with Entries: ' + entryPackage.entries.length);
+                    entryPackage.packagename = packagename;
                     entryPackages.push(entryPackage);
                 }
-
             });
-            index++;
-
         }
 
         return entryPackages;
     }
 
     private removeElement(entries: Entry[], entry: Entry): Entry[] {
-        console.log('DeleteEntries: ' + JSON.stringify(entries.length));
-        let index = entries.indexOf(entry);
+        const index = entries.indexOf(entry);
 
         if (index !== -1) {
             entries.splice(index, 1);
         }
-        console.log('Finished DeleteEntries: ' + JSON.stringify(entries.length));
         return entries;
     }
 
     private isInSameMonth(currentMonth: Date, entry: Entry): boolean {
-        let entryMonth: Date = entry.created_at;
+        const entryMonth: Date = entry.created_at;
         if (this.isSameMonth(currentMonth, entryMonth) && this.isSameYear(currentMonth, entryMonth)) {
             return true;
         }
@@ -85,5 +68,4 @@ export class Packager {
         }
         return false;
     }
-
 }
