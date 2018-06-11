@@ -1,5 +1,5 @@
-import { User } from "../models/user";
-import { LogUtil } from "./log-util";
+import { User } from '../models/user';
+import { LogUtil } from './log-util';
 
 export class AuthenticationFacade {
 
@@ -20,7 +20,7 @@ export class AuthenticationFacade {
     public isUserCredentialsSaved(): boolean {
         const username = localStorage.getItem(this.username_key);
         const password = localStorage.getItem(this.password_key);
-        if (username && password){
+        if (username && password) {
             return true;
         }
         return false;
@@ -28,8 +28,8 @@ export class AuthenticationFacade {
 
     public saveUser(user: User): void {
         LogUtil.info(this, 'Save username: ' + user.name + ' and password ' + user.password + ' to localStorage');
-        localStorage.setItem(this.username_key,user.name);
-        localStorage.setItem(this.password_key,user.password);
+        localStorage.setItem(this.username_key, user.name);
+        localStorage.setItem(this.password_key, user.password);
     }
 
     public getUser(): User {

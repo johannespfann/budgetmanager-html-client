@@ -1,7 +1,7 @@
-import { TagStatisticServer } from "../models/tagstatistic-server";
-import { TagStatistic } from "../models/tagstatistic";
-import { LogUtil } from "./log-util";
-import { CryptUtil } from "./crypt-util";
+import { TagStatisticServer } from '../models/tagstatistic-server';
+import { TagStatistic } from '../models/tagstatistic';
+import { LogUtil } from './log-util';
+import { CryptUtil } from './crypt-util';
 
 export class TagStatisticTransformer {
 
@@ -9,35 +9,30 @@ export class TagStatisticTransformer {
 
     public transformTagStatisticServer(aPassword: string, aServerStatisticTag: TagStatisticServer): TagStatistic {
 
-        var tagStatistic: TagStatistic = new TagStatistic();
+        const tagStatistic: TagStatistic = new TagStatistic();
         tagStatistic.name = CryptUtil.decryptString(aPassword, aServerStatisticTag.name);
-        var weightString = CryptUtil.decryptString(aPassword, aServerStatisticTag.weight);
+        const weightString = CryptUtil.decryptString(aPassword, aServerStatisticTag.weight);
         tagStatistic.weight = Number(weightString);
 
         return tagStatistic;
-
     }
 
     public transformTagStatistic(aPassword: string, aTagStatistic: TagStatistic): TagStatisticServer {
-
-        var tagStatisticServer: TagStatisticServer = new TagStatisticServer();
+        const tagStatisticServer: TagStatisticServer = new TagStatisticServer();
         if (this.encryptValue) {
             tagStatisticServer.name = CryptUtil.encryptString(aPassword, aTagStatistic.name);
-        }
-        else {
+        } else {
             tagStatisticServer.name = aTagStatistic.name;
         }
 
-        var weightString = String(aTagStatistic.weight);
+        const weightString = String(aTagStatistic.weight);
 
         if (this.encryptValue) {
             tagStatisticServer.weight = CryptUtil.encryptString(aPassword, weightString);
-        }
-        else {
+        } else {
             tagStatisticServer.weight = weightString;
         }
 
         return tagStatisticServer;
-
     }
 }

@@ -1,5 +1,5 @@
-import { User } from "../models/user";
-import { LogUtil } from "./log-util";
+import { User } from '../models/user';
+import { LogUtil } from './log-util';
 
 export class EncryptionFacade {
 
