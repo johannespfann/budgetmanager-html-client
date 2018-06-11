@@ -1,19 +1,18 @@
-import { Component } from "@angular/core";
-
-import { Tag } from "../models/tag";
-import { Entry } from "../models/entry";
-import { MathUtil } from "../utils/math-util";
-import { EntryService } from "../services/entry.service";
-import { LogUtil } from "../utils/log-util";
-import { TagService } from "../services/tag.service";
-import { RotationEntry } from "../models/rotationentry";
-import { RotationEntryService } from "../services/rotation-entry.service";
-import { RotationUtil } from "../rotationentrycomponent/rotationutil";
-import { DateUtil } from "../utils/date-util";
-import { TagStatisticFacade } from "../utils/tag-statistic-facade";
-import { TagStatisticService } from "../services/Tag-statistic.service";
-import { ApplicationService } from "../application/application.service";
-import { TagStatistic } from "../models/tagstatistic";
+import { Component } from '@angular/core';
+import { Tag } from '../models/tag';
+import { Entry } from '../models/entry';
+import { MathUtil } from '../utils/math-util';
+import { EntryService } from '../services/entry.service';
+import { LogUtil } from '../utils/log-util';
+import { TagService } from '../services/tag.service';
+import { RotationEntry } from '../models/rotationentry';
+import { RotationEntryService } from '../services/rotation-entry.service';
+import { RotationUtil } from '../rotationentrycomponent/rotationutil';
+import { DateUtil } from '../utils/date-util';
+import { TagStatisticFacade } from '../utils/tag-statistic-facade';
+import { TagStatisticService } from '../services/Tag-statistic.service';
+import { ApplicationService } from '../application/application.service';
+import { TagStatistic } from '../models/tagstatistic';
 
 
 @Component({
@@ -69,13 +68,10 @@ export class AddEntryComponent {
         entry.created_at = this.createEntryDate;
 
         if (this.isPeriodical) {
-             const rotationEntry: RotationEntry = RotationEntry.create(amountValue,this.getRotationStrategy());  
+             const rotationEntry: RotationEntry = RotationEntry.create(amountValue, this.getRotationStrategy());
              rotationEntry.last_executed = null;
              rotationEntry.start_at = this.startRotationDate;
-             // TODO
-             LogUtil.info(this, JSON.stringify(this.tags));
              rotationEntry.tags = this.tags;
-             LogUtil.info(this, JSON.stringify(rotationEntry.tags));
              rotationEntry.memo = this.memo;
              rotationEntry.end_at = DateUtil.getMaximumDate();
 
@@ -126,8 +122,7 @@ export class AddEntryComponent {
     }
 
     private updateTagStatistics(): void {
-        this.tagStatisticService.getTagStatistic().subscribe((tags: TagStatistic[])=>{
-            LogUtil.info(this, 'Get the following tags -> ' + JSON.stringify(tags));
+        this.tagStatisticService.getTagStatistic().subscribe((tags: TagStatistic[]) => {
            this.tagStatisticBrowserStorageFacade.persistTagStatisctics(tags);
            this.refreshPossibleTags();
         });
@@ -161,31 +156,23 @@ export class AddEntryComponent {
         }
     }
 
-    private showRadioButtons(): void {
-        LogUtil.info(this, 'Monatlich     : ' + JSON.stringify(this.isMonthly));
-        LogUtil.info(this, 'Quartalsweise : ' + JSON.stringify(this.isQuarterly));
-        LogUtil.info(this, 'Jährlich      :'  + JSON.stringify(this.isYearly));
-    }
-
     public setMonthly(): void {
         this.isMonthly = true;
         this.isQuarterly = false;
         this.isYearly = false;
-        this.showRadioButtons();
     }
 
     public setQuarterly(): void {
         this.isMonthly = false;
         this.isQuarterly = true;
         this.isYearly = false;
-        this.showRadioButtons();
+
     }
 
     public setYearly(): void {
         this.isMonthly = false;
         this.isQuarterly = false;
         this.isYearly = true;
-        this.showRadioButtons();
     }
 
     public onAddedTag(tag: Tag): void {
@@ -209,5 +196,4 @@ export class AddEntryComponent {
             this.possibleTags.push(tag);
         });
     }
-
 }

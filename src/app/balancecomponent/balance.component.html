@@ -1,3 +1,25 @@
-<div class="jumbotron">
-    <h1>balance</h1>
+<div *ngFor="let balanceManager of balanceManagers" class="" style="margin-top: 0.2rem">
+    <div class="jumbotron">
+        <p>{{balanceManager.name}}</p>
+        <ul class="list-group">
+            <p>Einnahmen</p>
+            <li *ngFor="let entry of balanceManager.positivEntries" class="list-group-item list-group-item-success ">
+                <div class="col-10 col-sm-11">
+                    {{entry.amount}} € {{entry.memo}}
+                </div>
+            </li>
+        </ul>
+
+        <ul class="list-group">
+            <p>Ausgaben</p>
+            <li *ngFor="let entry of balanceManager.negativEntries" class="list-group-item list-group-item-danger">
+                <div class="col-10 col-sm-11">
+                    {{entry.amount}} € {{entry.memo}}
+                </div>
+            </li>
+        </ul>
+
+        <p>Balance</p>
+        {{balanceManager.balance}} €
+    </div>
 </div>

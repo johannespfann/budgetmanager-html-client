@@ -72,8 +72,6 @@ export class ApplicationService {
     }
 
     public isReadyForRestServices(): boolean {
-        LogUtil.info(this, 'isLoggedIn    : ' + this.isLoggedIn());
-        LogUtil.info(this, 'isEncryptReady: ' + this.isEncryptionKeyReadyToUse());
         if (this.isLoggedIn() && this.isEncryptionKeyReadyToUse()) {
             return true;
         }
@@ -82,7 +80,6 @@ export class ApplicationService {
 
     public isLoggedIn(): boolean {
         if (this.user) {
-            LogUtil.info(this, 'User is loggedIn ' + this.user.name);
             return true;
         }
         return false;
@@ -90,11 +87,9 @@ export class ApplicationService {
 
 
     public isEncryptionKeyReadyToUse(): boolean {
-        LogUtil.info(this, 'setupKey:    : ' + this.isEncryptionKeyDefined);
         if (!this.isEncryptionKeyDefined) {
             return false;
         }
-        LogUtil.info(this, 'Key:    : ' + this.encryptionkey);
         if (this.encryptionkey) {
             return true;
         }
