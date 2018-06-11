@@ -1,16 +1,16 @@
 import { Component, Output, EventEmitter } from "@angular/core";
 import { EncryptSerice } from "../services/encrypt.service";
-import { LogUtil } from "../utils/log-util";
-import { ApplicationService } from "../application/application.service";
-import { CryptUtil } from "../utils/crypt-util";
+import { LogUtil } from '../utils/log-util';
+import { ApplicationService } from '../application/application.service';
+import { CryptUtil } from '../utils/crypt-util';
 
 @Component({
     selector: 'bm-first-add-encryption',
-    templateUrl: './first-add-encryption.component.html'    
+    templateUrl: './first-add-encryption.component.html'
 })
 export class FirstAddEncryptionComponent{
 
-    @Output() 
+    @Output()
     public setKeyIsDone = new EventEmitter<boolean>();
 
     public key: string;
@@ -21,13 +21,14 @@ export class FirstAddEncryptionComponent{
 
     constructor(
         private applicationService: ApplicationService,
-        private encryptService: EncryptSerice){
+        private encryptService: EncryptSerice) {
     }
 
     public saveKey(): void {
-        if(this.isCorrectKey(this.key,this.keyrepeat)){     
+        if(this.isCorrectKey(this.key,this.keyrepeat)) {
+            const baseUrl: string = this.applicationService.getApplicationConfig().getBaseUrl();
            this.encryptService
-            .setEncryptionText(this.applicationService.getCurrentUser(),CryptUtil.encryptString(this.key,this.validationText))
+            .setEncryptionText(baseUrl, this.applicationService.getCurrentUser(), CryptUtil.encryptString(this.key,this.validationText))
             .subscribe( data => {
                 this.setKeyIsDone.emit(true);
             });
@@ -35,10 +36,10 @@ export class FirstAddEncryptionComponent{
     }
 
     private isCorrectKey(key: string, keyrepeat: string): boolean {
-        if(!(key.length > 0)){
+        if (!(key.length > 0)) {
             return false;
         }
-        if(key == keyrepeat){
+        if (key === keyrepeat) {
             return true;
         }
         return false;

@@ -1,12 +1,12 @@
-import { NgModule }              from '@angular/core';
-import { RouterModule, Routes }  from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { WelcomeComponent } from "./welcomecomponent/welcome.component";
-import { AddEntryComponent } from "./addentrycomponent/add-entry.component";
-import { PageNotFoundComponent } from "./errorcomponents/page-not-found.component";
-import { LoginComponent } from "./logincomponent/login.component";
-import { BalanceComponent } from "./balancecomponent/balance.component";
-import { HistoryComponent } from "./historycomponent/history.component";
+import { WelcomeComponent } from './welcomecomponent/welcome.component';
+import { AddEntryComponent } from './addentrycomponent/add-entry.component';
+import { PageNotFoundComponent } from './errorcomponents/page-not-found.component';
+import { LoginComponent } from './logincomponent/login.component';
+import { BalanceComponent } from './balancecomponent/balance.component';
+import { HistoryComponent } from './historycomponent/history.component';
 import { RegisterComponent } from './logincomponent/register.component';
 import { ActivateComponent } from './logincomponent/activate.component';
 import { RotationEntryComponent } from './rotationentrycomponent/rotation-entry.component';

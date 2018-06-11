@@ -1,9 +1,12 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-    selector : "balance",
-    templateUrl : "./balance.component.html"
+    selector : 'balance',
+    templateUrl : './balance.component.html'
 })
-export class BalanceComponent{
+export class BalanceComponent {
 
+    constructor() {
+
+    }
 }

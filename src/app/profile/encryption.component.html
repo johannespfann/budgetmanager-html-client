@@ -2,4 +2,4 @@
 <bm-first-add-encryption *ngIf="showFirstAddEncryption" (setKeyIsDone)="onSetKeyIsDone($event)"></bm-first-add-encryption>
 
 <!-- Wird angezeigt wenn bereits ein Schlüssel vergeben wurde-->
-<bm-set-encryption-key *ngIf="showSetEncryption"></bm-set-encryption-key>
+<bm-set-encryption-key *ngIf="showSetEncryption" (testKeyIsDone)="onTestKeyIsDone($event)"></bm-set-encryption-key>

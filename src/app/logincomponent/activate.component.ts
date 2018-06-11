@@ -1,12 +1,13 @@
-import { Component } from "@angular/core";
-import { LogUtil } from "../utils/log-util";
-import { ActivatedRoute, Router } from "@angular/router";
-import { LoginService } from "../services/login.service";
+import { Component } from '@angular/core';
+import { LogUtil } from '../utils/log-util';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from '../services/login.service';
+import { ApplicationService } from '../application/application.service';
 
 
 @Component({
     selector: 'bm-activate',
-    templateUrl: './activate.component.html'    
+    templateUrl: './activate.component.html'
 })
 export class ActivateComponent{
     
@@ -17,41 +18,46 @@ export class ActivateComponent{
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private loginService: LoginService){
+        private loginService: LoginService,
+        private appService: ApplicationService){
 
-        LogUtil.info(this,'Init ActivateComponent');
+        LogUtil.info(this, 'Init ActivateComponent');
         this.username = route.snapshot.paramMap.get('username');
         this.email = route.snapshot.paramMap.get('email');
 
-        LogUtil.info(this,'Username: ' + this.username);
-        LogUtil.info(this,'email: ' + this.email);
+        LogUtil.info(this, 'Username: ' + this.username);
+        LogUtil.info(this, 'email: ' + this.email);
 
     }
 
     public activateUser(): void{
-        LogUtil.info(this,"ActivationCode: " + this.activationCode);
-        this.loginService.activateUser(this.username,this.activationCode)
+        LogUtil.info(this, 'ActivationCode: ' + this.activationCode);
+
+        const baseUrl = this.appService.getApplicationConfig().getBaseUrl();
+        this.loginService.activateUser(baseUrl, this.username, this.activationCode)
         .subscribe(
             data => {
-                LogUtil.info(this,JSON.stringify(data));
-                this.router.navigate(['/login',data]);
+                LogUtil.info(this, JSON.stringify(data));
+                this.router.navigate(['/login', data]);
             },
             error => {
                 // TODO
-                LogUtil.error(this,'ups: ' + error);
+                LogUtil.error(this, 'ups: ' + error);
             }
         );
     }
 
-    public resendEmail(): void{
-        this.loginService.resendActivationEmail(this.username, this.email)
+    public resendEmail(): void {
+        const baseUrl = this.appService.getApplicationConfig().getBaseUrl();
+
+        this.loginService.resendActivationEmail(baseUrl, this.username, this.email)
         .subscribe(
             data => {
 
             },
             error => {
-                LogUtil.error(this,'ups: ' + error);
+                LogUtil.error(this, 'ups: ' + error);
             }
-        );;
+        );
     }
 }

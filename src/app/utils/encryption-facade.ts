@@ -8,8 +8,7 @@ export class EncryptionFacade {
     }
 
     public isEncryptionSaved(user: User): boolean {
-        let value = localStorage.getItem(this.createKey(user));
-        LogUtil.info(this, 'SavedKey: : ' + localStorage.getItem(this.createKey(user)));
+        const value = localStorage.getItem(this.createKey(user));
         if (value) {
             return true;
         }
@@ -17,7 +16,6 @@ export class EncryptionFacade {
     }
 
     public getEncryptionKey(user: User): string {
-        LogUtil.info(this, 'Get encryptionkey: ' + localStorage.getItem(this.createKey(user)));
         return localStorage.getItem(this.createKey(user));
     }
 

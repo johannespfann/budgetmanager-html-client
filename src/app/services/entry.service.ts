@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { Entry } from "../models/entry";
-import { LogUtil } from "../utils/log-util";
-import { Subscription } from "rxjs";
-import { MessagingService } from "../messages/message.service";
-import { EntriesModifiedMessage } from "../messages/entries-modified-message";
-import { Observable } from "rxjs";
-import { EntryAPIService } from "./entry.api.service";
-import { ApplicationService } from "../application/application.service";
+import { Injectable } from '@angular/core';
+import { Entry } from '../models/entry';
+import { LogUtil } from '../utils/log-util';
+import { Subscription } from 'rxjs';
+import { MessagingService } from '../messages/message.service';
+import { EntriesModifiedMessage } from '../messages/entries-modified-message';
+import { Observable } from 'rxjs';
+import { EntryAPIService } from './entry.api.service';
+import { ApplicationService } from '../application/application.service';
 
 
 @Injectable()
@@ -15,7 +15,7 @@ export class EntryService {
     constructor(
         private entryApiService: EntryAPIService,
         private appService: ApplicationService) {
-        LogUtil.debug(this, "Init EntryService");
+        LogUtil.debug(this, 'Init EntryService');
     }
 
     public getEntries(): Observable<Entry[]> {

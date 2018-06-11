@@ -1,18 +1,21 @@
-import { Component, ElementRef } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Output } from "@angular/core";
 import { ApplicationService } from "../application/application.service";
 import { EncryptSerice } from "../services/encrypt.service";
 import { CryptUtil } from "../utils/crypt-util";
 import { LogUtil } from "../utils/log-util";
-import { MessagingService } from "../messages/message.service";
-import { EncryptionReadyMessage } from "../messages/encryption-ready-message";
-import { EncryptionFacade } from "../utils/encryption-facade";
-import { User } from "../models/user";
+import { MessagingService } from '../messages/message.service';
+import { EncryptionReadyMessage } from '../messages/encryption-ready-message';
+import { EncryptionFacade } from '../utils/encryption-facade';
+import { User } from '../models/user';
 
 @Component({
     selector: 'bm-set-encryption-key',
     templateUrl: './set-encryption-key.component.html'
 })
 export class SetEncryptionKeyComponent {
+
+    @Output()
+    public testKeyIsDone = new EventEmitter<boolean>();
 
     public key: string = String();
     public isClickedRemember: boolean;
@@ -39,7 +42,10 @@ export class SetEncryptionKeyComponent {
     }
 
     public testKey(): void {
-        this.encryptService.getEncryptionText(this.applicationService.getCurrentUser())
+        LogUtil.info(this, 'Pressed testkey');
+        const baseUrl = this.applicationService.getApplicationConfig().getBaseUrl();
+        const user = this.applicationService.getCurrentUser();
+        this.encryptService.getEncryptionText(baseUrl, user)
             .subscribe((data: any) => {
                 this.encryptedValidationText = CryptUtil.decryptString(this.key, data.text);
                 this.pressedValidateTest = true;
@@ -47,21 +53,24 @@ export class SetEncryptionKeyComponent {
     }
 
     public saveKey(): void {
+        LogUtil.info(this, 'Pressed saveKey');
         if (this.pressedValidateTest) {
             this.applicationService.setEncryptionKey(this.key);
-            if(this.isClickedRemember){
-                this.encryptionFacade.saveEncryptionKey(this.applicationService.getCurrentUser(), this.key)
+            if (this.isClickedRemember) {
+                this.encryptionFacade.saveEncryptionKey(this.applicationService.getCurrentUser(), this.key);
             }
+            LogUtil.info(this, 'save encryptionkey to applicationservice: ' + this.key);
+            this.applicationService.setEncryptionKey(this.key);
+            this.testKeyIsDone.emit(true);
             this.messageService.publish(new EncryptionReadyMessage());
         }
     }
 
     public switchRememberCheckbox(): void {
-        if(this.isClickedRemember){
+        if (this.isClickedRemember) {
             this.isClickedRemember = false;
             this.encryptionFacade.deleteLocalStoredEncryptionKey(this.applicationService.getCurrentUser());
-        }
-        else {
+        } else {
             this.isClickedRemember = true;
         }
     }

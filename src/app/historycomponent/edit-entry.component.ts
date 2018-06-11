@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from "@angular/core";
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Entry } from '../models/entry';
 import { EntryService } from '../services/entry.service';
 import { LogUtil } from '../utils/log-util';
@@ -8,9 +8,9 @@ import { EntryUpdatedMessage } from '../messages/entry-updated-message';
 import { TagsComponent } from '../tags';
 import { MathUtil } from '../utils/math-util';
 import { TagStatisticFacade } from '../utils/tag-statistic-facade';
-import { TagStatistic } from "../models/tagstatistic";
-import { TagStatisticService } from "../services/Tag-statistic.service";
-import { ApplicationService } from "../application/application.service";
+import { TagStatistic } from '../models/tagstatistic';
+import { TagStatisticService } from '../services/Tag-statistic.service';
+import { ApplicationService } from '../application/application.service';
 
 @Component({
     selector: 'edit-entry-component',
@@ -62,10 +62,7 @@ export class EditEntryComponent {
         this.hash = this.editEntry.hash;
     }
 
-
     public update() {
-        LogUtil.info(this, 'Pressed updateCategory');
-
         const amountValue = 0;
         if (this.algebraicSignIsMinus) {
             this.editEntry.amount = MathUtil.convertToNegativ(this.amount);
@@ -87,7 +84,7 @@ export class EditEntryComponent {
         if (aAmount >= 0){
             this.algebraicSignIsMinus = false;
             return aAmount;
-        } else{
+        } else {
             this.algebraicSignIsMinus = true;
             return aAmount * (-1);
         }
@@ -96,7 +93,7 @@ export class EditEntryComponent {
     public changeAlgebraicSignIsMinus(): void {
         if (this.algebraicSignIsMinus){
             this.algebraicSignIsMinus = false;
-        } else{
+        } else {
             this.algebraicSignIsMinus = true;
         }
     }
@@ -111,9 +108,7 @@ export class EditEntryComponent {
 
     private persistTagToStatistic(): void {
         this.tagStatisticService.persistTagStatistic(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())
-        .subscribe( data => {
-                LogUtil.info(this, 'Persist the following tagStatistics: ' + JSON.stringify(this.tagStatisticBrowserStorageFacade.getTagStatisticValues()))
-            });
+        .subscribe();
     }
 
     private updateTagStatistics(): void {
@@ -125,13 +120,11 @@ export class EditEntryComponent {
     }
 
     public onAddedTag(tag: Tag): void {
-        LogUtil.info(this, 'added new Tag' + JSON.stringify(tag));
         this.tagStatisticBrowserStorageFacade.pushTag(tag);
         this.refreshPossibleTags();
     }
 
     public onTagDeleted(tag: Tag): void {
-        LogUtil.info(this, 'removed new Tag' + JSON.stringify(tag));
         this.tagStatisticBrowserStorageFacade.deleteTag(tag);
         this.refreshPossibleTags();
     }

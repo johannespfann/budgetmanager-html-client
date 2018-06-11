@@ -1,9 +1,10 @@
 import { Router } from '@angular/router';
-import { Component } from "@angular/core";
-import { LogUtil } from "../utils/log-util";
-import { LoginService } from "../services/login.service";
-import { User } from "../models/user";
-import { stringify } from "@angular/core/src/util";
+import { Component } from '@angular/core';
+import { LogUtil } from '../utils/log-util';
+import { LoginService } from '../services/login.service';
+import { User } from '../models/user';
+import { stringify } from '@angular/core/src/util';
+import { ApplicationService } from '../application/application.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { stringify } from "@angular/core/src/util";
     templateUrl: './register.component.html'
 })
 export class RegisterComponent{
-    
+
     public name: string;
     public email: string;
     public password: string;
@@ -19,6 +20,7 @@ export class RegisterComponent{
 
 
     constructor(
+        private appService: ApplicationService,
         private loginService: LoginService,
         private router: Router){
     }
@@ -34,7 +36,9 @@ export class RegisterComponent{
         user.name = this.name;
         user.email = this.email;
 
-        this.loginService.registerUser(user,this.password)
+        const baseUrl = this.appService.getApplicationConfig().getBaseUrl();
+
+        this.loginService.registerUser(baseUrl, user, this.password)
             .subscribe(m => {
                 LogUtil.info(this, JSON.stringify(m.username));
                 this.router.navigate(['/bm-activate',m.username, 'email', user.email]);

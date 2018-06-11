@@ -1,17 +1,16 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from "./app-routing.module";
-import { AddEntryComponent } from "./addentrycomponent/add-entry.component";
-import { WelcomeComponent } from "./welcomecomponent/welcome.component";
-import { PageNotFoundComponent } from "./errorcomponents/page-not-found.component";
-import { LoginComponent } from "./logincomponent/login.component";
-import { BalanceComponent } from "./balancecomponent/balance.component";
-import { HistoryComponent } from "./historycomponent/history.component";
-import { EntryService } from "./services/entry.service";
-import { MessagingService } from "./messages/message.service";
+import { AppRoutingModule } from './app-routing.module';
+import { AddEntryComponent } from './addentrycomponent/add-entry.component';
+import { WelcomeComponent } from './welcomecomponent/welcome.component';
+import { PageNotFoundComponent } from './errorcomponents/page-not-found.component';
+import { LoginComponent } from './logincomponent/login.component';
+import { BalanceComponent } from './balancecomponent/balance.component';
+import { HistoryComponent } from './historycomponent/history.component';
+import { EntryService } from './services/entry.service';
+import { MessagingService } from './messages/message.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { RegisterComponent } from './logincomponent/register.component';
@@ -33,9 +32,10 @@ import { EncryptSerice } from './services/encrypt.service';
 import { AppService } from './application/app.service';
 import { TagStatisticService } from './services/Tag-statistic.service';
 import { TagStatisticRestApiService } from './services/tag-statistic-rest-api.service';
+import { StandingOrderComponent } from './entrycomponent/standing-order.component';
+import { EntryComponent } from './entrycomponent/entry.component';
 
-export function initApplication(appService: AppService) {
-  console.log("here ...");
+export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
 }
 
@@ -64,7 +64,9 @@ export function initApplication(appService: AppService) {
     EditEntryComponent,
     RotationEntryComponent,
     RotationEntryEditComponent,
-    TagsComponent
+    TagsComponent,
+    StandingOrderComponent,
+    EntryComponent,
   ],
   providers: [
     EntryService,
@@ -75,6 +77,7 @@ export function initApplication(appService: AppService) {
     RotationEntryRestApiService,
     EncryptSerice,
     ApplicationService,
+    { provide: APP_INITIALIZER, useFactory: initApplication, deps: [ApplicationService], multi: true },
     TagStatisticService,
     TagStatisticRestApiService
   ],

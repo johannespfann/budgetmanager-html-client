@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
-import { Message } from "./message";
-import { LogUtil } from "../utils/log-util";
-import { Observable, Subject ,pipe } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Message } from './message';
+import { LogUtil } from '../utils/log-util';
+import { Observable, Subject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 @Injectable()
 export class MessagingService {
-    
-    private message$: Subject<Message>
+
+    private message$: Subject<Message>;
 
     constructor(){
-        LogUtil.info(this, "Init MessagingService");
+        LogUtil.info(this, 'Init MessagingService');
         this.message$ = new Subject<Message>();
     }
 

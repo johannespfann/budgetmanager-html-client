@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MessagingService } from './messages/message.service';
 import { Subscription } from 'rxjs';
 import { LogedInMessage } from './messages/logedin-message';
@@ -19,19 +19,17 @@ import { Tag } from './models/tag';
 
 // https://stackoverflow.com/questions/16600509/aes-encrypt-in-cryptojs-and-decrypt-in-coldfusion
 @Component({
-  selector: 'my-app',
+  selector: 'app-budgetmanager',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
-
+export class AppComponent implements OnDestroy {
 
   private loginSubscription: Subscription;
 
   private encryptionReadySubscription: Subscription;
 
-  public isLogedIn: boolean = false;
-
-  public encryptKeyIsValid: boolean = false;
+  public isLogedIn = false;
+  public encryptKeyIsValid = false;
 
   private encryptionFacade: EncryptionFacade;
   private authenticationLocalStorage: AuthenticationFacade;
@@ -46,7 +44,7 @@ export class AppComponent {
     private applicationService: ApplicationService,
     private tagStatiscticService: TagStatisticService) {
 
-    LogUtil.info(this, "Init Application");
+    LogUtil.info(this, 'Start Application');
 
     this.encryptionFacade = new EncryptionFacade();
     this.authenticationLocalStorage = new AuthenticationFacade();
@@ -54,27 +52,23 @@ export class AppComponent {
     this.loginSubscription = this.registerLogedInMessage();
     this.encryptionReadySubscription = this.registerEncryptionReadyMessage();
 
-    if (this.authenticationLocalStorage.isUserCredentialsSaved()) {
-      LogUtil.info(this,'Usercredentials are saved')
-      let savedUser: User = this.authenticationLocalStorage.getUser();
-      this.loginServcie.login(savedUser.name, savedUser.password).subscribe(data => {
-        LogUtil.info(this, JSON.stringify(data));
-        let newUser = new User();
-        newUser.accesstoken = data.accesstoken;
-        newUser.name = data.username;
-        newUser.email = data.email;
-        this.user = newUser;
-        this.messageService.publish(new LogedInMessage(newUser));
-        applicationService.setCurrentUser(newUser);
-
-        let encryptKey: string = this.encryptionFacade.getEncryptionKey(savedUser);
-
-        if (encryptKey) {
-          this.encryptKeyIsValid = true;
-          this.applicationService.setEncryptionKey(encryptKey);
-        }
-      });
+    if (!applicationService.isLoggedIn()) {
+      LogUtil.info(this, 'User is not loggedIn');
+      this.router.navigate(['/welcome']);
+      return;
     }
+
+    this.user = applicationService.getCurrentUser();
+    this.isLogedIn = true;
+
+    if (!applicationService.isEncryptionKeyReadyToUse()) {
+      LogUtil.info(this, 'key was nerver set! Navigate to profile ');
+      this.router.navigate(['/profile']);
+      return;
+    }
+
+    this.showLoginAccount();
+    this.showNavigation();
   }
 
   public login(): void {
@@ -83,12 +77,13 @@ export class AppComponent {
 
   public logout(): void {
     if (this.user) {
-      this.loginServcie.logout(this.user.name, this.user.accesstoken);
+      const baseUrl = this.applicationService.getApplicationConfig().getBaseUrl();
+      this.loginServcie.logout(baseUrl, this.user.name, this.user.accesstoken);
     }
-    this.authenticationLocalStorage.cleanSavedCredentials();
-    this.encryptionFacade.deleteLocalStoredEncryptionKey(this.user);
+    this.applicationService.logout();
     this.hideLoginAccount();
-    this.router.navigate(['/login']);
+    this.hideNavigatin();
+    this.router.navigate(['/welcome']);
   }
 
   private showLoginAccount(): void {
@@ -99,26 +94,38 @@ export class AppComponent {
     this.isLogedIn = false;
   }
 
+  private showNavigation(): any {
+    this.encryptKeyIsValid = true;
+  }
+
+  private hideNavigatin(): void {
+    this.encryptKeyIsValid = false;
+  }
+
   private registerLogedInMessage(): Subscription {
     return this.messageService
       .of(LogedInMessage)
       .subscribe((message: LogedInMessage) => {
         this.user = message.getUser();
         this.applicationService.setCurrentUser(this.user);
-        this.showLoginAccount();
-      });;
+        if (!this.applicationService.isEncryptionKeyReadyToUse()) {
+          this.showLoginAccount();
+          this.router.navigate(['/profile']);
+        }
+      });
   }
 
   private registerEncryptionReadyMessage(): Subscription {
     return this.messageService
       .of(EncryptionReadyMessage)
       .subscribe(data => {
-        this.encryptKeyIsValid = true;
-        this.applicationService.setEncryptionKey(this.encryptionFacade.getEncryptionKey(this.applicationService.getCurrentUser()));
+        this.showLoginAccount();
+        this.showNavigation();
+        this.router.navigate(['/welcome']);
       });
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.loginSubscription.unsubscribe();
     this.encryptionReadySubscription.unsubscribe();
   }
