@@ -22,7 +22,7 @@ export class EncryptionComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        const baseUrl = this.applicationService.getApplicationConfig().getBaseUrl();
+        const baseUrl = this.applicationService.getBaseUrl();
         const user = this.applicationService.getCurrentUser();
         this.encryptService.isEncrypted(baseUrl, user)
             .subscribe((data: boolean) => {
@@ -57,7 +57,4 @@ export class EncryptionComponent implements OnInit {
         LogUtil.info(this, 'onTestKeyIsDone');
 
     }
-
-
-
 }

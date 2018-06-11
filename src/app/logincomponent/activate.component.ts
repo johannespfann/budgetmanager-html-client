@@ -10,7 +10,7 @@ import { ApplicationService } from '../application/application.service';
     templateUrl: './activate.component.html'
 })
 export class ActivateComponent{
-    
+
     public username: string;
     public email: string;
     public activationCode: string;
@@ -33,7 +33,7 @@ export class ActivateComponent{
     public activateUser(): void{
         LogUtil.info(this, 'ActivationCode: ' + this.activationCode);
 
-        const baseUrl = this.appService.getApplicationConfig().getBaseUrl();
+        const baseUrl = this.appService.getBaseUrl();
         this.loginService.activateUser(baseUrl, this.username, this.activationCode)
         .subscribe(
             data => {
@@ -48,7 +48,7 @@ export class ActivateComponent{
     }
 
     public resendEmail(): void {
-        const baseUrl = this.appService.getApplicationConfig().getBaseUrl();
+        const baseUrl = this.appService.getBaseUrl();
 
         this.loginService.resendActivationEmail(baseUrl, this.username, this.email)
         .subscribe(

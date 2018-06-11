@@ -31,7 +31,7 @@ export class TagsComponent {
 
         if (this.currentTag.includes(' ')) {
 
-            let temp: Array<string> = this.currentTag.split(' ');
+            const temp: Array<string> = this.currentTag.split(' ');
             let preparedTagName: string = temp[0];
 
             preparedTagName = preparedTagName.replace(' ', '');
@@ -40,7 +40,7 @@ export class TagsComponent {
                 return;
             }
 
-            let tag: Tag = new Tag();
+            const tag: Tag = new Tag();
             tag.name = preparedTagName;
             this.tags.push(tag);
             this.currentTag = '';

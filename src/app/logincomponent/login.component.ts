@@ -41,7 +41,7 @@ export class LoginComponent {
             return;
         }
 
-        const baseUrl = this.appService.getApplicationConfig().getBaseUrl();
+        const baseUrl = this.appService.getBaseUrl();
 
         this.loginService.login(baseUrl, this.identifier, this.password).subscribe( data => {
             const user: User = new User();

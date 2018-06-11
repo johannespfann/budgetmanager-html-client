@@ -1,23 +1,23 @@
-import { HashUtil } from "../utils/hash-util";
-import { Tag } from "./tag";
+import { HashUtil } from '../utils/hash-util';
+import { Tag } from './tag';
 
-export class RotationEntry{
+export class RotationEntry {
 
     /**
      * RotationEntry attributes
      */
 
-    public hash:string;
+    public hash: string;
 
-    public start_at:Date;
+    public start_at: Date;
 
-    public end_at:Date;
+    public end_at: Date;
 
     public last_executed: Date;
 
 
-        /**
-     * Entry attributes 
+    /**
+     * Entry attributes
      */
 
     public amount: number;
@@ -29,12 +29,12 @@ export class RotationEntry{
     public rotation_strategy: string;
 
 
-    public constructor(){
+    public constructor() {
         // default;
     }
 
     public static create(aAmount: number, aRotation_strategy: string): RotationEntry {
-        let rotationEntry: RotationEntry = new RotationEntry();
+        const rotationEntry: RotationEntry = new RotationEntry();
         rotationEntry.amount = aAmount;
         rotationEntry.rotation_strategy = aRotation_strategy;
         rotationEntry.hash = HashUtil.getUniqueHash().toString();

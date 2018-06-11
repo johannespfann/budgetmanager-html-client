@@ -29,7 +29,6 @@ import { EncryptionComponent } from './profile/encryption.component';
 import { FirstAddEncryptionComponent } from './profile/first-add-encryption.component';
 import { SetEncryptionKeyComponent } from './profile/set-encryption-key.component';
 import { EncryptSerice } from './services/encrypt.service';
-import { AppService } from './application/app.service';
 import { TagStatisticService } from './services/Tag-statistic.service';
 import { TagStatisticRestApiService } from './services/tag-statistic-rest-api.service';
 import { StandingOrderComponent } from './entrycomponent/standing-order.component';

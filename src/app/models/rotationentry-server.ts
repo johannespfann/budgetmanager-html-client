@@ -1,21 +1,21 @@
-import { Tag } from "./tag";
+import { Tag } from './tag';
 
 export class RotationEntryServer {
     /**
      * RotationEntry attributes
      */
 
-    public hash:string;
+    public hash: string;
 
-    public start_at:Date;
+    public start_at: Date;
 
-    public end_at:Date;
+    public end_at: Date;
 
     public last_executed: Date;
 
 
-        /**
-     * Entry attributes 
+    /**
+     * Entry attributes
      */
 
     public amount: string;

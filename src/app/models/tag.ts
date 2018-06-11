@@ -1,17 +1,14 @@
-
-
-export class Tag{
+export class Tag {
 
     public name: string;
-    
-    constructor(){
+
+    constructor() {
         // default
     }
 
     public copy(aTag: Tag): Tag {
-        let tag: Tag = new Tag();
+        const tag: Tag = new Tag();
         tag.name = aTag.name;
         return tag;
     }
-
 }

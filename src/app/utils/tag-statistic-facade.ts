@@ -1,7 +1,6 @@
 import { User } from '../models/user';
 import { TagStatistic } from '../models/tagstatistic';
 import { Tag } from '../models/tag';
-import { LogUtil } from './log-util';
 
 export class TagStatisticFacade {
 

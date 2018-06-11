@@ -25,8 +25,8 @@ export class FirstAddEncryptionComponent{
     }
 
     public saveKey(): void {
-        if(this.isCorrectKey(this.key,this.keyrepeat)) {
-            const baseUrl: string = this.applicationService.getApplicationConfig().getBaseUrl();
+        if (this.isCorrectKey(this.key,this.keyrepeat)) {
+            const baseUrl: string = this.applicationService.getBaseUrl();
            this.encryptService
             .setEncryptionText(baseUrl, this.applicationService.getCurrentUser(), CryptUtil.encryptString(this.key,this.validationText))
             .subscribe( data => {

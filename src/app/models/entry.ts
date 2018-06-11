@@ -1,11 +1,11 @@
-import { Tag } from "./tag";
-import { DateUtil } from "../utils/date-util";
-import { HashUtil } from "../utils/hash-util";
-import { LogUtil } from "../utils/log-util";
+import { Tag } from './tag';
+import { DateUtil } from '../utils/date-util';
+import { HashUtil } from '../utils/hash-util';
+import { LogUtil } from '../utils/log-util';
 
 export class Entry {
 
-    public hash:string;
+    public hash: string;
 
     public amount: number;
 
@@ -13,15 +13,14 @@ export class Entry {
 
     public created_at: Date;
 
-    public tags:Tag[];
+    public tags: Tag[];
 
-    
-    public constructor(){
+    public constructor() {
         this.tags = new Array<Tag>();
     }
 
     public static copy(aEntry: Entry): Entry {
-        let entry: Entry = new Entry();
+        const entry: Entry = new Entry();
 
         entry.hash = aEntry.hash;
         entry.amount = aEntry.amount;
@@ -29,33 +28,29 @@ export class Entry {
         entry.created_at = new Date(aEntry.created_at);
         entry.memo = aEntry.memo;
         entry.tags = aEntry.tags;
-        
+
         return entry;
     }
 
     public static create(aAmount: number): Entry {
-        let entry: Entry = new Entry();
+        const entry: Entry = new Entry();
         entry.amount =  aAmount;
         entry.created_at = new Date();
         entry.hash = HashUtil.getUniqueHash().toString();
-        console.log(entry.hash.toString());
         return entry;
     }
-
 
     /**
      * setter
      */
 
-    public setAmount(aAmount: number): void{
+    public setAmount(aAmount: number): void {
         this.amount = aAmount;
     }
 
     public setMemo(aMemo: string): void {
         this.memo = aMemo;
     }
-
-
 
     /**
      * getter

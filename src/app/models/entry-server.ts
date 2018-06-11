@@ -1,8 +1,8 @@
-import { Tag } from "./tag";
+import { Tag } from './tag';
 
 export class EntryServer {
 
-    public hash:string;
+    public hash: string;
 
     public amount: string;
 
@@ -10,6 +10,6 @@ export class EntryServer {
 
     public created_at: Date;
 
-    public tags:Array<Tag>;
+    public tags: Tag[];
 
 }

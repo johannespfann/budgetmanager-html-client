@@ -77,7 +77,7 @@ export class AppComponent implements OnDestroy {
 
   public logout(): void {
     if (this.user) {
-      const baseUrl = this.applicationService.getApplicationConfig().getBaseUrl();
+      const baseUrl = this.applicationService.getBaseUrl();
       this.loginServcie.logout(baseUrl, this.user.name, this.user.accesstoken);
     }
     this.applicationService.logout();

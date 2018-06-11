@@ -27,42 +27,42 @@ export class RegisterComponent{
 
 
     public pressRegister(){
-        let user:User = new User();
+        const user: User = new User();
 
-        if(!this.inputIsCorrect()){
+        if (!this.inputIsCorrect()){
             return;
         }
 
         user.name = this.name;
         user.email = this.email;
 
-        const baseUrl = this.appService.getApplicationConfig().getBaseUrl();
+        const baseUrl = this.appService.getBaseUrl();
 
         this.loginService.registerUser(baseUrl, user, this.password)
             .subscribe(m => {
                 LogUtil.info(this, JSON.stringify(m.username));
-                this.router.navigate(['/bm-activate',m.username, 'email', user.email]);
+                this.router.navigate(['/bm-activate', m.username, 'email', user.email]);
             });
     }
 
     public inputIsCorrect(): boolean {
-        if(!this.name){
-            LogUtil.info(this,'name was undefined: ' + this.name);
+        if (!this.name) {
+            LogUtil.info(this, 'name was undefined: ' + this.name);
             return false;
         }
 
-        if(!this.email){
-            LogUtil.info(this,'email was undefined: ' + this.email);
-            return false
+        if (!this.email) {
+            LogUtil.info(this, 'email was undefined: ' + this.email);
+            return false;
         }
 
-        if(!this.password){
+        if (!this.password) {
             LogUtil.info(this,'password was undefined: ' + this.password);
             return false;
         }
 
-        if(!this.passwordrepeat){
-            LogUtil.info(this,'passwordrepeat was undefined: ' + this.passwordrepeat);
+        if (!this.passwordrepeat) {
+            LogUtil.info(this, 'passwordrepeat was undefined: ' + this.passwordrepeat);
             return false;
         }
 

@@ -5,7 +5,7 @@ export class TagStatistic {
 
     public weight: number;
 
-    constructor(){
+    constructor() {
         // default
     }
 

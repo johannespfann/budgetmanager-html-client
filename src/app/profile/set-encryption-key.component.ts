@@ -1,8 +1,8 @@
-import { Component, ElementRef, EventEmitter, Output } from "@angular/core";
-import { ApplicationService } from "../application/application.service";
-import { EncryptSerice } from "../services/encrypt.service";
-import { CryptUtil } from "../utils/crypt-util";
-import { LogUtil } from "../utils/log-util";
+import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
+import { ApplicationService } from '../application/application.service';
+import { EncryptSerice } from '../services/encrypt.service';
+import { CryptUtil } from '../utils/crypt-util';
+import { LogUtil } from '../utils/log-util';
 import { MessagingService } from '../messages/message.service';
 import { EncryptionReadyMessage } from '../messages/encryption-ready-message';
 import { EncryptionFacade } from '../utils/encryption-facade';
@@ -43,7 +43,7 @@ export class SetEncryptionKeyComponent {
 
     public testKey(): void {
         LogUtil.info(this, 'Pressed testkey');
-        const baseUrl = this.applicationService.getApplicationConfig().getBaseUrl();
+        const baseUrl = this.applicationService.getBaseUrl();
         const user = this.applicationService.getCurrentUser();
         this.encryptService.getEncryptionText(baseUrl, user)
             .subscribe((data: any) => {

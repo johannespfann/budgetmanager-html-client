@@ -1,9 +1,8 @@
-import { LogUtil } from "../utils/log-util";
+import { LogUtil } from '../utils/log-util';
 
 export class EncryptionReadyMessage{
 
-    constructor(){
-        LogUtil.debug(this,'Init EncryptionReadyMessage');
+    constructor() {
+        LogUtil.debug(this, 'Init EncryptionReadyMessage');
     }
-
 }

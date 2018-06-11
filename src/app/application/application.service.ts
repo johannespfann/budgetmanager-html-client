@@ -2,7 +2,6 @@ import { LogUtil } from '../utils/log-util';
 import { LogedInMessage } from '../messages/logedin-message';
 import { MessagingService } from '../messages/message.service';
 import { User } from '../models/user';
-import { AppConfiguration } from './application-configuration';
 import { Observable, concat } from 'rxjs';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
@@ -34,6 +33,10 @@ export class ApplicationService {
         this.isEncryptionKeyDefined = false;
     }
 
+    public getBaseUrl(): string {
+        return this.baseUrl;
+    }
+
     public currentUserExists(): boolean {
         if (this.user) {
             return true;
@@ -57,10 +60,6 @@ export class ApplicationService {
     public setCurrentUser(aUser: User): void {
         LogUtil.info(this, 'Set user to applicationservice: ' + aUser.name);
         this.user = aUser;
-    }
-
-    public getApplicationConfig(): AppConfiguration {
-        return new AppConfiguration(this.baseUrl);
     }
 
     public getEncryptionKey(): string {

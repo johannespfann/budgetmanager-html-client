@@ -1,5 +1,5 @@
 
-export class TagStatisticServer{
+export class TagStatisticServer {
 
     public name: string;
 
