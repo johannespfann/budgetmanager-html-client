@@ -10,8 +10,8 @@ export class DateUtil {
     }
 
     public static getNameOfMonth(date: Date): string {
-        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
+        const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+            'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
         ];
         return monthNames[date.getMonth()];
     }

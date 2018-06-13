@@ -1,25 +1,35 @@
 <div *ngFor="let balanceManager of balanceManagers" class="" style="margin-top: 0.2rem">
     <div class="jumbotron">
-        <p>{{balanceManager.name}}</p>
-        <ul class="list-group">
-            <p>Einnahmen</p>
-            <li *ngFor="let entry of balanceManager.positivEntries" class="list-group-item list-group-item-success ">
-                <div class="col-10 col-sm-11">
-                    {{entry.amount}} € {{entry.memo}}
-                </div>
-            </li>
-        </ul>
+        <h3>Bilanz für {{balanceManager.name}}</h3>
+        <p *ngIf="balanceManager.balance >= 0" class="text-success p-3 balance-sum">{{balanceManager.balance}} €</p>
+        <p *ngIf="balanceManager.balance < 0" class="text-danger p-3 balance-sum">{{balanceManager.balance}} €</p>
+        
+        <div *ngIf="true">
 
-        <ul class="list-group">
-            <p>Ausgaben</p>
-            <li *ngFor="let entry of balanceManager.negativEntries" class="list-group-item list-group-item-danger">
-                <div class="col-10 col-sm-11">
-                    {{entry.amount}} € {{entry.memo}}
-                </div>
-            </li>
-        </ul>
+            <div *ngIf="balanceManager.positivEntries.length > 0">
+                <ul class="list-group">
+                    <p>Einnahmen</p>
+                    <li *ngFor="let entry of balanceManager.positivEntries" class="list-group-item list-group-item-success ">
+                        <div class="col-10 col-sm-11">
+                            {{entry.amount}} € {{entry.memo}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
-        <p>Balance</p>
-        {{balanceManager.balance}} €
+
+            <div *ngIf="balanceManager.negativEntries.length > 0">
+                <ul class="list-group">
+                    <p>Ausgaben</p>
+                    <li *ngFor="let entry of balanceManager.negativEntries" class="list-group-item list-group-item-danger">
+                        <div class="col-10 col-sm-11">
+                            {{entry.amount}} € {{entry.memo}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
     </div>
 </div>

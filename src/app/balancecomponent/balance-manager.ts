@@ -11,6 +11,7 @@ export class BalanceManager {
     constructor(value: string, entries: Entry[]) {
         this.name = value;
         this.splitEntries(entries.slice(0));
+        this.calculateBalance(entries);
     }
 
     private splitEntries(entries: Entry[]): void {
@@ -26,11 +27,9 @@ export class BalanceManager {
 
     private calculateBalance(entries: Entry[]): void {
         let sum = 0;
-
         entries.forEach( (entry: Entry) => {
             sum = sum + entry.amount;
         });
-
         this.balance = sum;
     }
 }

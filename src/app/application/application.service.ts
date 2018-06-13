@@ -146,7 +146,9 @@ export class ApplicationService {
                         })
                     )
                 )
-            ).toPromise();
+            ).toPromise()
+            .then( data => LogUtil.info(this, ' War alles gut!'))
+            .catch( data => LogUtil.info(this, JSON.stringify(data)) );
     }
 
 }

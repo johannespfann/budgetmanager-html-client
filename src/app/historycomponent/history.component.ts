@@ -85,7 +85,7 @@ export class HistoryComponent{
     private sortByTime(aEntries: Entry[]): Entry[] {
         return aEntries.sort(function(a: Entry, b: Entry){
             return b.created_at.getTime() - a.created_at.getTime();
-        });
+    });
 
     }
 

@@ -6,10 +6,13 @@ import { Entry } from '../models/entry';
 import { EntryPackage } from '../historycomponent/entry-package';
 import { Packager } from '../utils/packager';
 import { BalanceManager } from './balance-manager';
+import { SortUtil } from '../utils/sort-util';
+import { DateUtil } from '../utils/date-util';
 
 @Component({
     selector : 'balance',
-    templateUrl : './balance.component.html'
+    templateUrl : './balance.component.html',
+    styleUrls: ['./balance.component.css']
 })
 export class BalanceComponent {
 
@@ -24,25 +27,24 @@ export class BalanceComponent {
 
     private updateEntries(): void {
         this.entryService.getEntries().subscribe( (entries: Entry[] ) => {
-            LogUtil.info(this, 'Get entries: ' + entries.length);
             const entryPackagers = this.splitEntriesInPackages(entries);
-            LogUtil.info(this, 'Found ' + entryPackagers.length + ' packages of entries');
             const packagerMangeres = this.convertPackagesInPackageManager(entryPackagers);
-            LogUtil.info(this, 'Convert ' + packagerMangeres.length + ' packages to PackageManager');
             this.balanceManagers = packagerMangeres;
         });
     }
 
     private splitEntriesInPackages(aEntries: Entry[]): EntryPackage[] {
         const entryPackager = new Packager();
-        return entryPackager.splitInMonth(aEntries);
+        return entryPackager.splitInMonth(SortUtil.sortEntriesByTimeDESC(aEntries));
     }
 
     private convertPackagesInPackageManager(packages: EntryPackage[]): BalanceManager[] {
         const balanceManagers: BalanceManager[] = [];
+        const newPackages = SortUtil.sortPackagesByTimeASC(packages);
 
-        packages.forEach( (entryPackage: EntryPackage) => {
-            const packageManager = new BalanceManager('kein name ', entryPackage.entries);
+        newPackages.forEach( (entryPackage: EntryPackage) => {
+            const nameOfManager = DateUtil.getNameOfMonth(entryPackage.date) + ' ' + entryPackage.date.getFullYear();
+            const packageManager = new BalanceManager(nameOfManager, entryPackage.entries);
             balanceManagers.push(packageManager);
         });
 
