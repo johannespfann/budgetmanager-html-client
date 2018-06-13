@@ -11,7 +11,7 @@ describe('packager', function () {
 
     });
 
-    it('schould split entries in 3 month', () => {
+    it('should split entries in 3 month', () => {
         // prepare
         const entrieFirst = Entry.create(1);
         const entrieSecond = Entry.create(2);

@@ -30,6 +30,7 @@ export class Packager {
                     const entryPackage = new EntryPackage();
                     entryPackage.entries = foundEntries;
                     entryPackage.packagename = packagename;
+                    entryPackage.date = foundEntries[0].created_at;
                     entryPackages.push(entryPackage);
                 }
             });
