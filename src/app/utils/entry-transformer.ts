@@ -27,7 +27,7 @@ export class EntryTransformer {
         entryServer.tags = aEntry.tags.map((tag: Tag) => {
             const newTag: Tag = new Tag();
             if (this.encryptValue) {
-                newTag.name = CryptUtil.encryptStringWithoutSalt(aPassword, tag.name);
+                newTag.name = CryptUtil.encryptString(aPassword, tag.name);
             } else {
                 newTag.name = tag.name;
             }
@@ -44,7 +44,7 @@ export class EntryTransformer {
         entry.memo = CryptUtil.decryptString(aPassword, aEntryServer.memo);
         entry.tags = aEntryServer.tags.map((tag: Tag) => {
             const newTag: Tag = new Tag();
-            newTag.name = CryptUtil.decryptStringWithoutSalt(aPassword, tag.name);
+            newTag.name = CryptUtil.decryptString(aPassword, tag.name);
             return newTag;
         });
         return entry;

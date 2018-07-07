@@ -48,7 +48,7 @@ export class TagStatisticRestApiService{
 
     public persistTagStatistics(aUser: User, aTagStatistics: TagStatistic[]): Observable<any> {
 
-        if (!this.appService.isReadyForRestServices()){
+        if (!this.appService.isReadyForRestServices()) {
             return Observable.create( result  => { result.error('No restservice available!');});
         }
 
@@ -58,7 +58,7 @@ export class TagStatisticRestApiService{
         const tagStatisticServers: TagStatisticServer[] = new Array<TagStatisticServer>();
 
         aTagStatistics.forEach( (tagStatistic: TagStatistic) => {
-            tagStatisticServers.push(this.tagStatisticTransformer.transformTagStatistic(encryptKey,tagStatistic));
+            tagStatisticServers.push(this.tagStatisticTransformer.transformTagStatistic(encryptKey, tagStatistic));
         });
 
         return this.http.post(

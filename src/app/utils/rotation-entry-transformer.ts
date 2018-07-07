@@ -22,7 +22,7 @@ export class RotationEntryTransformer {
         rotationEntry.tags = aServerEntry.tags.map((tag: Tag) => {
             const newTag: Tag = new Tag();
 
-            newTag.name = CryptUtil.decryptStringWithoutSalt(aPassword, tag.name);
+            newTag.name = CryptUtil.decryptString(aPassword, tag.name);
             return newTag;
         });
         rotationEntry.rotation_strategy = aServerEntry.rotation_strategy;
@@ -54,7 +54,7 @@ export class RotationEntryTransformer {
             const newTag: Tag = new Tag();
 
             if (this.encryptValue) {
-                newTag.name = CryptUtil.encryptStringWithoutSalt(aPassword, tag.name);
+                newTag.name = CryptUtil.encryptString(aPassword, tag.name);
             } else {
                 newTag.name = tag.name;
             }
