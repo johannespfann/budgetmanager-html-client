@@ -35,7 +35,7 @@ export class EntryAPIService {
         const baseUrl = this.appService.getBaseUrl();
 
         return this.http.delete(
-            baseUrl + 'entries/owner/' + aUser.email + '/delete/' + aEntry.hash);
+            baseUrl + 'entries/owner/' + aUser.name + '/delete/' + aEntry.hash);
     }
 
     public save(aUser: User, aEntry: Entry): Observable<any> {
@@ -47,7 +47,7 @@ export class EntryAPIService {
         const baseUrl = this.appService.getBaseUrl();
         const encryptionKey = this.appService.getEncryptionKey();
 
-        return this.http.post(baseUrl + 'entries/owner/' + aUser.email + '/add', this.entryTransformer.transformEntry(encryptionKey, aEntry));
+        return this.http.post(baseUrl + 'entries/owner/' + aUser.name + '/add', this.entryTransformer.transformEntry(encryptionKey, aEntry));
     }
 
     public getEntries(aUser: User): Observable<Array<Entry>> {
@@ -59,7 +59,7 @@ export class EntryAPIService {
         const baseUrl = this.appService.getBaseUrl();
         const encryptionKey = this.appService.getEncryptionKey();
 
-        return this.http.get<Array<EntryServer>>(baseUrl + 'entries/owner/' + aUser.email + '/all')
+        return this.http.get<Array<EntryServer>>(baseUrl + 'entries/owner/' + aUser.name + '/all')
             .pipe(
                 map((serverEntries: Array<EntryServer>) => {
                     const entries = new Array<Entry>();
@@ -82,6 +82,6 @@ export class EntryAPIService {
         const baseUrl = this.appService.getBaseUrl();
         const encryptionKey = this.appService.getEncryptionKey();
 
-        return this.http.patch(baseUrl + 'entries/owner/' + aUser.email + '/update', this.entryTransformer.transformEntry(encryptionKey, aEntry));
+        return this.http.patch(baseUrl + 'entries/owner/' + aUser.name + '/update', this.entryTransformer.transformEntry(encryptionKey, aEntry));
     }
 }
