@@ -30,7 +30,7 @@ export class LoginService {
 
     public activateUser(aBaseUrl: string, aName: String, aCode: String): Observable<any> {
         LogUtil.info(this, 'send activationcode for: ' + aName + ' with ' + aCode);
-        return this.http.post(aBaseUrl + 'user/activate/' + aName, aCode);
+        return this.http.post(aBaseUrl + 'user/activate/' + aName + '', aCode);
     }
 
     public resendActivationEmail(aBaseUrl: string, aName: string, aEmail: string): Observable<any> {

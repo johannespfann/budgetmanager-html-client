@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TagStatistic } from '../models/tagstatistic';
 import { TagStatisticServer } from '../models/tagstatistic-server';
 import { ApplicationService } from '../application/application.service';
@@ -19,20 +19,21 @@ export class TagStatisticRestApiService{
         private appService: ApplicationService) {
             LogUtil.info(this, 'Init TagStatisticRestApiService');
             this.tagStatisticTransformer = new TagStatisticTransformer();
-
-
     }
 
     public getTagStatistics(aUser: User): Observable<Array<TagStatistic>> {
 
-        if (!this.appService.isReadyForRestServices()){
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
+
+        if (!this.appService.isReadyForRestServices()) {
             return Observable.create( result  => { result.error('No restservice available!');});
         }
 
         const encryptKey = this.appService.getEncryptionKey();
         const basePath = this.appService.getBaseUrl();
 
-        return this.http.get<Array<TagStatisticServer>>(basePath + 'tagstatistic/owner/' + aUser.name + '/all')
+        return this.http.get<Array<TagStatisticServer>>(basePath + 'tagstatistic/owner/' + aUser.name + '/all', { headers : headers})
         .pipe(
             map((tagStatisticServers: TagStatisticServer[]) => {
                 const newTagStatistic = new Array<TagStatistic>();
@@ -48,6 +49,9 @@ export class TagStatisticRestApiService{
 
     public persistTagStatistics(aUser: User, aTagStatistics: TagStatistic[]): Observable<any> {
 
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
+
         if (!this.appService.isReadyForRestServices()) {
             return Observable.create( result  => { result.error('No restservice available!');});
         }
@@ -62,6 +66,6 @@ export class TagStatisticRestApiService{
         });
 
         return this.http.post(
-            basePath + 'tagstatistic/owner/' + aUser.name + '/persist', tagStatisticServers);
+            basePath + 'tagstatistic/owner/' + aUser.name + '/persist', tagStatisticServers, { headers : headers});
     }
 }

@@ -26,7 +26,7 @@ export class RotationEntryComponent {
                 this.rotationEntries = aRotationEntries;
             },
             error => {
-                LogUtil.debug(this, 'Error was cacked! -> ' + error);
+                LogUtil.debug(this, 'Error was found! -> ' + JSON.stringify(error));
                 this.rotationEntries = new Array<RotationEntry>();
             }
         )
@@ -35,7 +35,7 @@ export class RotationEntryComponent {
     public deleteEntry(entry: RotationEntry): void {
         this.rotationEntryService.deleteRotationEntry(entry).subscribe( data => {
             this.updateView();
-        })
+        });
     }
 
     public editEntry(entry: RotationEntry): void {
@@ -49,14 +49,14 @@ export class RotationEntryComponent {
                 this.rotationEntries = data;
             },
             error => {
-                LogUtil.debug(this, 'Error was cacked! -> ' + error);
+                LogUtil.debug(this, 'Error was found! -> ' + JSON.stringify(error));
                 this.rotationEntries = new Array<RotationEntry>();
             }
         )
     }
 
     public closeUpdate(aEvent: boolean){
-        LogUtil.info(this,'closeUpdated was invoked: ' + aEvent);
+        LogUtil.info(this, 'closeUpdated was invoked: ' + aEvent);
         this.editViewIsVisiable = aEvent;
         this.updateView();
     }

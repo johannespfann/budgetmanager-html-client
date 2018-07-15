@@ -30,15 +30,14 @@ export class ActivateComponent{
 
     }
 
-    public activateUser(): void{
+    public activateUser(): void {
         LogUtil.info(this, 'ActivationCode: ' + this.activationCode);
 
         const baseUrl = this.appService.getBaseUrl();
         this.loginService.activateUser(baseUrl, this.username, this.activationCode)
         .subscribe(
             data => {
-                LogUtil.info(this, JSON.stringify(data));
-                this.router.navigate(['/login', data]);
+                this.router.navigate(['/login']);
             },
             error => {
                 // TODO

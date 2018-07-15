@@ -26,7 +26,7 @@ export class RegisterComponent{
     }
 
 
-    public pressRegister(){
+    public pressRegister() {
         const user: User = new User();
 
         if (!this.inputIsCorrect()){
@@ -40,8 +40,8 @@ export class RegisterComponent{
 
         this.loginService.registerUser(baseUrl, user, this.password)
             .subscribe(m => {
-                LogUtil.info(this, JSON.stringify(m.username));
-                this.router.navigate(['/bm-activate', m.username, 'email', user.email]);
+                console.log('username ' + JSON.stringify(m));
+                this.router.navigate(['/bm-activate', m.name, 'email', user.email]);
             });
     }
 

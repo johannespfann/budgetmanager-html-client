@@ -1,5 +1,6 @@
 <div *ngFor="let balanceManager of balanceManagers" class="" style="margin-top: 0.2rem">
     <div class="jumbotron">
+
         <h3>Bilanz für {{balanceManager.name}}</h3>
         <p *ngIf="balanceManager.balance >= 0" class="text-success p-3 balance-sum">{{balanceManager.balance}} €</p>
         <p *ngIf="balanceManager.balance < 0" class="text-danger p-3 balance-sum">{{balanceManager.balance}} €</p>
