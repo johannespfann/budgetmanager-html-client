@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { LoginService } from '../rest/login-api.service';
 import { AuthenticationFacade } from '../utils/authentication-facade';
 import { EncryptionFacade } from '../utils/encryption-facade';
-import { EncryptSerice } from '../rest/encrypt-api.service';
+import { EncryptApiSerice } from '../rest/encrypt-api.service';
 
 @Injectable()
 export class ApplicationService {
@@ -26,7 +26,7 @@ export class ApplicationService {
 
     constructor(
         private loginService: LoginService,
-        private encryptService: EncryptSerice) {
+        private encryptService: EncryptApiSerice) {
 
         LogUtil.info(this, 'Init ApplicationService');
         this.authfacade = new AuthenticationFacade();

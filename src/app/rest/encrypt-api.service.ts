@@ -4,7 +4,7 @@ import { User } from '../models/user';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class EncryptSerice {
+export class EncryptApiSerice {
 
     private base: string;
 
@@ -16,20 +16,20 @@ export class EncryptSerice {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
-        return this.http.get<boolean>(aBaseUrl + 'encryption/owner/' + aUser.name + '/isencrypted', { headers : headers});
+        return this.http.get<boolean>(aBaseUrl + 'encryption/owner/' + aUser.name + '/isencrypted', { headers: headers });
     }
 
     public getEncryptionText(aBaseUrl: string, aUser: User): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
-        return this.http.get<any>(aBaseUrl + 'encryption/owner/' + aUser.name + '/getencrypttext', { headers : headers});
+        return this.http.get<any>(aBaseUrl + 'encryption/owner/' + aUser.name + '/getencrypttext', { headers: headers });
     }
 
     public setEncryptionText(aBaseUrl: string, aUser: User, aText: string): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
-        return this.http.post(aBaseUrl + 'encryption/owner/' + aUser.name + '/setencrypttext', aText, { headers : headers});
+        return this.http.post(aBaseUrl + 'encryption/owner/' + aUser.name + '/setencrypttext', aText, { headers: headers });
     }
 }

@@ -28,7 +28,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { EncryptionComponent } from './components/profile/encryption.component';
 import { FirstAddEncryptionComponent } from './components/profile/first-add-encryption.component';
 import { SetEncryptionKeyComponent } from './components/profile/set-encryption-key.component';
-import { EncryptSerice } from './rest/encrypt-api.service';
+import { EncryptApiSerice } from './rest/encrypt-api.service';
 import { TagStatisticService } from './services/tag-statistic.service';
 import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';
 import { StandingOrderComponent } from './components/entrycomponent/standing-order.component';
@@ -74,7 +74,7 @@ export function initApplication(appService: ApplicationService) {
     LoginService,
     RotationEntryService,
     RotationEntryRestApiService,
-    EncryptSerice,
+    EncryptApiSerice,
     ApplicationService,
     { provide: APP_INITIALIZER, useFactory: initApplication, deps: [ApplicationService], multi: true },
     TagStatisticService,

@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { EncryptSerice } from '../../rest/encrypt-api.service';
+import { EncryptApiSerice } from '../../rest/encrypt-api.service';
 import { ApplicationService } from '../../application/application.service';
 import { CryptUtil } from '../../utils/crypt-util';
 
@@ -20,7 +20,7 @@ export class FirstAddEncryptionComponent{
 
     constructor(
         private applicationService: ApplicationService,
-        private encryptService: EncryptSerice) {
+        private encryptService: EncryptApiSerice) {
     }
 
     public saveKey(): void {

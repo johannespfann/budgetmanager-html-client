@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EncryptSerice } from '../../rest/encrypt-api.service';
+import { EncryptApiSerice } from '../../rest/encrypt-api.service';
 import { ApplicationService } from '../../application/application.service';
 import { LogUtil } from '../../utils/log-util';
 
@@ -16,7 +16,7 @@ export class EncryptionComponent implements OnInit {
 
     constructor(
         private applicationService: ApplicationService,
-        private encryptService: EncryptSerice) {
+        private encryptService: EncryptApiSerice) {
 
             LogUtil.info(this, 'Init EncryptComponent');
     }

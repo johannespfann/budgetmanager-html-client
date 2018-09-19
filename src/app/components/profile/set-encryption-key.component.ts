@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
 import { ApplicationService } from '../../application/application.service';
-import { EncryptSerice } from '../../rest/encrypt-api.service';
+import { EncryptApiSerice } from '../../rest/encrypt-api.service';
 import { CryptUtil } from '../../utils/crypt-util';
 import { LogUtil } from '../../utils/log-util';
 import { MessagingService } from '../../messages/message.service';
@@ -27,7 +27,7 @@ export class SetEncryptionKeyComponent {
 
     constructor(
         private applicationService: ApplicationService,
-        private encryptService: EncryptSerice,
+        private encryptService: EncryptApiSerice,
         private messageService: MessagingService,
         private elRef: ElementRef,
     ) {
