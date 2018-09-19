@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Entry } from '../models/entry';
 import { LogUtil } from '../utils/log-util';
 import { Observable } from 'rxjs';
-import { EntryAPIService } from './entry.api.service';
+import { EntryAPIService } from '../rest/entry.api.service';
 import { ApplicationService } from '../application/application.service';
 
 

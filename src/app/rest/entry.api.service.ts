@@ -4,8 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Entry } from '../models/entry';
 import { ApplicationService } from '../application/application.service';
 import { User } from '../models/user';
-import { tap } from 'rxjs/operators';
-import { CryptUtil } from '../utils/crypt-util';
 import { EntryTransformer } from '../utils/entry-transformer';
 import { EntryServer } from '../models/entry-server';
 import { Observable, pipe } from 'rxjs';

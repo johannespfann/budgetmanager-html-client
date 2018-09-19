@@ -3,9 +3,6 @@ import { LogUtil } from '../utils/log-util';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { MessagingService } from '../messages/message.service';
-import { LogedInMessage } from '../messages/logedin-message';
-import { Router } from '@angular/router';
-import { ApplicationService } from '../application/application.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TagStatisticRestApiService } from './tag-statistic-rest-api.service';
+import { TagStatisticRestApiService } from '../rest/tag-statistic-rest-api.service';
 import { ApplicationService } from '../application/application.service';
 import { LogUtil } from '../utils/log-util';
 import { TagStatistic } from '../models/tagstatistic';
@@ -16,7 +16,7 @@ export class TagStatisticService {
 
     public getTagStatistic(): Observable<TagStatistic[]> {
         if (!this.appService.isReadyForRestServices()) {
-            return Observable.create( result  => { result.error('No restservice available!');});
+            return Observable.create( result  => { result.error('No restservice available!'); });
         }
 
         return this.tagStatisticRestApiService.getTagStatistics(this.appService.getCurrentUser());
@@ -24,7 +24,7 @@ export class TagStatisticService {
 
     public persistTagStatistic(aTagStatistics: TagStatistic[]): Observable<any> {
         if (!this.appService.isReadyForRestServices()) {
-            return Observable.create( result  => { result.error('No restservice available!');});
+            return Observable.create( result  => { result.error('No restservice available!'); });
         }
 
         return this.tagStatisticRestApiService.persistTagStatistics(this.appService.getCurrentUser(), aTagStatistics);

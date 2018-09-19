@@ -1,10 +1,9 @@
-import { LogUtil } from "../utils/log-util";
-import { Injectable } from "@angular/core";
-import { RotationEntryRestApiService } from "./rotation-entry-rest-api.service";
-import { RotationEntry } from "../models/rotationentry";
+import { LogUtil } from '../utils/log-util';
+import { Injectable } from '@angular/core';
+import { RotationEntryRestApiService } from '../rest/rotation-entry-rest-api.service';
+import { RotationEntry } from '../models/rotationentry';
 import { Observable, pipe } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ApplicationService } from "../application/application.service";
+import { ApplicationService } from '../application/application.service';
 
 @Injectable()
 export class RotationEntryService {
@@ -13,7 +12,7 @@ export class RotationEntryService {
         private rotationEntryRestApiService: RotationEntryRestApiService,
         private appService: ApplicationService) {
 
-        LogUtil.info(this, "Init RotationEntryService");
+        LogUtil.info(this, 'Init RotationEntryService');
     }
 
     public addRotationEntry(aRotationEntry: RotationEntry): Observable<any> {

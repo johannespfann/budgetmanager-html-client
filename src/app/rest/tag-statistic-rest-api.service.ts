@@ -10,9 +10,9 @@ import { Observable, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable()
-export class TagStatisticRestApiService{
+export class TagStatisticRestApiService {
 
-    private tagStatisticTransformer: TagStatisticTransformer; 
+    private tagStatisticTransformer: TagStatisticTransformer;
 
     constructor(
         private http: HttpClient,

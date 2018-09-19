@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EncryptSerice } from '../../services/encrypt.service';
+import { EncryptSerice } from '../../rest/encrypt.service';
 import { ApplicationService } from '../../application/application.service';
 import { LogUtil } from '../../utils/log-util';
 

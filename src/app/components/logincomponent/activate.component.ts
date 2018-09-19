@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 import { LogUtil } from '../../utils/log-util';
-import { LoginService } from '../../services/login.service';
+import { LoginService } from '../../rest/login.service';
 import { ApplicationService } from '../../application/application.service';
 
 

@@ -6,7 +6,7 @@ import { LogedInMessage } from './messages/logedin-message';
 import { LogUtil } from './utils/log-util';
 import { User } from './models/user';
 import { ApplicationService } from './application/application.service';
-import { LoginService } from './services/login.service';
+import { LoginService } from './rest/login.service';
 
 import { EncryptionReadyMessage } from './messages/encryption-ready-message';
 import { EncryptionFacade } from './utils/encryption-facade';
