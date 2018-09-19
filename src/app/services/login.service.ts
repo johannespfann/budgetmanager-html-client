@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { User } from '../models/user';
 
 export class LoginService {
 

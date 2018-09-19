@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class EnryptService {
 
-    constructor(private encryptApiService: EncryptApiSerice){
+    constructor(private encryptApiService: EncryptApiSerice) {
 
     }
     // TODO
@@ -23,5 +23,4 @@ export class EnryptService {
     public setEncryptionText(aBaseUrl: string, aUser: User, aText: string): Observable<any> {
         return null;
     }
-
 }
