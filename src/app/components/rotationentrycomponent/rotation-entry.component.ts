@@ -1,8 +1,7 @@
-import { Component } from "@angular/core";
-import { RotationEntryService } from "../services/rotation-entry.service";
-import { RotationEntry } from "../models/rotationentry";
-import { asElementData } from "@angular/core/src/view";
-import { LogUtil } from "../utils/log-util";
+import { Component } from '@angular/core';
+import { RotationEntryService } from '../../services/rotation-entry.service';
+import { RotationEntry } from '../../models/rotationentry';
+import { LogUtil } from '../../utils/log-util';
 
 @Component({
     selector: 'rotation-entry-component',
@@ -14,7 +13,7 @@ export class RotationEntryComponent {
 
     public rotationEntries: RotationEntry[];
 
-    public editViewIsVisiable: boolean = false;
+    public editViewIsVisiable = false;
 
     public selectedRotationEntry: RotationEntry;
 
@@ -52,14 +51,12 @@ export class RotationEntryComponent {
                 LogUtil.debug(this, 'Error was found! -> ' + JSON.stringify(error));
                 this.rotationEntries = new Array<RotationEntry>();
             }
-        )
+        );
     }
 
-    public closeUpdate(aEvent: boolean){
+    public closeUpdate(aEvent: boolean) {
         LogUtil.info(this, 'closeUpdated was invoked: ' + aEvent);
         this.editViewIsVisiable = aEvent;
         this.updateView();
     }
-
-
 }

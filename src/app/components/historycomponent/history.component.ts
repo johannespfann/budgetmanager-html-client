@@ -1,13 +1,13 @@
 import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import { EntryService } from '../services/entry.service';
-import { Entry } from '../models/entry';
-import { LogUtil } from '../utils/log-util';
+import { EntryService } from '../../services/entry.service';
+import { Entry } from '../../models/entry';
+import { LogUtil } from '../../utils/log-util';
 import { EditEntryComponent } from './edit-entry.component';
 import { HistoryDirective } from './history.directive';
-import { MessagingService } from '../messages/message.service';
-import { EntryUpdatedMessage } from '../messages/entry-updated-message';
-import { EntryPackage } from './entry-package';
-import { Packager } from '../utils/packager';
+import { MessagingService } from '../../messages/message.service';
+import { EntryUpdatedMessage } from '../../messages/entry-updated-message';
+import { EntryPackage } from '../../models/entry-package';
+import { Packager } from '../../utils/packager';
 
 @Component({
     selector : 'history-component',

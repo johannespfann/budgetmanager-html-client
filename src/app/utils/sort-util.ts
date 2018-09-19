@@ -1,5 +1,5 @@
 import { Entry } from '../models/entry';
-import { EntryPackage } from '../historycomponent/entry-package';
+import { EntryPackage } from '../models/entry-package';
 
 export class SortUtil {
 

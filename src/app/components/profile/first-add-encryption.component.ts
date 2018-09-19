@@ -1,8 +1,7 @@
-import { Component, Output, EventEmitter } from "@angular/core";
-import { EncryptSerice } from "../services/encrypt.service";
-import { LogUtil } from '../utils/log-util';
-import { ApplicationService } from '../application/application.service';
-import { CryptUtil } from '../utils/crypt-util';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { EncryptSerice } from '../../services/encrypt.service';
+import { ApplicationService } from '../../application/application.service';
+import { CryptUtil } from '../../utils/crypt-util';
 
 @Component({
     selector: 'bm-first-add-encryption',

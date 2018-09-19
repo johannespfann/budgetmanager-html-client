@@ -1,7 +1,5 @@
 import { Tag } from './tag';
-import { DateUtil } from '../utils/date-util';
 import { HashUtil } from '../utils/hash-util';
-import { LogUtil } from '../utils/log-util';
 
 export class Entry {
 

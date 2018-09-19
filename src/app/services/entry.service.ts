@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Entry } from '../models/entry';
 import { LogUtil } from '../utils/log-util';
-import { Subscription } from 'rxjs';
-import { MessagingService } from '../messages/message.service';
 import { Observable } from 'rxjs';
 import { EntryAPIService } from './entry.api.service';
 import { ApplicationService } from '../application/application.service';
@@ -39,7 +37,9 @@ export class EntryService {
     }
 
     public update(aEntry: Entry): Observable<any> {
+        if (!this.appService.isReadyForRestServices()) {
+            return Observable.create(result => { result.error('No restservice available!'); });
+        }
         return this.entryApiService.update(this.appService.getCurrentUser(), aEntry);
     }
-
 }

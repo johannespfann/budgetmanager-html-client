@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
-import { Tag } from '../models/tag';
-import { Entry } from '../models/entry';
-import { MathUtil } from '../utils/math-util';
-import { EntryService } from '../services/entry.service';
-import { LogUtil } from '../utils/log-util';
-import { TagService } from '../services/tag.service';
-import { RotationEntry } from '../models/rotationentry';
-import { RotationEntryService } from '../services/rotation-entry.service';
-import { RotationUtil } from '../rotationentrycomponent/rotationutil';
-import { DateUtil } from '../utils/date-util';
-import { TagStatisticFacade } from '../utils/tag-statistic-facade';
-import { TagStatisticService } from '../services/Tag-statistic.service';
-import { ApplicationService } from '../application/application.service';
-import { TagStatistic } from '../models/tagstatistic';
+import { Tag } from '../../models/tag';
+import { Entry } from '../../models/entry';
+import { MathUtil } from '../../utils/math-util';
+import { EntryService } from '../../services/entry.service';
+import { LogUtil } from '../../utils/log-util';
+import { RotationEntry } from '../../models/rotationentry';
+import { RotationEntryService } from '../../services/rotation-entry.service';
+import { DateUtil } from '../../utils/date-util';
+import { TagStatisticFacade } from '../../utils/tag-statistic-facade';
+import { TagStatisticService } from '../../services/Tag-statistic.service';
+import { ApplicationService } from '../../application/application.service';
+import { TagStatistic } from '../../models/tagstatistic';
+
 
 
 @Component({

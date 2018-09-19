@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { LogUtil } from '../utils/log-util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from '../services/login.service';
-import { MessagingService } from '../messages/message.service';
-import { LogedInMessage } from '../messages/logedin-message';
-import { User } from '../models/user';
-import { AuthenticationFacade } from '../utils/authentication-facade';
-import { ApplicationService } from '../application/application.service';
+import { Component } from '@angular/core';
+
+import { LogUtil } from '../../utils/log-util';
+import { LoginService } from '../../services/login.service';
+import { MessagingService } from '../../messages/message.service';
+import { LogedInMessage } from '../../messages/logedin-message';
+import { User } from '../../models/user';
+import { AuthenticationFacade } from '../../utils/authentication-facade';
+import { ApplicationService } from '../../application/application.service';
 
 @Component({
     selector: 'login',

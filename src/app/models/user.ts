@@ -1,5 +1,5 @@
 
-export class User{
+export class User {
 
     public name: string;
     public email: string;
@@ -7,8 +7,7 @@ export class User{
 
     public accesstoken: string;
 
-    constructor(){
-    
-    }
+    constructor() {
 
+    }
 }

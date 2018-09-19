@@ -1,15 +1,13 @@
-import { Component, Input, AfterViewInit, AfterViewChecked, OnInit, EventEmitter, Output } from "@angular/core";
-import { LogUtil } from "../utils/log-util";
-import { RotationEntry } from "../models/rotationentry";
-import { Tag } from "../models/tag";
-import { RotationUtil } from "./rotationutil";
-import { TagService } from "../services/tag.service";
-import { RotationEntryService } from "../services/rotation-entry.service";
-import { MathUtil } from "../utils/math-util";
-import { TagStatisticService } from "../services/Tag-statistic.service";
-import { ApplicationService } from "../application/application.service";
-import { TagStatisticFacade } from "../utils/tag-statistic-facade";
-import { TagStatistic } from '../models/tagstatistic';
+import { Component, Input, AfterViewInit, AfterViewChecked, OnInit, EventEmitter, Output } from '@angular/core';
+import { LogUtil } from '../../utils/log-util';
+import { RotationEntry } from '../../models/rotationentry';
+import { Tag } from '../../models/tag';
+import { RotationEntryService } from '../../services/rotation-entry.service';
+import { MathUtil } from '../../utils/math-util';
+import { TagStatisticService } from '../../services/Tag-statistic.service';
+import { ApplicationService } from '../../application/application.service';
+import { TagStatisticFacade } from '../../utils/tag-statistic-facade';
+import { TagStatistic } from '../../models/tagstatistic';
 
 
 @Component({
@@ -144,7 +142,7 @@ export class RotationEntryEditComponent implements  OnInit{
     }
 
     private updateTagStatistics(): void {
-        this.tagStatisticService.getTagStatistic().subscribe((tags: TagStatistic[])=>{
+        this.tagStatisticService.getTagStatistic().subscribe((tags: TagStatistic[]) => {
             LogUtil.info(this, 'Get the following tags -> ' + JSON.stringify(tags));
            this.tagStatisticBrowserStorageFacade.persistTagStatisctics(tags);
            this.refreshPossibleTags();

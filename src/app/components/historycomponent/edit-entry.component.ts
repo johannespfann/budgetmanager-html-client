@@ -1,16 +1,16 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { Entry } from '../models/entry';
-import { EntryService } from '../services/entry.service';
-import { LogUtil } from '../utils/log-util';
-import { Tag } from '../models/tag';
-import { MessagingService } from '../messages/message.service';
-import { EntryUpdatedMessage } from '../messages/entry-updated-message';
+import { Entry } from '../../models/entry';
+import { EntryService } from '../../services/entry.service';
+import { LogUtil } from '../../utils/log-util';
+import { Tag } from '../../models/tag';
+import { MessagingService } from '../../messages/message.service';
+import { EntryUpdatedMessage } from '../../messages/entry-updated-message';
 import { TagsComponent } from '../tags';
-import { MathUtil } from '../utils/math-util';
-import { TagStatisticFacade } from '../utils/tag-statistic-facade';
-import { TagStatistic } from '../models/tagstatistic';
-import { TagStatisticService } from '../services/Tag-statistic.service';
-import { ApplicationService } from '../application/application.service';
+import { MathUtil } from '../../utils/math-util';
+import { TagStatisticFacade } from '../../utils/tag-statistic-facade';
+import { TagStatistic } from '../../models/tagstatistic';
+import { TagStatisticService } from '../../services/Tag-statistic.service';
+import { ApplicationService } from '../../application/application.service';
 
 @Component({
     selector: 'edit-entry-component',

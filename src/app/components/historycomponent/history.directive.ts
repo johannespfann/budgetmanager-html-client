@@ -1,4 +1,4 @@
-import { Directive, ViewContainerRef, EventEmitter, HostListener } from '@angular/core';
+import { Directive, ViewContainerRef} from '@angular/core';
 
 @Directive({
   selector: '[history-action-placeholder]',

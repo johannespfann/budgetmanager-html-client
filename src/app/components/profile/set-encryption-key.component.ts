@@ -1,12 +1,12 @@
 import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
-import { ApplicationService } from '../application/application.service';
-import { EncryptSerice } from '../services/encrypt.service';
-import { CryptUtil } from '../utils/crypt-util';
-import { LogUtil } from '../utils/log-util';
-import { MessagingService } from '../messages/message.service';
-import { EncryptionReadyMessage } from '../messages/encryption-ready-message';
-import { EncryptionFacade } from '../utils/encryption-facade';
-import { User } from '../models/user';
+import { ApplicationService } from '../../application/application.service';
+import { EncryptSerice } from '../../services/encrypt.service';
+import { CryptUtil } from '../../utils/crypt-util';
+import { LogUtil } from '../../utils/log-util';
+import { MessagingService } from '../../messages/message.service';
+import { EncryptionReadyMessage } from '../../messages/encryption-ready-message';
+import { EncryptionFacade } from '../../utils/encryption-facade';
+import { User } from '../../models/user';
 
 @Component({
     selector: 'bm-set-encryption-key',

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { LogUtil } from '../utils/log-util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from '../services/login.service';
-import { ApplicationService } from '../application/application.service';
+import { Component } from '@angular/core';
+
+import { LogUtil } from '../../utils/log-util';
+import { LoginService } from '../../services/login.service';
+import { ApplicationService } from '../../application/application.service';
 
 
 @Component({

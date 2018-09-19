@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessagingService } from './messages/message.service';
 import { Subscription } from 'rxjs';
 import { LogedInMessage } from './messages/logedin-message';
@@ -6,16 +7,13 @@ import { LogUtil } from './utils/log-util';
 import { User } from './models/user';
 import { ApplicationService } from './application/application.service';
 import { LoginService } from './services/login.service';
-import { Router } from '@angular/router';
-import * as CryptoJS from 'crypto-js';
-import { CryptUtil } from './utils/crypt-util';
+
 import { EncryptionReadyMessage } from './messages/encryption-ready-message';
 import { EncryptionFacade } from './utils/encryption-facade';
 import { TagStatisticService } from './services/Tag-statistic.service';
-import { TagStatistic } from './models/tagstatistic';
 import { AuthenticationFacade } from './utils/authentication-facade';
 import { TagStatisticFacade } from './utils/tag-statistic-facade';
-import { Tag } from './models/tag';
+
 
 // https://stackoverflow.com/questions/16600509/aes-encrypt-in-cryptojs-and-decrypt-in-coldfusion
 @Component({

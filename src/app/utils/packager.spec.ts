@@ -1,9 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 import { Packager } from './packager';
 import { Entry } from '../models/entry';
-import { EntryPackage } from '../historycomponent/entry-package';
+import { EntryPackage } from '../models/entry-package';
 
 describe('packager', function () {
 

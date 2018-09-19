@@ -1,4 +1,4 @@
-import { EntryPackage } from '../historycomponent/entry-package';
+import { EntryPackage } from '../models/entry-package';
 import { Entry } from '../models/entry';
 import { DateUtil } from './date-util';
 

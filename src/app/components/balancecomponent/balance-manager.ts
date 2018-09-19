@@ -1,5 +1,4 @@
-import { EntryPackage } from '../historycomponent/entry-package';
-import { Entry } from '../models/entry';
+import { Entry } from '../../models/entry';
 
 export class BalanceManager {
 

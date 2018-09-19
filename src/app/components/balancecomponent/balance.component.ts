@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ApplicationService } from '../application/application.service';
-import { EntryService } from '../services/entry.service';
-import { LogUtil } from '../utils/log-util';
-import { Entry } from '../models/entry';
-import { EntryPackage } from '../historycomponent/entry-package';
-import { Packager } from '../utils/packager';
+import { ApplicationService } from '../../application/application.service';
+import { EntryService } from '../../services/entry.service';
+import { LogUtil } from '../../utils/log-util';
+import { Entry } from '../../models/entry';
+import { EntryPackage } from '../../models/entry-package';
+import { Packager } from '../../utils/packager';
 import { BalanceManager } from './balance-manager';
-import { SortUtil } from '../utils/sort-util';
-import { DateUtil } from '../utils/date-util';
+import { SortUtil } from '../../utils/sort-util';
+import { DateUtil } from '../../utils/date-util';
 
 @Component({
     selector : 'balance',

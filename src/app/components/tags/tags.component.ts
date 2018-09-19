@@ -1,9 +1,10 @@
-import { Tag } from "../models/tag";
-import { Input, Component, Output, EventEmitter } from "@angular/core";
+import { Input, Component, Output, EventEmitter } from '@angular/core';
+import { Tag } from '../../models/tag';
+
 
 
 @Component({
-    selector: "tags",
+    selector: 'tags',
     templateUrl: './tags.component.html',
     styleUrls: ['./tags.component.css']
 })
@@ -49,7 +50,7 @@ export class TagsComponent {
     }
 
     private deleteTag(aTag: Tag): void {
-        //this.tags = this.tags.filter(tag => aTag != tag);
+        // this.tags = this.tags.filter(tag => aTag != tag);
         const index = this.tags.indexOf(aTag);
 
         if (index !== -1) {

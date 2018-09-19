@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { WelcomeComponent } from './welcomecomponent/welcome.component';
-import { AddEntryComponent } from './addentrycomponent/add-entry.component';
-import { PageNotFoundComponent } from './errorcomponents/page-not-found.component';
-import { LoginComponent } from './logincomponent/login.component';
-import { BalanceComponent } from './balancecomponent/balance.component';
-import { HistoryComponent } from './historycomponent/history.component';
-import { RegisterComponent } from './logincomponent/register.component';
-import { ActivateComponent } from './logincomponent/activate.component';
-import { RotationEntryComponent } from './rotationentrycomponent/rotation-entry.component';
-import { ProfileComponent } from './profile/profile.component';
+import { WelcomeComponent } from './components/welcomecomponent/welcome.component';
+import { AddEntryComponent } from './components/addentrycomponent/add-entry.component';
+import { PageNotFoundComponent } from './components/errorcomponents/page-not-found.component';
+import { LoginComponent } from './components/logincomponent/login.component';
+import { BalanceComponent } from './components/balancecomponent/balance.component';
+import { HistoryComponent } from './components/historycomponent/history.component';
+import { RegisterComponent } from './components/logincomponent/register.component';
+import { ActivateComponent } from './components/logincomponent/activate.component';
+import { RotationEntryComponent } from './components/rotationentrycomponent/rotation-entry.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
