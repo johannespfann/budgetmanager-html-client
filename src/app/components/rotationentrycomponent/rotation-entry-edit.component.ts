@@ -4,7 +4,7 @@ import { RotationEntry } from '../../models/rotationentry';
 import { Tag } from '../../models/tag';
 import { RotationEntryService } from '../../services/rotation-entry.service';
 import { MathUtil } from '../../utils/math-util';
-import { TagStatisticService } from '../../services/Tag-statistic.service';
+import { TagStatisticService } from '../../services/tag-statistic.service';
 import { ApplicationService } from '../../application/application.service';
 import { TagStatisticFacade } from '../../utils/tag-statistic-facade';
 import { TagStatistic } from '../../models/tagstatistic';

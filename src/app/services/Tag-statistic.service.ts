@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TagStatisticRestApiService } from '../rest/tag-statistic-rest-api.service';
+import { TagStatisticRestApiService } from '../rest/tag-statistic-api.service';
 import { ApplicationService } from '../application/application.service';
 import { LogUtil } from '../utils/log-util';
 import { TagStatistic } from '../models/tagstatistic';

@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
-import { LoginService } from '../../rest/login.service';
+import { LoginService } from '../../rest/login-api.service';
 import { User } from '../../models/user';
 import { ApplicationService } from '../../application/application.service';
 

@@ -1,6 +1,6 @@
 import { LogUtil } from '../utils/log-util';
 import { Injectable } from '@angular/core';
-import { RotationEntryRestApiService } from '../rest/rotation-entry-rest-api.service';
+import { RotationEntryRestApiService } from '../rest/orders-api.service';
 import { RotationEntry } from '../models/rotationentry';
 import { Observable, pipe } from 'rxjs';
 import { ApplicationService } from '../application/application.service';

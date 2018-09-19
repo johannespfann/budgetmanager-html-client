@@ -5,10 +5,10 @@ import { User } from '../models/user';
 import { Observable, concat } from 'rxjs';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { LoginService } from '../rest/login.service';
+import { LoginService } from '../rest/login-api.service';
 import { AuthenticationFacade } from '../utils/authentication-facade';
 import { EncryptionFacade } from '../utils/encryption-facade';
-import { EncryptSerice } from '../rest/encrypt.service';
+import { EncryptSerice } from '../rest/encrypt-api.service';
 
 @Injectable()
 export class ApplicationService {

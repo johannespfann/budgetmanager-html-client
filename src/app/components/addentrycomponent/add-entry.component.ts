@@ -8,7 +8,7 @@ import { RotationEntry } from '../../models/rotationentry';
 import { RotationEntryService } from '../../services/rotation-entry.service';
 import { DateUtil } from '../../utils/date-util';
 import { TagStatisticFacade } from '../../utils/tag-statistic-facade';
-import { TagStatisticService } from '../../services/Tag-statistic.service';
+import { TagStatisticService } from '../../services/tag-statistic.service';
 import { ApplicationService } from '../../application/application.service';
 import { TagStatistic } from '../../models/tagstatistic';
 

@@ -6,11 +6,11 @@ import { LogedInMessage } from './messages/logedin-message';
 import { LogUtil } from './utils/log-util';
 import { User } from './models/user';
 import { ApplicationService } from './application/application.service';
-import { LoginService } from './rest/login.service';
+import { LoginService } from './rest/login-api.service';
 
 import { EncryptionReadyMessage } from './messages/encryption-ready-message';
 import { EncryptionFacade } from './utils/encryption-facade';
-import { TagStatisticService } from './services/Tag-statistic.service';
+import { TagStatisticService } from './services/tag-statistic.service';
 import { AuthenticationFacade } from './utils/authentication-facade';
 import { TagStatisticFacade } from './utils/tag-statistic-facade';
 
