@@ -15,7 +15,6 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class EntryAPIService {
 
-
     private entryTransformer: EntryTransformer;
 
     constructor(
@@ -27,30 +26,17 @@ export class EntryAPIService {
     }
 
     public delete(aUser: User, aEntry: Entry): Observable<any> {
-
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
-        if (!this.appService.isReadyForRestServices()) {
-            return Observable.create(result => { result.error('No restservice available!'); });
-        }
-
         const baseUrl = this.appService.getBaseUrl();
-
-
         return this.http.delete(
             baseUrl + 'entries/owner/' + aUser.name + '/delete/' + aEntry.hash, { headers : headers});
     }
 
     public save(aUser: User, aEntry: Entry): Observable<any> {
-
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
-
-
-        if (!this.appService.isReadyForRestServices()) {
-            return Observable.create(result => { result.error('No restservice available!'); });
-        }
 
         const baseUrl = this.appService.getBaseUrl();
         const encryptionKey = this.appService.getEncryptionKey();
@@ -63,11 +49,6 @@ export class EntryAPIService {
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
-        LogUtil.info(this, 'Headers for get ' + JSON.stringify(headers));
-
-        if (!this.appService.isReadyForRestServices()) {
-            return Observable.create(result => { result.error('No restservice available!'); });
-        }
 
         const baseUrl = this.appService.getBaseUrl();
         const encryptionKey = this.appService.getEncryptionKey();
@@ -87,13 +68,8 @@ export class EntryAPIService {
     }
 
     public update(aUser: User, aEntry: Entry): Observable<any> {
-
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
-
-        if (!this.appService.isReadyForRestServices()) {
-            return Observable.create(result => { result.error('No restservice available!'); });
-        }
 
         const baseUrl = this.appService.getBaseUrl();
         const encryptionKey = this.appService.getEncryptionKey();

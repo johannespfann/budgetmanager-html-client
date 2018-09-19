@@ -18,14 +18,23 @@ export class EntryService {
     }
 
     public getEntries(): Observable<Entry[]> {
+        if (!this.appService.isReadyForRestServices()) {
+            return Observable.create(result => { result.error('No restservice available!'); });
+        }
         return this.entryApiService.getEntries(this.appService.getCurrentUser());
     }
 
     public addEntry(aEntry: Entry): Observable<any> {
+        if (!this.appService.isReadyForRestServices()) {
+            return Observable.create(result => { result.error('No restservice available!'); });
+        }
         return this.entryApiService.save(this.appService.getCurrentUser(), aEntry);
     }
 
     public deleteEntry(aEntry: Entry): Observable<any> {
+        if (!this.appService.isReadyForRestServices()) {
+            return Observable.create(result => { result.error('No restservice available!'); });
+        }
         return this.entryApiService.delete(this.appService.getCurrentUser(), aEntry);
     }
 
