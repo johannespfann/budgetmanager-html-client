@@ -24,10 +24,6 @@ export class RotationEntryRestApiService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
-        if (!this.applicationService.isReadyForRestServices()) {
-            return Observable.create(result => { result.error('No restservice available!'); });
-        }
-
         const baseUrl = this.applicationService.getBaseUrl();
         const encryptionKey = this.applicationService.getEncryptionKey();
 
@@ -40,10 +36,6 @@ export class RotationEntryRestApiService {
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
-
-        if (!this.applicationService.isReadyForRestServices()) {
-            return Observable.create(result => { result.error('No restservice available!'); });
-        }
 
         const baseUrl = this.applicationService.getBaseUrl();
         const encryptionKey = this.applicationService.getEncryptionKey();
@@ -68,10 +60,6 @@ export class RotationEntryRestApiService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
-        if (!this.applicationService.isReadyForRestServices()) {
-            return Observable.create(result => { result.error('No restservice available!'); });
-        }
-
         const baseUrl = this.applicationService.getBaseUrl();
         const encryptionKey = this.applicationService.getEncryptionKey();
 
@@ -87,10 +75,6 @@ export class RotationEntryRestApiService {
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
-
-        if (!this.applicationService.isReadyForRestServices()) {
-            return Observable.create(result => { result.error('No restservice available!'); });
-        }
 
         const baseUrl = this.applicationService.getBaseUrl();
         const encryptionKey = this.applicationService.getEncryptionKey();

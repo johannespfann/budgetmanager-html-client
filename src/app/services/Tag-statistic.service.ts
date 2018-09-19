@@ -15,10 +15,18 @@ export class TagStatisticService {
     }
 
     public getTagStatistic(): Observable<TagStatistic[]> {
+        if (!this.appService.isReadyForRestServices()) {
+            return Observable.create( result  => { result.error('No restservice available!');});
+        }
+
         return this.tagStatisticRestApiService.getTagStatistics(this.appService.getCurrentUser());
     }
 
     public persistTagStatistic(aTagStatistics: TagStatistic[]): Observable<any> {
+        if (!this.appService.isReadyForRestServices()) {
+            return Observable.create( result  => { result.error('No restservice available!');});
+        }
+
         return this.tagStatisticRestApiService.persistTagStatistics(this.appService.getCurrentUser(), aTagStatistics);
     }
 }

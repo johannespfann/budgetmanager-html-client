@@ -17,18 +17,30 @@ export class RotationEntryService {
     }
 
     public addRotationEntry(aRotationEntry: RotationEntry): Observable<any> {
+        if (!this.appService.isReadyForRestServices()) {
+            return Observable.create(result => { result.error('No restservice available!'); });
+        }
         return this.rotationEntryRestApiService.addRotationEntry(this.appService.getCurrentUser(), aRotationEntry);
     }
 
     public getRotationEntries(): Observable<Array<RotationEntry>> {
+        if (!this.appService.isReadyForRestServices()) {
+            return Observable.create(result => { result.error('No restservice available!'); });
+        }
         return this.rotationEntryRestApiService.getRotationEntries(this.appService.getCurrentUser());
     }
 
     public deleteRotationEntry(aRotationEntry: RotationEntry): Observable<any> {
+        if (!this.appService.isReadyForRestServices()) {
+            return Observable.create(result => { result.error('No restservice available!'); });
+        }
         return this.rotationEntryRestApiService.deleteRotationEntry(this.appService.getCurrentUser(), aRotationEntry);
     }
 
     public updateRotationEntry(aRotationEntry: RotationEntry): Observable<any> {
+        if (!this.appService.isReadyForRestServices()) {
+            return Observable.create(result => { result.error('No restservice available!'); });
+        }
         return this.rotationEntryRestApiService.updateRotationEntry(this.appService.getCurrentUser(), aRotationEntry);
     }
 }

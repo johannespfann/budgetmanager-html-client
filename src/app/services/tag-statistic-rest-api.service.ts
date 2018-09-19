@@ -26,10 +26,6 @@ export class TagStatisticRestApiService{
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
-        if (!this.appService.isReadyForRestServices()) {
-            return Observable.create( result  => { result.error('No restservice available!');});
-        }
-
         const encryptKey = this.appService.getEncryptionKey();
         const basePath = this.appService.getBaseUrl();
 
@@ -51,10 +47,6 @@ export class TagStatisticRestApiService{
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
-
-        if (!this.appService.isReadyForRestServices()) {
-            return Observable.create( result  => { result.error('No restservice available!');});
-        }
 
         const encryptKey = this.appService.getEncryptionKey();
         const basePath = this.appService.getBaseUrl();
