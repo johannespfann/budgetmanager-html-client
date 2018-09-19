@@ -1,4 +1,5 @@
 <div class="jumbotron">
+
     <form (ngSubmit)="save()" #addEntryForm="ngForm">
 
         <div class="form-group">
@@ -19,7 +20,7 @@
             <textarea [(ngModel)]="memo" name="memo" class="form-control" id="memo" placeholder="Notiz" rows="2"></textarea>
         </div>
 
-        <tags [tags]="tags" [possibleTags]="possibleTags" (tagAdded)="onAddedTag($event)" (tagDeleted)="onTagDeleted($event)"  ></tags>
+        <tags [tags]="tags" [possibleTags]="possibleTags" (tagAdded)="onAddedTag($event)" (tagDeleted)="onTagDeleted($event)"></tags>
 
 
         <div class="form-group row">
@@ -30,15 +31,25 @@
             </div>
         </div>
 
+        <!--StandingOrder Options -->
         <fieldset class="form-group">
             <div class="form-check">
                 <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked> Monatlich
+                    <input type="radio" (click)="setMonthly()" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" [checked]="isMonthly"> Monatlich
                 </label>
             </div>
             <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" (click)="setQuarterly()" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" [checked]="isQuarterly"> Quartalsweise
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" (click)="setYearly()" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" [checked]="isYearly"> Järhlich
+                </label>
             </div>
         </fieldset>
+
 
 
         <br>

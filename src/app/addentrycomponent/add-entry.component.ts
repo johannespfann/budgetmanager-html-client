@@ -118,7 +118,9 @@ export class AddEntryComponent {
 
     private persistTagToStatistic(): void {
         this.tagStatisticService.persistTagStatistic(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())
-        .subscribe( data => LogUtil.info(this, 'Persist the following tagStatistics: ' + JSON.stringify(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())));
+        .subscribe( data => 
+            LogUtil.info(this, 'Persist the following tagStatistics: ' +
+            JSON.stringify(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())));
     }
 
     private updateTagStatistics(): void {
@@ -166,7 +168,6 @@ export class AddEntryComponent {
         this.isMonthly = false;
         this.isQuarterly = true;
         this.isYearly = false;
-
     }
 
     public setYearly(): void {

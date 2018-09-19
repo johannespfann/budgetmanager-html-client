@@ -45,9 +45,11 @@ export class LoginService {
 
     public logout(aBaseUrl: string, aName: String, accessToken: String): void {
         LogUtil.info(this, 'logout user ' + aName + ' and token ' + accessToken);
-        let httpHeaders: HttpHeaders = new HttpHeaders();
-        httpHeaders = httpHeaders.append('Content-Type', 'application/json');
-        this.http.post(aBaseUrl + 'user/logout/' + aName, accessToken)
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', aName + ':' + accessToken);
+
+
+        this.http.post(aBaseUrl + 'user/logout/' + aName, accessToken, { headers : headers})
             .subscribe((data) => {
                 LogUtil.info(this, 'ok!');
             });

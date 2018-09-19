@@ -9,7 +9,7 @@ import { MathUtil } from "../utils/math-util";
 import { TagStatisticService } from "../services/Tag-statistic.service";
 import { ApplicationService } from "../application/application.service";
 import { TagStatisticFacade } from "../utils/tag-statistic-facade";
-import { TagStatistic } from "../models/tagstatistic";
+import { TagStatistic } from '../models/tagstatistic';
 
 
 @Component({
@@ -47,6 +47,10 @@ export class RotationEntryEditComponent implements  OnInit{
 
     public categoriesStrings: Array<string>;
 
+    public isMonthly = false;
+    public isQuarterly = false;
+    public isYearly = false;
+
     constructor(
         private rotationEntryService: RotationEntryService,
         private tagStatisticService: TagStatisticService,
@@ -62,7 +66,7 @@ export class RotationEntryEditComponent implements  OnInit{
         this.initView();
     }
 
-    public save(){
+    public save() {
         const rotationEntry = new RotationEntry();
 
 
@@ -109,6 +113,20 @@ export class RotationEntryEditComponent implements  OnInit{
         this.tags = this.rotationEntry.tags;
         this.startRotationDate = this.rotationEntry.start_at;
         this.rotation_strategy = this.rotationEntry.rotation_strategy;
+
+        if (this.rotation_strategy === '66122') {
+            LogUtil.info(this, 'monatlich');
+            this.setMonthly();
+        }
+        if (this.rotation_strategy === '36133') {
+            LogUtil.info(this, 'quartal');
+            this.setQuarterly();
+        }
+        if (this.rotation_strategy === '5679') {
+            LogUtil.info(this, 'jährlich');
+            this.setYearly();
+        }
+
         this.updateTagStatistics();
     }
 
@@ -122,7 +140,7 @@ export class RotationEntryEditComponent implements  OnInit{
 
     private persistTagToStatistic(): void {
         this.tagStatisticService.persistTagStatistic(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())
-        .subscribe( data => LogUtil.info(this, 'Persist the following tagStatistics: ' + JSON.stringify(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())));
+        .subscribe();
     }
 
     private updateTagStatistics(): void {
@@ -154,4 +172,35 @@ export class RotationEntryEditComponent implements  OnInit{
             this.possibleTags.push(tag);
         });
     }
+
+    private getRotationStrategy(): string {
+        if (this.isMonthly) {
+            return '66122';
+        }
+        if (this.isQuarterly) {
+            return '36133';
+        }
+        if (this.isYearly) {
+            return '5679';
+        }
+    }
+
+    public setMonthly(): void {
+        this.isMonthly = true;
+        this.isQuarterly = false;
+        this.isYearly = false;
+    }
+
+    public setQuarterly(): void {
+        this.isMonthly = false;
+        this.isQuarterly = true;
+        this.isYearly = false;
+    }
+
+    public setYearly(): void {
+        this.isMonthly = false;
+        this.isQuarterly = false;
+        this.isYearly = true;
+    }
+
 }
