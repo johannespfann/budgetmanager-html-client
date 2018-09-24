@@ -15,6 +15,8 @@ export class RotationEntry {
 
     public last_executed: Date;
 
+    public rotation_strategy: string;
+
 
     /**
      * Entry attributes
@@ -25,8 +27,6 @@ export class RotationEntry {
     public memo: string;
 
     public tags: Tag[];
-
-    public rotation_strategy: string;
 
 
     public constructor() {

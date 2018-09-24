@@ -1,140 +1,75 @@
-import { Component } from '@angular/core';
-import { Tag } from '../../models/tag';
-import { Entry } from '../../models/entry';
-import { MathUtil } from '../../utils/math-util';
-import { EntryService } from '../../services/entry.service';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
+import { EntryInfo } from '../entrycomponent/entry-info';
+import { EntryComponent } from '../entrycomponent/entry.component';
+import { StandingOrderComponent } from '../entrycomponent/standing-order.component';
 import { RotationEntry } from '../../models/rotationentry';
+import { Entry } from '../../models/entry';
+import { EntryService } from '../../services/entry.service';
 import { RotationEntryService } from '../../services/rotation-entry.service';
-import { DateUtil } from '../../utils/date-util';
-import { TagStatisticFacade } from '../../utils/tag-statistic-facade';
-import { TagStatisticService } from '../../services/tag-statistic.service';
-import { ApplicationService } from '../../application/application.service';
-import { TagStatistic } from '../../models/tagstatistic';
-
 
 
 @Component({
-    selector: 'newentry',
+    selector: 'app-bm-newentry',
     templateUrl: './add-entry.component.html',
     styleUrls: ['./add-entry.component.css']
 })
-export class AddEntryComponent {
+export class AddEntryComponent implements OnInit {
 
-    public algebraicSignIsMinus = true;
-    public amount: number;
-    public memo: string;
+
+    @ViewChild(EntryComponent) entryComponent: EntryComponent;
+    @ViewChild(StandingOrderComponent) standingOrderComponent: StandingOrderComponent;
+
     public createEntryDate: Date;
-
-    public startRotationDate: Date;
-    public isPeriodical = false;
-    public isMonthly = false;
-    public isQuarterly = false;
-    public isYearly = false;
-
-    private tagStatisticBrowserStorageFacade: TagStatisticFacade;
-    public tags: Tag[];
-    public possibleTags: Tag[];
+    private isPeriodical = false;
 
     constructor(
         private entryService: EntryService,
-        private rotationEntryService: RotationEntryService,
-        private tagStatisticService: TagStatisticService,
-        private applicationService: ApplicationService) {
-
-        LogUtil.info(this, 'Invoke AddEntryComponent');
-
-        this.tagStatisticBrowserStorageFacade = new TagStatisticFacade(this.applicationService.getCurrentUser());
-
-        this.updateTagStatistics();
-        this.resetAttributes();
+        private rotationService: RotationEntryService) {
+        LogUtil.info(this, 'init addEntryComponent');
     }
 
-    public save(): void {
+    public ngOnInit(): void {
+        this.isPeriodical = false;
+        this.cleanEntryViews();
+    }
 
-        let amountValue: number;
-        if (this.algebraicSignIsMinus) {
-            amountValue = MathUtil.convertToNegativ(this.amount);
-        } else {
-            amountValue = MathUtil.convertToPositiv(this.amount);
-        }
-
-        const entry: Entry = Entry.create(amountValue);
-
-        entry.setMemo(this.memo);
-
-        entry.tags = this.tags;
+    public saveEntry(): void {
+        LogUtil.info(this, 'clicked save entries');
+        const entryInfo = this.entryComponent.getEntryInfo();
+        const entry = Entry.create(entryInfo.amount);
+        entry.memo = entryInfo.memo;
+        entry.tags = entryInfo.tags;
         entry.created_at = this.createEntryDate;
 
-        if (this.isPeriodical) {
-             const rotationEntry: RotationEntry = RotationEntry.create(amountValue, this.getRotationStrategy());
-             rotationEntry.last_executed = null;
-             rotationEntry.start_at = this.startRotationDate;
-             rotationEntry.tags = this.tags;
-             rotationEntry.memo = this.memo;
-             rotationEntry.end_at = DateUtil.getMaximumDate();
+        this.entryService.addEntry(entry)
+            .subscribe(response => {
+                LogUtil.info(this, 'success');
+            });
 
-             this.rotationEntryService.addRotationEntry(rotationEntry).subscribe(
-                 data => {
-                     LogUtil.info(this, 'save : ' + JSON.stringify(rotationEntry));
-
-                     this.persistTagToStatistic();
-                     this.resetAttributes();
-                 });
-        }
-        if (!this.isPeriodical) {
-            LogUtil.info(this, 'Add new Entry: size of tags: ' + entry.tags.length);
-            LogUtil.info(this, JSON.stringify(entry));
-            this.entryService.addEntry(entry).subscribe(
-                data => {
-                    LogUtil.info(this, 'save : ' + JSON.stringify(entry));
-                    this.persistTagToStatistic();
-                    this.resetAttributes();
-                },
-                error => {
-                    LogUtil.info(this, error);
-                }
-            );
-        }
+        this.cleanEntryViews();
     }
 
-    private resetAttributes(): void {
-        this.amount = null;
-        this.memo = null;
-        this.tags = new Array<Tag>();
-        if (this.isPeriodical) {
-            this.changePeriodical();
-        }
-        this.isPeriodical = false;
-        this.isMonthly = true;
-        this.isQuarterly = false;
-        this.isYearly = false;
-        this.isPeriodical = false;
-        this.createEntryDate = new Date();
-        this.startRotationDate = new Date();
-        this.updateTagStatistics();
-    }
+    public saveStandingOrder(): void {
+        LogUtil.info(this, 'clicked save standingOrders');
+        const standingOrderInfo = this.standingOrderComponent.getStandingOrderInfo();
+        const entryInfo = this.entryComponent.getEntryInfo();
 
-    private persistTagToStatistic(): void {
-        this.tagStatisticService.persistTagStatistic(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())
-        .subscribe( data => 
-            LogUtil.info(this, 'Persist the following tagStatistics: ' +
-            JSON.stringify(this.tagStatisticBrowserStorageFacade.getTagStatisticValues())));
-    }
+        const rotationEntry = RotationEntry.create(entryInfo.amount, standingOrderInfo.rotation_strategy);
+        rotationEntry.amount = entryInfo.amount;
+        rotationEntry.memo = entryInfo.memo;
+        rotationEntry.tags = entryInfo.tags;
+        rotationEntry.start_at = standingOrderInfo.start_at;
+        rotationEntry.last_executed = standingOrderInfo.last_executed;
+        rotationEntry.end_at = standingOrderInfo.end_at;
 
-    private updateTagStatistics(): void {
-        this.tagStatisticService.getTagStatistic().subscribe((tags: TagStatistic[]) => {
-           this.tagStatisticBrowserStorageFacade.persistTagStatisctics(tags);
-           this.refreshPossibleTags();
+        this.rotationService.addRotationEntry(rotationEntry)
+        .subscribe(response => {
+            LogUtil.info(this, 'success');
         });
-    }
 
-    public changeAlgebraicSignIsMinus(): void {
-        if (this.algebraicSignIsMinus) {
-            this.algebraicSignIsMinus = false;
-        } else {
-            this.algebraicSignIsMinus = true;
-        }
+        this.cleanEntryViews();
+        this.cleanStandingOrderView();
     }
 
     public changePeriodical() {
@@ -145,55 +80,12 @@ export class AddEntryComponent {
         }
     }
 
-    private getRotationStrategy(): string {
-        if (this.isMonthly) {
-            return '66122';
-        }
-        if (this.isQuarterly) {
-            return '36133';
-        }
-        if (this.isYearly) {
-            return '5679';
-        }
+    private cleanEntryViews(): void {
+        this.createEntryDate = new Date();
+        this.entryComponent.cleanEntryView();
     }
 
-    public setMonthly(): void {
-        this.isMonthly = true;
-        this.isQuarterly = false;
-        this.isYearly = false;
-    }
-
-    public setQuarterly(): void {
-        this.isMonthly = false;
-        this.isQuarterly = true;
-        this.isYearly = false;
-    }
-
-    public setYearly(): void {
-        this.isMonthly = false;
-        this.isQuarterly = false;
-        this.isYearly = true;
-    }
-
-    public onAddedTag(tag: Tag): void {
-        LogUtil.info(this, 'added new Tag' + JSON.stringify(tag));
-        this.tagStatisticBrowserStorageFacade.pushTag(tag);
-        this.refreshPossibleTags();
-    }
-
-    public onTagDeleted(tag: Tag): void {
-        LogUtil.info(this, 'removed new Tag' + JSON.stringify(tag));
-        this.tagStatisticBrowserStorageFacade.deleteTag(tag);
-        this.refreshPossibleTags();
-    }
-
-    public refreshPossibleTags(): void {
-        const tagStatisticList: TagStatistic[] = this.tagStatisticBrowserStorageFacade.getTagStatisticValues();
-        this.possibleTags = [];
-        tagStatisticList.forEach((tagStatistic: TagStatistic) => {
-            const tag: Tag = new Tag();
-            tag.name = tagStatistic.name;
-            this.possibleTags.push(tag);
-        });
+    private cleanStandingOrderView(): void {
+        this.standingOrderComponent.cleanStandOrderView();
     }
 }

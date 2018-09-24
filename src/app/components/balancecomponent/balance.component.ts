@@ -10,7 +10,7 @@ import { SortUtil } from '../../utils/sort-util';
 import { DateUtil } from '../../utils/date-util';
 
 @Component({
-    selector : 'balance',
+    selector : 'app-balance',
     templateUrl : './balance.component.html',
     styleUrls: ['./balance.component.css']
 })
@@ -21,7 +21,7 @@ export class BalanceComponent {
     constructor(
         private applicationService: ApplicationService,
         private entryService: EntryService) {
-            LogUtil.info(this, 'Init BalanceCompoent');
+            LogUtil.info(this, 'init balanceCompoent');
             this.updateEntries();
     }
 

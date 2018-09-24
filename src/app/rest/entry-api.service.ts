@@ -36,6 +36,8 @@ export class EntryAPIService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
+        LogUtil.info(this, JSON.stringify(aEntry));
+
         const baseUrl = this.appService.getBaseUrl();
         const encryptionKey = this.appService.getEncryptionKey();
 
