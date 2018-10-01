@@ -13,7 +13,7 @@ import { TagStatisticService } from '../../services/tag-statistic.service';
 import { ApplicationService } from '../../application/application.service';
 
 @Component({
-    selector: 'edit-entry-component',
+    selector: 'app-edit-entry-component',
     templateUrl: './edit-entry.component.html',
     styleUrls: ['./edit-entry.component.css']
 })

@@ -1,0 +1,19 @@
+<ul class="list-group">
+
+    <div *ngFor="let entryPackage of entryPackages" class="" style="margin-top: 0.2rem">
+        
+        <p>{{entryPackage.packagename}} - {{entryPackage.entries.length}}</p>
+
+        <li *ngFor="let entry of entryPackage.entries" class="list-group-item row" style="margin-top: 0.2rem">
+            <div class="col-10 col-sm-11">
+                {{entry.amount}} € {{entry.memo}}
+            </div>
+            <div class="col-1">
+                <div class="row">
+                    <i class="fa fa-pencil-square-o col-6" (click)="editEntry(entry)" aria-hidden="true"></i>
+                </div>
+            </div>
+        </li>
+
+    </div>
+</ul>

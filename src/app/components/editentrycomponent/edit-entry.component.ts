@@ -8,7 +8,7 @@ import { Entry } from '../../models/entry';
     templateUrl: './edit-entry.component.html',
     styleUrls: ['./edit-entry.component.css']
 })
-export class EditEntryComponent implements OnInit, OnChanges{
+export class EditEntryComponent implements OnInit, OnChanges {
 
     @ViewChild(EntryInfoComponent) entryComponent: EntryInfoComponent;
 
