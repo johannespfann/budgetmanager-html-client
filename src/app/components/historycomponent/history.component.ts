@@ -10,10 +10,10 @@ import { EntryPackage } from '../../models/entry-package';
 import { Packager } from '../../utils/packager';
 
 @Component({
-    selector : 'history-component',
+    selector : 'app-history-component',
     templateUrl : './history.component.html'
 })
-export class HistoryComponent{
+export class HistoryComponent {
 
     @ViewChild(HistoryDirective) componentDirective: HistoryDirective;
 
