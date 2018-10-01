@@ -81,7 +81,7 @@ export class EditEntryComponent {
     }
 
     private initAmount(aAmount: number): number {
-        if (aAmount >= 0){
+        if (aAmount >= 0) {
             this.algebraicSignIsMinus = false;
             return aAmount;
         } else {

@@ -2,9 +2,8 @@ import { Input, Component, Output, EventEmitter } from '@angular/core';
 import { Tag } from '../../models/tag';
 
 
-
 @Component({
-    selector: 'tags',
+    selector: 'app-tags',
     templateUrl: './tags.component.html',
     styleUrls: ['./tags.component.css']
 })

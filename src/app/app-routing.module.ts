@@ -9,12 +9,12 @@ import { BalanceComponent } from './components/balancecomponent/balance.componen
 import { HistoryComponent } from './components/historycomponent/history.component';
 import { RegisterComponent } from './components/logincomponent/register.component';
 import { ActivateComponent } from './components/logincomponent/activate.component';
-import { RotationEntryComponent } from './components/rotationentrycomponent/rotation-entry.component';
 import { ProfileComponent } from './components/profile/profile.component';
-
+import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
+// standingorder
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
-  { path: 'rotationjobs', component: RotationEntryComponent},
+  { path: 'standingorder', component: StandingOrderComponent},
   { path: 'newentry', component: AddEntryComponent },
   { path: 'balance', component: BalanceComponent },
   { path: 'history', component: HistoryComponent },

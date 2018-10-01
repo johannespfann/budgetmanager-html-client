@@ -1,12 +1,12 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
-import { EntryInfo } from '../entrycomponent/entry-info';
-import { EntryComponent } from '../entrycomponent/entry.component';
-import { StandingOrderComponent } from '../entrycomponent/standing-order.component';
+import { EntryInfoComponent } from '../entryinfocomponent/entry-info.component';
+import { StandingOrderInfoComponent } from '../entryinfocomponent/standing-order-info.component';
 import { RotationEntry } from '../../models/rotationentry';
 import { Entry } from '../../models/entry';
 import { EntryService } from '../../services/entry.service';
 import { RotationEntryService } from '../../services/rotation-entry.service';
+import { DateUtil } from '../../utils/date-util';
 
 
 @Component({
@@ -16,9 +16,8 @@ import { RotationEntryService } from '../../services/rotation-entry.service';
 })
 export class AddEntryComponent implements OnInit {
 
-
-    @ViewChild(EntryComponent) entryComponent: EntryComponent;
-    @ViewChild(StandingOrderComponent) standingOrderComponent: StandingOrderComponent;
+    @ViewChild(EntryInfoComponent) entryComponent: EntryInfoComponent;
+    @ViewChild(StandingOrderInfoComponent) standingOrderComponent: StandingOrderInfoComponent;
 
     public createEntryDate: Date;
     private isPeriodical = false;
@@ -60,8 +59,8 @@ export class AddEntryComponent implements OnInit {
         rotationEntry.memo = entryInfo.memo;
         rotationEntry.tags = entryInfo.tags;
         rotationEntry.start_at = standingOrderInfo.start_at;
-        rotationEntry.last_executed = standingOrderInfo.last_executed;
-        rotationEntry.end_at = standingOrderInfo.end_at;
+        rotationEntry.last_executed = null;
+        rotationEntry.end_at = DateUtil.getMaximumDate();
 
         this.rotationService.addRotationEntry(rotationEntry)
         .subscribe(response => {

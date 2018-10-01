@@ -9,13 +9,7 @@ import { ApplicationService } from './application/application.service';
 import { LoginService } from './rest/login-api.service';
 
 import { EncryptionReadyMessage } from './messages/encryption-ready-message';
-import { EncryptionFacade } from './utils/encryption-facade';
-import { TagStatisticService } from './services/tag-statistic.service';
-import { AuthenticationFacade } from './utils/authentication-facade';
-import { TagStatisticFacade } from './utils/tag-statistic-facade';
 
-
-// https://stackoverflow.com/questions/16600509/aes-encrypt-in-cryptojs-and-decrypt-in-coldfusion
 @Component({
   selector: 'app-budgetmanager',
   templateUrl: './app.component.html'
@@ -29,23 +23,15 @@ export class AppComponent implements OnDestroy {
   public isLogedIn = false;
   public encryptKeyIsValid = false;
 
-  private encryptionFacade: EncryptionFacade;
-  private authenticationLocalStorage: AuthenticationFacade;
-  private tagStatisticFacade: TagStatisticFacade;
-
   private user: User;
 
   constructor(
     private router: Router,
     private loginServcie: LoginService,
     private messageService: MessagingService,
-    private applicationService: ApplicationService,
-    private tagStatiscticService: TagStatisticService) {
+    private applicationService: ApplicationService) {
 
     LogUtil.info(this, 'Start Application');
-
-    this.encryptionFacade = new EncryptionFacade();
-    this.authenticationLocalStorage = new AuthenticationFacade();
 
     this.loginSubscription = this.registerLogedInMessage();
     this.encryptionReadySubscription = this.registerEncryptionReadyMessage();

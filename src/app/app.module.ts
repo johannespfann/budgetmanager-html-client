@@ -21,9 +21,7 @@ import { EditEntryComponent } from './components/historycomponent/edit-entry.com
 import { HistoryDirective } from './components/historycomponent/history.directive';
 import { RotationEntryService } from './services/rotation-entry.service';
 import { RotationEntryRestApiService } from './rest/orders-api.service';
-import { RotationEntryComponent } from './components/rotationentrycomponent/rotation-entry.component';
 import { TagsComponent } from './components/tags';
-import { RotationEntryEditComponent } from './components/rotationentrycomponent/rotation-entry-edit.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EncryptionComponent } from './components/profile/encryption.component';
 import { FirstAddEncryptionComponent } from './components/profile/first-add-encryption.component';
@@ -31,8 +29,10 @@ import { SetEncryptionKeyComponent } from './components/profile/set-encryption-k
 import { EncryptApiSerice } from './rest/encrypt-api.service';
 import { TagStatisticService } from './services/tag-statistic.service';
 import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';
-import { StandingOrderComponent } from './components/entrycomponent/standing-order.component';
-import { EntryComponent } from './components/entrycomponent/entry.component';
+import { StandingOrderInfoComponent } from './components/entryinfocomponent/standing-order-info.component';
+import { EntryInfoComponent } from './components/entryinfocomponent/entry-info.component';
+import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
+import { StandingOrderEditComponent } from './components/standingordereditcomponent/standingorder-edit.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -61,11 +61,11 @@ export function initApplication(appService: ApplicationService) {
     ActivateComponent,
     HistoryDirective,
     EditEntryComponent,
-    RotationEntryComponent,
-    RotationEntryEditComponent,
     TagsComponent,
+    StandingOrderInfoComponent,
+    EntryInfoComponent,
     StandingOrderComponent,
-    EntryComponent,
+    StandingOrderEditComponent
   ],
   providers: [
     EntryService,

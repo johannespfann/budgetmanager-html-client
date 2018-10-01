@@ -10,10 +10,10 @@ import { MathUtil } from '../../utils/math-util';
 
 @Component({
     selector: 'app-bm-entry-info',
-    templateUrl: './entry.component.html',
-    styleUrls: ['./entry.component.css']
+    templateUrl: './entry-info.component.html',
+    styleUrls: ['./entry-info.component.css']
 })
-export class EntryComponent {
+export class EntryInfoComponent {
 
     /**
      * view attributes
@@ -27,7 +27,6 @@ export class EntryComponent {
     public possibleTags: Tag[];
 
     private tagStatisticBrowserStorageFacade: TagStatisticFacade;
-
 
     constructor(
         private tagStatisticService: TagStatisticService,
@@ -44,16 +43,26 @@ export class EntryComponent {
         this.tags = [];
     }
 
+    public initEntryView(aEntryInfo: EntryInfo): void {
+        this.cleanEntryView();
+        if (aEntryInfo.amount < 0) {
+            this.algebraicSignIsMinus = true;
+        } else {
+            this.algebraicSignIsMinus = false;
+        }
+        this.amount = MathUtil.convertToPositiv(aEntryInfo.amount);
+        this.memo = aEntryInfo.memo;
+        this.tags = aEntryInfo.tags;
+    }
+
     public getEntryInfo(): EntryInfo {
         this.persistTagToStatistic();
-
         let amountValue: number;
         if (this.algebraicSignIsMinus) {
             amountValue = MathUtil.convertToNegativ(this.amount);
         } else {
             amountValue = MathUtil.convertToPositiv(this.amount);
         }
-
         const entryInfo = new EntryInfo();
         entryInfo.amount = amountValue;
         entryInfo.memo = this.memo;
