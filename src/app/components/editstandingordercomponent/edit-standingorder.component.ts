@@ -2,18 +2,16 @@ import { Component, ViewChild, OnInit, Input, OnChanges, SimpleChanges, Output, 
 import { LogUtil } from '../../utils/log-util';
 import { EntryInfoComponent } from '../entryinfocomponent/entry-info.component';
 import { StandingOrderInfoComponent } from '../entryinfocomponent/standing-order-info.component';
-import { EntryService } from '../../services/entry.service';
-import { RotationEntryService } from '../../services/rotation-entry.service';
 import { RotationEntry } from '../../models/rotationentry';
 import { EntryInfo } from '../entryinfocomponent/entry-info';
 import { StandingOrderInfo } from '../entryinfocomponent/standing-order-info';
 
 @Component({
-    selector: 'app-standingorder-edit-component',
-    templateUrl: './standingorder-edit.component.html',
-    styleUrls: ['./standingorder-edit.component.css']
+    selector: 'app-edit-standingorder-component',
+    templateUrl: './edit-standingorder.component.html',
+    styleUrls: ['./edit-standingorder.component.css']
 })
-export class StandingOrderEditComponent implements OnInit, OnChanges {
+export class EditStandingOrderComponent implements OnInit, OnChanges {
 
     @ViewChild(EntryInfoComponent) entryComponent: EntryInfoComponent;
     @ViewChild(StandingOrderInfoComponent) standingOrderComponent: StandingOrderInfoComponent;

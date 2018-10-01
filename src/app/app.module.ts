@@ -32,7 +32,7 @@ import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';
 import { StandingOrderInfoComponent } from './components/entryinfocomponent/standing-order-info.component';
 import { EntryInfoComponent } from './components/entryinfocomponent/entry-info.component';
 import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
-import { StandingOrderEditComponent } from './components/standingordereditcomponent/standingorder-edit.component';
+import { EditStandingOrderComponent } from './components/editstandingordercomponent/edit-standingorder.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -65,7 +65,7 @@ export function initApplication(appService: ApplicationService) {
     StandingOrderInfoComponent,
     EntryInfoComponent,
     StandingOrderComponent,
-    StandingOrderEditComponent
+    EditStandingOrderComponent
   ],
   providers: [
     EntryService,

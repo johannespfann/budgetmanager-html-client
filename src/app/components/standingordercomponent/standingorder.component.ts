@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RotationEntryService } from '../../services/rotation-entry.service';
 import { RotationEntry } from '../../models/rotationentry';
 import { LogUtil } from '../../utils/log-util';
