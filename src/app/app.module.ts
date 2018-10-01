@@ -29,7 +29,7 @@ import { SetEncryptionKeyComponent } from './components/profile/set-encryption-k
 import { EncryptApiSerice } from './rest/encrypt-api.service';
 import { TagStatisticService } from './services/tag-statistic.service';
 import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';
-import { StandingOrderInfoComponent } from './components/entryinfocomponent/standing-order-info.component';
+import { StandingOrderInfoComponent } from './components/standingorderinfocomponent/standing-order-info.component';
 import { EntryInfoComponent } from './components/entryinfocomponent/entry-info.component';
 import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
 import { EditStandingOrderComponent } from './components/editstandingordercomponent/edit-standingorder.component';

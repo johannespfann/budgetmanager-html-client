@@ -1,8 +1,5 @@
 import { LogUtil } from '../utils/log-util';
-import { LogedInMessage } from '../messages/logedin-message';
-import { MessagingService } from '../messages/message.service';
 import { User } from '../models/user';
-import { Observable, concat } from 'rxjs';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { LoginService } from '../rest/login-api.service';

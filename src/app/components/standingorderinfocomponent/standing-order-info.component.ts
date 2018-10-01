@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { StandingOrderInfo } from './standing-order-info';
-import { DateUtil } from '../../utils/date-util';
 import { LogUtil } from '../../utils/log-util';
 
 @Component({

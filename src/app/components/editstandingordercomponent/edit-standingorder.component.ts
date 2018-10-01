@@ -1,10 +1,10 @@
 import { Component, ViewChild, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
 import { EntryInfoComponent } from '../entryinfocomponent/entry-info.component';
-import { StandingOrderInfoComponent } from '../entryinfocomponent/standing-order-info.component';
+import { StandingOrderInfoComponent } from '../standingorderinfocomponent/standing-order-info.component';
 import { RotationEntry } from '../../models/rotationentry';
 import { EntryInfo } from '../entryinfocomponent/entry-info';
-import { StandingOrderInfo } from '../entryinfocomponent/standing-order-info';
+import { StandingOrderInfo } from '../standingorderinfocomponent/standing-order-info';
 
 @Component({
     selector: 'app-edit-standingorder-component',
