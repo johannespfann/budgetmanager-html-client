@@ -5,9 +5,9 @@ import { EntryPackage } from '../../models/entry-package';
 import { Packager } from '../../utils/packager';
 
 @Component({
-    selector: 'app-list-entry-component',
-    templateUrl: './list-entry.component.html',
-    styleUrls: ['./list-entry.component.css']
+    selector: 'app-list-entry',
+    templateUrl: './list-entry-component.html',
+    styleUrls: ['./list-entry-component.css']
 })
 export class ListEntryComponent implements OnInit, OnChanges {
 
@@ -34,16 +34,16 @@ export class ListEntryComponent implements OnInit, OnChanges {
     }
 
     public ngOnInit(): void {
-        LogUtil.info(this, 'onInit -> list-entry-component');
+        LogUtil.debug(this, 'onInit');
     }
 
     public ngOnChanges(aCanges: SimpleChanges): void {
-        LogUtil.info(this, 'onChanges -> list-entry-component');
+        LogUtil.debug(this, 'onChanges');
         this.initListView();
     }
 
     public editEntry(aEntry: Entry): void {
-        LogUtil.info(this, 'pressed edit -> ' + JSON.stringify(aEntry));
+        LogUtil.info(this, 'pressed edit');
         this.editPressed.emit(aEntry);
     }
 

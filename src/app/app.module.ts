@@ -8,7 +8,6 @@ import { WelcomeComponent } from './components/welcomecomponent/welcome.componen
 import { PageNotFoundComponent } from './components/errorcomponents/page-not-found.component';
 import { LoginComponent } from './components/logincomponent/login.component';
 import { BalanceComponent } from './components/balancecomponent/balance.component';
-import { HistoryComponent } from './components/historycomponent/history.component';
 import { EntryService } from './services/entry.service';
 import { MessagingService } from './messages/message.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,8 +16,6 @@ import { RegisterComponent } from './components/logincomponent/register.componen
 import { ActivateComponent } from './components/logincomponent/activate.component';
 import { ApplicationService } from './application/application.service';
 import { EntryAPIService } from './rest/entry-api.service';
-import { EditEntryComponent } from './components/historycomponent/edit-entry.component';
-import { HistoryDirective } from './components/historycomponent/history.directive';
 import { RotationEntryService } from './services/rotation-entry.service';
 import { RotationEntryRestApiService } from './rest/orders-api.service';
 import { TagsComponent } from './components/tags';
@@ -33,6 +30,9 @@ import { StandingOrderInfoComponent } from './components/standingorderinfocompon
 import { EntryInfoComponent } from './components/entryinfocomponent/entry-info.component';
 import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
 import { EditStandingOrderComponent } from './components/editstandingordercomponent/edit-standingorder.component';
+import { ListEntryComponent } from './components/listentrycomponent/list-entry-component';
+import { HistoryEntryComponent } from './components/histcomponent/history-entry.component';
+import { EditEntryComponent } from './components/editentrycomponent/edit-entry.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -55,17 +55,17 @@ export function initApplication(appService: ApplicationService) {
     AddEntryComponent,
     PageNotFoundComponent,
     BalanceComponent,
-    HistoryComponent,
     LoginComponent,
     RegisterComponent,
     ActivateComponent,
-    HistoryDirective,
-    EditEntryComponent,
     TagsComponent,
     StandingOrderInfoComponent,
     EntryInfoComponent,
     StandingOrderComponent,
-    EditStandingOrderComponent
+    EditStandingOrderComponent,
+    ListEntryComponent,
+    EditEntryComponent,
+    HistoryEntryComponent
   ],
   providers: [
     EntryService,
@@ -80,10 +80,7 @@ export function initApplication(appService: ApplicationService) {
     TagStatisticService,
     TagStatisticRestApiService
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    EditEntryComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor() {

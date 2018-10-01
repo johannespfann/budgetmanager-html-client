@@ -1,0 +1,7 @@
+<div class="jumbotron">
+    <app-edit-entry [entry]="selectedEntry" (cancelPressed)="onCancelPressed($event)" (deletedPressed)="onDeletePressed($event)" (changedPressed)="onEditedPressed($event)"></app-edit-entry>
+</div>
+
+<div class="jumbotron">
+    <app-list-entry [entries]="entries" (editPressed)="onEditPressed($event)"></app-list-entry>
+</div>

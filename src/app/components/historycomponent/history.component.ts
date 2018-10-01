@@ -2,8 +2,6 @@ import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { EntryService } from '../../services/entry.service';
 import { Entry } from '../../models/entry';
 import { LogUtil } from '../../utils/log-util';
-import { EditEntryComponent } from './edit-entry.component';
-import { HistoryDirective } from './history.directive';
 import { MessagingService } from '../../messages/message.service';
 import { EntryUpdatedMessage } from '../../messages/entry-updated-message';
 import { EntryPackage } from '../../models/entry-package';
@@ -14,8 +12,6 @@ import { Packager } from '../../utils/packager';
     templateUrl : './history.component.html'
 })
 export class HistoryComponent {
-
-    @ViewChild(HistoryDirective) componentDirective: HistoryDirective;
 
     private viewContainerRef;
 
@@ -44,19 +40,6 @@ export class HistoryComponent {
             this.updateEntries();
             this.clearEntryEditComponent();
         } );
-    }
-
-    private editEntry(aEntry: Entry): void {
-        LogUtil.info(this, 'edit entry: ' + JSON.stringify(aEntry));
-
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(EditEntryComponent);
-
-        this.viewContainerRef = this.componentDirective.viewContainerRef;
-        this.viewContainerRef.clear();
-
-        const componentRef = this.viewContainerRef.createComponent(componentFactory);
-        (<EditEntryComponent>componentRef.instance).entry = aEntry;
-
     }
 
     private deleteEntry(aEntry: Entry): void {

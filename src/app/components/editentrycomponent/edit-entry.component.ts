@@ -17,7 +17,7 @@ export class EditEntryComponent implements OnInit, OnChanges {
     }
 
     @Input()
-    public standingorder: Entry;
+    public entry: Entry;
 
     @Output()
     public cancelPressed = new EventEmitter<boolean>();
@@ -38,17 +38,17 @@ export class EditEntryComponent implements OnInit, OnChanges {
 
     public change(): void {
         LogUtil.info(this, 'pressed change');
-        //this.changedPressed.emit();
+        this.changedPressed.emit(null);
     }
 
     public delete(): void {
         LogUtil.info(this, 'pressed delete');
-        //this.deletedPressed.emit();
+        this.deletedPressed.emit(null);
     }
 
     public cancel(): void {
         LogUtil.info(this, 'pressed cancel');
-        //this.cancelPressed.emit(true);
+        this.cancelPressed.emit(true);
     }
 
     private initEntryView(aEntry: Entry): void {
