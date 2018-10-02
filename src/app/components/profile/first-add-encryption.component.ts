@@ -4,7 +4,7 @@ import { ApplicationService } from '../../application/application.service';
 import { CryptUtil } from '../../utils/crypt-util';
 
 @Component({
-    selector: 'bm-first-add-encryption',
+    selector: 'app-first-add-encryption',
     templateUrl: './first-add-encryption.component.html'
 })
 export class FirstAddEncryptionComponent{
@@ -24,7 +24,7 @@ export class FirstAddEncryptionComponent{
     }
 
     public saveKey(): void {
-        if (this.isCorrectKey(this.key,this.keyrepeat)) {
+        if (this.isCorrectKey(this.key, this.keyrepeat)) {
             const baseUrl: string = this.applicationService.getBaseUrl();
            this.encryptService
             .setEncryptionText(baseUrl, this.applicationService.getCurrentUser(), CryptUtil.encryptString(this.key,this.validationText))

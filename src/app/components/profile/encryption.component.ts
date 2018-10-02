@@ -4,7 +4,7 @@ import { ApplicationService } from '../../application/application.service';
 import { LogUtil } from '../../utils/log-util';
 
 @Component({
-    selector: 'bm-encryption',
+    selector: 'app-encryption',
     templateUrl: './encryption.component.html'
 })
 export class EncryptionComponent implements OnInit {
@@ -18,7 +18,7 @@ export class EncryptionComponent implements OnInit {
         private applicationService: ApplicationService,
         private encryptService: EncryptApiSerice) {
 
-            LogUtil.info(this, 'Init EncryptComponent');
+            LogUtil.debug(this, 'Init EncryptComponent');
     }
 
     public ngOnInit(): void {

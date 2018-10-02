@@ -7,7 +7,7 @@ import { ApplicationService } from '../../application/application.service';
 
 
 @Component({
-    selector: 'bm-register',
+    selector: 'app-bm-register',
     templateUrl: './register.component.html'
 })
 export class RegisterComponent{

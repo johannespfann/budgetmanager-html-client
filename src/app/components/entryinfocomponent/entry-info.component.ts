@@ -9,15 +9,11 @@ import { TagStatisticService } from '../../services/tag-statistic.service';
 import { MathUtil } from '../../utils/math-util';
 
 @Component({
-    selector: 'app-bm-entry-info',
+    selector: 'app-entry-info',
     templateUrl: './entry-info.component.html',
     styleUrls: ['./entry-info.component.css']
 })
 export class EntryInfoComponent {
-
-    /**
-     * view attributes
-     */
 
     public algebraicSignIsMinus = true;
     public amount: number;
@@ -32,8 +28,8 @@ export class EntryInfoComponent {
         private tagStatisticService: TagStatisticService,
         private applicationService: ApplicationService) {
 
-            LogUtil.info(this, 'init entrycomponent');
-            this.tagStatisticBrowserStorageFacade = new TagStatisticFacade(this.applicationService.getCurrentUser());
+        LogUtil.debug(this, 'init entrycomponent');
+        this.tagStatisticBrowserStorageFacade = new TagStatisticFacade(this.applicationService.getCurrentUser());
     }
 
     public cleanEntryView(): void {
@@ -79,11 +75,11 @@ export class EntryInfoComponent {
     }
 
     public onAddedTag(tag: Tag): void {
-        LogUtil.info(this, 'onAddedTag ' + tag);
+        LogUtil.debug(this, 'onAddedTag ' + tag);
     }
 
     public onTagDeleted(tag: Tag): void {
-        LogUtil.info(this, 'onTagDeleted ' + tag);
+        LogUtil.debug(this, 'onTagDeleted ' + tag);
     }
 
     private refreshPossibleTags(): void {

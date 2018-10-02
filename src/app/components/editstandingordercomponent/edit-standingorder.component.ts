@@ -13,8 +13,11 @@ import { StandingOrderInfo } from '../standingorderinfocomponent/standing-order-
 })
 export class EditStandingOrderComponent implements OnInit, OnChanges {
 
-    @ViewChild(EntryInfoComponent) entryComponent: EntryInfoComponent;
-    @ViewChild(StandingOrderInfoComponent) standingOrderComponent: StandingOrderInfoComponent;
+    @ViewChild(EntryInfoComponent)
+    public entryComponent: EntryInfoComponent;
+
+    @ViewChild(StandingOrderInfoComponent)
+    public standingOrderComponent: StandingOrderInfoComponent;
 
     @Input()
     public standingorder: RotationEntry;
@@ -29,11 +32,10 @@ export class EditStandingOrderComponent implements OnInit, OnChanges {
     public changedPressed = new EventEmitter<RotationEntry>();
 
     constructor() {
-        LogUtil.info(this, 'init standingordereditcomponent');
+        LogUtil.debug(this, 'init standingorder-edit-component');
     }
 
     public ngOnInit(): void {
-        LogUtil.info(this, 'onInit -> standingordereditcomponent');
         this.initStandingOrderView(this.standingorder);
     }
 
@@ -42,17 +44,14 @@ export class EditStandingOrderComponent implements OnInit, OnChanges {
     }
 
     public change(): void {
-        LogUtil.info(this, 'pressed change');
         this.changedPressed.emit(this.createUpdatedStandingOrder());
     }
 
     public delete(): void {
-        LogUtil.info(this, 'pressed delete');
         this.deletedPressed.emit(this.createUpdatedStandingOrder());
     }
 
     public cancel(): void {
-        LogUtil.info(this, 'pressed cancel');
         this.cancelPressed.emit(true);
     }
 

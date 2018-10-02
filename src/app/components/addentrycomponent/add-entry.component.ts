@@ -8,16 +8,18 @@ import { EntryService } from '../../services/entry.service';
 import { RotationEntryService } from '../../services/rotation-entry.service';
 import { DateUtil } from '../../utils/date-util';
 
-
 @Component({
-    selector: 'app-bm-newentry',
+    selector: 'app-newentry',
     templateUrl: './add-entry.component.html',
     styleUrls: ['./add-entry.component.css']
 })
 export class AddEntryComponent implements OnInit {
 
-    @ViewChild(EntryInfoComponent) entryComponent: EntryInfoComponent;
-    @ViewChild(StandingOrderInfoComponent) standingOrderComponent: StandingOrderInfoComponent;
+    @ViewChild(EntryInfoComponent)
+    public entryComponent: EntryInfoComponent;
+
+    @ViewChild(StandingOrderInfoComponent)
+    public standingOrderComponent: StandingOrderInfoComponent;
 
     public createEntryDate: Date;
     private isPeriodical = false;
@@ -25,7 +27,7 @@ export class AddEntryComponent implements OnInit {
     constructor(
         private entryService: EntryService,
         private rotationService: RotationEntryService) {
-        LogUtil.info(this, 'init addEntryComponent');
+        LogUtil.debug(this, 'init add-entry-component');
     }
 
     public ngOnInit(): void {
@@ -34,23 +36,17 @@ export class AddEntryComponent implements OnInit {
     }
 
     public saveEntry(): void {
-        LogUtil.info(this, 'clicked save entries');
         const entryInfo = this.entryComponent.getEntryInfo();
         const entry = Entry.create(entryInfo.amount);
         entry.memo = entryInfo.memo;
         entry.tags = entryInfo.tags;
         entry.created_at = this.createEntryDate;
 
-        this.entryService.addEntry(entry)
-            .subscribe(response => {
-                LogUtil.info(this, 'success');
-            });
-
+        this.persistEntry(entry);
         this.cleanEntryViews();
     }
 
     public saveStandingOrder(): void {
-        LogUtil.info(this, 'clicked save standingOrders');
         const standingOrderInfo = this.standingOrderComponent.getStandingOrderInfo();
         const entryInfo = this.entryComponent.getEntryInfo();
 
@@ -62,11 +58,7 @@ export class AddEntryComponent implements OnInit {
         rotationEntry.last_executed = null;
         rotationEntry.end_at = DateUtil.getMaximumDate();
 
-        this.rotationService.addRotationEntry(rotationEntry)
-        .subscribe(response => {
-            LogUtil.info(this, 'success');
-        });
-
+        this.persistStandingOrder(rotationEntry);
         this.cleanEntryViews();
         this.cleanStandingOrderView();
     }
@@ -86,5 +78,27 @@ export class AddEntryComponent implements OnInit {
 
     private cleanStandingOrderView(): void {
         this.standingOrderComponent.cleanStandOrderView();
+    }
+
+    private persistEntry(aEntry: Entry): void {
+        this.entryService.addEntry(aEntry).subscribe(
+            response => {
+                LogUtil.debug(this, 'TODO success');
+            },
+            error => {
+                LogUtil.error(this, 'failed to persist entry -> ' + aEntry);
+            }
+        );
+    }
+
+    private persistStandingOrder(aStandingOrder: RotationEntry): void {
+        this.rotationService.addRotationEntry(aStandingOrder).subscribe(
+            data => {
+                LogUtil.debug(this, 'sucess');
+            },
+            error => {
+                LogUtil.error(this, 'failed to persist standingorder -> ' + aStandingOrder);
+            }
+        );
     }
 }

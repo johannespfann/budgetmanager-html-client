@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <form  #addEntryForm="ngForm">
 
-    <app-bm-entry-info></app-bm-entry-info>
+    <app-entry-info></app-entry-info>
 
     <div *ngIf="!isPeriodical" class="form-group">
       <label for="example-date-input">Erstellen für den:</label>
@@ -16,7 +16,7 @@
       <label class="font-weight-light repeat-padding">Wiederkehrend</label>
     </div>
 
-    <app-bm-standing-order-info *ngIf="isPeriodical"></app-bm-standing-order-info>
+    <app-standing-order-info *ngIf="isPeriodical"></app-standing-order-info>
 
     <br>
     <button *ngIf="!isPeriodical" (click)="saveEntry()"         class="btn btn-primary float-right">Add Entry</button>

@@ -16,32 +16,27 @@ export class HistoryEntryComponent {
     public selectedEntry: Entry;
 
     constructor(private entryService: EntryService) {
-        LogUtil.info(this, 'init history-entry-component');
+        LogUtil.debug(this, 'init history-entry-component');
         this.entries = [];
         this.selectedEntry = new Entry();
         this.closeEditView();
         this.updateEntries();
     }
 
-
     public onDeletePressed(aEntry: Entry): void {
-        LogUtil.info(this, 'onDeletedPressed -> ' + JSON.stringify(aEntry));
         this.deleteEntry(aEntry);
     }
 
     public onEditPressed(aEntry: Entry): void {
-         LogUtil.info(this, 'onEditPressed -> ' + JSON.stringify(aEntry));
          this.selectedEntry = aEntry;
          this.showEditView();
     }
 
     public onEditedPressed(aEntry: Entry): void {
-        LogUtil.info(this, 'onEditedPressed -> ' + JSON.stringify(aEntry));
         this.editEntry(aEntry);
     }
 
     public onCancelPressed(aPressed: boolean): void {
-        LogUtil.info(this, 'onCancelPressed -> ' + JSON.stringify(aPressed));
         this.closeEditView();
         this.selectedEntry = null;
     }
@@ -57,20 +52,18 @@ export class HistoryEntryComponent {
     private editEntry(aEntry: Entry): void {
         this.entryService.update(aEntry).subscribe(
             data => {
-                LogUtil.info(this, 'edit entry -> ' + JSON.stringify(aEntry));
                 this.updateEntries();
                 this.closeEditView();
             },
             error => {
-                LogUtil.info(this, 'failt to edit entry -> ' + JSON.stringify(aEntry));
+                LogUtil.error(this, 'failt to edit entry -> ' + JSON.stringify(aEntry));
             }
-        )
+        );
     }
 
     private deleteEntry(aEntry: Entry): void {
         this.entryService.deleteEntry(aEntry).subscribe(
             data => {
-                LogUtil.info(this, 'deleted entry -> ' + JSON.stringify(aEntry));
                 this.updateEntries();
                 this.closeEditView();
             },
@@ -83,7 +76,6 @@ export class HistoryEntryComponent {
     private updateEntries(): void {
         this.entryService.getEntries().subscribe(
             (data: Entry[]) => {
-                LogUtil.info(this, 'update entries');
                 this.entries = data;
             },
             error => {

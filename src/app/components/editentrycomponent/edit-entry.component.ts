@@ -9,14 +9,14 @@ import { EntryInfo } from '../entryinfocomponent/entry-info';
     templateUrl: './edit-entry.component.html',
     styleUrls: ['./edit-entry.component.css']
 })
-export class EditEntryComponent implements OnInit, OnChanges {
+export class EditEntryComponent implements OnChanges {
 
     @ViewChild(EntryInfoComponent) entryComponent: EntryInfoComponent;
 
     public createdAt = new Date();
 
     constructor() {
-        LogUtil.info(this, 'init edit-endry-component');
+        LogUtil.debug(this, 'init edit-endry-component');
     }
 
     @Input()
@@ -31,27 +31,21 @@ export class EditEntryComponent implements OnInit, OnChanges {
     @Output()
     public changedPressed = new EventEmitter<Entry>();
 
-    public ngOnInit(): void {
-        LogUtil.info(this, 'onInit -> edit-entry-component');
-    }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        LogUtil.info(this, 'onChanges -> edit-entry-component');
+        LogUtil.debug(this, 'onChanges -> edit-entry-component');
         this.initEntryView(this.entry);
     }
 
     public change(): void {
-        LogUtil.info(this, 'pressed change');
         this.changedPressed.emit(this.createNewEntry());
     }
 
     public delete(): void {
-        LogUtil.info(this, 'pressed delete');
         this.deletedPressed.emit(this.entry);
     }
 
     public cancel(): void {
-        LogUtil.info(this, 'pressed cancel');
         this.cancelPressed.emit(true);
     }
 

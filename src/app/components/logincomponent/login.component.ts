@@ -10,7 +10,7 @@ import { AuthenticationFacade } from '../../utils/authentication-facade';
 import { ApplicationService } from '../../application/application.service';
 
 @Component({
-    selector: 'login',
+    selector: 'app-login',
     templateUrl: './login.component.html'
 })
 export class LoginComponent {
@@ -30,7 +30,7 @@ export class LoginComponent {
         private messageService: MessagingService,
         private appService: ApplicationService) {
 
-        LogUtil.info(this, 'Init LoginComponent');
+        LogUtil.debug(this, 'Init LoginComponent');
             this.authenticationLocalStorage = new AuthenticationFacade();
         this.identifier = route.snapshot.paramMap.get('email');
     }

@@ -31,7 +31,7 @@ export class AppComponent implements OnDestroy {
     private messageService: MessagingService,
     private applicationService: ApplicationService) {
 
-    LogUtil.info(this, 'Start Application');
+    LogUtil.debug(this, 'Start Application');
 
     this.loginSubscription = this.registerLogedInMessage();
     this.encryptionReadySubscription = this.registerEncryptionReadyMessage();

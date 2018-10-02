@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Entry } from '../../models/entry';
 import { LogUtil } from '../../utils/log-util';
 import { EntryPackage } from '../../models/entry-package';
@@ -9,17 +9,9 @@ import { Packager } from '../../utils/packager';
     templateUrl: './list-entry-component.html',
     styleUrls: ['./list-entry-component.css']
 })
-export class ListEntryComponent implements OnInit, OnChanges {
-
-    /**
-     * view attributes
-     */
+export class ListEntryComponent implements OnChanges {
 
     public entryPackages: EntryPackage[] = [];
-
-    /**
-     * member
-     */
 
     private entryPackager: Packager;
 
@@ -30,11 +22,8 @@ export class ListEntryComponent implements OnInit, OnChanges {
     public editPressed = new EventEmitter<Entry>();
 
     constructor() {
+        LogUtil.debug(this, 'init list-entry-component');
         this.entryPackager = new Packager();
-    }
-
-    public ngOnInit(): void {
-        LogUtil.debug(this, 'onInit');
     }
 
     public ngOnChanges(aCanges: SimpleChanges): void {
@@ -43,13 +32,10 @@ export class ListEntryComponent implements OnInit, OnChanges {
     }
 
     public editEntry(aEntry: Entry): void {
-        LogUtil.info(this, 'pressed edit and emit -> ' + JSON.stringify(aEntry));
         this.editPressed.emit(aEntry);
     }
 
     private initListView(): void {
         this.entryPackages = this.entryPackager.splitInMonth(this.entries);
     }
-
-
 }

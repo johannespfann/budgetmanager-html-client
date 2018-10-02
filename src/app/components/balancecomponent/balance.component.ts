@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ApplicationService } from '../../application/application.service';
 import { EntryService } from '../../services/entry.service';
 import { LogUtil } from '../../utils/log-util';
 import { Entry } from '../../models/entry';
@@ -19,9 +18,8 @@ export class BalanceComponent {
     public balanceManagers: BalanceManager[] = [];
 
     constructor(
-        private applicationService: ApplicationService,
         private entryService: EntryService) {
-            LogUtil.info(this, 'init balanceCompoent');
+            LogUtil.debug(this, 'init balance-compoent');
             this.updateEntries();
     }
 

@@ -17,7 +17,7 @@ export class StandingOrderComponent implements OnInit {
     public isViewVisible: boolean;
 
     constructor(private rotationEntryService: RotationEntryService) {
-        LogUtil.info(this, 'init standingorders');
+        LogUtil.debug(this, 'init standingorders');
     }
 
     public ngOnInit(): void {
@@ -28,7 +28,6 @@ export class StandingOrderComponent implements OnInit {
     public editEntry(entry: RotationEntry): void {
         this.showEditView();
         this.selectedStandingOrder = entry;
-        LogUtil.info(this, 'pressed edit component -> ' + JSON.stringify(entry));
     }
 
     public onCancelPressed(event: boolean): void {
@@ -36,7 +35,6 @@ export class StandingOrderComponent implements OnInit {
     }
 
     public onChangedPressed(event: RotationEntry): void {
-        LogUtil.info(this, 'onChangedPressed -> ' + JSON.stringify(event));
         this.rotationEntryService.updateRotationEntry(event).subscribe(
             data => {
                 this.cleanView();
@@ -49,7 +47,6 @@ export class StandingOrderComponent implements OnInit {
     }
 
     public onDeletedPressed(event: RotationEntry): void {
-        LogUtil.info(this, 'onDeletedPressed -> ' + JSON.stringify(event));
         this.rotationEntryService.deleteRotationEntry(event).subscribe(
             data => {
                 this.cleanView();
@@ -64,7 +61,6 @@ export class StandingOrderComponent implements OnInit {
     private updateStandingOrders() {
         this.rotationEntryService.getRotationEntries().subscribe(
             (aRotationEntries: RotationEntry[]) => {
-                LogUtil.error(this, 'get all standingorders -> ' + JSON.stringify(aRotationEntries.length));
                 this.rotationEntries = aRotationEntries;
             },
             error => {

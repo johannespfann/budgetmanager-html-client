@@ -9,7 +9,7 @@ import { EncryptionFacade } from '../../utils/encryption-facade';
 import { User } from '../../models/user';
 
 @Component({
-    selector: 'bm-set-encryption-key',
+    selector: 'app-set-encryption-key',
     templateUrl: './set-encryption-key.component.html'
 })
 export class SetEncryptionKeyComponent {

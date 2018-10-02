@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
+import { LogUtil } from '../../utils/log-util';
 
 @Component({
-    selector: 'welcome',
+    selector: 'app-welcome',
     templateUrl: './welcome.component.html'
 })
 export class WelcomeComponent {
 
     constructor() {
-        console.log('welcome component');
+        LogUtil.debug(this, 'welcome component');
     }
 }

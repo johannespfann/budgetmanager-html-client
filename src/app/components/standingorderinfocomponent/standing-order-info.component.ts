@@ -3,12 +3,11 @@ import { StandingOrderInfo } from './standing-order-info';
 import { LogUtil } from '../../utils/log-util';
 
 @Component({
-    selector: 'app-bm-standing-order-info',
+    selector: 'app-standing-order-info',
     templateUrl: './standing-order-info.component.html',
     styleUrls: ['./standing-order-info.component.css']
 })
 export class StandingOrderInfoComponent implements OnInit {
-
 
     public startRotationDate: Date;
     public lastExecutedDate: Date;
@@ -19,7 +18,7 @@ export class StandingOrderInfoComponent implements OnInit {
 
 
     public constructor() {
-        LogUtil.info(this, 'init standingOrderComponent');
+        LogUtil.debug(this, 'init standingorder-component');
         this.cleanStandOrderView();
     }
 

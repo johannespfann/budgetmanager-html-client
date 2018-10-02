@@ -7,7 +7,7 @@ import { ApplicationService } from '../../application/application.service';
 
 
 @Component({
-    selector: 'bm-activate',
+    selector: 'app-activate',
     templateUrl: './activate.component.html'
 })
 export class ActivateComponent{
@@ -22,7 +22,7 @@ export class ActivateComponent{
         private loginService: LoginService,
         private appService: ApplicationService){
 
-        LogUtil.info(this, 'Init ActivateComponent');
+        LogUtil.debug(this, 'Init ActivateComponent');
         this.username = route.snapshot.paramMap.get('username');
         this.email = route.snapshot.paramMap.get('email');
 
