@@ -43,7 +43,7 @@ export class ListEntryComponent implements OnInit, OnChanges {
     }
 
     public editEntry(aEntry: Entry): void {
-        LogUtil.info(this, 'pressed edit');
+        LogUtil.info(this, 'pressed edit and emit -> ' + JSON.stringify(aEntry));
         this.editPressed.emit(aEntry);
     }
 

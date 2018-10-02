@@ -10,6 +10,8 @@ import { Entry } from '../../models/entry';
 })
 export class HistoryEntryComponent {
 
+    public editViewIsVisible: boolean;
+
     public entries: Entry[];
     public selectedEntry: Entry;
 
@@ -17,26 +19,66 @@ export class HistoryEntryComponent {
         LogUtil.info(this, 'init history-entry-component');
         this.entries = [];
         this.selectedEntry = new Entry();
+        this.closeEditView();
         this.updateEntries();
     }
 
 
     public onDeletePressed(aEntry: Entry): void {
         LogUtil.info(this, 'onDeletedPressed -> ' + JSON.stringify(aEntry));
+        this.deleteEntry(aEntry);
     }
 
     public onEditPressed(aEntry: Entry): void {
          LogUtil.info(this, 'onEditPressed -> ' + JSON.stringify(aEntry));
+         this.selectedEntry = aEntry;
+         this.showEditView();
     }
 
     public onEditedPressed(aEntry: Entry): void {
         LogUtil.info(this, 'onEditedPressed -> ' + JSON.stringify(aEntry));
+        this.editEntry(aEntry);
     }
 
     public onCancelPressed(aPressed: boolean): void {
         LogUtil.info(this, 'onCancelPressed -> ' + JSON.stringify(aPressed));
+        this.closeEditView();
+        this.selectedEntry = null;
     }
 
+    private closeEditView(): void {
+        this.editViewIsVisible = false;
+    }
+
+    private showEditView(): void {
+        this.editViewIsVisible = true;
+    }
+
+    private editEntry(aEntry: Entry): void {
+        this.entryService.update(aEntry).subscribe(
+            data => {
+                LogUtil.info(this, 'edit entry -> ' + JSON.stringify(aEntry));
+                this.updateEntries();
+                this.closeEditView();
+            },
+            error => {
+                LogUtil.info(this, 'failt to edit entry -> ' + JSON.stringify(aEntry));
+            }
+        )
+    }
+
+    private deleteEntry(aEntry: Entry): void {
+        this.entryService.deleteEntry(aEntry).subscribe(
+            data => {
+                LogUtil.info(this, 'deleted entry -> ' + JSON.stringify(aEntry));
+                this.updateEntries();
+                this.closeEditView();
+            },
+            error => {
+                LogUtil.error(this, 'failed to delete entry -> ' + JSON.stringify(aEntry));
+            }
+        );
+    }
 
     private updateEntries(): void {
         this.entryService.getEntries().subscribe(
@@ -45,9 +87,9 @@ export class HistoryEntryComponent {
                 this.entries = data;
             },
             error => {
-                LogUtil.info(this, 'error -> update entries');
+                LogUtil.error(this, 'failed to update entries');
                 this.entries = [];
             }
-        )
+        );
     }
 }
