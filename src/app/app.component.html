@@ -1,48 +1,23 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" routerLink="/welcome">
-    <i class="fa fa-home" aria-hidden="true"></i>
+<div class="navbar-bm navbar-dark bg-secondary">
+
+  <a (click)="onOpenSidebar()">
+    <i class="fa fa-bars fa-2x ml-4 m-2" aria-hidden="true"></i>
   </a>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-
-      <li *ngIf="isLogedIn && encryptKeyIsValid" class="nav-item">
-        <a class="nav-link" routerLink="/newentry">
-          <i class="fa fa-plus" aria-hidden="true"></i> Neuer Eintrag</a>
-      </li>
-
-        <li *ngIf="isLogedIn && encryptKeyIsValid" class="nav-item">
-          <a class="nav-link" routerLink="/standingorder">
-            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Daueraufträge</a>
-        </li>
-
-      <li *ngIf="isLogedIn && encryptKeyIsValid" class="nav-item">
-        <a class="nav-link" routerLink="/balance">
-          <i class="fa fa-balance-scale" aria-hidden="true"></i> Bilanz</a>
-      </li>
-
-      <li *ngIf="isLogedIn && encryptKeyIsValid" class="nav-item">
-        <a class="nav-link" routerLink="/history">
-          <i class="fa fa-history" aria-hidden="true"></i> Verlauf</a>
-      </li>
-    </ul>
-
-    <div>
-      <span *ngIf="isLogedIn" class="navbar-text">
-        <a routerLink="/profile"><i class="fa fa-user"> </i> {{user.name}}</a>
-      </span>
-      
-      <button *ngIf="!isLogedIn" (click)="login()" type="button" class="btn btn-outline-primary">Login</button>
-      <button *ngIf="isLogedIn" (click)="logout()" type="button" class="btn btn-outline-primary">Logout</button>
-    </div>
-
+  <div style="float: right" class="mr-4 m-2">
+    <span *ngIf="isLogedIn" class="mr-2">
+      <a routerLink="/profile"><i class="fa fa-user"> </i> {{user.name}}</a>
+    </span>
+    <button *ngIf="!isLogedIn" (click)="login()" type="button" class="btn btn-primary">Login</button>
+    <button *ngIf="isLogedIn" (click)="logout()" type="button" class="btn btn-primary">Logout</button>
   </div>
-</nav>
+
+</div>
+
+<app-navigation style="float: left"></app-navigation>
 
 <div class="container" style="margin-top: 1rem">
   <router-outlet></router-outlet>
 </div>
+
+<div class="footer"></div>

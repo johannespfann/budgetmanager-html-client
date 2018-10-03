@@ -1,0 +1,36 @@
+.sidebar {
+    position: fixed; /* Sit on top of the page content */
+    width: 20%;
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    background-color: #eceeef; /* Black background with opacity */
+    border-radius:0rem 0.3rem 0.3rem 0rem;
+    border-right:  .01rem solid black;
+}
+
+.sidebar-header {
+    height: 25%;
+    border-bottom: .01rem black solid;
+}
+
+.sidebar-content {
+    margin-top: 2rem;
+}
+
+.navlink-bm {
+    margin: 1rem;
+    size: 4rem;
+    list-style: none;
+    font-size: 1.1rem;
+}
+
+a {
+    color: white !important;
+}
+
+
+

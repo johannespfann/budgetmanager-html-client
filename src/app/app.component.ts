@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessagingService } from './messages/message.service';
 import { Subscription } from 'rxjs';
@@ -9,12 +9,17 @@ import { ApplicationService } from './application/application.service';
 import { LoginService } from './rest/login-api.service';
 
 import { EncryptionReadyMessage } from './messages/encryption-ready-message';
+import { NavigationComponent } from './components/navigationcomponent/navigation.component';
 
 @Component({
   selector: 'app-budgetmanager',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnDestroy {
+
+  @ViewChild(NavigationComponent)
+  public navigationComponent: NavigationComponent;
 
   private loginSubscription: Subscription;
 
@@ -84,6 +89,16 @@ export class AppComponent implements OnDestroy {
 
   private hideNavigatin(): void {
     this.encryptKeyIsValid = false;
+  }
+
+  public onOpenSidebar(): void {
+    LogUtil.info(this, 'pressed open navbar');
+    this.navigationComponent.openSidebar();
+  }
+
+  public onCloseSidebar(): void {
+    LogUtil.info(this, 'pressed close navbar');
+    this.navigationComponent.closeSidebar();
   }
 
   private registerLogedInMessage(): Subscription {

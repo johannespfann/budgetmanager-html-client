@@ -33,6 +33,7 @@ import { EditStandingOrderComponent } from './components/editstandingordercompon
 import { ListEntryComponent } from './components/listentrycomponent/list-entry-component';
 import { HistoryEntryComponent } from './components/histcomponent/history-entry.component';
 import { EditEntryComponent } from './components/editentrycomponent/edit-entry.component';
+import { NavigationComponent } from './components/navigationcomponent/navigation.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -65,7 +66,8 @@ export function initApplication(appService: ApplicationService) {
     EditStandingOrderComponent,
     ListEntryComponent,
     EditEntryComponent,
-    HistoryEntryComponent
+    HistoryEntryComponent,
+    NavigationComponent
   ],
   providers: [
     EntryService,

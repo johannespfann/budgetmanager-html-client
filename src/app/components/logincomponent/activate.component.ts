@@ -28,7 +28,6 @@ export class ActivateComponent{
 
         LogUtil.info(this, 'Username: ' + this.username);
         LogUtil.info(this, 'email: ' + this.email);
-
     }
 
     public activateUser(): void {
