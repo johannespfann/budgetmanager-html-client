@@ -1,6 +1,6 @@
 <div class="tags-container">
-    <span *ngFor="let item of tags" class="badge badge-pill badge-info tag-item">
-      {{item.name}} <i (click)="deleteTag(item)" class="fa fa-times-circle"></i>
+    <span *ngFor="let item of tags" class="badge badge-light tag-item">
+      #{{item.name}} <i (click)="deleteTag(item)" class="fa fa-times-circle"></i>
     </span>
 
     <input (keyup)="saveTag($event)" list="tags-datalist" name="taginput"

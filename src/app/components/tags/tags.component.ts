@@ -41,14 +41,14 @@ export class TagsComponent {
             }
 
             const tag: Tag = new Tag();
-            tag.name = preparedTagName;
+            tag.name = preparedTagName.toLocaleLowerCase();
             this.tags.push(tag);
             this.currentTag = '';
             this.tagAdded.emit(tag);
         }
     }
 
-    private deleteTag(aTag: Tag): void {
+    public deleteTag(aTag: Tag): void {
         // this.tags = this.tags.filter(tag => aTag != tag);
         const index = this.tags.indexOf(aTag);
 

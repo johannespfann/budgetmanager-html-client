@@ -5,17 +5,18 @@
 
 .tag-item {
     margin: 3px;
-    font-size: 1rem
+    font-size: 1rem;
+    background-color: transparent;
 }
 
 .tags-input {
-    background-color: #eceeef;
+    background-color: transparent;
     padding: 5px;
     border: none;
 }
 
 .tags-input:focus {
-    background-color: #eceeef;
+    background-color: transparent;
     border: none;
     outline: none;
 }
