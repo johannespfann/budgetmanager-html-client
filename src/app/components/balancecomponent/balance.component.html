@@ -1,16 +1,17 @@
 <div *ngFor="let balanceManager of balanceManagers" class="" style="margin-top: 0.2rem">
     <div class="jumbotron">
 
-        <h3>Bilanz für {{balanceManager.name}}</h3>
-        <p *ngIf="balanceManager.balance >= 0" class="text-success p-3 balance-sum">{{balanceManager.balance}} €</p>
-        <p *ngIf="balanceManager.balance < 0" class="text-danger p-3 balance-sum">{{balanceManager.balance}} €</p>
-        
-        <div *ngIf="true">
+        <div class="balance-header">
+            <span class="balance-identifier">Bilanz für {{balanceManager.name}}</span>
+            <span *ngIf="balanceManager.balance >= 0" class="text-success p-3 balance-sum">{{balanceManager.balance}} €</span>
+            <span *ngIf="balanceManager.balance < 0" class="text-danger p-3 balance-sum">{{balanceManager.balance}} €</span>
+        </div>
+
+        <div class="balance-content" *ngIf="true">
 
             <div *ngIf="balanceManager.positivEntries.length > 0">
                 <ul class="list-group">
-                    <p>Einnahmen</p>
-                    <li *ngFor="let entry of balanceManager.positivEntries" class="list-group-item list-group-item-success ">
+                    <li style="margin-top: 0.2rem" *ngFor="let entry of balanceManager.positivEntries" class="list-group-item list-group-item-light text-success">
                         <div class="col-10 col-sm-11">
                             {{entry.amount}} € {{entry.memo}}
                         </div>
@@ -19,10 +20,9 @@
             </div>
 
 
-            <div *ngIf="balanceManager.negativEntries.length > 0">
+            <div *ngIf="balanceManager.negativEntries.length > 0" class="pt-2">
                 <ul class="list-group">
-                    <p>Ausgaben</p>
-                    <li *ngFor="let entry of balanceManager.negativEntries" class="list-group-item list-group-item-danger">
+                    <li style="margin-top: 0.2rem" *ngFor="let entry of balanceManager.negativEntries" class="list-group-item list-group-item-light text-danger">
                         <div class="col-10 col-sm-11">
                             {{entry.amount}} € {{entry.memo}}
                         </div>
