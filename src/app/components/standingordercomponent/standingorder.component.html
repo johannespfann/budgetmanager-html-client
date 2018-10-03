@@ -8,10 +8,9 @@
     <ul class="list-group">
 
         <li *ngFor="let entry of rotationEntries" class="list-group-item row" style="margin-top: 0.2rem">
-            <div class="col-10 col-sm-11">
+            <div class="col-10 col-sm-11" (click)="editEntry(entry)">
                 {{entry.amount}} € {{entry.memo}}
             </div>
-            <i class="fa fa-pencil-square-o col-1" (click)="editEntry(entry)" aria-hidden="true"></i>
         </li>
 
     </ul>
