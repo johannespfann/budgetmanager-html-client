@@ -3,5 +3,10 @@
 
 <app-entry-info></app-entry-info>
 
+<div>
+    <input class="form-control" type="date" [ngModel]="createEntryDate | date:'yyyy-MM-dd'" (ngModelChange)="createEntryDate=$event"
+          id="example-date-input" name="rotationStartDate">
+</div>
+
 <button (click)="delete()" class="btn btn-outline-danger float-right">Löschen</button>
 <button (click)="change()" class="btn btn-outline-primary float-right mr-2">Bearbeiten</button>

@@ -13,7 +13,7 @@ export class EditEntryComponent implements OnChanges {
 
     @ViewChild(EntryInfoComponent) entryComponent: EntryInfoComponent;
 
-    public createdAt = new Date();
+    public createEntryDate = new Date();
 
     constructor() {
         LogUtil.debug(this, 'init edit-endry-component');
@@ -54,7 +54,7 @@ export class EditEntryComponent implements OnChanges {
         entryInfo.amount = aEntry.amount;
         entryInfo.memo = aEntry.memo;
         entryInfo.tags = aEntry.tags;
-        this.createdAt = aEntry.created_at;
+        this.createEntryDate = aEntry.created_at;
         this.entryComponent.initEntryView(entryInfo);
     }
 
@@ -65,7 +65,7 @@ export class EditEntryComponent implements OnChanges {
         newEntry.amount = entryInfo.amount;
         newEntry.memo = entryInfo.memo;
         newEntry.tags = entryInfo.tags;
-        newEntry.created_at = this.createdAt;
+        newEntry.created_at = this.createEntryDate;
         return newEntry;
     }
 
