@@ -7,7 +7,7 @@
     right: 0;
     bottom: 0;
     z-index: 2;
-    background-color: #eceeef; /* Black background with opacity */
+    background-color: yellow; /* Black background with opacity */
     border-radius:0rem 0.3rem 0.3rem 0rem;
     border-right:  .01rem solid black;
 }
@@ -32,5 +32,29 @@ a {
     color: white !important;
 }
 
+@media (max-width: 576px) {
+    .sidebar {
+        width: 80%;
+    }
+}
+
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .sidebar {
+        width: 50%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .sidebar {
+        width: 40%;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+    .sidebar {
+        width: 35%;
+    }
+}
 
 
