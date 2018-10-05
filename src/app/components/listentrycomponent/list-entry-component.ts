@@ -3,6 +3,7 @@ import { Entry } from '../../models/entry';
 import { LogUtil } from '../../utils/log-util';
 import { EntryPackage } from '../../models/entry-package';
 import { Packager } from '../../utils/packager';
+import { SortUtil } from '../../utils/sort-util';
 
 @Component({
     selector: 'app-list-entry',
@@ -36,6 +37,6 @@ export class ListEntryComponent implements OnChanges {
     }
 
     private initListView(): void {
-        this.entryPackages = this.entryPackager.splitInMonth(this.entries);
+        this.entryPackages = this.entryPackager.splitInMonth(SortUtil.sortEntriesByTimeDESC(this.entries));
     }
 }
