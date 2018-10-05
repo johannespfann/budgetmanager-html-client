@@ -4,23 +4,23 @@
     <app-entry-info></app-entry-info>
 
     <div *ngIf="!isPeriodical" class="form-group">
-      <label for="example-date-input">Erstellen für den:</label>
+      <label class="text-primary font-weight-bold" for="example-date-input">Erstellen für den:</label>
       <div>
         <input class="form-control" type="date" [ngModel]="createEntryDate | date:'yyyy-MM-dd'" (ngModelChange)="createEntryDate=$event"
           id="example-date-input" name="rotationStartDate">
       </div>
     </div>
 
-    <div class="input-group-text">
-      <input type="checkbox" (click)="changePeriodical()" [checked]="isPeriodical">
-      <label class="font-weight-light repeat-padding">Wiederkehrend</label>
-    </div>
+    <div class="pt-2">
+    <label class="text-primary font-weight-bold pr-3">Wiederkehrend</label>
+    <input type="checkbox" (click)="changePeriodical()" [checked]="isPeriodical">
+  </div>
 
     <app-standing-order-info *ngIf="isPeriodical"></app-standing-order-info>
 
     <br>
-    <button *ngIf="!isPeriodical" (click)="saveEntry()"         class="btn btn-primary float-right">Add Entry</button>
-    <button *ngIf="isPeriodical"  (click)="saveStandingOrder()" class="btn btn-primary float-right">Add StandingOrder</button>
+    <button *ngIf="!isPeriodical" (click)="saveEntry()"         class="btn btn-outline-primary float-right">Add Entry</button>
+    <button *ngIf="isPeriodical"  (click)="saveStandingOrder()" class="btn btn-outline-primary float-right">Add StandingOrder</button>
   </form>
 
 </div>
