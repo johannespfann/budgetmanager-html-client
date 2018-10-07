@@ -45,7 +45,6 @@ export class LoginService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aName + ':' + accessToken);
 
-
         this.http.post(aBaseUrl + 'user/logout/' + aName, accessToken, { headers : headers})
             .subscribe((data) => {
                 LogUtil.info(this, 'ok!');

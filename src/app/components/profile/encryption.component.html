@@ -1,9 +1,9 @@
 <div class="jumbotron">
 
-<!-- Wird angezeigt wenn noch kein Schlüssel vergeben wurde-->
-<app-first-add-encryption *ngIf="showFirstAddEncryption" (setKeyIsDone)="onSetKeyIsDone($event)"></app-first-add-encryption>
+    <!-- Wird angezeigt wenn noch kein Schlüssel vergeben wurde-->
+    <app-first-add-encryption *ngIf="showFirstAddEncryption" (setKeyIsDone)="onSetKeyIsDone($event)"></app-first-add-encryption>
 
-<!-- Wird angezeigt wenn bereits ein Schlüssel vergeben wurde-->
-<app-set-encryption-key *ngIf="showSetEncryption" (testKeyIsDone)="onTestKeyIsDone($event)"></app-set-encryption-key>
+    <!-- Wird angezeigt wenn bereits ein Schlüssel vergeben wurde-->
+    <app-set-encryption-key *ngIf="showSetEncryption" (testKeyIsDone)="onTestKeyIsDone($event)"></app-set-encryption-key>
 
 </div>
