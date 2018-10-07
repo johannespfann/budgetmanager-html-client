@@ -34,7 +34,7 @@ export class EntryInfoComponent {
 
     public cleanEntryView(): void {
         this.updateTagStatistics();
-        this.amount = 0;
+        this.amount = null;
         this.memo = '';
         this.tags = [];
     }

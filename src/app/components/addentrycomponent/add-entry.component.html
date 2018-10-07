@@ -1,5 +1,4 @@
 <div class="jumbotron">
-  <form  #addEntryForm="ngForm">
 
     <app-entry-info></app-entry-info>
 
@@ -12,15 +11,16 @@
     </div>
 
     <div class="pt-2">
-    <label class="text-primary font-weight-bold pr-3">Wiederkehrend</label>
-    <input type="checkbox" (click)="changePeriodical()" [checked]="isPeriodical">
-  </div>
+      <label class="text-primary font-weight-bold pr-3">Wiederkehrend</label>
+      <input type="checkbox" (click)="changePeriodical()" [checked]="isPeriodical">
+    </div>
 
     <app-standing-order-info *ngIf="isPeriodical"></app-standing-order-info>
 
-    <br>
-    <button *ngIf="!isPeriodical" (click)="saveEntry()"         class="btn btn-outline-primary float-right">Add Entry</button>
-    <button *ngIf="isPeriodical"  (click)="saveStandingOrder()" class="btn btn-outline-primary float-right">Add StandingOrder</button>
-  </form>
+    <div>
+      <button *ngIf="!isPeriodical" (click)="saveEntry()" class="btn btn-outline-primary float-right">Add Entry</button>
+      <button *ngIf="isPeriodical" (click)="saveStandingOrder()" class="btn btn-outline-primary float-right">Add StandingOrder</button>
+    </div>
+    
 
 </div>

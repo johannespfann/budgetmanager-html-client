@@ -11,7 +11,8 @@ import { EntryInfo } from '../entryinfocomponent/entry-info';
 })
 export class EditEntryComponent implements OnChanges {
 
-    @ViewChild(EntryInfoComponent) entryComponent: EntryInfoComponent;
+    @ViewChild(EntryInfoComponent)
+    public entryComponent: EntryInfoComponent;
 
     public createEntryDate = new Date();
 

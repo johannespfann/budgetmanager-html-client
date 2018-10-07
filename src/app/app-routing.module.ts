@@ -11,6 +11,7 @@ import { ActivateComponent } from './components/logincomponent/activate.componen
 import { ProfileComponent } from './components/profile/profile.component';
 import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
 import { HistoryEntryComponent } from './components/histcomponent/history-entry.component';
+import { EncryptionComponent } from './components/profile/encryption.component';
 // standingorder
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/:email', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'encrypt', component: EncryptionComponent },
   { path: 'bm-register', component: RegisterComponent},
   { path: 'bm-activate/:username/email/:email', component: ActivateComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
