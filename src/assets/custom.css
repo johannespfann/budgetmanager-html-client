@@ -4,3 +4,9 @@
 .body {
    /* background-color:#F5F5F5 !important; */
 }
+
+.list-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
