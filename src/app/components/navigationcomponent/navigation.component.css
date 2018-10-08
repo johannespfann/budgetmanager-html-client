@@ -12,6 +12,20 @@
     border-right:  .01rem solid black;
 }
 
+.sidebar-gray {
+    position: fixed; /* Sit on top of the page content */
+    width: 100%;
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    background-color: gray; /* Black background with opacity */
+    opacity: 0.5;
+
+}
+
 .sidebar-header {
     height: 25%;
     border-bottom: .01rem black solid;
