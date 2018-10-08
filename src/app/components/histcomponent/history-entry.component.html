@@ -1,4 +1,4 @@
-<div class="jumbotron" *ngIf="editViewIsVisible">
+<div class="jumbotron" style="overflow: hidden" *ngIf="editViewIsVisible">
     <app-edit-entry  
         [entry]="selectedEntry" 
         (cancelPressed)="onCancelPressed($event)" 

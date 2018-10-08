@@ -18,7 +18,7 @@ export class EncryptionComponent implements OnInit {
         private applicationService: ApplicationService,
         private encryptService: EncryptApiSerice) {
 
-            LogUtil.debug(this, 'Init EncryptComponent');
+            LogUtil.debug(this, 'init encrypt-component');
     }
 
     public ngOnInit(): void {

@@ -1,4 +1,4 @@
-<div class="jumbotron" *ngIf="isViewVisible">
+<div class="jumbotron" style="overflow: hidden" *ngIf="isViewVisible">
     <app-edit-standingorder-component [standingorder]="selectedStandingOrder" (cancelPressed)="onCancelPressed($event)"
         (deletedPressed)="onDeletedPressed($event)" (changedPressed)="onChangedPressed($event)"></app-edit-standingorder-component>
 </div>

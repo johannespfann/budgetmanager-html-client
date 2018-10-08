@@ -2,23 +2,14 @@ import { Injectable } from '@angular/core';
 import { LogUtil } from '../utils/log-util';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
-import { MessagingService } from '../messages/message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class LoginService {
 
-    private user: User;
-
-    private accessToken: string;
-
-    private baseURL: String;
-
-
     constructor(
-        private http: HttpClient,
-        private messageService: MessagingService) {
-        LogUtil.info(this, 'Init LoginService');
+        private http: HttpClient) {
+        LogUtil.info(this, 'init login-service');
     }
 
     public registerUser(aBaseUrl: string, aUser: User, aPassword: String): Observable<any> {

@@ -22,7 +22,7 @@ export class AddEntryComponent implements OnInit {
     public standingOrderComponent: StandingOrderInfoComponent;
 
     public createEntryDate: Date;
-    private isPeriodical = false;
+    public isPeriodical = false;
 
     constructor(
         private entryService: EntryService,
