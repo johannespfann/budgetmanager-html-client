@@ -14,7 +14,6 @@ export class ProfileComponent {
     private email: String;
 
     constructor(private userService: UserService) {
-        
         this.setupAccountInfos();
     }
 
