@@ -34,6 +34,8 @@ import { ListEntryComponent } from './components/listentrycomponent/list-entry-c
 import { HistoryEntryComponent } from './components/histcomponent/history-entry.component';
 import { EditEntryComponent } from './components/editentrycomponent/edit-entry.component';
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
+import { UserService } from './services/user.service';
+import { UserApiService } from './rest/user-api.service';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -70,6 +72,8 @@ export function initApplication(appService: ApplicationService) {
     NavigationComponent
   ],
   providers: [
+    UserApiService,
+    UserService,
     EntryService,
     MessagingService,
     EntryAPIService,
