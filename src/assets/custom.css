@@ -10,3 +10,8 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+html {
+   position: relative;
+   min-height: 100%;
+ }

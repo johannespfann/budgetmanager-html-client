@@ -36,6 +36,7 @@ import { EditEntryComponent } from './components/editentrycomponent/edit-entry.c
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
 import { UserService } from './services/user.service';
 import { UserApiService } from './rest/user-api.service';
+import { FooterComponent } from './components/footer/footer.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -69,7 +70,8 @@ export function initApplication(appService: ApplicationService) {
     ListEntryComponent,
     EditEntryComponent,
     HistoryEntryComponent,
-    NavigationComponent
+    NavigationComponent,
+    FooterComponent
   ],
   providers: [
     UserApiService,
