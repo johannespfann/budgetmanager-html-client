@@ -6,7 +6,7 @@ import { ApplicationService } from '../application/application.service';
 import { User } from '../models/user';
 import { EntryTransformer } from '../utils/entry-transformer';
 import { EntryServer } from '../models/entry-server';
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 

@@ -40,6 +40,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { DataProtectionComponent } from './components/dataprotection/dataprotection.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { ContactApiService } from './rest/contact-api.service';
+import { ContactService } from './services/contact-service';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -92,7 +94,9 @@ export function initApplication(appService: ApplicationService) {
     ApplicationService,
     { provide: APP_INITIALIZER, useFactory: initApplication, deps: [ApplicationService], multi: true },
     TagStatisticService,
-    TagStatisticRestApiService
+    TagStatisticRestApiService,
+    ContactService,
+    ContactApiService
   ],
   bootstrap: [AppComponent]
 })

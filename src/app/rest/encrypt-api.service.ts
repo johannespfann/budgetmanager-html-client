@@ -8,9 +8,7 @@ export class EncryptApiSerice {
 
     private base: string;
 
-    constructor(
-        private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     public isEncrypted(aBaseUrl: string, aUser: User): Observable<boolean> {
         let headers = new HttpHeaders();
