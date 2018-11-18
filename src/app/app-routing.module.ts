@@ -12,7 +12,10 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
 import { HistoryEntryComponent } from './components/histcomponent/history-entry.component';
 import { EncryptionComponent } from './components/profile/encryption.component';
+import { ImpressumComponent } from './components/impressum/impressum.component';
 // standingorder
+
+
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'standingorder', component: StandingOrderComponent},
@@ -25,6 +28,8 @@ const appRoutes: Routes = [
   { path: 'encrypt', component: EncryptionComponent },
   { path: 'bm-register', component: RegisterComponent},
   { path: 'bm-activate/:username/email/:email', component: ActivateComponent},
+  { path: 'kontakt', component: ActivateComponent},
+  { path: 'impressum', component: ImpressumComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
