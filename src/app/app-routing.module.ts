@@ -13,6 +13,7 @@ import { StandingOrderComponent } from './components/standingordercomponent/stan
 import { HistoryEntryComponent } from './components/histcomponent/history-entry.component';
 import { EncryptionComponent } from './components/profile/encryption.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
+import { DataProtectionComponent } from './components/dataprotection/dataprotection.component';
 // standingorder
 
 
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
   { path: 'bm-activate/:username/email/:email', component: ActivateComponent},
   { path: 'kontakt', component: ActivateComponent},
   { path: 'impressum', component: ImpressumComponent},
+  { path: 'dataprotection', component: DataProtectionComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

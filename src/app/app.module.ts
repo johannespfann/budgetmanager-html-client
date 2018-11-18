@@ -38,6 +38,7 @@ import { UserService } from './services/user.service';
 import { UserApiService } from './rest/user-api.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
+import { DataProtectionComponent } from './components/dataprotection/dataprotection.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -73,6 +74,7 @@ export function initApplication(appService: ApplicationService) {
     HistoryEntryComponent,
     NavigationComponent,
     ImpressumComponent,
+    DataProtectionComponent,
     FooterComponent
   ],
   providers: [
