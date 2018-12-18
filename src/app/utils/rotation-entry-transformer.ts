@@ -16,8 +16,10 @@ export class RotationEntryTransformer {
         rotationEntry.memo = CryptUtil.decryptString(aPassword, aServerEntry.memo);
         const amountString: string = CryptUtil.decryptString(aPassword, aServerEntry.amount);
         rotationEntry.amount = Number(amountString);
+        rotationEntry.currency = CryptUtil.decryptString(aPassword,aServerEntry.currency);
         rotationEntry.start_at = new Date(aServerEntry.start_at);
         rotationEntry.end_at = new Date(aServerEntry.end_at);
+
         rotationEntry.last_executed = new Date(aServerEntry.last_executed);
         rotationEntry.tags = aServerEntry.tags.map((tag: Tag) => {
             const newTag: Tag = new Tag();
@@ -30,6 +32,11 @@ export class RotationEntryTransformer {
         return rotationEntry;
     }
 
+    /**
+     * prepare a rotationentry to send it to server
+     * @param aPassword 
+     * @param aEntry 
+     */
     public transformRotationEntry(aPassword: string, aEntry: RotationEntry): RotationEntryServer {
         const rotationEntryServer: RotationEntryServer = new RotationEntryServer();
         rotationEntryServer.hash = aEntry.hash.toString();
@@ -38,6 +45,12 @@ export class RotationEntryTransformer {
             rotationEntryServer.amount = CryptUtil.encryptString(aPassword, aEntry.amount.toString());
         } else {
             rotationEntryServer.amount = aEntry.amount.toString();
+        }
+
+        if(this.encryptValue) {
+            rotationEntryServer.currency = CryptUtil.encryptString(aPassword, aEntry.currency);
+        } else {
+            rotationEntryServer.currency = aEntry.currency;
         }
 
         if (this.encryptValue) {
@@ -49,7 +62,7 @@ export class RotationEntryTransformer {
         rotationEntryServer.start_at = new Date(aEntry.start_at);
         rotationEntryServer.end_at = new Date(aEntry.end_at);
         rotationEntryServer.last_executed = new Date(aEntry.last_executed);
-
+        
         rotationEntryServer.tags = aEntry.tags.map((tag: Tag) => {
             const newTag: Tag = new Tag();
 

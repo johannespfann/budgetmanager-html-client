@@ -20,6 +20,8 @@ export class RotationEntryServer {
 
     public amount: string;
 
+    public currency: string;
+
     public memo: string;
 
     public tags: Tag[];

@@ -6,6 +6,8 @@ export class EntryServer {
 
     public amount: string;
 
+    public currency: string;
+
     public memo: string;
 
     public created_at: Date;

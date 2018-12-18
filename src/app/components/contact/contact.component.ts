@@ -11,9 +11,7 @@ import { ContactMessage } from "../../models/contact-message";
 export class ContactComponent {
 
     public name: string;
-
     public email: string;
-
     public message: string;
 
     constructor(private contactService: ContactService) {
@@ -21,24 +19,28 @@ export class ContactComponent {
     }
 
     public sendMessage(): void {
-
-        LogUtil.info(this, 'name ' + this.name);
-        LogUtil.info(this, 'email' + this.email);
-        LogUtil.info(this, 'msg  ' + this.message);
-
         let message: ContactMessage = new ContactMessage();
         message.name = this.name;
         message.email = this.email;
         message.message = this.message;
-        
-        this.contactService.send(message).subscribe(
+        this.sendEmail(message);
+    }
+
+    private sendEmail(aMessage: ContactMessage): void {
+        this.contactService.send(aMessage).subscribe(
             data => {
                 LogUtil.info(this, 'worked fine!');
+                this.cleanView();
             },
             error => {
-                LogUtil.info(this, 'error');
+                LogUtil.info(this, 'error -> ' + JSON.stringify(error));
             }
         );
     }
-        
+
+    private cleanView(): void {
+        this.name = "";
+        this.email = "";
+        this.message = "";
+    }
 }

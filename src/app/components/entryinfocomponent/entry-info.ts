@@ -6,6 +6,8 @@ export class EntryInfo {
 
     public memo: string;
 
+    public currency: string;
+
     public tags: Tag[];
 
 }

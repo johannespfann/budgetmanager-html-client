@@ -7,6 +7,8 @@ export class Entry {
 
     public amount: number;
 
+    public currency: string;
+
     public memo: string;
 
     public created_at: Date;
@@ -22,6 +24,7 @@ export class Entry {
 
         entry.hash = aEntry.hash;
         entry.amount = aEntry.amount;
+        entry.currency = aEntry.currency
 
         entry.created_at = new Date(aEntry.created_at);
         entry.memo = aEntry.memo;
@@ -30,7 +33,7 @@ export class Entry {
         return entry;
     }
 
-    public static create(aAmount: number): Entry {
+    public static create(aAmount: number, aCurrency: string): Entry {
         const entry: Entry = new Entry();
         entry.amount =  aAmount;
         entry.created_at = new Date();

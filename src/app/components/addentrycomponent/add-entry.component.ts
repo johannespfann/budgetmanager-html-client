@@ -37,10 +37,11 @@ export class AddEntryComponent implements OnInit {
 
     public saveEntry(): void {
         const entryInfo = this.entryComponent.getEntryInfo();
-        const entry = Entry.create(entryInfo.amount);
+        const entry = Entry.create(entryInfo.amount, "EUR");
         entry.memo = entryInfo.memo;
         entry.tags = entryInfo.tags;
         entry.created_at = this.createEntryDate;
+        
 
         this.persistEntry(entry);
         this.cleanEntryViews();
@@ -50,7 +51,7 @@ export class AddEntryComponent implements OnInit {
         const standingOrderInfo = this.standingOrderComponent.getStandingOrderInfo();
         const entryInfo = this.entryComponent.getEntryInfo();
 
-        const rotationEntry = RotationEntry.create(entryInfo.amount, standingOrderInfo.rotation_strategy);
+        const rotationEntry = RotationEntry.create(entryInfo.amount, "EUR", standingOrderInfo.rotation_strategy);
         rotationEntry.amount = entryInfo.amount;
         rotationEntry.memo = entryInfo.memo;
         rotationEntry.tags = entryInfo.tags;

@@ -18,6 +18,13 @@ export class EntryTransformer {
         }
 
         if (this.encryptValue) {
+            entryServer.currency = CryptUtil.encryptString(aPassword, aEntry.currency);
+        } else {
+            entryServer.currency = aEntry.currency;
+        }
+
+
+        if (this.encryptValue) {
             entryServer.memo = CryptUtil.encryptString(aPassword, aEntry.memo);
         } else {
             entryServer.memo = aEntry.memo;
@@ -40,6 +47,7 @@ export class EntryTransformer {
         const entry: Entry = new Entry();
         entry.hash = aEntryServer.hash;
         entry.amount = Number(CryptUtil.decryptString(aPassword, aEntryServer.amount));
+        entry.currency = CryptUtil.decryptString(aPassword, aEntryServer.currency);
         entry.created_at = new Date(aEntryServer.created_at);
         entry.memo = CryptUtil.decryptString(aPassword, aEntryServer.memo);
         entry.tags = aEntryServer.tags.map((tag: Tag) => {
