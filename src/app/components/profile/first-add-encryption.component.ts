@@ -7,7 +7,7 @@ import { CryptUtil } from '../../utils/crypt-util';
     selector: 'app-first-add-encryption',
     templateUrl: './first-add-encryption.component.html'
 })
-export class FirstAddEncryptionComponent{
+export class FirstAddEncryptionComponent {
 
     @Output()
     public setKeyIsDone = new EventEmitter<boolean>();

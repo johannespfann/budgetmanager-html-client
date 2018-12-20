@@ -58,6 +58,7 @@ export class EditStandingOrderComponent implements OnInit, OnChanges {
     private initStandingOrderView(standingOrder: RotationEntry) {
         const entryInfo = new EntryInfo();
         entryInfo.amount = standingOrder.amount;
+        entryInfo.currency = 'EUR';
         entryInfo.memo = standingOrder.memo;
         entryInfo.tags = standingOrder.tags;
         const standingOrderInfo = new StandingOrderInfo();
@@ -75,6 +76,7 @@ export class EditStandingOrderComponent implements OnInit, OnChanges {
         const standingOrderInfo = this.standingOrderComponent.getStandingOrderInfo();
         newStandingOrder.hash = this.standingorder.hash;
         newStandingOrder.amount = entryInfo.amount;
+        newStandingOrder.currency = entryInfo.currency;
         newStandingOrder.memo = entryInfo.memo;
         newStandingOrder.tags = entryInfo.tags;
         newStandingOrder.start_at = standingOrderInfo.start_at;

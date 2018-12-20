@@ -34,7 +34,7 @@ export class EntryInfoComponent {
 
     public cleanEntryView(): void {
         this.updateTagStatistics();
-        this.algebraicSignIsMinus = false;
+        this.algebraicSignIsMinus = true;
         this.amount = null;
         this.memo = '';
         this.tags = [];
@@ -61,9 +61,9 @@ export class EntryInfoComponent {
             amountValue = MathUtil.convertToPositiv(this.amount);
         }
         const entryInfo = new EntryInfo();
+        entryInfo.currency = "EUR";
         entryInfo.amount = amountValue;
         entryInfo.memo = this.memo;
-        entryInfo.currency = "EUR";
         entryInfo.tags = this.tags;
         return entryInfo;
     }

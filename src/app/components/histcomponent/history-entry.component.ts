@@ -76,11 +76,6 @@ export class HistoryEntryComponent {
     private updateEntries(): void {
         this.entryService.getEntries().subscribe(
             (data: Entry[]) => {
-                
-                data.forEach( (entry: Entry) => {
-                    LogUtil.info(this, "Entry befor update: " + JSON.stringify(entry));
-                    this.updateEntry(entry);
-                })
 
                 this.entries = data;
             },
@@ -91,11 +86,4 @@ export class HistoryEntryComponent {
         );
     }
 
-    private updateEntry(entry: Entry): void {
-        entry.currency = "EUR";
-        this.entryService.update(entry).subscribe(
-            response => { LogUtil.info(this, "updated entry " + JSON.stringify(entry))},
-            error => { LogUtil.error(this, "ups!")}
-        );
-    }
 }

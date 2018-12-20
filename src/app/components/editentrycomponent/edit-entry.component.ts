@@ -52,11 +52,11 @@ export class EditEntryComponent implements OnChanges {
 
     private initEntryView(aEntry: Entry): void {
         const entryInfo = new EntryInfo();
-        
+
         entryInfo.amount = aEntry.amount;
         entryInfo.memo = aEntry.memo;
         entryInfo.tags = aEntry.tags;
-        entryInfo.currency = "EUR";
+        entryInfo.currency = 'EUR';
         this.createEntryDate = aEntry.created_at;
         this.entryComponent.initEntryView(entryInfo);
     }
@@ -66,7 +66,7 @@ export class EditEntryComponent implements OnChanges {
         newEntry.hash = this.entry.hash;
         const entryInfo = this.entryComponent.getEntryInfo();
         newEntry.amount = entryInfo.amount;
-        newEntry.currency = "EUR";
+        newEntry.currency = entryInfo.currency;
         newEntry.memo = entryInfo.memo;
         newEntry.tags = entryInfo.tags;
         newEntry.created_at = this.createEntryDate;

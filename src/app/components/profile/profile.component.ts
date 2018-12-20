@@ -9,9 +9,9 @@ import { LogUtil } from '../../utils/log-util';
 })
 export class ProfileComponent {
 
-    private name: String;
+    public name: String;
 
-    private email: String;
+    public email: String;
 
     constructor(private userService: UserService) {
         this.setupAccountInfos();
@@ -19,14 +19,14 @@ export class ProfileComponent {
 
 
     private setupAccountInfos(): void {
-        this.userService.getUserInfo().subscribe( 
+        this.userService.getUserInfo().subscribe(
             (user: any) => {
                 this.name = user.name;
                 this.email = user.email;
-                LogUtil.info(this,JSON.stringify(user));
+                LogUtil.info(this, JSON.stringify(user));
             },
             (error: any) => {
-                LogUtil.error(this,JSON.stringify(error));
+                LogUtil.error(this, JSON.stringify(error));
             }
         );
     }

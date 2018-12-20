@@ -12,8 +12,8 @@ export class ApplicationService {
 
     private user: User;
     // h2799032.stratoserver.net
-    //private baseUrl = 'http://h2799032.stratoserver.net:8090/budget/';
-    //private baseUrl = 'http://pfann.org:8090/budget/';
+    // private baseUrl = 'http://h2799032.stratoserver.net:8090/budget/';
+    // private baseUrl = 'http://pfann.org:8090/budget/';
     private baseUrl = 'http://localhost:8090/budget/';
 
     private encryptionkey: string;

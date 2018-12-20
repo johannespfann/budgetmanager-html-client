@@ -38,6 +38,7 @@ export class RotationEntry {
     public static create(aAmount: number, aCurrency: string, aRotation_strategy: string): RotationEntry {
         const rotationEntry: RotationEntry = new RotationEntry();
         rotationEntry.amount = aAmount;
+        rotationEntry.currency = aCurrency;
         rotationEntry.rotation_strategy = aRotation_strategy;
         rotationEntry.hash = HashUtil.getUniqueHash().toString();
         return rotationEntry;

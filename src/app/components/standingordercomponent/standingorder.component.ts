@@ -61,13 +61,7 @@ export class StandingOrderComponent implements OnInit {
     private updateStandingOrders() {
         this.rotationEntryService.getRotationEntries().subscribe(
             (aRotationEntries: RotationEntry[]) => {
-                LogUtil.info(this,JSON.stringify(aRotationEntries))
-
-                aRotationEntries.forEach( (rotationEntry: RotationEntry) => {
-                    LogUtil.info(this, "standingOrder before update: " + JSON.stringify(rotationEntry));
-                    this.updateStandingOrderWithEUR(rotationEntry);
-                });     
-
+   
                 this.rotationEntries = aRotationEntries;
             },
             error => {
@@ -84,14 +78,6 @@ export class StandingOrderComponent implements OnInit {
 
     private showEditView(): void {
         this.isViewVisible = true;
-    }
-
-    private updateStandingOrderWithEUR(aStandingOrder: RotationEntry): void {
-        aStandingOrder.currency = "EUR";
-        this.rotationEntryService.updateRotationEntry(aStandingOrder).subscribe(
-            response => { LogUtil.info(this, "updated stanidngorder " + JSON.stringify(aStandingOrder))},
-            error => { LogUtil.error(this, "ups!")}
-        );
     }
 
 }

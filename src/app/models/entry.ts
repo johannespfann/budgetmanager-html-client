@@ -36,6 +36,7 @@ export class Entry {
     public static create(aAmount: number, aCurrency: string): Entry {
         const entry: Entry = new Entry();
         entry.amount =  aAmount;
+        entry.currency = aCurrency;
         entry.created_at = new Date();
         entry.hash = HashUtil.getUniqueHash().toString();
         return entry;

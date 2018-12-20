@@ -37,12 +37,11 @@ export class AddEntryComponent implements OnInit {
 
     public saveEntry(): void {
         const entryInfo = this.entryComponent.getEntryInfo();
-        const entry = Entry.create(entryInfo.amount, "EUR");
+        const entry = Entry.create(entryInfo.amount, 'EUR');
         entry.memo = entryInfo.memo;
         entry.tags = entryInfo.tags;
         entry.created_at = this.createEntryDate;
         
-
         this.persistEntry(entry);
         this.cleanEntryViews();
     }
@@ -51,7 +50,7 @@ export class AddEntryComponent implements OnInit {
         const standingOrderInfo = this.standingOrderComponent.getStandingOrderInfo();
         const entryInfo = this.entryComponent.getEntryInfo();
 
-        const rotationEntry = RotationEntry.create(entryInfo.amount, "EUR", standingOrderInfo.rotation_strategy);
+        const rotationEntry = RotationEntry.create(entryInfo.amount, 'EUR', standingOrderInfo.rotation_strategy);
         rotationEntry.amount = entryInfo.amount;
         rotationEntry.memo = entryInfo.memo;
         rotationEntry.tags = entryInfo.tags;
@@ -84,10 +83,10 @@ export class AddEntryComponent implements OnInit {
     private persistEntry(aEntry: Entry): void {
         this.entryService.addEntry(aEntry).subscribe(
             response => {
-                LogUtil.debug(this, 'TODO success');
+                LogUtil.debug(this, 'Persist Entry' + JSON.stringify(aEntry));
             },
             error => {
-                LogUtil.error(this, 'failed to persist entry -> ' + aEntry);
+                LogUtil.error(this, 'failed to persist entry -> ' + JSON.stringify(aEntry));
             }
         );
     }
@@ -95,7 +94,7 @@ export class AddEntryComponent implements OnInit {
     private persistStandingOrder(aStandingOrder: RotationEntry): void {
         this.rotationService.addRotationEntry(aStandingOrder).subscribe(
             data => {
-                LogUtil.debug(this, 'sucess');
+                LogUtil.debug(this, 'Persist StandingOrder' + JSON.stringify(aStandingOrder));
             },
             error => {
                 LogUtil.error(this, 'failed to persist standingorder -> ' + aStandingOrder);
