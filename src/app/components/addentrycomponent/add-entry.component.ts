@@ -41,7 +41,7 @@ export class AddEntryComponent implements OnInit {
         entry.memo = entryInfo.memo;
         entry.tags = entryInfo.tags;
         entry.created_at = this.createEntryDate;
-        
+
         this.persistEntry(entry);
         this.cleanEntryViews();
     }

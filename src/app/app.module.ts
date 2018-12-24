@@ -42,6 +42,7 @@ import { DataProtectionComponent } from './components/dataprotection/dataprotect
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactApiService } from './rest/contact-api.service';
 import { ContactService } from './services/contact-service';
+import { StandingOrderListComponent } from './components/standingorderlistcomponent/standingorder-list.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -79,7 +80,8 @@ export function initApplication(appService: ApplicationService) {
     ImpressumComponent,
     DataProtectionComponent,
     ContactComponent,
-    FooterComponent
+    FooterComponent,
+    StandingOrderListComponent
   ],
   providers: [
     UserApiService,

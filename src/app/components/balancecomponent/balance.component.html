@@ -1,5 +1,6 @@
-<div *ngFor="let balanceManager of balanceManagers" class="" style="margin-top: 0.2rem">
-    <div class="jumbotron">
+<div class="jumbotron">
+    <h1 class="mb-5">Bilanz</h1>
+    <div *ngFor="let balanceManager of balanceManagers" class="" style="margin-top: 0.2rem">
 
         <div class="balance-header">
             <span class="balance-identifier">Bilanz für {{balanceManager.name}}</span>
@@ -12,7 +13,7 @@
             <div *ngIf="balanceManager.positivEntries.length > 0">
                 <ul class="list-group">
                     <li style="margin-top: 0.2rem" *ngFor="let entry of balanceManager.positivEntries" class="list-group-item list-group-item-light text-dark">
-                        <div class="col-10 col-sm-11">
+                        <div class="col-10 col-sm-11  list-text">
                             {{entry.amount}} € {{entry.memo}}
                         </div>
                     </li>
@@ -23,7 +24,7 @@
             <div *ngIf="balanceManager.negativEntries.length > 0" class="pt-2">
                 <ul class="list-group">
                     <li style="margin-top: 0.2rem" *ngFor="let entry of balanceManager.negativEntries" class="list-group-item list-group-item-light text-dark">
-                        <div class="col-10 col-sm-11">
+                        <div class="col-10 col-sm-11  list-text">
                             {{entry.amount}} € {{entry.memo}}
                         </div>
                     </li>

@@ -1,17 +1,16 @@
 <div class="jumbotron" style="overflow: hidden" *ngIf="isViewVisible">
-    <app-edit-standingorder-component [standingorder]="selectedStandingOrder" (cancelPressed)="onCancelPressed($event)"
-        (deletedPressed)="onDeletedPressed($event)" (changedPressed)="onChangedPressed($event)"></app-edit-standingorder-component>
+    <app-edit-standingorder-component 
+    [standingorder]="selectedStandingOrder" 
+    (cancelPressed)="onCancelPressed($event)"
+    (deletedPressed)="onDeletedPressed($event)" 
+    (changedPressed)="onChangedPressed($event)">
+    </app-edit-standingorder-component>
 </div>
 
 <div class="jumbotron">
     <h1  class="mb-5">Daueraufträge</h1>
-    <ul class="list-group">
-
-        <li *ngFor="let entry of rotationEntries" class="list-group-item row" style="margin-top: 0.2rem">
-            <div class="col-10 col-sm-11 list-text" (click)="editEntry(entry)"> 
-                {{entry.amount}} € {{entry.memo}}
-            </div>
-        </li>
-
-    </ul>
+    <app-standingorder-list
+        [standingOrders]="rotationEntries"
+        (editPressed)="onEditPressed($event)">
+    </app-standingorder-list>
 </div>

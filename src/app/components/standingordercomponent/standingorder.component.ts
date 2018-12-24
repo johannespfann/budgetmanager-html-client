@@ -25,7 +25,7 @@ export class StandingOrderComponent implements OnInit {
         this.updateStandingOrders();
     }
 
-    public editEntry(entry: RotationEntry): void {
+    public onEditPressed(entry: RotationEntry): void {
         this.showEditView();
         this.selectedStandingOrder = entry;
     }
@@ -61,7 +61,7 @@ export class StandingOrderComponent implements OnInit {
     private updateStandingOrders() {
         this.rotationEntryService.getRotationEntries().subscribe(
             (aRotationEntries: RotationEntry[]) => {
-   
+                LogUtil.info(this, 'get all standingOrders ...');
                 this.rotationEntries = aRotationEntries;
             },
             error => {

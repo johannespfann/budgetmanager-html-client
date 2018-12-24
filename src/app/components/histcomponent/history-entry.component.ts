@@ -76,7 +76,6 @@ export class HistoryEntryComponent {
     private updateEntries(): void {
         this.entryService.getEntries().subscribe(
             (data: Entry[]) => {
-
                 this.entries = data;
             },
             error => {
