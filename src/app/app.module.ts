@@ -43,6 +43,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ContactApiService } from './rest/contact-api.service';
 import { ContactService } from './services/contact-service';
 import { StandingOrderListComponent } from './components/standingorderlistcomponent/standingorder-list.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -54,6 +55,7 @@ export function initApplication(appService: ApplicationService) {
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    NgxSpinnerModule
   ],
   declarations: [
     AppComponent,
