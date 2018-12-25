@@ -81,7 +81,8 @@ export function initApplication(appService: ApplicationService) {
     DataProtectionComponent,
     ContactComponent,
     FooterComponent,
-    StandingOrderListComponent
+    StandingOrderListComponent,
+    PageNotFoundComponent
   ],
   providers: [
     UserApiService,

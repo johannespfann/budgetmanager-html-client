@@ -10,6 +10,7 @@ import { LoginService } from './rest/login-api.service';
 
 import { EncryptionReadyMessage } from './messages/encryption-ready-message';
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-budgetmanager',
@@ -37,7 +38,6 @@ export class AppComponent implements OnDestroy {
     private applicationService: ApplicationService) {
 
     LogUtil.debug(this, 'Start Application');
-
     this.loginSubscription = this.registerLogedInMessage();
     this.encryptionReadySubscription = this.registerEncryptionReadyMessage();
 

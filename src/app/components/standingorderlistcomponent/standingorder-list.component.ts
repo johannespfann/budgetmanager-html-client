@@ -1,7 +1,6 @@
 import { Component, OnChanges, Input, Output, EventEmitter, SimpleChanges, OnInit } from '@angular/core';
 import { RotationEntry } from '../../models/rotationentry';
 import { LogUtil } from '../../utils/log-util';
-import { Packager } from '../../utils/packager';
 
 @Component({
     selector: 'app-standingorder-list',

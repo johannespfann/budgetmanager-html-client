@@ -1,6 +1,6 @@
 
-    <h4 *ngIf="monthlyStandingOrders.size != 0" class="mb-2 mt-2">Monatlich ({{monthlyStandingOrders.length}})</h4>
-    <ul *ngIf="monthlyStandingOrders.size != 0" class="list-group">
+    <h4 *ngIf="monthlyStandingOrders.length != 0" class="mb-2 mt-2">Monatlich ({{monthlyStandingOrders.length}})</h4>
+    <ul *ngIf="monthlyStandingOrders.length != 0" class="list-group">
 
         <li *ngFor="let entry of monthlyStandingOrders" class="list-group-item row" style="margin-top: 0.2rem">
             <div class="col-10 col-sm-11 list-text" (click)="editStandingOrder(entry)"> 
@@ -10,8 +10,8 @@
 
     </ul>
 
-    <h4 *ngIf="quarterlyStandOrder.size != 0" class="mb-2 mt-2" >Quartalsweise ({{quarterlyStandOrder.length}})</h4>
-    <ul *ngIf="quarterlyStandOrder.size != 0" class="list-group">
+    <h4 *ngIf="quarterlyStandOrder.length != 0" class="mb-2 mt-2" >Quartalsweise ({{quarterlyStandOrder.length}})</h4>
+    <ul *ngIf="quarterlyStandOrder.length != 0" class="list-group">
 
         <li *ngFor="let entry of quarterlyStandOrder" class="list-group-item row" style="margin-top: 0.2rem">
             <div class="col-10 col-sm-11 list-text" (click)="editStandingOrder(entry)"> 
@@ -21,8 +21,8 @@
 
     </ul>
 
-    <h4 *ngIf="yeartlyStandingOrder.size != 0" class="mb-2 mt-2">Jährlich ({{yeartlyStandingOrder.length}})</h4>
-    <ul *ngIf="yeartlyStandingOrder.size != 0" class="list-group">
+    <h4 *ngIf="yeartlyStandingOrder.length != 0" class="mb-2 mt-2">Jährlich ({{yeartlyStandingOrder.length}})</h4>
+    <ul *ngIf="yeartlyStandingOrder.length != 0" class="list-group">
 
         <li *ngFor="let entry of yeartlyStandingOrder" class="list-group-item row" style="margin-top: 0.2rem">
             <div class="col-10 col-sm-11 list-text" (click)="editStandingOrder(entry)"> 
