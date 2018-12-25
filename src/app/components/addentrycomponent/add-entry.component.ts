@@ -7,6 +7,7 @@ import { Entry } from '../../models/entry';
 import { EntryService } from '../../services/entry.service';
 import { RotationEntryService } from '../../services/rotation-entry.service';
 import { DateUtil } from '../../utils/date-util';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-newentry',
@@ -26,7 +27,8 @@ export class AddEntryComponent implements OnInit {
 
     constructor(
         private entryService: EntryService,
-        private rotationService: RotationEntryService) {
+        private rotationService: RotationEntryService,
+        private spinner: NgxSpinnerService) {
         LogUtil.debug(this, 'init add-entry-component');
     }
 
@@ -81,23 +83,29 @@ export class AddEntryComponent implements OnInit {
     }
 
     private persistEntry(aEntry: Entry): void {
+        this.spinner.show();
         this.entryService.addEntry(aEntry).subscribe(
             response => {
                 LogUtil.debug(this, 'Persist Entry' + JSON.stringify(aEntry));
+                this.spinner.hide();
             },
             error => {
                 LogUtil.error(this, 'failed to persist entry -> ' + JSON.stringify(aEntry));
+                this.spinner.hide();
             }
         );
     }
 
     private persistStandingOrder(aStandingOrder: RotationEntry): void {
+        this.spinner.show();
         this.rotationService.addRotationEntry(aStandingOrder).subscribe(
             data => {
                 LogUtil.debug(this, 'Persist StandingOrder' + JSON.stringify(aStandingOrder));
+                this.spinner.hide();
             },
             error => {
                 LogUtil.error(this, 'failed to persist standingorder -> ' + aStandingOrder);
+                this.spinner.hide();
             }
         );
     }
