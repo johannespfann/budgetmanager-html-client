@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RotationEntryService } from '../../services/rotation-entry.service';
 import { RotationEntry } from '../../models/rotationentry';
 import { LogUtil } from '../../utils/log-util';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-standingorder-component',
@@ -16,7 +17,9 @@ export class StandingOrderComponent implements OnInit {
 
     public isViewVisible: boolean;
 
-    constructor(private rotationEntryService: RotationEntryService) {
+    constructor(
+        private rotationEntryService: RotationEntryService,
+        private spinner: NgxSpinnerService) {
         LogUtil.debug(this, 'init standingorders');
     }
 
@@ -59,14 +62,17 @@ export class StandingOrderComponent implements OnInit {
     }
 
     private updateStandingOrders() {
+        this.spinner.show();
         this.rotationEntryService.getRotationEntries().subscribe(
             (aRotationEntries: RotationEntry[]) => {
                 LogUtil.info(this, 'get all standingOrders ...');
                 this.rotationEntries = aRotationEntries;
+                this.spinner.hide();
             },
             error => {
                 LogUtil.error(this, 'Error was found! -> ' + JSON.stringify(error));
                 this.rotationEntries = new Array<RotationEntry>();
+                this.spinner.hide();
             }
         );
     }

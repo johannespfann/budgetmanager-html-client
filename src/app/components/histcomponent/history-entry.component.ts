@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { EntryService } from '../../services/entry.service';
 import { LogUtil } from '../../utils/log-util';
 import { Entry } from '../../models/entry';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector : 'app-history-entry',
@@ -15,7 +16,9 @@ export class HistoryEntryComponent {
     public entries: Entry[];
     public selectedEntry: Entry;
 
-    constructor(private entryService: EntryService) {
+    constructor(
+        private entryService: EntryService,
+        private spinner: NgxSpinnerService) {
         LogUtil.debug(this, 'init history-entry-component');
         this.entries = [];
         this.selectedEntry = new Entry();
@@ -74,13 +77,16 @@ export class HistoryEntryComponent {
     }
 
     private updateEntries(): void {
+        this.spinner.show();
         this.entryService.getEntries().subscribe(
             (data: Entry[]) => {
                 this.entries = data;
+                this.spinner.hide();
             },
             error => {
                 LogUtil.error(this, 'failed to update entries');
                 this.entries = [];
+                this.spinner.hide();
             }
         );
     }
