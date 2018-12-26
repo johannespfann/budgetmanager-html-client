@@ -52,7 +52,7 @@ export class AppComponent implements OnDestroy {
 
     if (!applicationService.isEncryptionKeyReadyToUse()) {
       LogUtil.info(this, 'key was nerver set! Navigate to profile ');
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/encrypt']);
       return;
     }
 
@@ -71,12 +71,13 @@ export class AppComponent implements OnDestroy {
     }
     this.applicationService.logout();
     this.hideLoginAccount();
-    this.hideNavigatin();
+    this.hideNavigation();
     this.router.navigate(['/welcome']);
   }
 
   private showLoginAccount(): void {
     this.isLogedIn = true;
+    
   }
 
   private hideLoginAccount(): void {
@@ -85,10 +86,12 @@ export class AppComponent implements OnDestroy {
 
   private showNavigation(): any {
     this.encryptKeyIsValid = true;
+    this.navigationComponent.showMenue();
   }
 
-  private hideNavigatin(): void {
+  private hideNavigation(): void {
     this.encryptKeyIsValid = false;
+    this.navigationComponent.hideMenue();
   }
 
   public onOpenSidebar(): void {
@@ -109,7 +112,7 @@ export class AppComponent implements OnDestroy {
         this.applicationService.setCurrentUser(this.user);
         if (!this.applicationService.isEncryptionKeyReadyToUse()) {
           this.showLoginAccount();
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/encrypt']);
         }
       });
   }

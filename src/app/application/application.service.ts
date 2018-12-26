@@ -6,6 +6,7 @@ import { LoginService } from '../rest/login-api.service';
 import { AuthenticationFacade } from '../utils/authentication-facade';
 import { EncryptionFacade } from '../utils/encryption-facade';
 import { EncryptApiSerice } from '../rest/encrypt-api.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ApplicationService {
@@ -14,7 +15,7 @@ export class ApplicationService {
     // h2799032.stratoserver.net
     // private baseUrl = 'http://h2799032.stratoserver.net:8090/budget/';
     // private baseUrl = 'http://pfann.org:8090/budget/';
-    private baseUrl = 'http://localhost:8090/budget/';
+    private baseUrl = environment.resturl;
 
     private encryptionkey: string;
     private isEncryptionKeyDefined: boolean;
