@@ -77,7 +77,6 @@ export class AppComponent implements OnDestroy {
 
   private showLoginAccount(): void {
     this.isLogedIn = true;
-    
   }
 
   private hideLoginAccount(): void {
