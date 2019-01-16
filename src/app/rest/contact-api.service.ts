@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { ContactMessage } from "../models/contact-message";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ContactMessage } from '../models/contact-message';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ContactApiService {
