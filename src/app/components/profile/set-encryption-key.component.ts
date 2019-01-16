@@ -55,12 +55,12 @@ export class SetEncryptionKeyComponent {
     public saveKey(): void {
         LogUtil.info(this, 'Pressed saveKey');
         if (this.pressedValidateTest) {
-            this.applicationService.setEncryptionKey(this.key);
+            //this.applicationService.setEncryptionKey(this.key);
             if (this.isClickedRemember) {
                 this.encryptionFacade.saveEncryptionKey(this.applicationService.getCurrentUser(), this.key);
             }
             LogUtil.info(this, 'save encryptionkey to applicationservice: ' + this.key);
-            this.applicationService.setEncryptionKey(this.key);
+            //this.applicationService.setEncryptionKey(this.key);
             this.testKeyIsDone.emit(true);
             this.messageService.publish(new EncryptionReadyMessage());
         }

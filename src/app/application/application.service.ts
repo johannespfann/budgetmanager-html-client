@@ -14,10 +14,9 @@ export class ApplicationService {
     private user: User;
     private baseUrl = environment.resturl;
 
-    private encryptionkey: string;
-    private isEncryptionKeyDefined: boolean;
+
+
     private authfacade: AuthenticationFacade;
-    private encryptionFacade: EncryptionFacade;
 
     constructor(
         private loginService: LoginService,
@@ -25,8 +24,6 @@ export class ApplicationService {
 
         LogUtil.info(this, 'Init ApplicationService');
         this.authfacade = new AuthenticationFacade();
-        this.encryptionFacade = new EncryptionFacade();
-        this.isEncryptionKeyDefined = false;
     }
 
     public getBaseUrl(): string {
@@ -40,14 +37,10 @@ export class ApplicationService {
         return false;
     }
 
-    public isEncryptionKeyAlreadyDefined(): boolean {
-        return this.isEncryptionKeyDefined;
-    }
 
-    public setEncryptionKeyAsDefined(): void {
-        this.isEncryptionKeyDefined = true;
+    public getEncryptionKey(): string {
+        return '';
     }
-
 
     public getCurrentUser(): User {
         return this.user;
@@ -58,19 +51,9 @@ export class ApplicationService {
         this.user = aUser;
     }
 
-    public getEncryptionKey(): string {
-        return this.encryptionkey;
-    }
-
-    public setEncryptionKey(aEncryptionKey: string): void {
-        this.isEncryptionKeyDefined = true;
-        this.encryptionkey = aEncryptionKey;
-    }
 
     public isReadyForRestServices(): boolean {
-        if (this.isLoggedIn() && this.isEncryptionKeyReadyToUse()) {
-            return true;
-        }
+        // TODO to be defined
         return false;
     }
 
@@ -81,24 +64,9 @@ export class ApplicationService {
         return false;
     }
 
-
-    public isEncryptionKeyReadyToUse(): boolean {
-        if (!this.isEncryptionKeyDefined) {
-            return false;
-        }
-        if (this.encryptionkey) {
-            return true;
-        }
-        return false;
-    }
-
     public logout(): void {
         this.authfacade.cleanSavedCredentials();
-        this.encryptionFacade.deleteLocalStoredEncryptionKey(this.user);
-
         this.user = null;
-        this.encryptionkey = null;
-        this.isEncryptionKeyDefined = false;
     }
 
     public initAppService(): Promise<any> {
@@ -125,23 +93,7 @@ export class ApplicationService {
                     user.accesstoken = data.accesstoken;
                     this.user = user;
                     return user;
-                }),
-                switchMap(user => this.encryptService.isEncrypted(this.baseUrl, user)
-                    .pipe(
-                        tap( (isKeySetuped: boolean) => {
-                            LogUtil.info(this, 'EncryptionKey was setup! -> ' + JSON.stringify(isKeySetuped));
-                            if ( isKeySetuped ) {
-                                this.isEncryptionKeyDefined = true;
-                                if (this.encryptionFacade.isEncryptionSaved(user)) {
-                                    LogUtil.info(this, 'EncryptionKey was saved!');
-                                    this.setEncryptionKey(this.encryptionFacade.getEncryptionKey(user));
-                                }
-                            } else {
-                                this.isEncryptionKeyDefined = false;
-                            }
-                        })
-                    )
-                )
+                })
             ).toPromise()
             .then( data => LogUtil.info(this, ' War alles gut!'))
             .catch( data => LogUtil.info(this, JSON.stringify(data)) );

@@ -11,7 +11,6 @@ import { ActivateComponent } from './components/logincomponent/activate.componen
 import { ProfileComponent } from './components/profile/profile.component';
 import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
 import { HistoryEntryComponent } from './components/histcomponent/history-entry.component';
-import { EncryptionComponent } from './components/profile/encryption.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { DataProtectionComponent } from './components/dataprotection/dataprotection.component';
 import { ContactComponent } from './components/contact/contact.component';
@@ -27,7 +26,6 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/:email', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'encrypt', component: EncryptionComponent },
   { path: 'bm-register', component: RegisterComponent},
   { path: 'bm-activate/:username/email/:email', component: ActivateComponent},
   { path: 'kontakt', component: ActivateComponent},

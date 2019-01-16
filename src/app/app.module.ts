@@ -20,7 +20,6 @@ import { RotationEntryService } from './services/rotation-entry.service';
 import { RotationEntryRestApiService } from './rest/orders-api.service';
 import { TagsComponent } from './components/tags';
 import { ProfileComponent } from './components/profile/profile.component';
-import { EncryptionComponent } from './components/profile/encryption.component';
 import { FirstAddEncryptionComponent } from './components/profile/first-add-encryption.component';
 import { SetEncryptionKeyComponent } from './components/profile/set-encryption-key.component';
 import { EncryptApiSerice } from './rest/encrypt-api.service';
@@ -61,7 +60,6 @@ export function initApplication(appService: ApplicationService) {
   declarations: [
     AppComponent,
     ProfileComponent,
-    EncryptionComponent,
     FirstAddEncryptionComponent,
     SetEncryptionKeyComponent,
     WelcomeComponent,
