@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 import { LogUtil } from '../../utils/log-util';
-import { LoginService } from '../../rest/login-api.service';
+import { LoginV2Service } from '../../rest/login-api-v2.service';
 import { ApplicationService } from '../../application/application.service';
 
 
@@ -15,12 +15,13 @@ export class ActivateComponent{
     public username: string;
     public email: string;
     public activationCode: string;
+    public showErrorAlert = false;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private loginService: LoginService,
-        private appService: ApplicationService){
+        private loginService: LoginV2Service,
+        private appService: ApplicationService) {
 
         LogUtil.debug(this, 'Init ActivateComponent');
         this.username = route.snapshot.paramMap.get('username');
@@ -41,7 +42,8 @@ export class ActivateComponent{
             },
             error => {
                 // TODO
-                LogUtil.error(this, 'ups: ' + error);
+                LogUtil.error(this, 'ups: ' + JSON.stringify(error));
+                this.showErrorAlert = true;
             }
         );
     }
@@ -52,10 +54,10 @@ export class ActivateComponent{
         this.loginService.resendActivationEmail(baseUrl, this.username, this.email)
         .subscribe(
             data => {
-
+                LogUtil.info(this, 'resend was successful');
             },
             error => {
-                LogUtil.error(this, 'ups: ' + error);
+                LogUtil.error(this, 'ups: ' + JSON.stringify(error));
             }
         );
     }

@@ -8,6 +8,7 @@ import { LogedInMessage } from '../../messages/logedin-message';
 import { User } from '../../models/user';
 import { AuthenticationFacade } from '../../utils/authentication-facade';
 import { ApplicationService } from '../../application/application.service';
+import { LoginV2Service } from '../../rest/login-api-v2.service';
 
 @Component({
     selector: 'app-login',
@@ -19,7 +20,6 @@ export class LoginComponent {
 
     public password: string;
 
-
     private authenticationLocalStorage: AuthenticationFacade;
 
 
@@ -27,6 +27,7 @@ export class LoginComponent {
         private router: Router,
         private route: ActivatedRoute,
         private loginService: LoginService,
+        private loginV2Service: LoginV2Service,
         private messageService: MessagingService,
         private appService: ApplicationService) {
 
@@ -44,7 +45,7 @@ export class LoginComponent {
 
         const baseUrl = this.appService.getBaseUrl();
 
-        this.loginService.login(baseUrl, this.identifier, this.password).subscribe( data => {
+        this.loginV2Service.login(baseUrl, this.identifier, this.password).subscribe( data => {
             const user: User = new User();
             LogUtil.info(this, JSON.stringify(data));
             user.name = data.username;

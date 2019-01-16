@@ -44,6 +44,7 @@ import { ContactApiService } from './rest/contact-api.service';
 import { ContactService } from './services/contact-service';
 import { StandingOrderListComponent } from './components/standingorderlistcomponent/standingorder-list.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoginV2Service } from './rest/login-api-v2.service';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -93,6 +94,7 @@ export function initApplication(appService: ApplicationService) {
     MessagingService,
     EntryAPIService,
     LoginService,
+    LoginV2Service,
     RotationEntryService,
     RotationEntryRestApiService,
     EncryptApiSerice,

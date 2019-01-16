@@ -15,18 +15,33 @@
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
             <div class="col-sm-8">
-                <input [(ngModel)]="password" name="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <input [(ngModel)]="password" name="password" type="password" class="form-control" id="inputPassword"
+                    placeholder="Password">
             </div>
         </div>
         <div class="form-group row">
             <div class="offset-sm-2 col-sm-8">
-                <input [(ngModel)]="passwordrepeat" name="passwordrepeat" type="password" class="form-control" id="inputPasswordRepeat" placeholder="Password wiederholen">
+                <input [(ngModel)]="passwordrepeat" name="passwordrepeat" type="password" class="form-control" id="inputPasswordRepeat"
+                    placeholder="Password wiederholen">
             </div>
         </div>
         <div class="form-group row">
             <div class="offset-sm-2 col-sm-8">
                 <button type="submit" class="btn btn-primary">Registrieren</button>
             </div>
+            <div class="offset-sm-2 col-sm-8 mt-2">
+                <div *ngIf="showPasswordIsIncorrectMessage" class="alert alert-danger" role="alert">
+                    Password stimmte mit der Wiederholung nicht überein.
+                </div>
+                <div *ngIf="showCommonAlert" class="alert alert-danger" role="alert">
+                    Es ist ein Fehler aufgetreten
+                </div>
+                <div *ngIf="showEmailConflictAlert" class="alert alert-danger" role="alert">
+                    Diese Email wurde bereits verwendet
+                </div>
+            </div>
         </div>
+
+
     </form>
 </div>

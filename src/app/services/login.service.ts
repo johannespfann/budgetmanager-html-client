@@ -1,15 +1,22 @@
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
+import { LoginV2Service } from '../rest/login-api-v2.service';
+import { ApplicationService } from '../application/application.service';
+import { Injectable } from '@angular/core';
 
 export class LoginService {
 
-    constructor() {
+    private baseURL: string;
 
+    constructor(
+        private appService: ApplicationService,
+        private loginService: LoginV2Service) {
+        this.baseURL = appService.getBaseUrl();
     }
 
     // TODO
-    public registerUser(aBaseUrl: string, aUser: User, aPassword: String): Observable<any> {
-        return null;
+    public registerUser(string, aUser: User, aPassword: String): Observable<any> {
+        return this.loginService.registerUser(this.baseURL, aUser, aPassword);
     }
     // TODO
     public activateUser(aBaseUrl: string, aName: String, aCode: String): Observable<any> {

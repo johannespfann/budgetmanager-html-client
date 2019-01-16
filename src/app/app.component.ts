@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessagingService } from './messages/message.service';
 import { Subscription } from 'rxjs';
@@ -6,55 +6,49 @@ import { LogedInMessage } from './messages/logedin-message';
 import { LogUtil } from './utils/log-util';
 import { User } from './models/user';
 import { ApplicationService } from './application/application.service';
-import { LoginService } from './rest/login-api.service';
-
-import { EncryptionReadyMessage } from './messages/encryption-ready-message';
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
-import { environment } from '../environments/environment';
+import { LoginV2Service } from './rest/login-api-v2.service';
 
 @Component({
   selector: 'app-budgetmanager',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnDestroy, AfterViewInit {
+
+
 
   @ViewChild(NavigationComponent)
   public navigationComponent: NavigationComponent;
 
   private loginSubscription: Subscription;
-
-  private encryptionReadySubscription: Subscription;
-
   public isLogedIn = false;
-  public encryptKeyIsValid = false;
+
 
   private user: User;
 
   constructor(
-    private router: Router,
-    private loginServcie: LoginService,
-    private messageService: MessagingService,
-    private applicationService: ApplicationService) {
+      private router: Router,
+      private loginServcie: LoginV2Service,
+      private messageService: MessagingService,
+      private applicationService: ApplicationService) {
 
     LogUtil.debug(this, 'Start Application');
     this.loginSubscription = this.registerLogedInMessage();
-    this.encryptionReadySubscription = this.registerEncryptionReadyMessage();
 
-    if (!applicationService.isLoggedIn()) {
+  }
+
+  public ngAfterViewInit(): void {
+    if (!this.applicationService.isLoggedIn()) {
       LogUtil.info(this, 'User is not loggedIn');
       this.router.navigate(['/welcome']);
       return;
     }
 
-    this.user = applicationService.getCurrentUser();
+    this.user = this.applicationService.getCurrentUser();
     this.isLogedIn = true;
 
-    if (!applicationService.isEncryptionKeyReadyToUse()) {
-      LogUtil.info(this, 'key was nerver set! Navigate to profile ');
-      this.router.navigate(['/encrypt']);
-      return;
-    }
+    LogUtil.info(this, ' before shows');
 
     this.showLoginAccount();
     this.showNavigation();
@@ -84,12 +78,10 @@ export class AppComponent implements OnDestroy {
   }
 
   private showNavigation(): any {
-    this.encryptKeyIsValid = true;
     this.navigationComponent.showMenue();
   }
 
   private hideNavigation(): void {
-    this.encryptKeyIsValid = false;
     this.navigationComponent.hideMenue();
   }
 
@@ -108,27 +100,15 @@ export class AppComponent implements OnDestroy {
       .of(LogedInMessage)
       .subscribe((message: LogedInMessage) => {
         this.user = message.getUser();
+        LogUtil.info(this, 'User is logedIn: ' + JSON.stringify(this.user));
         this.applicationService.setCurrentUser(this.user);
-        if (!this.applicationService.isEncryptionKeyReadyToUse()) {
-          this.showLoginAccount();
-          this.router.navigate(['/encrypt']);
-        }
-      });
-  }
-
-  private registerEncryptionReadyMessage(): Subscription {
-    return this.messageService
-      .of(EncryptionReadyMessage)
-      .subscribe(data => {
-        this.showLoginAccount();
-        this.showNavigation();
         this.router.navigate(['/welcome']);
+        this.showLoginAccount();
       });
   }
 
   public ngOnDestroy(): void {
     this.loginSubscription.unsubscribe();
-    this.encryptionReadySubscription.unsubscribe();
   }
 
 }

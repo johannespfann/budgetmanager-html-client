@@ -61,7 +61,7 @@ export class EntryInfoComponent {
             amountValue = MathUtil.convertToPositiv(this.amount);
         }
         const entryInfo = new EntryInfo();
-        entryInfo.currency = "EUR";
+        entryInfo.currency = 'EUR';
         entryInfo.amount = amountValue;
         entryInfo.memo = this.memo;
         entryInfo.tags = this.tags;
