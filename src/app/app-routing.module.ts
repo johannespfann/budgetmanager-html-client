@@ -14,6 +14,7 @@ import { HistoryEntryComponent } from './components/histcomponent/history-entry.
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { DataProtectionComponent } from './components/dataprotection/dataprotection.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { AccountHelpComponent } from './components/account/account-help.component';
 // standingorder
 
 
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
   { path: 'impressum', component: ImpressumComponent},
   { path: 'dataprotection', component: DataProtectionComponent},
   { path: 'contact', component: ContactComponent},
+  { path: 'noaccount', component: AccountHelpComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

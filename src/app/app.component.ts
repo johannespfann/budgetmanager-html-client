@@ -109,11 +109,24 @@ export class AppComponent implements OnDestroy, AfterViewInit {
         this.router.navigate(['/welcome']);
 
         this.accountService.getAccounts()
-        .subscribe( data => { console.log(JSON.stringify(data)); });
+        .subscribe(
+          data => {
+            if (data.length === 0) {
+              LogUtil.info(this, 'Number of accounts was 0');
+              this.router.navigate(['/noaccount']);
+            }
+            if (data.length > 0) {
+              LogUtil.info(this, 'Number of accounts was not 0');
+            }
+          },
+          error => { console.log(JSON.stringify(error)); }
+          );
 
         this.showLoginAccount();
       });
   }
+
+
 
   public ngOnDestroy(): void {
     this.loginSubscription.unsubscribe();

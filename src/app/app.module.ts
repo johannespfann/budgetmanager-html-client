@@ -46,6 +46,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoginV2Service } from './rest/login-api-v2.service';
 import { AccountApiService } from './rest/account-api.service';
 import { AccountService } from './services/account-service';
+import { AccountHelpComponent } from './components/account/account-help.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -85,7 +86,8 @@ export function initApplication(appService: ApplicationService) {
     ContactComponent,
     FooterComponent,
     StandingOrderListComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AccountHelpComponent
   ],
   providers: [
     UserApiService,
