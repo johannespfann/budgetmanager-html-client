@@ -8,6 +8,7 @@ import { User } from './models/user';
 import { ApplicationService } from './application/application.service';
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
 import { LoginV2Service } from './rest/login-api-v2.service';
+import { AccountService } from './services/account-service';
 
 @Component({
   selector: 'app-budgetmanager',
@@ -31,7 +32,8 @@ export class AppComponent implements OnDestroy, AfterViewInit {
       private router: Router,
       private loginServcie: LoginV2Service,
       private messageService: MessagingService,
-      private applicationService: ApplicationService) {
+      private applicationService: ApplicationService,
+      private accountService: AccountService) {
 
     LogUtil.debug(this, 'Start Application');
     this.loginSubscription = this.registerLogedInMessage();
@@ -102,7 +104,13 @@ export class AppComponent implements OnDestroy, AfterViewInit {
         this.user = message.getUser();
         LogUtil.info(this, 'User is logedIn: ' + JSON.stringify(this.user));
         this.applicationService.setCurrentUser(this.user);
+
+        // TODO
         this.router.navigate(['/welcome']);
+
+        this.accountService.getAccounts()
+        .subscribe( data => { console.log(JSON.stringify(data)); });
+
         this.showLoginAccount();
       });
   }

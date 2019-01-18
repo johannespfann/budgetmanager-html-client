@@ -44,6 +44,8 @@ import { ContactService } from './services/contact-service';
 import { StandingOrderListComponent } from './components/standingorderlistcomponent/standingorder-list.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoginV2Service } from './rest/login-api-v2.service';
+import { AccountApiService } from './rest/account-api.service';
+import { AccountService } from './services/account-service';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -101,7 +103,9 @@ export function initApplication(appService: ApplicationService) {
     TagStatisticService,
     TagStatisticRestApiService,
     ContactService,
-    ContactApiService
+    ContactApiService,
+    AccountApiService,
+    AccountService
   ],
   bootstrap: [AppComponent]
 })
