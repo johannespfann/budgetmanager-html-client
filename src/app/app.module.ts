@@ -50,6 +50,7 @@ import { AccountHelpComponent } from './components/account/account-help.componen
 import { AccountComponent } from './components/account/account.component';
 import { AddAccountComponent } from './components/account/add-account.component';
 import { AccountItemComponent } from './components/account/account-item.component';
+import { ListAccountComponent } from './components/account/list-account.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -93,7 +94,8 @@ export function initApplication(appService: ApplicationService) {
     AccountHelpComponent,
     AccountComponent,
     AddAccountComponent,
-    AccountItemComponent
+    AccountItemComponent,
+    ListAccountComponent
   ],
   providers: [
     UserApiService,

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessagingService } from './messages/message.service';
 import { Subscription } from 'rxjs';
@@ -17,14 +17,11 @@ import { AccountService } from './services/account-service';
 })
 export class AppComponent implements OnDestroy, AfterViewInit {
 
-
-
   @ViewChild(NavigationComponent)
   public navigationComponent: NavigationComponent;
 
   private loginSubscription: Subscription;
   public isLogedIn = false;
-
 
   private user: User;
 
@@ -37,7 +34,6 @@ export class AppComponent implements OnDestroy, AfterViewInit {
 
     LogUtil.debug(this, 'Start Application');
     this.loginSubscription = this.registerLogedInMessage();
-
   }
 
   public ngAfterViewInit(): void {
@@ -79,7 +75,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     this.isLogedIn = false;
   }
 
-  private showNavigation(): any {
+  private showNavigation(): void {
     this.navigationComponent.showMenue();
   }
 

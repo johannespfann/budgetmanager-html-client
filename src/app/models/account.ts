@@ -7,11 +7,9 @@ export class Account {
 
     public name: string;
 
-    public is_encrypted: boolean;
+    public activated: boolean;
 
-    public is_activated: boolean;
-
-    public encryption_text: string;
+    public encryptionText: string;
 
     public owner: string;
 

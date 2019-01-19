@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { AccountApiService } from '../rest/account-api.service';
 import { ApplicationService } from '../application/application.service';
 import { LogUtil } from '../utils/log-util';
+import { Account } from '../models/account';
 
 
 @Injectable()
@@ -16,6 +17,11 @@ export class AccountService {
     public getAccounts(): Observable<Array<Account>> {
         LogUtil.info(this, 'getAccounts ->');
         return this.accountApiService.getAccounts(this.appService.getCurrentUser());
+    }
+
+    public addAccount(aAccount: Account): Observable<any> {
+        LogUtil.info(this, 'addAccounts ->');
+        return this.accountApiService.addAccount(this.appService.getCurrentUser(), aAccount);
     }
 
 }

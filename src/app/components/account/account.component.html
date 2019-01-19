@@ -1,10 +1,30 @@
+
+
+<div class="jumbotron" style="overflow: hidden" *ngIf="showAddNewAccount">
+    <h1 class="mb-5">Konten neu anlegen</h1>
+        <app-add-account  
+            (addNewAccountPressed)="onAddNewAccountPressed($event)"
+            (cancelPressed)="onCancelPressed($event)">
+        </app-add-account>
+</div>
+
+
+
 <div class="jumbotron" style="overflow: hidden">
 
     <h1 class="mb-5">Konten</h1>
 
+
+    <app-list-accounts>
+        
+    </app-list-accounts>
+
+
+
+    <div>
+        <button  (click)="pressButtonAddNewAccount()" class="btn btn-outline-primary float-right" [disabled]="showAddNewAccount">Neues Konto anlegen</button>
+      </div>
     
-    
-
-
-
 </div>
+
+
