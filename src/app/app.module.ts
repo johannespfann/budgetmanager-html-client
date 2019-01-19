@@ -47,6 +47,9 @@ import { LoginV2Service } from './rest/login-api-v2.service';
 import { AccountApiService } from './rest/account-api.service';
 import { AccountService } from './services/account-service';
 import { AccountHelpComponent } from './components/account/account-help.component';
+import { AccountComponent } from './components/account/account.component';
+import { AddAccountComponent } from './components/account/add-account.component';
+import { AccountItemComponent } from './components/account/account-item.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -87,7 +90,10 @@ export function initApplication(appService: ApplicationService) {
     FooterComponent,
     StandingOrderListComponent,
     PageNotFoundComponent,
-    AccountHelpComponent
+    AccountHelpComponent,
+    AccountComponent,
+    AddAccountComponent,
+    AccountItemComponent
   ],
   providers: [
     UserApiService,

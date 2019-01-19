@@ -39,7 +39,12 @@
         <i class="fa fa-key" aria-hidden="true"></i> Verschlüsselung</a>
     </li>
 
-    <li *ngIf="menueIsVisible" class="navlink-bm">
+    <li class="navlink-bm">
+      <a routerLink="/accounts" (click)="closeSidebar()">
+        <i class="fa fa-credit-card" aria-hidden="true"></i> Konten</a>
+    </li>
+
+    <li  class="navlink-bm">
       <a routerLink="/profile" (click)="closeSidebar()">
         <i class="fa fa-user" aria-hidden="true"></i> Profil</a>
     </li>

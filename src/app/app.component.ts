@@ -104,29 +104,27 @@ export class AppComponent implements OnDestroy, AfterViewInit {
         this.user = message.getUser();
         LogUtil.info(this, 'User is logedIn: ' + JSON.stringify(this.user));
         this.applicationService.setCurrentUser(this.user);
-
-        // TODO
-        this.router.navigate(['/welcome']);
-
-        this.accountService.getAccounts()
-        .subscribe(
-          data => {
-            if (data.length === 0) {
-              LogUtil.info(this, 'Number of accounts was 0');
-              this.router.navigate(['/noaccount']);
-            }
-            if (data.length > 0) {
-              LogUtil.info(this, 'Number of accounts was not 0');
-            }
-          },
-          error => { console.log(JSON.stringify(error)); }
-          );
-
         this.showLoginAccount();
+        this.callGetAccount();
       });
   }
 
-
+  public callGetAccount(): void {
+    this.accountService.getAccounts()
+    .subscribe(
+      data => {
+        if (data.length === 0) {
+          LogUtil.info(this, 'Number of accounts was 0');
+          this.router.navigate(['/noaccount']);
+        }
+        if (data.length > 0) {
+          LogUtil.info(this, 'Number of accounts was not 0');
+          this.router.navigate(['/welcome']);
+        }
+      },
+      error => { console.log(JSON.stringify(error)); }
+      );
+  }
 
   public ngOnDestroy(): void {
     this.loginSubscription.unsubscribe();
