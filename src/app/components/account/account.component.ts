@@ -40,6 +40,7 @@ export class AccountComponent {
         aAccount.activated = true;
         aAccount.hash = HashUtil.getUniqueHash().toString();
 
+        LogUtil.info(this, 'Add new Account :' + JSON.stringify(aAccount));
         this.accountService.addAccount(aAccount).subscribe(
             data => {
                 this.cleanView();
@@ -59,6 +60,13 @@ export class AccountComponent {
         LogUtil.info(this, 'onCancelPressed');
     }
 
+    public onEncryptionPressed(aAccount: Account): void {
+
+    }
+
+    public onDeletedPressed(aAccount: Account): void {
+
+    }
 
     public pressButtonAddNewAccount(): void {
         this.showAddNewAccount = true;

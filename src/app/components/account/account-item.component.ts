@@ -2,9 +2,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
 
 @Component({
-    selector: 'app-account-help',
-    templateUrl: './account-help.component.html',
-    styleUrls: ['./account-help.component.css']
+    selector: 'app-account-item',
+    templateUrl: './account-item.component.html',
+    styleUrls: ['./account-item.component.css']
 })
 export class AccountItemComponent {
 
@@ -13,8 +13,10 @@ export class AccountItemComponent {
     public account: Account;
 
     @Output()
-    public updatedPressed = new EventEmitter<Account>();
+    public setEcryptionPressed = new EventEmitter<Account>();
 
+    @Output()
+    public deletePressed = new EventEmitter<Account>();
 
     public owner: string;
 
@@ -24,19 +26,18 @@ export class AccountItemComponent {
 
     public key: string;
 
-
     constructor() {
         LogUtil.info(this, 'init account-item-component');
     }
 
-
-    public encryptPressed(): void {
-        LogUtil.info(this, 'pressed encrypt');
+    public encrypt(): void {
+        LogUtil.info(this, 'pressed encrypt for account :' + this.account.name);
+        this.setEcryptionPressed.emit(this.account);
     }
 
-
-
-
-
+    public delete(): void {
+        LogUtil.info(this, 'pressed deleted for account :' + this.account.name);
+        this.deletePressed.emit(this.account);
+    }
 
 }

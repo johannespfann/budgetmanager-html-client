@@ -39,7 +39,7 @@ export class AddAccountComponent {
     public pressButtonAddNewAccount(): void {
         const account = new Account();
 
-        account.name = name;
+        account.name = this.name;
         account.encryptionText = this.encryption_text;
 
         if (!this.isNameValid(this.name)) {
