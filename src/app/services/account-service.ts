@@ -9,6 +9,7 @@ import { Account } from '../models/account';
 @Injectable()
 export class AccountService {
 
+
     constructor(private accountApiService: AccountApiService,
         private appService: ApplicationService) {
             LogUtil.debug(this, 'init accountservice');
@@ -22,6 +23,11 @@ export class AccountService {
     public addAccount(aAccount: Account): Observable<any> {
         LogUtil.info(this, 'addAccounts ->');
         return this.accountApiService.addAccount(this.appService.getCurrentUser(), aAccount);
+    }
+
+    public deleteAccount(aAccount: Account): Observable<any> {
+        LogUtil.info(this, 'Delete Account' + JSON.stringify(aAccount));
+        return this.accountApiService.deleteAccount(this.appService.getCurrentUser(), aAccount);
     }
 
 }

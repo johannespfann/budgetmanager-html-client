@@ -26,7 +26,7 @@ export class AccountComponent {
                  this.accounts = loadedAccounds;
                 },
             error => {
-                LogUtil.info(this, 'Error while loading Accounts' + JSON.stringify(error))
+                LogUtil.info(this, 'Error while loading Accounts' + JSON.stringify(error));
                 }
             );
     }
@@ -65,7 +65,15 @@ export class AccountComponent {
     }
 
     public onDeletedPressed(aAccount: Account): void {
-
+        this.accountService.deleteAccount(aAccount).subscribe(
+            data => {
+                LogUtil.info(this, 'Deleted Account: ' + aAccount);
+                this.updateAccounts();
+            },
+            error => {
+                LogUtil.error(this, 'Failed to delete Account: ' + aAccount);
+            }
+        );
     }
 
     public pressButtonAddNewAccount(): void {

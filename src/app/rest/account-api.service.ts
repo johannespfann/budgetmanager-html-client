@@ -10,6 +10,7 @@ import { Account } from '../models/account';
 @Injectable()
 export class AccountApiService {
 
+
     constructor(
         private http: HttpClient,
         private appService: ApplicationService) {
@@ -30,6 +31,13 @@ export class AccountApiService {
 
         LogUtil.info(this, 'HTTP_POST: Add new Account: ' + JSON.stringify(aAccount));
         return this.http.post<any>(baseUrl + 'account/owner/' + aUser.name + '/add', aAccount, { headers : headers});
+    }
+
+    public deleteAccount(aUser: User, aAccount: Account): Observable<any> {
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
+        const baseUrl = this.appService.getBaseUrl();
+        return this.http.delete(baseUrl + 'account/owner/' + aUser.name + '/delete/' + aAccount.hash, { headers : headers});
     }
 
 }
