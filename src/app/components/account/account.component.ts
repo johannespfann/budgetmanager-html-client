@@ -8,6 +8,8 @@ import { HashUtil } from '../../utils/hash-util';
 import { AccountItem } from '../../models/account-item';
 import { AccountItemProducer } from './account-item-producer';
 import { AccountStorageFacade } from '../../utils/account-storage-facade';
+import { MessagingService } from '../../messages/message.service';
+import { NoMoreAccountsAlertMessage } from '../../messages/no-more-accounts-alert-message';
 
 @Component({
     selector: 'app-account',
@@ -22,6 +24,7 @@ export class AccountComponent implements OnInit {
     public accountItems: AccountItem[];
 
     constructor(
+        private messageService: MessagingService,
         private applicationService: ApplicationService,
         private accountService: AccountService) {
         LogUtil.info(this, 'init account-component');
@@ -35,8 +38,12 @@ export class AccountComponent implements OnInit {
     private updateAccounts() {
         this.accountService.getAccounts().subscribe(
             (accounts: Account[]) => {
-                this.accounts = accounts;
 
+                if (accounts.length === 0) {
+                    this.messageService.publish(new NoMoreAccountsAlertMessage() );
+                }
+
+                this.accounts = accounts;
                 const localAccountStorage = new AccountStorageFacade(this.applicationService.getCurrentUser());
                 const savedAccountItems = localAccountStorage.getAllAccountItems();
 

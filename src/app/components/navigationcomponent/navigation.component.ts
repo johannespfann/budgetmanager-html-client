@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
+import { MessagingService } from '../../messages/message.service';
+import { NoMoreAccountsAlertMessage } from '../../messages/no-more-accounts-alert-message';
 
 @Component({
     selector: 'app-navigation',
@@ -12,11 +14,19 @@ export class NavigationComponent {
     public userIsLogedIn: boolean;
     public userHasValidKeys: boolean;
 
-    constructor() {
+    constructor(
+        private messagingService: MessagingService) {
         LogUtil.debug(this, 'init navigation-component');
         this.navBarIsOpen = false;
         this.userIsLogedIn = false;
         this.userHasValidKeys = false;
+
+        messagingService.of(NoMoreAccountsAlertMessage).subscribe(
+            data => {
+                this.userHasValidKeys = false;
+            }
+        )
+
     }
 
     public setUserIsLogedIn(): void {
