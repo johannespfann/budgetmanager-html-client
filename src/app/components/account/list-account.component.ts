@@ -1,6 +1,7 @@
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
+import { AccountItem } from '../../models/account-item';
 
 @Component({
     selector: 'app-list-accounts',
@@ -10,27 +11,27 @@ import { LogUtil } from '../../utils/log-util';
 export class ListAccountComponent {
 
 
+
     @Input()
-    public accounts: Account[];
+    public accounts: AccountItem[];
 
     @Output()
-    public deletePressed = new EventEmitter<Account>();
+    public deletePressed = new EventEmitter<AccountItem>();
 
     @Output()
-    public setDecryptionPressed = new EventEmitter<Account>();
+    public setDecryptionPressed = new EventEmitter<AccountItem>();
 
     constructor() {
         LogUtil.info(this, 'init list account component');
     }
 
-
-    public onDeletedPressed(aAccount: Account): void {
+    public onDeletedPressed(aAccount: AccountItem): void {
         LogUtil.info(this, 'onDeletedPressed from list-component');
         this.deletePressed.emit(aAccount);
     }
 
-    public onEncryptionPressed(aAccount: Account): void {
-        LogUtil.info(this, 'onEncryptionPressed from list-component');
+    public onEncryptionPressed(aAccount: AccountItem): void {
+        LogUtil.info(this, 'onEncryptionPressed from list-component -> ' + JSON.stringify(aAccount));
         this.setDecryptionPressed.emit(aAccount);
     }
 

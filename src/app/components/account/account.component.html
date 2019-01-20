@@ -6,15 +6,12 @@
     </app-add-account>
 </div>
 
-
-
 <div class="jumbotron" style="overflow: hidden">
-
     <h1 class="mb-5">Konten</h1>
 
     <app-list-accounts 
-        [accounts]="accounts" 
-        (setEcryptionPressed)="onEncryptionPressed($event)" 
+        [accounts]="accountItems" 
+        (setDecryptionPressed)="onEncryptionPressed($event)" 
         (deletePressed)="onDeletedPressed($event)">
     </app-list-accounts>
 

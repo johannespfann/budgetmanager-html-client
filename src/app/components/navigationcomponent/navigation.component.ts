@@ -9,23 +9,38 @@ import { LogUtil } from '../../utils/log-util';
 export class NavigationComponent {
 
     public navBarIsOpen: boolean;
-    public menueIsVisible: boolean;
+    public userIsLogedIn: boolean;
+    public userHasValidKeys: boolean;
 
     constructor() {
         LogUtil.debug(this, 'init navigation-component');
         this.navBarIsOpen = false;
-        this.menueIsVisible = false;
+        this.userIsLogedIn = false;
+        this.userHasValidKeys = false;
     }
 
-    public showMenue(): void {
-        this.menueIsVisible = true;
+    public setUserIsLogedIn(): void {
+        this.userIsLogedIn = true;
     }
 
-    public hideMenue(): void {
-        this.menueIsVisible = false;
+    public setUserHashValidKeys(): void {
+        this.userHasValidKeys = true;
+    }
+
+    public userIsLogedOut(): void {
+        this.userIsLogedIn = false;
+    }
+
+    public userHasNoValidKeys(): void {
+        this.userHasValidKeys = false;
     }
 
     public openSidebar(): void {
+
+        LogUtil.debug(this, 'Inside Navigation');
+        LogUtil.debug(this, '- logedIn : ' + this.userIsLogedIn);
+        LogUtil.debug(this, '- validKey: ' + this.userHasValidKeys);
+
         LogUtil.info(this, 'open navbar');
         this.navBarIsOpen = true;
     }

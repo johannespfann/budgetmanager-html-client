@@ -1,50 +1,73 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
 import { AccountService } from '../../services/account-service';
 import { ApplicationService } from '../../application/application.service';
 import { User } from '../../models/user';
 import { Account } from '../../models/account';
 import { HashUtil } from '../../utils/hash-util';
+import { AccountItem } from '../../models/account-item';
+import { AccountItemProducer } from './account-item-producer';
+import { AccountStorageFacade } from '../../utils/account-storage-facade';
 
 @Component({
     selector: 'app-account',
     templateUrl: './account.component.html',
     styleUrls: ['./account.component.css']
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit {
 
-    public showAddNewAccount = true;
+
+    public showAddNewAccount: boolean;
     public accounts: Account[];
+    public accountItems: AccountItem[];
 
     constructor(
         private applicationService: ApplicationService,
         private accountService: AccountService) {
         LogUtil.info(this, 'init account-component');
+        this.showAddNewAccount = false;
+    }
 
-        accountService.getAccounts().subscribe(
-            (loadedAccounds: Account[]) => {
-                 this.accounts = loadedAccounds;
-                },
+    public ngOnInit(): void {
+        this.updateAccounts();
+    }
+
+    private updateAccounts() {
+        this.accountService.getAccounts().subscribe(
+            (accounts: Account[]) => {
+                this.accounts = accounts;
+
+                const localAccountStorage = new AccountStorageFacade(this.applicationService.getCurrentUser());
+                const savedAccountItems = localAccountStorage.getAllAccountItems();
+
+                const accountItemProducer = new AccountItemProducer(accounts, savedAccountItems);
+                const newAccountItmes = accountItemProducer.produceAccountItmes();
+                this.accountItems = newAccountItmes;
+                localAccountStorage.saveAllAccountItems(newAccountItmes);
+            },
             error => {
-                LogUtil.info(this, 'Error while loading Accounts' + JSON.stringify(error));
-                }
-            );
+                LogUtil.error(this, 'Failed to load accounts ' + JSON.stringify(error));
+            }
+        );
     }
 
 
     public onAddNewAccountPressed(aAccount: Account) {
         LogUtil.info(this, 'Account: ' + JSON.stringify(aAccount));
 
+        const newAccount = new Account();
         const user: User = this.applicationService.getCurrentUser();
-        aAccount.owner = user.name;
-        aAccount.activated = true;
-        aAccount.hash = HashUtil.getUniqueHash().toString();
+        newAccount.owner = user.name;
+        newAccount.name = aAccount.name;
+        newAccount.activated = true;
+        newAccount.encryptionText = aAccount.encryptionText;
+        newAccount.hash = HashUtil.getUniqueHash().toString();
 
-        LogUtil.info(this, 'Add new Account :' + JSON.stringify(aAccount));
-        this.accountService.addAccount(aAccount).subscribe(
+        LogUtil.info(this, 'Add new Account :' + JSON.stringify(newAccount));
+        this.accountService.addAccount(newAccount).subscribe(
             data => {
                 this.cleanView();
-                this.closeView();
+                this.closeAddAccountView();
                 this.updateAccounts();
             },
             error => {
@@ -60,18 +83,30 @@ export class AccountComponent {
         LogUtil.info(this, 'onCancelPressed');
     }
 
-    public onEncryptionPressed(aAccount: Account): void {
+    public onEncryptionPressed(aAccount: AccountItem): void {
+        LogUtil.debug(this, 'onEncryptionPressed in AccountComponent: ' + JSON.stringify(aAccount));
+        const localAccountStorage = new AccountStorageFacade(this.applicationService.getCurrentUser());
+        const savedAccountItems: AccountItem[] = localAccountStorage.getAllAccountItems();
 
+        savedAccountItems.map( (x: AccountItem) => {
+            if (x.account.hash === aAccount.account.hash) {
+                x.key = aAccount.key;
+            }
+        });
+
+        LogUtil.debug(this, 'Save new accountItems : ' + JSON.stringify(savedAccountItems));
+        localAccountStorage.saveAllAccountItems(savedAccountItems);
+        this.updateAccounts();
     }
 
-    public onDeletedPressed(aAccount: Account): void {
-        this.accountService.deleteAccount(aAccount).subscribe(
+    public onDeletedPressed(aAccountItem: AccountItem): void {
+        this.accountService.deleteAccount(aAccountItem.account).subscribe(
             data => {
-                LogUtil.info(this, 'Deleted Account: ' + aAccount);
+                LogUtil.info(this, 'Deleted Account: ' + aAccountItem.account);
                 this.updateAccounts();
             },
             error => {
-                LogUtil.error(this, 'Failed to delete Account: ' + aAccount);
+                LogUtil.error(this, 'Failed to delete Account: ' + aAccountItem.account);
             }
         );
     }
@@ -80,24 +115,15 @@ export class AccountComponent {
         this.showAddNewAccount = true;
     }
 
-    private updateAccounts() {
-        this.accountService.getAccounts().subscribe(
-            (accounts: Account[]) => {
-                this.accounts = accounts;
-            },
-            error => {
-                LogUtil.error(this, 'Failed to load accounts ' + JSON.stringify(error));
-            }
-        )
-    }
 
-    private closeView(): void {
+
+    private closeAddAccountView(): void {
         this.showAddNewAccount = false;
     }
+
     private cleanView(): void {
         LogUtil.info(this, 'try to clean view ... TODO');
     }
-
 
 
 }

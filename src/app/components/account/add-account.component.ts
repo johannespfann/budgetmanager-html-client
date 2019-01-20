@@ -2,6 +2,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
 import { Account } from '../../models/account';
+import { CryptUtil } from '../../utils/crypt-util';
 
 @Component({
     selector: 'app-add-account',
@@ -39,9 +40,6 @@ export class AddAccountComponent {
     public pressButtonAddNewAccount(): void {
         const account = new Account();
 
-        account.name = this.name;
-        account.encryptionText = this.encryption_text;
-
         if (!this.isNameValid(this.name)) {
             return;
         }
@@ -53,6 +51,9 @@ export class AddAccountComponent {
         if (!this.isKeysValid(this.encryption_key, this.encryption_key_repeat)) {
             return;
         }
+
+        account.name = this.name;
+        account.encryptionText = CryptUtil.encryptString(this.encryption_key, this.encryption_text);
 
         this.addNewAccountPressed.emit(account);
 

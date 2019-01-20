@@ -57,6 +57,7 @@ export class LoginComponent {
             LogUtil.info(this, 'Username   : ' + user.name);
             LogUtil.info(this, 'Email      : ' + user.email);
             LogUtil.info(this, 'accesstoken: ' + user.accesstoken);
+            LogUtil.info(this, 'accesstoken: ' + user.password);
 
             this.authenticationLocalStorage.saveUser(user);
             this.messageService.publish(new LogedInMessage(user));

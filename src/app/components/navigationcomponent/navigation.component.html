@@ -14,37 +14,32 @@
         <i class="fa fa-home" aria-hidden="true"></i> Startseite</a>
     </li>
 
-    <li *ngIf="menueIsVisible" class="navlink-bm">
+    <li *ngIf="userIsLogedIn && userHasValidKeys" class="navlink-bm">
       <a routerLink="/newentry" (click)="closeSidebar()">
         <i class="fa fa-plus" aria-hidden="true"></i> Neuer Eintrag</a>
     </li>
 
-    <li *ngIf="menueIsVisible" class="navlink-bm">
+    <li *ngIf="userIsLogedIn && userHasValidKeys" class="navlink-bm">
       <a routerLink="/standingorder" (click)="closeSidebar()">
         <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Daueraufträge</a>
     </li>
 
-    <li *ngIf="menueIsVisible" class="navlink-bm">
+    <li *ngIf="userIsLogedIn && userHasValidKeys" class="navlink-bm">
       <a routerLink="/balance" (click)="closeSidebar()">
         <i class="fa fa-balance-scale" aria-hidden="true"></i> Bilanz</a>
     </li>
 
-    <li *ngIf="menueIsVisible" class="navlink-bm">
+    <li *ngIf="userIsLogedIn && userHasValidKeys" class="navlink-bm">
       <a routerLink="/history" (click)="closeSidebar()">
         <i class="fa fa-history" aria-hidden="true"></i> Verlauf</a>
     </li>
 
-    <li *ngIf="menueIsVisible" class="navlink-bm">
-      <a routerLink="/encrypt" (click)="closeSidebar()">
-        <i class="fa fa-key" aria-hidden="true"></i> Verschlüsselung</a>
-    </li>
-
-    <li class="navlink-bm">
+    <li *ngIf="userIsLogedIn" class="navlink-bm">
       <a routerLink="/accounts" (click)="closeSidebar()">
         <i class="fa fa-credit-card" aria-hidden="true"></i> Konten</a>
     </li>
 
-    <li  class="navlink-bm">
+    <li  *ngIf="userIsLogedIn" class="navlink-bm">
       <a routerLink="/profile" (click)="closeSidebar()">
         <i class="fa fa-user" aria-hidden="true"></i> Profil</a>
     </li>

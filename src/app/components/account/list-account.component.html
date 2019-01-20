@@ -2,7 +2,7 @@
 <div *ngFor="let account of accounts" class="" style="margin-top: 0.2rem">
 
     <app-account-item 
-        [account]="account" 
+        [accountItem]="account" 
         (setEcryptionPressed)="onEncryptionPressed($event)"
         (deletePressed)="onDeletedPressed($event)">
     </app-account-item>

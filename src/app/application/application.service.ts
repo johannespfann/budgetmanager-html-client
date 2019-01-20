@@ -89,12 +89,13 @@ export class ApplicationService {
                     const user: User = new User();
                     user.name = data.username;
                     user.email = data.email;
+                    user.password = password;
                     user.accesstoken = data.accesstoken;
                     this.user = user;
                     return user;
                 })
             ).toPromise()
-            .then( data => LogUtil.info(this, ' War alles gut!'))
+            .then( data => LogUtil.info(this, ' War alles gut!' + JSON.stringify(data)))
             .catch( data => LogUtil.info(this, JSON.stringify(data)) );
     }
 

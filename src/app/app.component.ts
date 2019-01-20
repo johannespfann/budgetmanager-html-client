@@ -1,10 +1,11 @@
-import { Component, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessagingService } from './messages/message.service';
 import { Subscription } from 'rxjs';
 import { LogedInMessage } from './messages/logedin-message';
 import { LogUtil } from './utils/log-util';
 import { User } from './models/user';
+import { Account } from './models/account';
 import { ApplicationService } from './application/application.service';
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
 import { LoginV2Service } from './rest/login-api-v2.service';
@@ -15,7 +16,8 @@ import { AccountService } from './services/account-service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy, AfterViewInit {
+export class AppComponent implements OnDestroy, OnInit {
+
 
   @ViewChild(NavigationComponent)
   public navigationComponent: NavigationComponent;
@@ -36,24 +38,24 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     this.loginSubscription = this.registerLogedInMessage();
   }
 
-  public ngAfterViewInit(): void {
+  public ngOnInit(): void {
     if (!this.applicationService.isLoggedIn()) {
       LogUtil.info(this, 'User is not loggedIn');
       this.router.navigate(['/welcome']);
       return;
     }
-
-    this.user = this.applicationService.getCurrentUser();
-    this.isLogedIn = true;
-
-    LogUtil.info(this, ' before shows');
-
-    this.showLoginAccount();
-    this.showNavigation();
+    this.handleLogedIn();
   }
 
   public login(): void {
     this.router.navigate(['/login']);
+  }
+
+  private handleLogedIn(): void {
+    this.user = this.applicationService.getCurrentUser();
+    this.showLoginAccount();
+    this.navigationComponent.setUserIsLogedIn();
+    this.callGetAccount();
   }
 
   public logout(): void {
@@ -63,8 +65,13 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     }
     this.applicationService.logout();
     this.hideLoginAccount();
-    this.hideNavigation();
+    this.userIsLogedOut();
     this.router.navigate(['/welcome']);
+  }
+
+  private userIsLogedOut(): void {
+    this.navigationComponent.userIsLogedOut();
+    this.navigationComponent.userHasNoValidKeys();
   }
 
   private showLoginAccount(): void {
@@ -75,13 +82,6 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     this.isLogedIn = false;
   }
 
-  private showNavigation(): void {
-    this.navigationComponent.showMenue();
-  }
-
-  private hideNavigation(): void {
-    this.navigationComponent.hideMenue();
-  }
 
   public onOpenSidebar(): void {
     LogUtil.info(this, 'pressed open navbar');
@@ -98,24 +98,28 @@ export class AppComponent implements OnDestroy, AfterViewInit {
       .of(LogedInMessage)
       .subscribe((message: LogedInMessage) => {
         this.user = message.getUser();
-        LogUtil.info(this, 'User is logedIn: ' + JSON.stringify(this.user));
         this.applicationService.setCurrentUser(this.user);
-        this.showLoginAccount();
-        this.callGetAccount();
+        LogUtil.info(this, 'User is logedIn: ' + JSON.stringify(this.user));
+        this.handleLogedIn();
       });
   }
 
   public callGetAccount(): void {
     this.accountService.getAccounts()
     .subscribe(
-      data => {
+      (data: Account[]) => {
         if (data.length === 0) {
-          LogUtil.info(this, 'Number of accounts was 0');
+          this.navigationComponent.userHasNoValidKeys();
           this.router.navigate(['/noaccount']);
         }
         if (data.length > 0) {
-          LogUtil.info(this, 'Number of accounts was not 0');
-          this.router.navigate(['/welcome']);
+          if (this.isAtLeastOneKeyReady(data)) {
+            this.navigationComponent.setUserHashValidKeys();
+            this.router.navigate(['/welcome']);
+          } else {
+            this.navigationComponent.userHasNoValidKeys();
+            this.router.navigate(['/accounts']);
+          }
         }
       },
       error => { console.log(JSON.stringify(error)); }
@@ -124,6 +128,13 @@ export class AppComponent implements OnDestroy, AfterViewInit {
 
   public ngOnDestroy(): void {
     this.loginSubscription.unsubscribe();
+  }
+
+  private isAtLeastOneKeyReady(aAccounts: Account[]): boolean {
+    if (this.accountService.getAllUseableAccounts(this.applicationService.getCurrentUser(), aAccounts).length > 0) {
+      return true;
+    }
+    return false;
   }
 
 }

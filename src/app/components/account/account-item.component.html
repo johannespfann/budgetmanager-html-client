@@ -1,9 +1,16 @@
 <div class="card">
-    <h5 class="card-header">{{account.name}}</h5>
+    <h5 class="card-header">{{accountItem.account.name}}</h5>
     <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <h5 class="card-title">Schlüssel zum Verschlüsseln des Kontos eingeben</h5>
+        
+        <div class="form-group">
+            <input (keyup)="validateKey($event)" type="password" [(ngModel)]="key" name="encryption_key" class="form-control" [disabled]="alreadyValid" placeholder="Schlüssel">
+        </div>   
+        
         <button (click)="delete()" class="btn btn-outline-danger float-right">Löschen</button>
-        <button (click)="encrypt()" class="btn btn-outline-primary float-right mr-2">Schlüssel verwenden</button>
+        <button *ngIf="!alreadyValid" (click)="encrypt()" class="btn btn-outline-primary float-right mr-2" [disabled] ="!isValidKey">Schlüssel verwenden</button>
+        
+        <i *ngIf="alreadyValid" class="fa fa-check-circle-o fa-2x float-left" style="color: green;" aria-hidden="true"></i>
+        <p *ngIf="alreadyValid" class="float-left ml-3 mt-1">Das Konto kann mit dem Schlüssel verwendet werden</p>
     </div>
 </div>

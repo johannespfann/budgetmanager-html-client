@@ -40,4 +40,29 @@ export class CryptUtil {
     public static extractEncryptedStringMessage(aMessage: string): string {
         return String(aMessage.slice(1, aMessage.length - 1));
     }
+
+    public static encryptionKeyIsValid(encryptionKey: string, encryptionText): boolean {
+        LogUtil.debug(this, 'IsKeyValid:');
+        LogUtil.debug(this, 'Key : ' + encryptionKey);
+        LogUtil.debug(this, 'Text: ' + encryptionText);
+
+        const plainText = CryptUtil.decryptString(encryptionKey, encryptionText);
+        LogUtil.debug(this, 'result of plainText ' + plainText);
+
+        let isValid = true;
+
+        if (plainText === null){
+            isValid = false;
+        }
+
+        if (plainText === undefined) {
+            isValid = false;
+        }
+
+        if (plainText.length === 0) {
+            isValid = false;
+        }
+
+        return isValid;
+    }
 }
