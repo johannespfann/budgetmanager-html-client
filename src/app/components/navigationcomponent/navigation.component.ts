@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
 import { MessagingService } from '../../messages/message.service';
-import { NoMoreAccountsAlertMessage } from '../../messages/no-more-accounts-alert-message';
+import { Subscription } from 'rxjs';
+import { NoEncryptedKeyAvailableMessage } from '../../messages/no-encrypted-key-available-message';
+import { EncryptionKeyAvailableMessage } from '../../messages/encryption-key-available-message';
+import { LogedOutMessage } from '../../messages/logedout-message';
+import { LogedInMessage } from '../../messages/logedin-message';
 
 @Component({
     selector: 'app-navigation',
@@ -21,36 +25,13 @@ export class NavigationComponent {
         this.userIsLogedIn = false;
         this.userHasValidKeys = false;
 
-        messagingService.of(NoMoreAccountsAlertMessage).subscribe(
-            data => {
-                this.userHasValidKeys = false;
-            }
-        )
-
-    }
-
-    public setUserIsLogedIn(): void {
-        this.userIsLogedIn = true;
-    }
-
-    public setUserHashValidKeys(): void {
-        this.userHasValidKeys = true;
-    }
-
-    public userIsLogedOut(): void {
-        this.userIsLogedIn = false;
-    }
-
-    public userHasNoValidKeys(): void {
-        this.userHasValidKeys = false;
+        this.registerEncryptionKeyAvailableMessage();
+        this.registerNoEncryptedKeyMessage();
+        this.registerLogInMessage();
+        this.registerLogOutMessage();
     }
 
     public openSidebar(): void {
-
-        LogUtil.debug(this, 'Inside Navigation');
-        LogUtil.debug(this, '- logedIn : ' + this.userIsLogedIn);
-        LogUtil.debug(this, '- validKey: ' + this.userHasValidKeys);
-
         LogUtil.info(this, 'open navbar');
         this.navBarIsOpen = true;
     }
@@ -58,5 +39,49 @@ export class NavigationComponent {
     public closeSidebar(): void {
         LogUtil.info(this, 'close navbar');
         this.navBarIsOpen = false;
+    }
+
+
+    private registerNoEncryptedKeyMessage(): Subscription {
+        LogUtil.debug(this, 'register ' + NoEncryptedKeyAvailableMessage.name);
+        return this.messagingService.of(NoEncryptedKeyAvailableMessage).subscribe(
+            message => {
+            LogUtil.debug(this, 'NavigationComponent received ' + NoEncryptedKeyAvailableMessage.name);
+            this.userHasValidKeys = false;
+          }
+        );
+      }
+
+    private registerEncryptionKeyAvailableMessage(): Subscription {
+        LogUtil.debug(this, 'register ' + EncryptionKeyAvailableMessage.name);
+        return this.messagingService.of(EncryptionKeyAvailableMessage).subscribe(
+            message => {
+                LogUtil.debug(this, 'NavigationComponent received ' + EncryptionKeyAvailableMessage.name);
+                this.userHasValidKeys = true;
+            }
+        );
+    }
+
+    private registerLogOutMessage(): Subscription {
+        LogUtil.debug(this, 'register ' + LogedOutMessage.name);
+        return this.messagingService.of(LogedOutMessage).subscribe(
+            message => {
+                LogUtil.debug(this, 'NavigationComponent received ' + LogedOutMessage.name);
+                this.navBarIsOpen = false;
+                this.userIsLogedIn = false;
+                this.userHasValidKeys = false;
+            }
+        );
+    }
+
+    private registerLogInMessage(): Subscription {
+        LogUtil.debug(this, 'register ' + LogedInMessage.name);
+        return this.messagingService.of(LogedInMessage).subscribe(
+            message => {
+                LogUtil.debug(this, 'NavigationComponent received ' + LogedInMessage.name);
+                this.navBarIsOpen = false;
+                this.userIsLogedIn = true;
+            }
+        );
     }
 }

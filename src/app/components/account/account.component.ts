@@ -9,7 +9,8 @@ import { AccountItem } from '../../models/account-item';
 import { AccountItemProducer } from './account-item-producer';
 import { AccountStorageFacade } from '../../utils/account-storage-facade';
 import { MessagingService } from '../../messages/message.service';
-import { NoMoreAccountsAlertMessage } from '../../messages/no-more-accounts-alert-message';
+import { NoEncryptedKeyAvailableMessage } from '../../messages/no-encrypted-key-available-message';
+import { EncryptionKeyAvailableMessage } from '../../messages/encryption-key-available-message';
 
 @Component({
     selector: 'app-account',
@@ -20,7 +21,6 @@ export class AccountComponent implements OnInit {
 
 
     public showAddNewAccount: boolean;
-    public accounts: Account[];
     public accountItems: AccountItem[];
 
     constructor(
@@ -37,20 +37,8 @@ export class AccountComponent implements OnInit {
 
     private updateAccounts() {
         this.accountService.getAccounts().subscribe(
-            (accounts: Account[]) => {
-
-                if (accounts.length === 0) {
-                    this.messageService.publish(new NoMoreAccountsAlertMessage() );
-                }
-
-                this.accounts = accounts;
-                const localAccountStorage = new AccountStorageFacade(this.applicationService.getCurrentUser());
-                const savedAccountItems = localAccountStorage.getAllAccountItems();
-
-                const accountItemProducer = new AccountItemProducer(accounts, savedAccountItems);
-                const newAccountItmes = accountItemProducer.produceAccountItmes();
-                this.accountItems = newAccountItmes;
-                localAccountStorage.saveAllAccountItems(newAccountItmes);
+            (accounts: AccountItem[]) => {
+                this.accountItems = accounts;
             },
             error => {
                 LogUtil.error(this, 'Failed to load accounts ' + JSON.stringify(error));
@@ -121,8 +109,6 @@ export class AccountComponent implements OnInit {
     public pressButtonAddNewAccount(): void {
         this.showAddNewAccount = true;
     }
-
-
 
     private closeAddAccountView(): void {
         this.showAddNewAccount = false;
