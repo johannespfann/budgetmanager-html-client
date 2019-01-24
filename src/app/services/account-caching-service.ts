@@ -31,7 +31,7 @@ export class AccountCachingService {
             map( data => {
                 this.cleanCaching();
             })
-        );;
+        );
     }
 
     public deleteAccount(aUser: User, aAccount: Account): Observable<any> {

@@ -47,19 +47,20 @@ export class AccountComponent implements OnInit {
     }
 
 
-    public onAddNewAccountPressed(aAccount: Account) {
+    public onAddNewAccountPressed(aAccount: AccountItem) {
         LogUtil.info(this, 'Account: ' + JSON.stringify(aAccount));
 
         const newAccount = new Account();
         const user: User = this.applicationService.getCurrentUser();
         newAccount.owner = user.name;
-        newAccount.name = aAccount.name;
+        newAccount.name = aAccount.account.name;
         newAccount.activated = true;
-        newAccount.encryptionText = aAccount.encryptionText;
+        newAccount.encryptionText = aAccount.account.encryptionText;
         newAccount.hash = HashUtil.getUniqueHash().toString();
 
+
         LogUtil.info(this, 'Add new Account :' + JSON.stringify(newAccount));
-        this.accountService.addAccount(newAccount).subscribe(
+        this.accountService.addAccount(aAccount).subscribe(
             data => {
                 this.cleanView();
                 this.closeAddAccountView();
@@ -95,7 +96,7 @@ export class AccountComponent implements OnInit {
     }
 
     public onDeletedPressed(aAccountItem: AccountItem): void {
-        this.accountService.deleteAccount(aAccountItem.account).subscribe(
+        this.accountService.deleteAccount(aAccountItem).subscribe(
             data => {
                 LogUtil.info(this, 'Deleted Account: ' + aAccountItem.account);
                 this.updateAccounts();

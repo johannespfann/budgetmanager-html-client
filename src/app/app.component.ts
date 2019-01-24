@@ -10,6 +10,8 @@ import { ApplicationService } from './application/application.service';
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
 import { LoginV2Service } from './rest/login-api-v2.service';
 import { AccountService } from './services/account-service';
+import { LogedOutMessage } from './messages/logedout-message';
+import { AccountItem } from './models/account-item';
 
 @Component({
   selector: 'app-budgetmanager',
@@ -40,10 +42,11 @@ export class AppComponent implements OnDestroy, OnInit {
 
   public ngOnInit(): void {
     if (!this.applicationService.isLoggedIn()) {
-      LogUtil.info(this, 'User is not loggedIn');
+      LogUtil.debug(this, 'User is not loggedIn');
       this.router.navigate(['/welcome']);
       return;
     }
+    this.messageService.publish(new LogedInMessage(this.applicationService.getCurrentUser()));
     this.handleLogedIn();
   }
 
@@ -53,8 +56,8 @@ export class AppComponent implements OnDestroy, OnInit {
 
   private handleLogedIn(): void {
     this.user = this.applicationService.getCurrentUser();
+
     this.showLoginAccount();
-    this.navigationComponent.setUserIsLogedIn();
     this.callGetAccount();
   }
 
@@ -63,15 +66,10 @@ export class AppComponent implements OnDestroy, OnInit {
       const baseUrl = this.applicationService.getBaseUrl();
       this.loginServcie.logout(baseUrl, this.user.name, this.user.accesstoken);
     }
+    this.messageService.publish(LogedOutMessage);
     this.applicationService.logout();
     this.hideLoginAccount();
-    this.userIsLogedOut();
     this.router.navigate(['/welcome']);
-  }
-
-  private userIsLogedOut(): void {
-    this.navigationComponent.userIsLogedOut();
-    this.navigationComponent.userHasNoValidKeys();
   }
 
   private showLoginAccount(): void {
@@ -82,15 +80,36 @@ export class AppComponent implements OnDestroy, OnInit {
     this.isLogedIn = false;
   }
 
-
   public onOpenSidebar(): void {
-    LogUtil.info(this, 'pressed open navbar');
     this.navigationComponent.openSidebar();
   }
 
   public onCloseSidebar(): void {
-    LogUtil.info(this, 'pressed close navbar');
     this.navigationComponent.closeSidebar();
+  }
+
+  public callGetAccount(): void {
+    this.accountService.getAccounts()
+    .subscribe(
+      (data: AccountItem[]) => {
+        if (data.length === 0) {
+          this.router.navigate(['/noaccount']);
+        }
+        if (data.length > 0) {
+          /*if (this.isAtLeastOneKeyReady()) {
+            this.router.navigate(['/welcome']);
+          } else {
+            this.router.navigate(['/accounts']);
+          }
+          */
+        }
+      },
+      error => { console.log(JSON.stringify(error)); }
+      );
+  }
+
+  public ngOnDestroy(): void {
+    this.loginSubscription.unsubscribe();
   }
 
   private registerLogedInMessage(): Subscription {
@@ -104,37 +123,5 @@ export class AppComponent implements OnDestroy, OnInit {
       });
   }
 
-  public callGetAccount(): void {
-    this.accountService.getAccounts()
-    .subscribe(
-      (data: Account[]) => {
-        if (data.length === 0) {
-          this.navigationComponent.userHasNoValidKeys();
-          this.router.navigate(['/noaccount']);
-        }
-        if (data.length > 0) {
-          if (this.isAtLeastOneKeyReady(data)) {
-            this.navigationComponent.setUserHashValidKeys();
-            this.router.navigate(['/welcome']);
-          } else {
-            this.navigationComponent.userHasNoValidKeys();
-            this.router.navigate(['/accounts']);
-          }
-        }
-      },
-      error => { console.log(JSON.stringify(error)); }
-      );
-  }
-
-  public ngOnDestroy(): void {
-    this.loginSubscription.unsubscribe();
-  }
-
-  private isAtLeastOneKeyReady(aAccounts: Account[]): boolean {
-    if (this.accountService.getAllUseableAccounts(this.applicationService.getCurrentUser(), aAccounts).length > 0) {
-      return true;
-    }
-    return false;
-  }
 
 }

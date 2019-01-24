@@ -3,6 +3,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
 import { Account } from '../../models/account';
 import { CryptUtil } from '../../utils/crypt-util';
+import { AccountItem } from '../../models/account-item';
+import { HashUtil } from '../../utils/hash-util';
 
 @Component({
     selector: 'app-add-account',
@@ -12,7 +14,7 @@ import { CryptUtil } from '../../utils/crypt-util';
 export class AddAccountComponent {
 
     @Output()
-    public addNewAccountPressed = new EventEmitter<Account>();
+    public addNewAccountPressed = new EventEmitter<AccountItem>();
 
     @Output()
     public cancelPressed = new EventEmitter<any>();
@@ -54,8 +56,13 @@ export class AddAccountComponent {
 
         account.name = this.name;
         account.encryptionText = CryptUtil.encryptString(this.encryption_key, this.encryption_text);
+        account.hash = HashUtil.getUniqueHash().toString();
 
-        this.addNewAccountPressed.emit(account);
+        const accountItem = new AccountItem();
+        accountItem.account = account;
+        accountItem.key = this.encryption_key;
+
+        this.addNewAccountPressed.emit(accountItem);
 
     }
 
