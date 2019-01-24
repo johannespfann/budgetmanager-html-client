@@ -9,9 +9,6 @@ export class AccountItemProducer {
     constructor(
         private accounts: Account[],
         private accountItems: AccountItem[]) {
-            LogUtil.debug(this, 'Init with: ');
-            LogUtil.debug(this, '- Accounts     : ' + JSON.stringify(accounts));
-            LogUtil.debug(this, '- AccountItems : ' + JSON.stringify(accountItems));
     }
 
     /**
@@ -38,7 +35,7 @@ export class AccountItemProducer {
             // Für alle anderen bleibt key leer
             newAccountItems.push(newAccountItme);
         } );
-        LogUtil.debug(this, 'Return producedAccountItems: ' + JSON.stringify(newAccountItems));
+
         return newAccountItems;
     }
 
