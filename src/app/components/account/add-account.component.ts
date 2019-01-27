@@ -50,11 +50,12 @@ export class AddAccountComponent {
             return;
         }
 
-        if (!this.isKeysValid(this.encryption_key, this.encryption_key_repeat)) {
+        if (!this.areKeysValid(this.encryption_key, this.encryption_key_repeat)) {
             return;
         }
 
         account.name = this.name;
+        account.activated = true;
         account.encryptionText = CryptUtil.encryptString(this.encryption_key, this.encryption_text);
         account.hash = HashUtil.getUniqueHash().toString();
 
@@ -66,7 +67,7 @@ export class AddAccountComponent {
 
     }
 
-    private isKeysValid(encryption_key: string, encryption_key_repeat: string): boolean {
+    private areKeysValid(encryption_key: string, encryption_key_repeat: string): boolean {
         if (encryption_key.length < 3) {
             return false;
         }

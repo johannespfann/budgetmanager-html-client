@@ -49,18 +49,8 @@ export class AccountComponent implements OnInit {
 
 
     public onAddNewAccountPressed(aAccount: AccountItem) {
-        LogUtil.info(this, 'Account: ' + JSON.stringify(aAccount));
-
-        const newAccount = new Account();
-        const user: User = this.applicationService.getCurrentUser();
-        newAccount.owner = user.name;
-        newAccount.name = aAccount.account.name;
-        newAccount.activated = true;
-        newAccount.encryptionText = aAccount.account.encryptionText;
-        newAccount.hash = HashUtil.getUniqueHash().toString();
-
-
-        LogUtil.info(this, 'Add new Account :' + JSON.stringify(newAccount));
+        aAccount.account.owner = this.applicationService.getCurrentUser().name;
+        LogUtil.info(this, 'Add new Account :' + JSON.stringify(aAccount));
         this.accountService.addAccount(aAccount).subscribe(
             data => {
                 this.cleanView();
@@ -73,7 +63,6 @@ export class AccountComponent implements OnInit {
             }
 
         );
-        LogUtil.info(this, 'onAddNewAccountPressed');
     }
 
     public onCancelPressed(value: any) {

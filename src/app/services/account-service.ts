@@ -19,8 +19,6 @@ export class AccountService {
     }
 
     public getAccounts(): Observable<AccountItem[]> {
-        LogUtil.info(this, 'Get all Accounts in  method getallaccounts');
-
         const user = this.appService.getCurrentUser();
         const localAccountStorage = new AccountStorageFacade(user);
         const savedAccountItems = localAccountStorage.getAllAccountItems();
@@ -38,18 +36,29 @@ export class AccountService {
 
     public getAllUseableAccounts(): Observable<AccountItem[]> {
         return this.getAccounts().pipe(
-            map( accounts => accounts.filter( accountItem => accountItem.key !== undefined))
+            map(accounts => accounts.filter(accountItem => accountItem.key !== undefined))
         );
     }
 
     public deleteAccount(aAccount: AccountItem): Observable<any> {
-        LogUtil.info(this, 'Delete Account' + JSON.stringify(aAccount));
+        LogUtil.debug(this, 'Delete Account' + JSON.stringify(aAccount));
         return this.accountCachingservice.deleteAccount(this.appService.getCurrentUser(), aAccount.account);
     }
 
     public addAccount(aAccount: AccountItem): Observable<any> {
-        LogUtil.info(this, 'addAccounts ->');
-        return this.accountCachingservice.addAccount(this.appService.getCurrentUser(), aAccount.account);
+        return this.accountCachingservice.addAccount(this.appService.getCurrentUser(), aAccount.account)
+            .pipe(
+                map((accountItem: AccountItem) => {
+                    LogUtil.debug(this, 'add new Account: ' + JSON.stringify(aAccount));
+                    const user = this.appService.getCurrentUser();
+                    const localAccountStorage = new AccountStorageFacade(user);
+                    const savedAccountItems = localAccountStorage.getAllAccountItems();
+                    savedAccountItems.push(aAccount);
+                    localAccountStorage.saveAllAccountItems(savedAccountItems);
+                    LogUtil.debug(this, '');
+
+                })
+            );
     }
 
 }
