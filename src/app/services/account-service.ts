@@ -49,14 +49,11 @@ export class AccountService {
         return this.accountCachingservice.addAccount(this.appService.getCurrentUser(), aAccount.account)
             .pipe(
                 map((accountItem: AccountItem) => {
-                    LogUtil.debug(this, 'add new Account: ' + JSON.stringify(aAccount));
                     const user = this.appService.getCurrentUser();
                     const localAccountStorage = new AccountStorageFacade(user);
                     const savedAccountItems = localAccountStorage.getAllAccountItems();
                     savedAccountItems.push(aAccount);
                     localAccountStorage.saveAllAccountItems(savedAccountItems);
-                    LogUtil.debug(this, '');
-
                 })
             );
     }
