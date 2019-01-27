@@ -11,6 +11,7 @@ import { AccountStorageFacade } from '../../utils/account-storage-facade';
 import { MessagingService } from '../../messages/message.service';
 import { NoEncryptedKeyAvailableMessage } from '../../messages/no-encrypted-key-available-message';
 import { EncryptionKeyAvailableMessage } from '../../messages/encryption-key-available-message';
+import { ModifiedAccountsMessage } from '../../messages/modified-accounts-message';
 
 @Component({
     selector: 'app-account',
@@ -65,6 +66,7 @@ export class AccountComponent implements OnInit {
                 this.cleanView();
                 this.closeAddAccountView();
                 this.updateAccounts();
+                this.messageService.publish(new ModifiedAccountsMessage());
             },
             error => {
                 LogUtil.error(this, 'Failed to add new account! ' + JSON.stringify(error));
@@ -92,6 +94,7 @@ export class AccountComponent implements OnInit {
 
         LogUtil.debug(this, 'Save new accountItems : ' + JSON.stringify(savedAccountItems));
         localAccountStorage.saveAllAccountItems(savedAccountItems);
+        this.messageService.publish(new ModifiedAccountsMessage());
         this.updateAccounts();
     }
 
@@ -100,6 +103,7 @@ export class AccountComponent implements OnInit {
             data => {
                 LogUtil.info(this, 'Deleted Account: ' + aAccountItem.account);
                 this.updateAccounts();
+                this.messageService.publish(new ModifiedAccountsMessage());
             },
             error => {
                 LogUtil.error(this, 'Failed to delete Account: ' + aAccountItem.account);

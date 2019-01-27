@@ -12,6 +12,10 @@ import { LoginV2Service } from './rest/login-api-v2.service';
 import { AccountService } from './services/account-service';
 import { LogedOutMessage } from './messages/logedout-message';
 import { AccountItem } from './models/account-item';
+import { ModifiedAccountsMessage } from './messages/modified-accounts-message';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { NoEncryptedKeyAvailableMessage } from './messages/no-encrypted-key-available-message';
+import { EncryptionKeyAvailableMessage } from './messages/encryption-key-available-message';
 
 @Component({
   selector: 'app-budgetmanager',
@@ -24,7 +28,8 @@ export class AppComponent implements OnDestroy, OnInit {
   @ViewChild(NavigationComponent)
   public navigationComponent: NavigationComponent;
 
-  private loginSubscription: Subscription;
+  private loginMessageSubscription: Subscription;
+  private modifiedAccountsMessageSubscription: Subscription;
   public isLogedIn = false;
 
   private user: User;
@@ -37,8 +42,13 @@ export class AppComponent implements OnDestroy, OnInit {
       private accountService: AccountService) {
 
     LogUtil.debug(this, 'Start Application');
-    this.loginSubscription = this.registerLogedInMessage();
+    this.loginMessageSubscription = this.registerLogedInMessage();
+    this.modifiedAccountsMessageSubscription = this.registerAccountChanged();
   }
+
+  /**
+   * functions for livecycle
+   */
 
   public ngOnInit(): void {
     if (!this.applicationService.isLoggedIn()) {
@@ -50,18 +60,20 @@ export class AppComponent implements OnDestroy, OnInit {
     this.handleLogedIn();
   }
 
-  public login(): void {
+  public ngOnDestroy(): void {
+    this.loginMessageSubscription.unsubscribe();
+    this.modifiedAccountsMessageSubscription.unsubscribe();
+  }
+
+  /**
+   * Functions for buttons
+   */
+
+  public pressedLogin(): void {
     this.router.navigate(['/login']);
   }
 
-  private handleLogedIn(): void {
-    this.user = this.applicationService.getCurrentUser();
-
-    this.showLoginAccount();
-    this.callGetAccount();
-  }
-
-  public logout(): void {
+  public pressedLogout(): void {
     if (this.user) {
       const baseUrl = this.applicationService.getBaseUrl();
       this.loginServcie.logout(baseUrl, this.user.name, this.user.accesstoken);
@@ -72,14 +84,6 @@ export class AppComponent implements OnDestroy, OnInit {
     this.router.navigate(['/welcome']);
   }
 
-  private showLoginAccount(): void {
-    this.isLogedIn = true;
-  }
-
-  private hideLoginAccount(): void {
-    this.isLogedIn = false;
-  }
-
   public onOpenSidebar(): void {
     this.navigationComponent.openSidebar();
   }
@@ -88,40 +92,58 @@ export class AppComponent implements OnDestroy, OnInit {
     this.navigationComponent.closeSidebar();
   }
 
-  public callGetAccount(): void {
-    this.accountService.getAccounts()
-    .subscribe(
-      (data: AccountItem[]) => {
-        if (data.length === 0) {
-          this.router.navigate(['/noaccount']);
-        }
-        if (data.length > 0) {
-          /*if (this.isAtLeastOneKeyReady()) {
-            this.router.navigate(['/welcome']);
-          } else {
-            this.router.navigate(['/accounts']);
-          }
-          */
-        }
-      },
-      error => { console.log(JSON.stringify(error)); }
-      );
-  }
+  /**
+   * helper
+   */
 
-  public ngOnDestroy(): void {
-    this.loginSubscription.unsubscribe();
+  private handleLogedIn(): void {
+    this.user = this.applicationService.getCurrentUser();
+    this.showLoginAccount();
   }
 
   private registerLogedInMessage(): Subscription {
     return this.messageService
       .of(LogedInMessage)
       .subscribe((message: LogedInMessage) => {
+        this.router.navigate(['/welcome']);
         this.user = message.getUser();
         this.applicationService.setCurrentUser(this.user);
         LogUtil.info(this, 'User is logedIn: ' + JSON.stringify(this.user));
         this.handleLogedIn();
+        this.updateCurrentAccountState();
       });
   }
 
+  private registerAccountChanged(): Subscription {
+    return this.messageService.of(ModifiedAccountsMessage).subscribe(
+      message => {
+        LogUtil.debug(this, 'received ' + ModifiedAccountsMessage.name);
+        this.updateCurrentAccountState();
+      }
+    );
+  }
+
+  private updateCurrentAccountState(): void {
+    this.accountService.getAllUseableAccounts().subscribe(
+      (accounts: AccountItem[] ) => {
+        if (accounts.length === 0) {
+          this.messageService.publish(new NoEncryptedKeyAvailableMessage());
+          this.router.navigate(['/noaccount']);
+        } else {
+          this.messageService.publish(new EncryptionKeyAvailableMessage());
+        }
+
+      },
+      error => { console.log(JSON.stringify(error)); }
+    );
+  }
+
+  private showLoginAccount(): void {
+    this.isLogedIn = true;
+  }
+
+  private hideLoginAccount(): void {
+    this.isLogedIn = false;
+  }
 
 }

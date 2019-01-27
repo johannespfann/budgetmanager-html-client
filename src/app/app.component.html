@@ -8,8 +8,8 @@
     <span *ngIf="isLogedIn" class="mr-2">
       <a routerLink="/profile"><i class="fa fa-user"> </i> {{user.name}}</a>
     </span>
-    <button *ngIf="!isLogedIn" (click)="login()" type="button" class="btn btn-primary">Login</button>
-    <button *ngIf="isLogedIn" (click)="logout()" type="button" class="btn btn-primary">Logout</button>
+    <button *ngIf="!isLogedIn" (click)="pressedLogin()" type="button" class="btn btn-primary">Login</button>
+    <button *ngIf="isLogedIn" (click)="pressedLogout()" type="button" class="btn btn-primary">Logout</button>
   </div>
 
 </div>
