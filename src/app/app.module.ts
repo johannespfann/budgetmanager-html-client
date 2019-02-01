@@ -52,6 +52,8 @@ import { AddAccountComponent } from './components/account/add-account.component'
 import { AccountItemComponent } from './components/account/account-item.component';
 import { ListAccountComponent } from './components/account/list-account.component';
 import { AccountCachingService } from './services/account-caching-service';
+import { EntryV2Service } from './services/entryV2.service';
+import { EntryAPIV2Service } from './rest/entry-api-v2.service';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -117,7 +119,9 @@ export function initApplication(appService: ApplicationService) {
     ContactApiService,
     AccountApiService,
     AccountCachingService,
-    AccountService
+    AccountService,
+    EntryAPIV2Service,
+    EntryV2Service
   ],
   bootstrap: [AppComponent]
 })

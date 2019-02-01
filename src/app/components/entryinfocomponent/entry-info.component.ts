@@ -95,13 +95,13 @@ export class EntryInfoComponent {
     }
 
     private persistTagToStatistic(): void {
-        this.tagStatisticService.persistTagStatistic(this.tagStatisticBrowserStorageFacade.getTagStatisticValues()).subscribe();
+        //this.tagStatisticService.persistTagStatistic(this.tagStatisticBrowserStorageFacade.getTagStatisticValues()).subscribe();
     }
 
     private updateTagStatistics(): void {
-        this.tagStatisticService.getTagStatistic().subscribe((tags: TagStatistic[]) => {
-           this.tagStatisticBrowserStorageFacade.persistTagStatisctics(tags);
-           this.refreshPossibleTags();
-        });
+        //this.tagStatisticService.getTagStatistic().subscribe((tags: TagStatistic[]) => {
+        //   this.tagStatisticBrowserStorageFacade.persistTagStatisctics(tags);
+        //   this.refreshPossibleTags();
+        //});
     }
 }

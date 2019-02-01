@@ -5,13 +5,13 @@ export class Entry {
 
     public hash: string;
 
+    public created_at: Date;
+
     public amount: number;
 
     public currency: string;
 
     public memo: string;
-
-    public created_at: Date;
 
     public tags: Tag[];
 

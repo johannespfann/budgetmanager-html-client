@@ -4,10 +4,12 @@ import { EntryInfoComponent } from '../entryinfocomponent/entry-info.component';
 import { StandingOrderInfoComponent } from '../standingorderinfocomponent/standing-order-info.component';
 import { RotationEntry } from '../../models/rotationentry';
 import { Entry } from '../../models/entry';
-import { EntryService } from '../../services/entry.service';
+import { EntryV2Service } from '../../services/entryV2.service';
 import { RotationEntryService } from '../../services/rotation-entry.service';
 import { DateUtil } from '../../utils/date-util';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AccountService } from '../../services/account-service';
+import { AccountItem } from '../../models/account-item';
 
 @Component({
     selector: 'app-newentry',
@@ -25,8 +27,12 @@ export class AddEntryComponent implements OnInit {
     public createEntryDate: Date;
     public isPeriodical = false;
 
+    public accountItems: AccountItem[] = [];
+    public selectedAccount: AccountItem;
+
     constructor(
-        private entryService: EntryService,
+        private accountService: AccountService,
+        private entryService: EntryV2Service,
         private rotationService: RotationEntryService,
         private spinner: NgxSpinnerService) {
         LogUtil.debug(this, 'init add-entry-component');
@@ -34,7 +40,19 @@ export class AddEntryComponent implements OnInit {
 
     public ngOnInit(): void {
         this.isPeriodical = false;
+        this.updateAccountItems();
         this.cleanEntryViews();
+    }
+
+    private updateAccountItems(): void {
+        this.accountService.getAllUseableAccounts().subscribe(
+            (accountItems: AccountItem[]) => {
+                this.accountItems = accountItems;
+                accountItems.forEach( x => JSON.stringify(x));
+                this.selectedAccount = accountItems[0];
+            },
+            error => LogUtil.error(this, 'error when getting all useable accounts: ' + JSON.stringify(error))
+        );
     }
 
     public saveEntry(): void {
@@ -84,13 +102,15 @@ export class AddEntryComponent implements OnInit {
 
     private persistEntry(aEntry: Entry): void {
         this.spinner.show();
-        this.entryService.addEntry(aEntry).subscribe(
+
+        this.entryService.addEntry(this.selectedAccount, aEntry).subscribe(
             response => {
                 LogUtil.debug(this, 'Persist Entry' + JSON.stringify(aEntry));
                 this.spinner.hide();
             },
             error => {
                 LogUtil.error(this, 'failed to persist entry -> ' + JSON.stringify(aEntry));
+                LogUtil.error(this, ' ...  -> ' + JSON.stringify(error));
                 this.spinner.hide();
             }
         );

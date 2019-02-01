@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { EntryService } from '../../services/entry.service';
+import { EntryV2Service } from '../../services/entryV2.service';
 import { LogUtil } from '../../utils/log-util';
 import { Entry } from '../../models/entry';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AccountService } from '../../services/account-service';
+import { AccountItem } from '../../models/account-item';
 
 @Component({
     selector : 'app-history-entry',
@@ -16,13 +18,33 @@ export class HistoryEntryComponent {
     public entries: Entry[];
     public selectedEntry: Entry;
 
+    public accountItems: AccountItem[] = [];
+    public selectedAccount: AccountItem;
+
     constructor(
-        private entryService: EntryService,
+        private accountService: AccountService,
+        private entryService: EntryV2Service,
         private spinner: NgxSpinnerService) {
         LogUtil.debug(this, 'init history-entry-component');
         this.entries = [];
         this.selectedEntry = new Entry();
         this.closeEditView();
+        this.updateAccountItems();
+    }
+
+    private updateAccountItems(): void {
+        this.accountService.getAllUseableAccounts().subscribe(
+            (accountItems: AccountItem[]) => {
+                this.accountItems = accountItems;
+                accountItems.forEach( x => JSON.stringify(x));
+                this.selectedAccount = accountItems[0];
+                this.initView();
+            },
+            error => LogUtil.error(this, 'error when getting all useable accounts: ' + JSON.stringify(error))
+        );
+    }
+
+    private initView(): void {
         this.updateEntries();
     }
 
@@ -53,7 +75,7 @@ export class HistoryEntryComponent {
     }
 
     private editEntry(aEntry: Entry): void {
-        this.entryService.update(aEntry).subscribe(
+        this.entryService.update(this.selectedAccount, aEntry).subscribe(
             data => {
                 this.updateEntries();
                 this.closeEditView();
@@ -65,7 +87,7 @@ export class HistoryEntryComponent {
     }
 
     private deleteEntry(aEntry: Entry): void {
-        this.entryService.deleteEntry(aEntry).subscribe(
+        this.entryService.deleteEntry(this.selectedAccount, aEntry).subscribe(
             data => {
                 this.updateEntries();
                 this.closeEditView();
@@ -78,7 +100,7 @@ export class HistoryEntryComponent {
 
     private updateEntries(): void {
         this.spinner.show();
-        this.entryService.getEntries().subscribe(
+        this.entryService.getEntries(this.selectedAccount).subscribe(
             (data: Entry[]) => {
                 this.entries = data;
                 this.spinner.hide();

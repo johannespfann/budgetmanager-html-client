@@ -4,7 +4,6 @@ import { map, tap, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { LoginV2Service } from '../rest/login-api-v2.service';
 import { AuthenticationFacade } from '../utils/authentication-facade';
-import { EncryptApiSerice } from '../rest/encrypt-api.service';
 import { environment } from '../../environments/environment';
 
 @Injectable()
@@ -18,8 +17,7 @@ export class ApplicationService {
     private authfacade: AuthenticationFacade;
 
     constructor(
-        private loginService: LoginV2Service,
-        private encryptService: EncryptApiSerice) {
+        private loginService: LoginV2Service) {
 
         LogUtil.info(this, 'Init ApplicationService');
         this.authfacade = new AuthenticationFacade();
@@ -52,8 +50,7 @@ export class ApplicationService {
 
 
     public isReadyForRestServices(): boolean {
-        // TODO to be defined
-        return false;
+        return this.isLoggedIn();
     }
 
     public isLoggedIn(): boolean {

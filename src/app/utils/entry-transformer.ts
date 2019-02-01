@@ -2,7 +2,6 @@ import { Entry } from '../models/entry';
 import { CryptUtil } from './crypt-util';
 import { Tag } from '../models/tag';
 import { EntryServer } from '../models/entry-server';
-import { LogUtil } from './log-util';
 
 export class EntryTransformer {
 
@@ -57,4 +56,5 @@ export class EntryTransformer {
         });
         return entry;
     }
+
 }

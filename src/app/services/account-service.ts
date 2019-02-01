@@ -8,6 +8,7 @@ import { AccountStorageFacade } from '../utils/account-storage-facade';
 import { AccountItemProducer } from '../components/account/account-item-producer';
 import { map } from 'rxjs/operators';
 import { AccountCachingService } from './account-caching-service';
+import { CryptUtil } from '../utils/crypt-util';
 
 @Injectable()
 export class AccountService {
@@ -56,6 +57,13 @@ export class AccountService {
                     localAccountStorage.saveAllAccountItems(savedAccountItems);
                 })
             );
+    }
+
+    public isAccountReadyToUse(account: AccountItem): boolean {
+        if (CryptUtil.encryptionKeyIsValid(account.account.encryptionText, account.key)) {
+            return true;
+        }
+        return false;
     }
 
 }
