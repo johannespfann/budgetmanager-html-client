@@ -57,7 +57,7 @@ export class AddAccountComponent {
         account.name = this.name;
         account.activated = true;
         account.encryptionText = CryptUtil.encryptString(this.encryption_key, this.encryption_text);
-        account.hash = HashUtil.getUniqueHash().toString();
+        account.hash = HashUtil.getShortUniqueHash().toString();
 
         const accountItem = new AccountItem();
         accountItem.account = account;
