@@ -10,7 +10,6 @@ import { EntryServer } from '../modelv2/entry-server';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccountItem } from '../models/account-item';
-import { JsonPipe } from '@angular/common';
 
 
 @Injectable()
@@ -63,36 +62,27 @@ export class EntryAPIV2Service {
         const requestURL = baseUrl + 'entries/owner/' + aUser.name + '/account/' + accountItem.account.hash + '/add';
         const body = this.entryTransformer.transformEntry(encryptionKey, aEntry, aUser.name);
 
-        LogUtil.info(this, 'RequestURL: ' + requestURL);
-        LogUtil.info(this, 'Body      : ' + body);
-
         return this.http.post(requestURL, body, { headers : headers});
     }
 
-    public delete(aUser: User, aEntry: Entry): Observable<any> {
+    public delete(aUser: User, aAccount: AccountItem, aEntry: Entry): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
         const baseUrl = this.appService.getBaseUrl();
-        return this.http.delete(
-            baseUrl + 'entries/owner/' + aUser.name + '/delete/' + aEntry.hash, { headers : headers});
+        const requestURL = baseUrl + 'entries/owner/' + aUser.name + '/account/' + aAccount.account.hash + '/delete/' + aEntry.hash;
+
+        return this.http.delete(requestURL , { headers : headers});
     }
 
-
-
-
-
-    public update(aUser: User, aEntry: Entry): Observable<any> {
+    public update(aUser: User, accountItem: AccountItem, aEntry: Entry): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
         const baseUrl = this.appService.getBaseUrl();
-        const encryptionKey = this.appService.getEncryptionKey();
+        const encryptionKey = accountItem.key;
+        const requestURL = baseUrl + 'entries/owner/' + aUser.name + '/account/' + accountItem.account.hash + '/update';
 
-        return this.http.patch(
-            baseUrl
-            + 'entries/owner/'
-            + aUser.name
-            + '/update', this.entryTransformer.transformEntry(encryptionKey, aEntry, aUser.name), { headers : headers});
+        return this.http.patch(requestURL, this.entryTransformer.transformEntry(encryptionKey, aEntry, aUser.name), { headers : headers});
     }
 }
