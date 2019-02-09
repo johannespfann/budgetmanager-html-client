@@ -3,15 +3,19 @@ import { Entry } from '../models/entry';
 import { SortUtil } from './sort-util';
 import { EntryPackage } from '../models/entry-package';
 
+
+
+
 describe('sort-util', function () {
+
 
 
     it('should sort entries so that the last created entry is at the first position', () => {
         // prepare
-        const firstEntry = Entry.create(1);
-        const secondEntry = Entry.create(2);
-        const thirdEntry = Entry.create(3);
-        const forthEntry = Entry.create(4);
+        const firstEntry = Entry.create(1, 'EUR');
+        const secondEntry = Entry.create(2, 'EUR');
+        const thirdEntry = Entry.create(3, 'EUR');
+        const forthEntry = Entry.create(4, 'EUR');
 
         const dateOne: Date = new Date(2017, 3, 12, 0, 0, 0, 0);
         firstEntry.created_at = dateOne;
@@ -37,10 +41,10 @@ describe('sort-util', function () {
 
     it('should sort entries so that the last created entry is at the last position', () => {
         // prepare
-        const firstEntry = Entry.create(1);
-        const secondEntry = Entry.create(2);
-        const thirdEntry = Entry.create(3);
-        const forthEntry = Entry.create(4);
+        const firstEntry = Entry.create(1, 'EUR');
+        const secondEntry = Entry.create(2, 'EUR');
+        const thirdEntry = Entry.create(3, 'EUR');
+        const forthEntry = Entry.create(4, 'EUR');
 
         const dateOne: Date = new Date(2017, 3, 12, 0, 0, 0, 0);
         firstEntry.created_at = dateOne;

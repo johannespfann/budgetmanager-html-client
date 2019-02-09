@@ -10,10 +10,10 @@ describe('packager', function () {
 
     it('should split entries in 3 month', () => {
         // prepare
-        const entrieFirst = Entry.create(1);
-        const entrieSecond = Entry.create(2);
-        const entrieThird = Entry.create(3);
-        const entrieFourth = Entry.create(4);
+        const entrieFirst = Entry.create(1, 'EUR');
+        const entrieSecond = Entry.create(2, 'EUR');
+        const entrieThird = Entry.create(3, 'EUR');
+        const entrieFourth = Entry.create(4, 'EUR');
 
         const dateOne: Date = new Date(2017, 3, 12, 0, 0, 0, 0);
         entrieFirst.created_at = dateOne;
