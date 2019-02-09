@@ -9,6 +9,8 @@ export class RotationEntry {
 
     public hash: string;
 
+    public username: string;
+
     public start_at: Date;
 
     public end_at: Date;

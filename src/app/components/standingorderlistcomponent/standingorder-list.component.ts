@@ -48,6 +48,7 @@ export class StandingOrderListComponent implements OnChanges, OnInit {
         }
 
         this.standingOrders.forEach( (aRotatatinEntry: RotationEntry) => {
+
             if (aRotatatinEntry.rotation_strategy === '66122') {
                 this.monthlyStandingOrders.push(aRotatatinEntry);
             }
@@ -59,6 +60,7 @@ export class StandingOrderListComponent implements OnChanges, OnInit {
             if (aRotatatinEntry.rotation_strategy === '5679') {
                 this.yeartlyStandingOrder.push(aRotatatinEntry);
             }
+
         });
 
     }

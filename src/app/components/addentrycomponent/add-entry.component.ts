@@ -5,11 +5,11 @@ import { StandingOrderInfoComponent } from '../standingorderinfocomponent/standi
 import { RotationEntry } from '../../models/rotationentry';
 import { Entry } from '../../models/entry';
 import { EntryV2Service } from '../../services/entryV2.service';
-import { RotationEntryService } from '../../services/rotation-entry.service';
 import { DateUtil } from '../../utils/date-util';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AccountService } from '../../services/account-service';
 import { AccountItem } from '../../models/account-item';
+import { StandingOrderService } from '../../services/standing-order.service';
 
 @Component({
     selector: 'app-newentry',
@@ -33,7 +33,7 @@ export class AddEntryComponent implements OnInit {
     constructor(
         private accountService: AccountService,
         private entryService: EntryV2Service,
-        private rotationService: RotationEntryService,
+        private rotationService: StandingOrderService,
         private spinner: NgxSpinnerService) {
         LogUtil.debug(this, 'init add-entry-component');
     }
@@ -118,7 +118,7 @@ export class AddEntryComponent implements OnInit {
 
     private persistStandingOrder(aStandingOrder: RotationEntry): void {
         this.spinner.show();
-        this.rotationService.addRotationEntry(aStandingOrder).subscribe(
+        this.rotationService.addRotationEntry(this.selectedAccount, aStandingOrder).subscribe(
             data => {
                 LogUtil.debug(this, 'Persist StandingOrder' + JSON.stringify(aStandingOrder));
                 this.spinner.hide();

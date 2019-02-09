@@ -3,6 +3,9 @@ import { RotationEntryService } from '../../services/rotation-entry.service';
 import { RotationEntry } from '../../models/rotationentry';
 import { LogUtil } from '../../utils/log-util';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { StandingOrderService } from '../../services/standing-order.service';
+import { AccountService } from '../../services/account-service';
+import { AccountItem } from '../../models/account-item';
 
 @Component({
     selector: 'app-standingorder-component',
@@ -15,17 +18,21 @@ export class StandingOrderComponent implements OnInit {
 
     public selectedStandingOrder: RotationEntry;
 
+    public accountItems: AccountItem[];
+    public selectedAccountItem: AccountItem;
+
     public isViewVisible: boolean;
 
     constructor(
-        private rotationEntryService: RotationEntryService,
+        private accountService: AccountService,
+        private rotationEntryService: StandingOrderService,
         private spinner: NgxSpinnerService) {
         LogUtil.debug(this, 'init standingorders');
     }
 
     public ngOnInit(): void {
         this.cleanView();
-        this.updateStandingOrders();
+        this.updateAccountItems();
     }
 
     public onEditPressed(entry: RotationEntry): void {
@@ -37,8 +44,20 @@ export class StandingOrderComponent implements OnInit {
         this.cleanView();
     }
 
+    private updateAccountItems(): void {
+        this.accountService.getAllUseableAccounts().subscribe(
+            (accountItems: AccountItem[]) => {
+                this.accountItems = accountItems;
+                accountItems.forEach( x => JSON.stringify(x));
+                this.selectedAccountItem = accountItems[0];
+                this.updateStandingOrders();
+            },
+            error => LogUtil.error(this, 'error when getting all useable accounts: ' + JSON.stringify(error))
+        );
+    }
+
     public onChangedPressed(event: RotationEntry): void {
-        this.rotationEntryService.updateRotationEntry(event).subscribe(
+        this.rotationEntryService.updateRotationEntry(this.selectedAccountItem, event).subscribe(
             data => {
                 this.cleanView();
                 this.updateStandingOrders();
@@ -50,7 +69,7 @@ export class StandingOrderComponent implements OnInit {
     }
 
     public onDeletedPressed(event: RotationEntry): void {
-        this.rotationEntryService.deleteRotationEntry(event).subscribe(
+        this.rotationEntryService.deleteRotationEntry(this.selectedAccountItem, event).subscribe(
             data => {
                 this.cleanView();
                 this.updateStandingOrders();
@@ -63,11 +82,12 @@ export class StandingOrderComponent implements OnInit {
 
     private updateStandingOrders() {
         this.spinner.show();
-        this.rotationEntryService.getRotationEntries().subscribe(
+        this.rotationEntryService.getRotationEntries(this.selectedAccountItem).subscribe(
             (aRotationEntries: RotationEntry[]) => {
                 LogUtil.info(this, 'get all standingOrders ...');
                 this.rotationEntries = aRotationEntries;
                 this.spinner.hide();
+                LogUtil.info(this, 'size: ' + this.rotationEntries.length);
             },
             error => {
                 LogUtil.error(this, 'Error was found! -> ' + JSON.stringify(error));

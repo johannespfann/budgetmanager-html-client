@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { LogedInMessage } from './messages/logedin-message';
 import { LogUtil } from './utils/log-util';
 import { User } from './models/user';
-import { Account } from './models/account';
 import { ApplicationService } from './application/application.service';
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
 import { LoginV2Service } from './rest/login-api-v2.service';
@@ -13,7 +12,6 @@ import { AccountService } from './services/account-service';
 import { LogedOutMessage } from './messages/logedout-message';
 import { AccountItem } from './models/account-item';
 import { ModifiedAccountsMessage } from './messages/modified-accounts-message';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { NoEncryptedKeyAvailableMessage } from './messages/no-encrypted-key-available-message';
 import { EncryptionKeyAvailableMessage } from './messages/encryption-key-available-message';
 
