@@ -11,12 +11,11 @@ export class RotationEntryTransformer {
     public transformRotationEntryServer(aPassword: string, aServerEntry: RotationEntryServer): RotationEntry {
         const rotationEntry: RotationEntry = new RotationEntry();
 
-
         rotationEntry.hash = aServerEntry.hash.toString();
         rotationEntry.memo = CryptUtil.decryptString(aPassword, aServerEntry.memo);
         const amountString: string = CryptUtil.decryptString(aPassword, aServerEntry.amount);
         rotationEntry.amount = Number(amountString);
-        rotationEntry.currency = CryptUtil.decryptString(aPassword,aServerEntry.currency);
+        rotationEntry.currency = CryptUtil.decryptString(aPassword, aServerEntry.currency);
         rotationEntry.start_at = new Date(aServerEntry.start_at);
         rotationEntry.end_at = new Date(aServerEntry.end_at);
 
@@ -34,8 +33,8 @@ export class RotationEntryTransformer {
 
     /**
      * prepare a rotationentry to send it to server
-     * @param aPassword 
-     * @param aEntry 
+     * @param aPassword
+     * @param aEntry
      */
     public transformRotationEntry(aPassword: string, aEntry: RotationEntry): RotationEntryServer {
         const rotationEntryServer: RotationEntryServer = new RotationEntryServer();
@@ -47,7 +46,7 @@ export class RotationEntryTransformer {
             rotationEntryServer.amount = aEntry.amount.toString();
         }
 
-        if(this.encryptValue) {
+        if (this.encryptValue) {
             rotationEntryServer.currency = CryptUtil.encryptString(aPassword, aEntry.currency);
         } else {
             rotationEntryServer.currency = aEntry.currency;
@@ -62,7 +61,7 @@ export class RotationEntryTransformer {
         rotationEntryServer.start_at = new Date(aEntry.start_at);
         rotationEntryServer.end_at = new Date(aEntry.end_at);
         rotationEntryServer.last_executed = new Date(aEntry.last_executed);
-        
+
         rotationEntryServer.tags = aEntry.tags.map((tag: Tag) => {
             const newTag: Tag = new Tag();
 
