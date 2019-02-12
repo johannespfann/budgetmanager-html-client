@@ -1,4 +1,11 @@
+import * as dataFns from 'date-fns';
+import { LogUtil } from './log-util';
+
+
+
 export class DateUtil {
+
+
 
     public static getCurrentDate(): number {
         return Date.now();
@@ -15,4 +22,50 @@ export class DateUtil {
         ];
         return monthNames[date.getMonth()];
     }
+
+    public static differenceInDays(first: Date, second: Date): number {
+        return dataFns.differenceInDays(first, second);
+    }
+
+    public static differenceInMonth(from: Date, to: Date): number {
+        let count = 0;
+
+        if (this.firstIsAfterSecond(from, to)) {
+            return count;
+        }
+
+        for (let index = 1; true; index++) {
+            const plusMonthMore = this.plusMonth(from, index);
+            if (this.firstIsAfterSecond(plusMonthMore, to)) {
+                return count;
+            }
+            count++;
+        }
+    }
+
+    public static firstIsBeforeSecond(first: Date, second: Date): boolean {
+        return dataFns.isBefore(first, second);
+    }
+
+    public static firstIsAfterSecond(first: Date, second: Date): boolean {
+        return dataFns.isAfter(first, second);
+    }
+
+    public static plusMonth(date: Date, value: number): Date {
+        const tmpDate = new Date(date.getFullYear(), date.getMonth() + value, 1);
+        const lastDayOfMonth = dataFns.lastDayOfMonth(tmpDate).getDate();
+
+        let newDate: number;
+
+        if (date.getDate() > lastDayOfMonth) {
+           newDate = lastDayOfMonth;
+        } else {
+            newDate = date.getDate();
+        }
+
+        const producedDate = new Date(date.getFullYear(), date.getMonth() + value, newDate);
+        return producedDate;
+    }
+
+
 }
