@@ -48,7 +48,6 @@ describe('yearly-series-producer tests', function () {
         // execute
         const entries = yearlySeriesProducer.produceDateSeries(lastExecuted, today);
 
-
         // validate
         expect(entries.length).toBe(1);
     });

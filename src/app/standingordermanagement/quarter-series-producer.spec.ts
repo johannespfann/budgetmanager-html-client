@@ -47,8 +47,6 @@ describe('quarter-series-producer tests', function () {
         const entries = quarterSeriesProducer.produceDateSeries(lastExecuted, today);
 
 
-        entries.forEach( x => console.log(x));
-
         // validate
         expect(entries.length).toBe(3);
     });
