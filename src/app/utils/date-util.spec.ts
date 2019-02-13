@@ -148,4 +148,28 @@ describe('date-util', function () {
         expect(result).toBe(0);
     });
 
+    it('should define 0 year because is less then one year', () => {
+        // prepare
+        const firstDate = new Date(2017, 11, 15);
+        const secondDate = new Date(2018, 10 , 28);
+
+        // execute
+        const result: number = DateUtil.differenceInYears(firstDate, secondDate);
+
+        // vaidate
+        expect(result).toBe(0);
+    });
+
+    it('should define 2 year because first ist 2017-10-15 and second 2019-10-15', () => {
+        // prepare
+        const firstDate = new Date(2017, 9, 15);
+        const secondDate = new Date(2019, 9 , 15);
+
+        // execute
+        const result: number = DateUtil.differenceInYears(firstDate, secondDate);
+
+        // vaidate
+        expect(result).toBe(2);
+    });
+
 } );

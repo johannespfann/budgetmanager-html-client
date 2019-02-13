@@ -26,6 +26,23 @@ export class DateUtil {
         return dataFns.differenceInDays(first, second);
     }
 
+    public static differenceInYears(from: Date, to: Date): number {
+        let count = 0;
+
+        if (this.firstIsAfterSecond(from, to)) {
+            return count;
+        }
+
+        for (let index = 1; true; index++) {
+            const plusMonthMore = this.plusMonth(from, index * 12);
+            if (this.firstIsAfterSecond(plusMonthMore, to)) {
+                return count;
+            }
+            count++;
+        }
+    }
+
+
     public static differenceInQuarter(from: Date, to: Date): number {
         let count = 0;
 
