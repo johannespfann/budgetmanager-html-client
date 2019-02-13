@@ -107,4 +107,45 @@ describe('date-util', function () {
         expect(producedDate.getDate()).toBe(expectedDate.getDate());
     });
 
+    it('should define 1 quarter because first is 2018-1-30 and second is 2018-5-28', () => {
+
+        // prepare
+        const firstDate = new Date(2018, 0, 30);
+        const secondDate = new Date(2018, 5 , 28);
+
+        // execute
+        const result: number = DateUtil.differenceInQuarter(firstDate, secondDate);
+
+        // vaidate
+        expect(result).toBe(1);
+    });
+
+    it('should define 3 quarter because first is 2018-1-30 and second is 2018-12-28', () => {
+        // prepare
+        const firstDate = new Date(2018, 0, 30);
+        // Start   -> 30 Januar 2018
+        // 1 Entry -> 30 April 2018
+        // 2 Entry -> 30 Juli 2018
+        // 3 Entry -> 30 Oktober 2018
+        const secondDate = new Date(2018, 11 , 28);
+
+        // execute
+        const result: number = DateUtil.differenceInQuarter(firstDate, secondDate);
+
+        // vaidate
+        expect(result).toBe(3);
+    });
+
+    it('should define 0 quarter because first is 2017-12-15 and second is 2018-1-28', () => {
+        // prepare
+        const firstDate = new Date(2017, 11, 15);
+        const secondDate = new Date(2018, 0 , 28);
+
+        // execute
+        const result: number = DateUtil.differenceInQuarter(firstDate, secondDate);
+
+        // vaidate
+        expect(result).toBe(0);
+    });
+
 } );

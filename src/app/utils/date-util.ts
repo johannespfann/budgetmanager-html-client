@@ -6,7 +6,6 @@ import { LogUtil } from './log-util';
 export class DateUtil {
 
 
-
     public static getCurrentDate(): number {
         return Date.now();
     }
@@ -25,6 +24,22 @@ export class DateUtil {
 
     public static differenceInDays(first: Date, second: Date): number {
         return dataFns.differenceInDays(first, second);
+    }
+
+    public static differenceInQuarter(from: Date, to: Date): number {
+        let count = 0;
+
+        if (this.firstIsAfterSecond(from, to)) {
+            return count;
+        }
+
+        for (let index = 1; true; index++) {
+            const plusMonthMore = this.plusMonth(from, index * 3);
+            if (this.firstIsAfterSecond(plusMonthMore, to)) {
+                return count;
+            }
+            count++;
+        }
     }
 
     public static differenceInMonth(from: Date, to: Date): number {
