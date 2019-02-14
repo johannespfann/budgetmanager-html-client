@@ -24,10 +24,8 @@ export class StandingOrderExecutor {
 
         this.dateSeriesStrategies.forEach( x => {
             if (x.isValidStrategyPattern(standingOrder.rotation_strategy)) {
-
                 const from: Date = this.produceBeginningDate(standingOrder);
                 const generatedDatesTemp = x.produceDateSeries(from, today);
-                LogUtil.debug(this, 'Generated entries ' + JSON.stringify(generatedDatesTemp));
                 generatedEntries = this.produceEntries(generatedDatesTemp, standingOrder);
             }
         });
@@ -52,8 +50,7 @@ export class StandingOrderExecutor {
     private produceBeginningDate(standingOrder: RotationEntry): Date {
         const beginningDate: Date = new Date();
 
-
-        if (standingOrder.last_executed) {
+        if (!standingOrder.last_executed) {
             standingOrder.last_executed = standingOrder.start_at;
         }
 
