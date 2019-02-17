@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { EntryService } from '../../services/entry.service';
 import { LogUtil } from '../../utils/log-util';
 import { Entry } from '../../models/entry';
 import { EntryPackage } from '../../models/entry-package';
@@ -8,6 +7,9 @@ import { BalanceManager } from './balance-manager';
 import { SortUtil } from '../../utils/sort-util';
 import { DateUtil } from '../../utils/date-util';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EntryV2Service } from '../../services/entryV2.service';
+import { AccountService } from '../../services/account-service';
+import { AccountItem } from '../../models/account-item';
 
 @Component({
     selector : 'app-balance',
@@ -18,16 +20,34 @@ export class BalanceComponent {
 
     public balanceManagers: BalanceManager[] = [];
 
+    public accountItems: AccountItem[] = [];
+
+    public selectedAccountItem: AccountItem;
+
     constructor(
-        private entryService: EntryService,
+        private entryService: EntryV2Service,
+        private accountService: AccountService,
         private spinner: NgxSpinnerService) {
             LogUtil.debug(this, 'init balance-compoent');
-            this.updateEntries();
+
+        this.updateAccountItems();
+    }
+
+    private updateAccountItems(): void {
+        this.accountService.getAllUseableAccounts().subscribe(
+            (accountItems: AccountItem[]) => {
+                this.accountItems = accountItems;
+                accountItems.forEach( x => JSON.stringify(x));
+                this.selectedAccountItem = accountItems[0];
+                this.updateEntries();
+            },
+            error => LogUtil.error(this, 'error when getting all useable accounts: ' + JSON.stringify(error))
+        );
     }
 
     private updateEntries(): void {
         this.spinner.show();
-        this.entryService.getEntries().subscribe(
+        this.entryService.getEntries(this.selectedAccountItem).subscribe(
             (entries: Entry[] ) => {
             const entryPackagers = this.splitEntriesInPackages(entries);
             const packagerMangeres = this.convertPackagesInPackageManager(entryPackagers);
