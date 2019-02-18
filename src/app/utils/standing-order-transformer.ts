@@ -7,7 +7,6 @@ import { LogUtil } from './log-util';
 export class StandingOrderTransformer {
 
     public transformRotationEntryServer(aPassword: string, aServerEntry: StandingOrderServer): RotationEntry {
-        LogUtil.info(this, 'Receiving StandingOderSErver: ' + JSON.stringify(aServerEntry));
         const rotationEntry: RotationEntry = new RotationEntry();
         rotationEntry.hash = aServerEntry.hash.toString();
         rotationEntry.username = aServerEntry.username;
@@ -20,11 +19,12 @@ export class StandingOrderTransformer {
         rotationEntry.currency = standingOrderPayload.currency;
         rotationEntry.memo = standingOrderPayload.memo;
         rotationEntry.tags = standingOrderPayload.tags;
-        rotationEntry.start_at = standingOrderPayload.start_at;
-        rotationEntry.last_executed = standingOrderPayload.last_executed;
-        rotationEntry.end_at = standingOrderPayload.end_at;
+
         rotationEntry.rotation_strategy = standingOrderPayload.rotation_strategy;
-        LogUtil.info(this, 'Produced RotationEntry: ' + JSON.stringify(rotationEntry));
+
+        rotationEntry.start_at = new Date(standingOrderPayload.start_at);
+        rotationEntry.last_executed = new Date(standingOrderPayload.last_executed);
+        rotationEntry.end_at = new Date(standingOrderPayload.end_at);
 
         return rotationEntry;
     }
