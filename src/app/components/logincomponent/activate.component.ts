@@ -23,7 +23,7 @@ export class ActivateComponent{
         private loginService: LoginV2Service,
         private appService: ApplicationService) {
 
-        LogUtil.debug(this, 'Init ActivateComponent');
+        LogUtil.logInits(this, 'Init ActivateComponent');
         this.username = route.snapshot.paramMap.get('username');
         this.email = route.snapshot.paramMap.get('email');
 

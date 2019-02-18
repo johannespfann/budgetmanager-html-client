@@ -11,7 +11,7 @@ export class UserService {
     constructor(
         private userApiService: UserApiService,
         private applicationService: ApplicationService) {
-        LogUtil.info(this, 'init user-service');
+        LogUtil.logInits(this, 'init user-service');
     }
 
     public getUserInfo(): Observable<any> {

@@ -12,7 +12,7 @@ export class StandingOrderService {
     constructor(
         private rotationEntryRestApiService: StandingOrderApiService,
         private appService: ApplicationService) {
-            LogUtil.debug(this, 'init standing-order-service');
+            LogUtil.logInits(this, 'init standing-order-service');
     }
 
     public addRotationEntry(aAccountItem: AccountItem, aRotationEntry: RotationEntry): Observable<any> {

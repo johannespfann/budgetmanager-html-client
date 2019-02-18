@@ -14,7 +14,7 @@ export class AccountApiService {
     constructor(
         private http: HttpClient,
         private appService: ApplicationService) {
-        LogUtil.info(this, 'Init AccountApiSerice');
+        LogUtil.logInits(this, 'Init AccountApiSerice');
     }
 
     public getAccounts(aUser: User): Observable<Array<Account>> {

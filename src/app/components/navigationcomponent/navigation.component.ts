@@ -20,7 +20,7 @@ export class NavigationComponent {
 
     constructor(
         private messagingService: MessagingService) {
-        LogUtil.debug(this, 'init navigation-component');
+        LogUtil.logInits(this, 'init navigation-component');
         this.navBarIsOpen = false;
         this.userIsLogedIn = false;
         this.userHasValidKeys = false;

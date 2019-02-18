@@ -4,7 +4,7 @@ import { LogUtil } from '../utils/log-util';
 export class EncryptionKeyAvailableMessage {
 
     constructor() {
-        LogUtil.debug(this, 'init encryption-key-available-message');
+        LogUtil.logMessages(this, 'init encryption-key-available-message');
     }
 
 }

@@ -16,7 +16,7 @@ export class StandingOrderApiService {
     constructor(
         private applicationService: ApplicationService,
         private http: HttpClient) {
-        LogUtil.debug(this, 'init standing-order-api-service');
+        LogUtil.logInits(this, 'init standing-order-api-service');
     }
 
     public addRotationEntry(aUser: User, aAccountItem: AccountItem, aRotationEntry: RotationEntry): Observable<any> {

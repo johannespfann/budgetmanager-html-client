@@ -22,7 +22,7 @@ export class ListAccountComponent {
     public setDecryptionPressed = new EventEmitter<AccountItem>();
 
     constructor() {
-        LogUtil.info(this, 'init list account component');
+        LogUtil.logInits(this, 'init list account component');
     }
 
     public onDeletedPressed(aAccount: AccountItem): void {

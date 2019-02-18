@@ -23,7 +23,7 @@ export class ListEntryComponent implements OnChanges {
     public editPressed = new EventEmitter<Entry>();
 
     constructor() {
-        LogUtil.debug(this, 'init list-entry-component');
+        LogUtil.logInits(this, 'init list-entry-component');
         this.entryPackager = new Packager();
     }
 

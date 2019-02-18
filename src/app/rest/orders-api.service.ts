@@ -16,7 +16,7 @@ export class RotationEntryRestApiService {
         private applicationService: ApplicationService,
         private http: HttpClient) {
 
-        LogUtil.info(this, 'Init RotationEntryRestApiService');
+        LogUtil.logInits(this, 'Init RotationEntryRestApiService');
     }
 
     public addRotationEntry(aUser: User, aRotationEntry: RotationEntry): Observable<any> {

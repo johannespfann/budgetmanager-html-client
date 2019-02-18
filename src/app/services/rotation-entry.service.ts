@@ -12,7 +12,7 @@ export class RotationEntryService {
         private rotationEntryRestApiService: RotationEntryRestApiService,
         private appService: ApplicationService) {
 
-        LogUtil.info(this, 'Init RotationEntryService');
+        LogUtil.logInits(this, 'Init RotationEntryService');
     }
 
     public addRotationEntry(aRotationEntry: RotationEntry): Observable<any> {

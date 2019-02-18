@@ -28,7 +28,7 @@ export class EntryInfoComponent {
         private tagStatisticService: TagStatisticService,
         private applicationService: ApplicationService) {
 
-        LogUtil.debug(this, 'init entrycomponent');
+        LogUtil.logInits(this, 'init entrycomponent');
         this.tagStatisticBrowserStorageFacade = new TagStatisticFacade(this.applicationService.getCurrentUser());
     }
 

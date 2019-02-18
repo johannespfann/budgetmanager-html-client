@@ -34,7 +34,7 @@ export class AccountItemComponent implements OnInit {
     public isValidKey: boolean;
 
     constructor() {
-        LogUtil.info(this, 'init account-item-component');
+        LogUtil.logInits(this, 'init account-item-component');
     }
 
     public ngOnInit(): void {

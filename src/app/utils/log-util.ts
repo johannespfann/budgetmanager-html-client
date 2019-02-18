@@ -14,7 +14,13 @@ export class LogUtil {
 
     public static logMessages<T>(aObject: T, aMessage: string) {
         if (false) {
-            console.log(' [info] ' + (<any>aObject.constructor).name + ' : ' + aMessage);
+            console.log(' [debug] ' + (<any>aObject.constructor).name + ' : ' + aMessage);
+        }
+    }
+
+    public static logInits<T>(aObject: T, aMessage: string) {
+        if (false) {
+            console.log(' [debug] ' + (<any>aObject.constructor).name + ' : ' + aMessage);
         }
     }
 

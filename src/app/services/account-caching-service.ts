@@ -12,7 +12,7 @@ export class AccountCachingService {
     private cachedAccountItems: Array<Account>;
 
     constructor(private accountApiService: AccountApiService) {
-        LogUtil.debug(this, 'init account-caching-service');
+        LogUtil.logInits(this, 'init account-caching-service');
         this.cachedAccountItems = [];
     }
 

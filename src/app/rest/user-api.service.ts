@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class UserApiService {
 
     constructor(private http: HttpClient) {
-        LogUtil.debug(this, 'init user-api-service');
+        LogUtil.logInits(this, 'init user-api-service');
     }
 
     public getUserInfo(aBaseUrl: string, aUser: User, aAccessToken: string): Observable<any> {

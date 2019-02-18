@@ -19,7 +19,7 @@ export class ApplicationService {
     constructor(
         private loginService: LoginV2Service) {
 
-        LogUtil.info(this, 'Init ApplicationService');
+        LogUtil.logInits(this, 'Init ApplicationService');
         this.authfacade = new AuthenticationFacade();
     }
 
@@ -44,7 +44,6 @@ export class ApplicationService {
     }
 
     public setCurrentUser(aUser: User): void {
-        LogUtil.info(this, 'Set user to applicationservice: ' + aUser.name);
         this.user = aUser;
     }
 
@@ -74,15 +73,13 @@ export class ApplicationService {
             return Promise.resolve();
         }
 
-        LogUtil.info(this, 'User ' + this.authfacade.getUserNames() + ' was saved in localstorage!');
-
         const username = this.authfacade.getUserNames();
         const password = this.authfacade.getPassword();
 
         return this.loginService.login(this.baseUrl, username , password )
             .pipe(
                 map( (data: any) => {
-                    LogUtil.info(this, JSON.stringify(data));
+
                     const user: User = new User();
                     user.name = data.username;
                     user.email = data.email;
@@ -92,7 +89,7 @@ export class ApplicationService {
                     return user;
                 })
             ).toPromise()
-            .then( data => LogUtil.info(this, ' War alles gut!' + JSON.stringify(data)))
+            .then( data => data )
             .catch( data => LogUtil.info(this, JSON.stringify(data)) );
     }
 

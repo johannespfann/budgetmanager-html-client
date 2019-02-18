@@ -17,7 +17,7 @@ export class TagStatisticRestApiService {
     constructor(
         private http: HttpClient,
         private appService: ApplicationService) {
-            LogUtil.info(this, 'Init TagStatisticRestApiService');
+            LogUtil.logInits(this, 'Init TagStatisticRestApiService');
             this.tagStatisticTransformer = new TagStatisticTransformer();
     }
 

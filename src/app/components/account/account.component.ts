@@ -23,7 +23,7 @@ export class AccountComponent implements OnInit {
         private messageService: MessagingService,
         private applicationService: ApplicationService,
         private accountService: AccountService) {
-        LogUtil.info(this, 'init account-component');
+        LogUtil.logInits(this, 'init account-component');
         this.showAddNewAccount = false;
     }
 

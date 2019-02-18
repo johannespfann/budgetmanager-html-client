@@ -10,7 +10,7 @@ export class AccountStorageFacade {
 
     constructor(aUser: User) {
         this.user = aUser;
-        LogUtil.debug(this, 'init accountStorageFacade with User: ' + this.user.name + ' and password: ' + this.user.password);
+        LogUtil.logInits(this, 'init accountStorageFacade with User: ' + this.user.name + ' and password: ' + this.user.password);
     }
 
     public getAllAccountItems(): AccountItem[] {

@@ -31,7 +31,7 @@ export class LoginComponent {
         private messageService: MessagingService,
         private appService: ApplicationService) {
 
-        LogUtil.debug(this, 'Init LoginComponent');
+        LogUtil.logInits(this, 'Init LoginComponent');
             this.authenticationLocalStorage = new AuthenticationFacade();
         this.identifier = route.snapshot.paramMap.get('email');
     }

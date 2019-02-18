@@ -28,7 +28,7 @@ export class BalanceComponent {
         private entryService: EntryV2Service,
         private accountService: AccountService,
         private spinner: NgxSpinnerService) {
-            LogUtil.debug(this, 'init balance-compoent');
+            LogUtil.logInits(this, 'init balance-compoent');
 
         this.updateAccountItems();
     }

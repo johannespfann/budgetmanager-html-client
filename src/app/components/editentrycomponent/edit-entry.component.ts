@@ -17,7 +17,7 @@ export class EditEntryComponent implements OnChanges {
     public createEntryDate = new Date();
 
     constructor() {
-        LogUtil.debug(this, 'init edit-endry-component');
+        LogUtil.logInits(this, 'init edit-endry-component');
     }
 
     @Input()

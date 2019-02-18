@@ -21,7 +21,7 @@ export class StandingOrderListComponent implements OnChanges, OnInit {
     public editPressed = new EventEmitter<RotationEntry>();
 
     constructor() {
-        LogUtil.debug(this, 'init standingorder-list-component');
+        LogUtil.logInits(this, 'init standingorder-list-component');
     }
 
     public editStandingOrder(aStandingOrder: RotationEntry): void {

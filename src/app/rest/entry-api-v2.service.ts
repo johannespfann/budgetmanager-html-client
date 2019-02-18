@@ -21,7 +21,7 @@ export class EntryAPIV2Service {
         private http: HttpClient,
         private appService: ApplicationService) {
 
-        LogUtil.info(this, 'Init EntryAPIService');
+        LogUtil.logInits(this, 'Init EntryAPIService');
         this.entryTransformer = new V2EntryTransformer();
     }
 

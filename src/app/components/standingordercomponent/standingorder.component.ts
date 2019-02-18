@@ -27,7 +27,7 @@ export class StandingOrderComponent implements OnInit {
         private accountService: AccountService,
         private rotationEntryService: StandingOrderService,
         private spinner: NgxSpinnerService) {
-        LogUtil.debug(this, 'init standingorders');
+        LogUtil.logInits(this, 'init standingorders');
     }
 
     public ngOnInit(): void {

@@ -9,7 +9,7 @@ export class LoginV2Service {
 
     constructor(
         private http: HttpClient) {
-        LogUtil.info(this, 'init login-service');
+        LogUtil.logInits(this, 'init login-service');
     }
 
     public registerUser(aBaseUrl: string, aUser: User, aPassword: String): Observable<any> {

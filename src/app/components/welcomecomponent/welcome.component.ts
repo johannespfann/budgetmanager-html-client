@@ -8,6 +8,6 @@ import { LogUtil } from '../../utils/log-util';
 export class WelcomeComponent {
 
     constructor() {
-        LogUtil.debug(this, 'welcome component');
+        LogUtil.logInits(this, 'welcome component');
     }
 }

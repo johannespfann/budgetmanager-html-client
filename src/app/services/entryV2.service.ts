@@ -15,7 +15,7 @@ export class EntryV2Service {
         private entryApiService: EntryAPIV2Service,
         private appService: ApplicationService,
         private accountService: AccountService ) {
-        LogUtil.debug(this, 'Init EntryService');
+        LogUtil.logInits(this, 'Init EntryService');
     }
 
     public getEntries(accountItem: AccountItem): Observable<Entry[]> {

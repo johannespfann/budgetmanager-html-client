@@ -10,7 +10,7 @@ import { LogUtil } from '../../utils/log-util';
 export class AccountHelpComponent {
 
     constructor() {
-        LogUtil.info(this, 'init account-help-component');
+        LogUtil.logInits(this, 'init account-help-component');
     }
 
 }

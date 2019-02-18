@@ -25,7 +25,7 @@ export class HistoryEntryComponent {
         private accountService: AccountService,
         private entryService: EntryV2Service,
         private spinner: NgxSpinnerService) {
-        LogUtil.debug(this, 'init history-entry-component');
+        LogUtil.logInits(this, 'init history-entry-component');
         this.entries = [];
         this.selectedEntry = new Entry();
         this.closeEditView();

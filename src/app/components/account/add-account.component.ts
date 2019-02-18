@@ -31,7 +31,7 @@ export class AddAccountComponent {
 
 
     constructor() {
-        LogUtil.info(this, 'init add-account-component');
+        LogUtil.logInits(this, 'init add-account-component');
         this.name = '';
         this.encryption_text = '';
         this.encryption_key = '';

@@ -38,7 +38,7 @@ export class AddEntryComponent implements OnInit {
         private entryService: EntryV2Service,
         private rotationService: StandingOrderService,
         private spinner: NgxSpinnerService) {
-        LogUtil.debug(this, 'init add-entry-component');
+        LogUtil.logInits(this, 'init add-entry-component');
     }
 
     public ngOnInit(): void {

@@ -10,7 +10,7 @@ export class MessagingService {
     private message$: Subject<Message>;
 
     constructor() {
-        LogUtil.info(this, 'Init MessagingService');
+        LogUtil.logMessages(this, 'Init MessagingService');
         this.message$ = new Subject<Message>();
     }
 

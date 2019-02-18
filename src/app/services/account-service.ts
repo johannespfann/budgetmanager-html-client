@@ -16,7 +16,7 @@ export class AccountService {
     constructor(
         private accountCachingservice: AccountCachingService,
         private appService: ApplicationService) {
-        LogUtil.debug(this, 'init accountservice');
+        LogUtil.logInits(this, 'init accountservice');
     }
 
     public getAccounts(): Observable<AccountItem[]> {

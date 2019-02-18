@@ -11,7 +11,7 @@ export class TagStatisticService {
     constructor(
         private tagStatisticRestApiService: TagStatisticRestApiService,
         private appService: ApplicationService) {
-            LogUtil.info(this, 'Init EntryService');
+            LogUtil.logInits(this, 'Init EntryService');
     }
 
     public getTagStatistic(): Observable<TagStatistic[]> {

@@ -32,7 +32,7 @@ export class EditStandingOrderComponent implements OnInit, OnChanges {
     public changedPressed = new EventEmitter<RotationEntry>();
 
     constructor() {
-        LogUtil.debug(this, 'init standingorder-edit-component');
+        LogUtil.logInits(this, 'init standingorder-edit-component');
     }
 
     public ngOnInit(): void {

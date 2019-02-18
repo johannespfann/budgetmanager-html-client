@@ -19,7 +19,7 @@ export class StandingOrderInfoComponent implements OnInit {
 
 
     public constructor() {
-        LogUtil.debug(this, 'init standingorder-component');
+        LogUtil.logInits(this, 'init standingorder-component');
     }
 
     public ngOnInit(): void {
