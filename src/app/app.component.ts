@@ -23,6 +23,7 @@ import { NewAccountItemAvailableMessage } from './messages/new-account-item-avai
 import { MonthlySeriesProducer } from './standingordermanagement/monthly-series-producer';
 import { QuarterSeriesProducer } from './standingordermanagement/quarter-series-producer';
 import { YearlySeriesProducer } from './standingordermanagement/yearly-series-producer';
+import { AddedNewStandingOrderMessage } from './messages/added-new-standing-order-message';
 
 @Component({
   selector: 'app-budgetmanager',
@@ -38,6 +39,8 @@ export class AppComponent implements OnDestroy, OnInit {
   private loginMessageSubscription: Subscription;
   private modifiedAccountsMessageSubscription: Subscription;
   private newAccountAvailableMessageSubscritption: Subscription;
+  private addedNewStandingOrderMessageSubscritption: Subscription;
+
 
   private standingOrderJob: StandingOrderJob;
   public isLogedIn = false;
@@ -57,6 +60,7 @@ export class AppComponent implements OnDestroy, OnInit {
     this.loginMessageSubscription = this.registerLogedInMessage();
     this.modifiedAccountsMessageSubscription = this.registerAccountChanged();
     this.newAccountAvailableMessageSubscritption = this.registerNewAccountItemAvailableMessage();
+    this.addedNewStandingOrderMessageSubscritption = this.addNewStandingOrderMessage();
     const strategies: DateSeriesStrategy[] = [];
     strategies.push(new MonthlySeriesProducer());
     strategies.push(new QuarterSeriesProducer());
@@ -121,10 +125,11 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   private registerLogedInMessage(): Subscription {
-    LogUtil.debug(this, 'register ' + LogedInMessage.name);
+    LogUtil.logMessages(this, 'register ' + LogedInMessage.name);
     return this.messageService
       .of(LogedInMessage)
       .subscribe((message: LogedInMessage) => {
+        LogUtil.logMessages(this, 'received ' + LogedInMessage.name);
         this.router.navigate(['/welcome']);
         this.user = message.getUser();
         this.applicationService.setCurrentUser(this.user);
@@ -135,22 +140,34 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   private registerAccountChanged(): Subscription {
-    LogUtil.debug(this, 'register ' + ModifiedAccountsMessage.name);
+    LogUtil.logMessages(this, 'register ' + ModifiedAccountsMessage.name);
     return this.messageService.of(ModifiedAccountsMessage).subscribe(
       message => {
-        LogUtil.debug(this, 'received ' + ModifiedAccountsMessage.name);
+        LogUtil.logMessages(this, 'received ' + ModifiedAccountsMessage.name);
         this.updateCurrentAccountState();
       }
     );
   }
 
+  private addNewStandingOrderMessage(): Subscription {
+    LogUtil.logMessages(this, 'register ' + AddedNewStandingOrderMessage.name);
+    return this.messageService
+    .of(AddedNewStandingOrderMessage)
+    .subscribe(
+      (message: AddedNewStandingOrderMessage) => {
+        LogUtil.logMessages(this, 'received ' + AddedNewStandingOrderMessage.name);
+        this.standingOrderJob.executeStandingOrders(message.getAccountItem());
+      }
+    );
+  }
+
   private registerNewAccountItemAvailableMessage(): Subscription {
-    LogUtil.debug(this, 'register ' + NewAccountItemAvailableMessage.name);
+    LogUtil.logMessages(this, 'register ' + NewAccountItemAvailableMessage.name);
     return this.messageService
     .of(NewAccountItemAvailableMessage)
     .subscribe(
       (message: NewAccountItemAvailableMessage) => {
-        LogUtil.debug(this, 'received ' + NewAccountItemAvailableMessage.name);
+        LogUtil.logMessages(this, 'received ' + NewAccountItemAvailableMessage.name);
         this.standingOrderJob.executeStandingOrders(message.getAccountItem());
       }
     );

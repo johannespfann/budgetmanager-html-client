@@ -43,30 +43,30 @@ export class NavigationComponent {
 
 
     private registerNoEncryptedKeyMessage(): Subscription {
-        LogUtil.debug(this, 'register ' + NoEncryptedKeyAvailableMessage.name);
+        LogUtil.logMessages(this, 'register ' + NoEncryptedKeyAvailableMessage.name);
         return this.messagingService.of(NoEncryptedKeyAvailableMessage).subscribe(
             message => {
-            LogUtil.debug(this, 'received ' + NoEncryptedKeyAvailableMessage.name);
+            LogUtil.logMessages(this, 'received ' + NoEncryptedKeyAvailableMessage.name);
             this.userHasValidKeys = false;
           }
         );
       }
 
     private registerEncryptionKeyAvailableMessage(): Subscription {
-        LogUtil.debug(this, 'register ' + EncryptionKeyAvailableMessage.name);
+        LogUtil.logMessages(this, 'register ' + EncryptionKeyAvailableMessage.name);
         return this.messagingService.of(EncryptionKeyAvailableMessage).subscribe(
             message => {
-                LogUtil.debug(this, 'received ' + EncryptionKeyAvailableMessage.name);
+                LogUtil.logMessages(this, 'received ' + EncryptionKeyAvailableMessage.name);
                 this.userHasValidKeys = true;
             }
         );
     }
 
     private registerLogOutMessage(): Subscription {
-        LogUtil.debug(this, 'register ' + LogedOutMessage.name);
+        LogUtil.logMessages(this, 'register ' + LogedOutMessage.name);
         return this.messagingService.of(LogedOutMessage).subscribe(
             message => {
-                LogUtil.debug(this, 'received ' + LogedOutMessage.name);
+                LogUtil.logMessages(this, 'received ' + LogedOutMessage.name);
                 this.navBarIsOpen = false;
                 this.userIsLogedIn = false;
                 this.userHasValidKeys = false;
@@ -75,10 +75,10 @@ export class NavigationComponent {
     }
 
     private registerLogInMessage(): Subscription {
-        LogUtil.debug(this, 'register ' + LogedInMessage.name);
+        LogUtil.logMessages(this, 'register ' + LogedInMessage.name);
         return this.messagingService.of(LogedInMessage).subscribe(
             message => {
-                LogUtil.debug(this, 'received ' + LogedInMessage.name);
+                LogUtil.logMessages(this, 'received ' + LogedInMessage.name);
                 this.navBarIsOpen = false;
                 this.userIsLogedIn = true;
             }

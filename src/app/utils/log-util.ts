@@ -13,6 +13,9 @@ export class LogUtil {
     }
 
     public static logMessages<T>(aObject: T, aMessage: string) {
-        console.log(' [info] ' + (<any>aObject.constructor).name + ' : ' + aMessage);
+        if (false) {
+            console.log(' [info] ' + (<any>aObject.constructor).name + ' : ' + aMessage);
+        }
     }
+
 }
