@@ -1,5 +1,6 @@
 import { Entry } from '../models/entry';
 import { EntryPackage } from '../models/entry-package';
+import { LogUtil } from './log-util';
 
 export class SortUtil {
 
@@ -45,6 +46,18 @@ export class SortUtil {
         return aPackages.sort(function(a: EntryPackage, b: EntryPackage) {
             return b.date.getTime() - a.date.getTime();
         });
+    }
+
+
+    /**
+     * returning from a list of enties the latest created entry
+     * @param aEntries
+     */
+    public static getLatestCreatedEntry(aEntries: Entry[]): Entry {
+        const sortedEntries = aEntries.sort(function(a: Entry, b: Entry) {
+            return b.created_at.getTime() - a.created_at.getTime();
+        });
+        return sortedEntries[0];
     }
 
 }

@@ -109,4 +109,32 @@ describe('sort-util', function () {
         expect(sortedEntries[2].date.getTime).toEqual(secondPackage.date.getTime);
     });
 
+    it('should sort entires and get entry created at 17.9.2019', () => {
+        // prepare
+
+        const entryOne = new Entry();
+        entryOne.created_at = new Date(2017, 1, 4);
+        const entryTwo = new Entry();
+        entryTwo.created_at = new Date(2018, 1, 4);
+
+        const entryThree = new Entry();
+        entryThree.created_at = new Date(2019, 1, 4);
+        const entryFour = new Entry();
+        entryFour.created_at = new Date(2019, 2, 17);
+
+        const entries: Entry[] = [] ;
+        entries.push(entryOne);
+        entries.push(entryTwo);
+        entries.push(entryFour);
+        entries.push(entryThree);
+
+
+        // execute
+        const latestEntry = SortUtil.getLatestCreatedEntry(entries);
+
+        // validate
+        expect(latestEntry).toEqual(entryFour);
+    });
+
+
 });
