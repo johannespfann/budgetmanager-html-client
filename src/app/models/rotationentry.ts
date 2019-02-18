@@ -45,4 +45,21 @@ export class RotationEntry {
         rotationEntry.hash = HashUtil.getUniqueHash().toString();
         return rotationEntry;
     }
+
+
+    public static copy(aStandingOrder: RotationEntry): RotationEntry {
+        const standingOrder: RotationEntry = new RotationEntry();
+
+        standingOrder.hash = aStandingOrder.hash;
+        standingOrder.amount = aStandingOrder.amount;
+        standingOrder.currency = aStandingOrder.currency;
+        standingOrder.memo = aStandingOrder.memo;
+        standingOrder.tags = aStandingOrder.tags;
+        standingOrder.username = aStandingOrder.username;
+        standingOrder.start_at = aStandingOrder.start_at;
+        standingOrder.end_at = aStandingOrder.end_at;
+        standingOrder.last_executed = aStandingOrder.last_executed;
+        standingOrder.rotation_strategy = aStandingOrder.rotation_strategy;
+        return standingOrder;
+    }
 }

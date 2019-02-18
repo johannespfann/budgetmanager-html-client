@@ -46,7 +46,7 @@ export class NavigationComponent {
         LogUtil.debug(this, 'register ' + NoEncryptedKeyAvailableMessage.name);
         return this.messagingService.of(NoEncryptedKeyAvailableMessage).subscribe(
             message => {
-            LogUtil.debug(this, 'NavigationComponent received ' + NoEncryptedKeyAvailableMessage.name);
+            LogUtil.debug(this, 'received ' + NoEncryptedKeyAvailableMessage.name);
             this.userHasValidKeys = false;
           }
         );
@@ -56,7 +56,7 @@ export class NavigationComponent {
         LogUtil.debug(this, 'register ' + EncryptionKeyAvailableMessage.name);
         return this.messagingService.of(EncryptionKeyAvailableMessage).subscribe(
             message => {
-                LogUtil.debug(this, 'NavigationComponent received ' + EncryptionKeyAvailableMessage.name);
+                LogUtil.debug(this, 'received ' + EncryptionKeyAvailableMessage.name);
                 this.userHasValidKeys = true;
             }
         );
@@ -66,7 +66,7 @@ export class NavigationComponent {
         LogUtil.debug(this, 'register ' + LogedOutMessage.name);
         return this.messagingService.of(LogedOutMessage).subscribe(
             message => {
-                LogUtil.debug(this, 'NavigationComponent received ' + LogedOutMessage.name);
+                LogUtil.debug(this, 'received ' + LogedOutMessage.name);
                 this.navBarIsOpen = false;
                 this.userIsLogedIn = false;
                 this.userHasValidKeys = false;
@@ -78,7 +78,7 @@ export class NavigationComponent {
         LogUtil.debug(this, 'register ' + LogedInMessage.name);
         return this.messagingService.of(LogedInMessage).subscribe(
             message => {
-                LogUtil.debug(this, 'NavigationComponent received ' + LogedInMessage.name);
+                LogUtil.debug(this, 'received ' + LogedInMessage.name);
                 this.navBarIsOpen = false;
                 this.userIsLogedIn = true;
             }

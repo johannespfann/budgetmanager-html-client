@@ -24,7 +24,7 @@ export class Entry {
 
         entry.hash = aEntry.hash;
         entry.amount = aEntry.amount;
-        entry.currency = aEntry.currency
+        entry.currency = aEntry.currency;
 
         entry.created_at = new Date(aEntry.created_at);
         entry.memo = aEntry.memo;

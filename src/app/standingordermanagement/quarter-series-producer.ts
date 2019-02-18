@@ -4,6 +4,10 @@ import { DateUtil } from '../utils/date-util';
 
 export class QuarterSeriesProducer implements DateSeriesStrategy {
 
+    public getStrategyName(): string {
+        return QuarterSeriesProducer.name;
+    }
+
     public isValidStrategyPattern(standingOrderStragegy: string): boolean {
         if (standingOrderStragegy === StandingOrderConst.QUARTER_PATTERN) {
             return true;

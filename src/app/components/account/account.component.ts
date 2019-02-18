@@ -2,16 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
 import { AccountService } from '../../services/account-service';
 import { ApplicationService } from '../../application/application.service';
-import { User } from '../../models/user';
-import { Account } from '../../models/account';
-import { HashUtil } from '../../utils/hash-util';
 import { AccountItem } from '../../models/account-item';
-import { AccountItemProducer } from './account-item-producer';
 import { AccountStorageFacade } from '../../utils/account-storage-facade';
 import { MessagingService } from '../../messages/message.service';
-import { NoEncryptedKeyAvailableMessage } from '../../messages/no-encrypted-key-available-message';
-import { EncryptionKeyAvailableMessage } from '../../messages/encryption-key-available-message';
 import { ModifiedAccountsMessage } from '../../messages/modified-accounts-message';
+import { NewAccountItemAvailableMessage } from '../../messages/new-account-item-available-message';
 
 @Component({
     selector: 'app-account',
@@ -75,15 +70,16 @@ export class AccountComponent implements OnInit {
         const localAccountStorage = new AccountStorageFacade(this.applicationService.getCurrentUser());
         const savedAccountItems: AccountItem[] = localAccountStorage.getAllAccountItems();
 
-        savedAccountItems.map( (x: AccountItem) => {
-            if (x.account.hash === aAccount.account.hash) {
-                x.key = aAccount.key;
+        savedAccountItems.map( (accountItem: AccountItem) => {
+            if (accountItem.account.hash === aAccount.account.hash) {
+                accountItem.key = aAccount.key;
             }
         });
 
         LogUtil.debug(this, 'Save new accountItems : ' + JSON.stringify(savedAccountItems));
         localAccountStorage.saveAllAccountItems(savedAccountItems);
         this.messageService.publish(new ModifiedAccountsMessage());
+        this.messageService.publish(new NewAccountItemAvailableMessage(aAccount));
         this.updateAccounts();
     }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StandingOrderInfo } from './standing-order-info';
 import { LogUtil } from '../../utils/log-util';
+import { StandingOrderConst } from '../../standingordermanagement/standing-order-const';
 
 @Component({
     selector: 'app-standing-order-info',
@@ -19,11 +20,10 @@ export class StandingOrderInfoComponent implements OnInit {
 
     public constructor() {
         LogUtil.debug(this, 'init standingorder-component');
-        this.cleanStandOrderView();
     }
 
     public ngOnInit(): void {
-
+        this.cleanStandOrderView();
     }
 
     public getStandingOrderInfo(): StandingOrderInfo {
@@ -48,26 +48,26 @@ export class StandingOrderInfoComponent implements OnInit {
     }
 
     private setRotationStrategy(aValue: string): void {
-        if (aValue === '66122') {
+        if (aValue === StandingOrderConst.MONTHLY_PATTERN) {
             this.setMonthly();
         }
-        if (aValue === '36133') {
+        if (aValue === StandingOrderConst.QUARTER_PATTERN) {
             this.setQuarterly();
         }
-        if (aValue === '5679') {
+        if (aValue === StandingOrderConst.YEARLY_PATTERN) {
             this.setYearly();
         }
     }
 
     private getRotationStrategy(): string {
         if (this.isMonthly) {
-            return '66122';
+            return StandingOrderConst.MONTHLY_PATTERN;
         }
         if (this.isQuarterly) {
-            return '36133';
+            return StandingOrderConst.QUARTER_PATTERN;
         }
         if (this.isYearly) {
-            return '5679';
+            return StandingOrderConst.YEARLY_PATTERN;
         }
     }
 

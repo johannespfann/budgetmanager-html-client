@@ -65,6 +65,28 @@ export class EntryAPIV2Service {
         return this.http.post(requestURL, body, { headers : headers});
     }
 
+
+    public saveAll(aUser: User, accountItem: AccountItem, aEntries: Entry[]): Observable<any> {
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
+
+        LogUtil.info(this, JSON.stringify(aEntries));
+
+        const baseUrl = this.appService.getBaseUrl();
+        const encryptionKey = accountItem.key;
+
+        const requestURL = baseUrl + 'entries/owner/' + aUser.name + '/account/' + accountItem.account.hash + '/add/list';
+
+        const body: EntryServer[] = [];
+
+        aEntries.forEach((x: Entry) => {
+            body.push(this.entryTransformer.transformEntry(encryptionKey, x, aUser.name));
+        });
+
+        return this.http.post(requestURL, body, { headers : headers});
+    }
+
+
     public delete(aUser: User, aAccount: AccountItem, aEntry: Entry): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);

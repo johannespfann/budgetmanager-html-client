@@ -1,6 +1,5 @@
 import { AccountItem } from '../../models/account-item';
 import { Account } from '../../models/account';
-import { LogUtil } from '../../utils/log-util';
 import { CryptUtil } from '../../utils/crypt-util';
 
 
@@ -21,7 +20,6 @@ export class AccountItemProducer {
     public produceAccountItmes(): AccountItem[] {
         const newAccountItems: AccountItem[] = [];
 
-        LogUtil.debug(this, 'produceAccountItems with local accounts + remote accounts');
         this.accounts.forEach( (account: Account) => {
 
             const newAccountItme = new AccountItem();
@@ -37,7 +35,6 @@ export class AccountItemProducer {
             newAccountItems.push(newAccountItme);
         } );
 
-        LogUtil.debug(this, 'Produced AccountItems: ' + JSON.stringify(newAccountItems));
         return newAccountItems;
     }
 

@@ -14,6 +14,15 @@ import { AccountItem } from './models/account-item';
 import { ModifiedAccountsMessage } from './messages/modified-accounts-message';
 import { NoEncryptedKeyAvailableMessage } from './messages/no-encrypted-key-available-message';
 import { EncryptionKeyAvailableMessage } from './messages/encryption-key-available-message';
+import { StandingOrderJob } from './standingordermanagement/standing-order-job';
+import { StandingOrderExecutor } from './standingordermanagement/standing-order-executor';
+import { DateSeriesStrategy } from './standingordermanagement/date-series-strategy';
+import { EntryV2Service } from './services/entryV2.service';
+import { StandingOrderService } from './services/standing-order.service';
+import { NewAccountItemAvailableMessage } from './messages/new-account-item-available-message';
+import { MonthlySeriesProducer } from './standingordermanagement/monthly-series-producer';
+import { QuarterSeriesProducer } from './standingordermanagement/quarter-series-producer';
+import { YearlySeriesProducer } from './standingordermanagement/yearly-series-producer';
 
 @Component({
   selector: 'app-budgetmanager',
@@ -28,6 +37,9 @@ export class AppComponent implements OnDestroy, OnInit {
 
   private loginMessageSubscription: Subscription;
   private modifiedAccountsMessageSubscription: Subscription;
+  private newAccountAvailableMessageSubscritption: Subscription;
+
+  private standingOrderJob: StandingOrderJob;
   public isLogedIn = false;
 
   private user: User;
@@ -37,15 +49,24 @@ export class AppComponent implements OnDestroy, OnInit {
       private loginServcie: LoginV2Service,
       private messageService: MessagingService,
       private applicationService: ApplicationService,
-      private accountService: AccountService) {
+      private accountService: AccountService,
+      entryService: EntryV2Service,
+      standingOrderService: StandingOrderService) {
 
     LogUtil.debug(this, 'Start Application');
     this.loginMessageSubscription = this.registerLogedInMessage();
     this.modifiedAccountsMessageSubscription = this.registerAccountChanged();
+    this.newAccountAvailableMessageSubscritption = this.registerNewAccountItemAvailableMessage();
+    const strategies: DateSeriesStrategy[] = [];
+    strategies.push(new MonthlySeriesProducer());
+    strategies.push(new QuarterSeriesProducer());
+    strategies.push(new YearlySeriesProducer());
+    const standingOrderExecutor = new StandingOrderExecutor(strategies);
+    this.standingOrderJob = new StandingOrderJob(standingOrderExecutor, entryService, standingOrderService);
   }
 
   /**
-   * functions for livecycle
+   * functions for lifecycle
    */
 
   public ngOnInit(): void {
@@ -100,6 +121,7 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   private registerLogedInMessage(): Subscription {
+    LogUtil.debug(this, 'register ' + LogedInMessage.name);
     return this.messageService
       .of(LogedInMessage)
       .subscribe((message: LogedInMessage) => {
@@ -113,10 +135,23 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   private registerAccountChanged(): Subscription {
+    LogUtil.debug(this, 'register ' + ModifiedAccountsMessage.name);
     return this.messageService.of(ModifiedAccountsMessage).subscribe(
       message => {
         LogUtil.debug(this, 'received ' + ModifiedAccountsMessage.name);
         this.updateCurrentAccountState();
+      }
+    );
+  }
+
+  private registerNewAccountItemAvailableMessage(): Subscription {
+    LogUtil.debug(this, 'register ' + NewAccountItemAvailableMessage.name);
+    return this.messageService
+    .of(NewAccountItemAvailableMessage)
+    .subscribe(
+      (message: NewAccountItemAvailableMessage) => {
+        LogUtil.debug(this, 'received ' + NewAccountItemAvailableMessage.name);
+        this.standingOrderJob.executeStandingOrders(message.getAccountItem());
       }
     );
   }
@@ -128,6 +163,10 @@ export class AppComponent implements OnDestroy, OnInit {
           this.messageService.publish(new NoEncryptedKeyAvailableMessage());
           this.router.navigate(['/noaccount']);
         } else {
+          accounts.forEach((accountItem: AccountItem) => {
+          this.messageService.publish(new NewAccountItemAvailableMessage(accountItem));
+        });
+
           this.messageService.publish(new EncryptionKeyAvailableMessage());
         }
 

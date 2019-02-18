@@ -16,29 +16,52 @@ export class StandingOrderExecutor {
 
 
     public generateEntries(today: Date, standingOrder: RotationEntry): Entry[] {
+
+        LogUtil.debug(this, 'Today: ' + today);
+        LogUtil.debug(this, 'Init with standingOrder: ' + JSON.stringify(standingOrder));
+
         let generatedEntries: Entry[] = [];
 
         if (!this.isInScope(today, standingOrder)) {
+            LogUtil.info(this, 'was not in scope ...');
             return generatedEntries;
         }
 
-        this.dateSeriesStrategies.forEach( x => {
-            if (x.isValidStrategyPattern(standingOrder.rotation_strategy)) {
+        LogUtil.info(this, 'has strategies: ' + this.dateSeriesStrategies.length);
+        this.dateSeriesStrategies.forEach( strategy => {
+            LogUtil.info(this, 'try to find entries with strategy ' + strategy.getStrategyName());
+            if (strategy.isValidStrategyPattern(standingOrder.rotation_strategy)) {
+                LogUtil.info(this, 'Using strategy: ' + strategy.getStrategyName());
                 const from: Date = this.produceBeginningDate(standingOrder);
-                const generatedDatesTemp = x.produceDateSeries(from, today);
-                generatedEntries = this.produceEntries(generatedDatesTemp, standingOrder);
+                const collectedDates: Date[] = [];
+
+                LogUtil.info(this, 'StartTime    : ' + JSON.stringify(from));
+                LogUtil.info(this, 'Endtime      : ' + JSON.stringify(today));
+
+                if (DateUtil.sameDate(from, standingOrder.start_at)) {
+                    collectedDates.push(from);
+                }
+
+                strategy.produceDateSeries(from, today).forEach( date => {
+                    collectedDates.push(date);
+                });
+
+
+                LogUtil.info(this, 'Defined dates: ' + JSON.stringify(collectedDates));
+                generatedEntries = this.produceEntries(collectedDates, standingOrder);
             }
         });
 
         return generatedEntries;
     }
+
     private produceEntries(generatedDatesTemp: Date[], standingOrder: RotationEntry): Entry[] {
         const entries: Entry[] = [];
         generatedDatesTemp.forEach( (date: Date) => {
             const entry = new Entry();
             entry.amount = standingOrder.amount;
             entry.currency = standingOrder.currency;
-            entry.hash = HashUtil.getUniqueHash();
+            entry.hash = HashUtil.getUniqueHash().toString();
             entry.memo = standingOrder.memo;
             entry.tags = standingOrder.tags;
             entry.created_at = date;
@@ -48,9 +71,17 @@ export class StandingOrderExecutor {
     }
 
     private produceBeginningDate(standingOrder: RotationEntry): Date {
+        LogUtil.info(this, 'Produsing beginning date');
+        LogUtil.info(this,  'start: ' + JSON.stringify(standingOrder.start_at));
+        LogUtil.info(this,  'laste  : ' + JSON.stringify(standingOrder.last_executed));
         const beginningDate: Date = new Date();
 
         if (!standingOrder.last_executed) {
+            standingOrder.last_executed = standingOrder.start_at;
+        }
+
+        if (DateUtil.firstIsAfterSecond(standingOrder.start_at, standingOrder.last_executed)) {
+            LogUtil.info(this, 'start was after last_executed');
             standingOrder.last_executed = standingOrder.start_at;
         }
 
@@ -66,6 +97,14 @@ export class StandingOrderExecutor {
             beginningDate.setDate(dayOfStartDate);
         }
 
+ 
+        beginningDate.setHours(standingOrder.last_executed.getHours());
+        beginningDate.setMinutes(standingOrder.last_executed.getMinutes());
+        beginningDate.setSeconds(standingOrder.last_executed.getSeconds());
+        beginningDate.setMilliseconds(standingOrder.last_executed.getMilliseconds());
+
+
+        LogUtil.info(this, 'beginning date: ' + JSON.stringify(beginningDate));
         return beginningDate;
     }
 

@@ -50,7 +50,7 @@ export class StandingOrderComponent implements OnInit {
                 this.accountItems = accountItems;
                 accountItems.forEach( x => JSON.stringify(x));
                 this.selectedAccountItem = accountItems[0];
-                this.updateStandingOrders();
+                this.updateStandingOrders(accountItems[0]);
             },
             error => LogUtil.error(this, 'error when getting all useable accounts: ' + JSON.stringify(error))
         );
@@ -60,7 +60,7 @@ export class StandingOrderComponent implements OnInit {
         this.rotationEntryService.updateRotationEntry(this.selectedAccountItem, event).subscribe(
             data => {
                 this.cleanView();
-                this.updateStandingOrders();
+                this.updateStandingOrders(this.selectedAccountItem);
             },
             error => {
                 LogUtil.error(this, 'change standingorder -> ' + JSON.stringify(error));
@@ -72,7 +72,7 @@ export class StandingOrderComponent implements OnInit {
         this.rotationEntryService.deleteRotationEntry(this.selectedAccountItem, event).subscribe(
             data => {
                 this.cleanView();
-                this.updateStandingOrders();
+                this.updateStandingOrders(this.selectedAccountItem);
             },
             error => {
                 LogUtil.error(this, 'delete standingorder -> ' + JSON.stringify(error));
@@ -80,11 +80,17 @@ export class StandingOrderComponent implements OnInit {
         );
     }
 
-    private updateStandingOrders() {
+    private updateStandingOrders(accountItem: AccountItem) {
+
+        if (!accountItem){
+            LogUtil.info(this, 'Accountitem was undefined');
+            return;
+        }
+
         this.spinner.show();
-        this.rotationEntryService.getRotationEntries(this.selectedAccountItem).subscribe(
+        this.rotationEntryService.getRotationEntries(accountItem).subscribe(
             (aRotationEntries: RotationEntry[]) => {
-                LogUtil.info(this, 'get all standingOrders ...');
+                LogUtil.info(this, 'get all standingOrders: ' + JSON.stringify(aRotationEntries));
                 this.rotationEntries = aRotationEntries;
                 this.spinner.hide();
                 LogUtil.info(this, 'size: ' + this.rotationEntries.length);

@@ -1,6 +1,7 @@
 import { Component, OnChanges, Input, Output, EventEmitter, SimpleChanges, OnInit } from '@angular/core';
 import { RotationEntry } from '../../models/rotationentry';
 import { LogUtil } from '../../utils/log-util';
+import { StandingOrderConst } from '../../standingordermanagement/standing-order-const';
 
 @Component({
     selector: 'app-standingorder-list',
@@ -21,7 +22,6 @@ export class StandingOrderListComponent implements OnChanges, OnInit {
 
     constructor() {
         LogUtil.debug(this, 'init standingorder-list-component');
-        this.standingOrders = [];
     }
 
     public editStandingOrder(aStandingOrder: RotationEntry): void {
@@ -33,7 +33,6 @@ export class StandingOrderListComponent implements OnChanges, OnInit {
     }
 
     public ngOnChanges(aCanges: SimpleChanges): void {
-        LogUtil.debug(this, 'onChanges');
         this.updateRotationEntries();
     }
 
@@ -42,25 +41,23 @@ export class StandingOrderListComponent implements OnChanges, OnInit {
         this.quarterlyStandOrder = [];
         this.yeartlyStandingOrder = [];
 
-        if (this.standingOrders === undefined) {
-            LogUtil.error(this, 'standingOrder was undefined!');
+        if (!this.standingOrders) {
+            LogUtil.error(this, 'was undefined');
             return;
         }
 
         this.standingOrders.forEach( (aRotatatinEntry: RotationEntry) => {
-
-            if (aRotatatinEntry.rotation_strategy === '66122') {
+            if (aRotatatinEntry.rotation_strategy === StandingOrderConst.MONTHLY_PATTERN) {
                 this.monthlyStandingOrders.push(aRotatatinEntry);
             }
 
-            if (aRotatatinEntry.rotation_strategy === '36133') {
+            if (aRotatatinEntry.rotation_strategy === StandingOrderConst.QUARTER_PATTERN) {
                 this.quarterlyStandOrder.push(aRotatatinEntry);
             }
 
-            if (aRotatatinEntry.rotation_strategy === '5679') {
+            if (aRotatatinEntry.rotation_strategy === StandingOrderConst.YEARLY_PATTERN) {
                 this.yeartlyStandingOrder.push(aRotatatinEntry);
             }
-
         });
 
     }

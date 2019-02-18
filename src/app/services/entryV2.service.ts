@@ -35,6 +35,16 @@ export class EntryV2Service {
         return this.entryApiService.save(this.appService.getCurrentUser(), account, aEntry);
     }
 
+    public addEntries(account: AccountItem, aEntries: Entry[]): Observable<any> {
+        if (!this.isReadyToUse(account)) {
+            return Observable.create(result => { result.error('No restservice available! addEntry'); });
+        }
+        LogUtil.info(this, 'Service ready to use and try to persist entries -> '
+        + JSON.stringify(aEntries) + ' with Account -> '
+        + JSON.stringify(account));
+        return this.entryApiService.saveAll(this.appService.getCurrentUser(), account, aEntries);
+    }
+
     public deleteEntry(account: AccountItem, aEntry: Entry): Observable<any> {
         if (!this.isReadyToUse(account)) {
             return Observable.create(result => { result.error('No restservice available! deleteEntry'); });

@@ -1,10 +1,15 @@
 import { DateSeriesStrategy } from './date-series-strategy';
 import { DateUtil } from '../utils/date-util';
+import { StandingOrderConst } from './standing-order-const';
 
 export class YearlySeriesProducer implements DateSeriesStrategy {
 
+    public getStrategyName(): string {
+        return YearlySeriesProducer.name;
+    }
+
     public isValidStrategyPattern(standingOrderStragegy: string): boolean {
-        if (standingOrderStragegy === 'yearly') {
+        if (standingOrderStragegy === StandingOrderConst.YEARLY_PATTERN) {
             return true;
         }
         return false;
