@@ -17,19 +17,13 @@ export class StandingOrderExecutor {
 
     public generateEntries(today: Date, standingOrder: RotationEntry): Entry[] {
 
-        LogUtil.debug(this, 'Today: ' + today);
-        LogUtil.debug(this, 'Init with standingOrder: ' + JSON.stringify(standingOrder));
-
         let generatedEntries: Entry[] = [];
 
         if (!this.isInScope(today, standingOrder)) {
-            LogUtil.info(this, 'was not in scope ...');
             return generatedEntries;
         }
 
-        LogUtil.info(this, 'has strategies: ' + this.dateSeriesStrategies.length);
         this.dateSeriesStrategies.forEach( strategy => {
-            LogUtil.info(this, 'try to find entries with strategy ' + strategy.getStrategyName());
             if (strategy.isValidStrategyPattern(standingOrder.rotation_strategy)) {
                 LogUtil.info(this, 'Using strategy: ' + strategy.getStrategyName());
                 const from: Date = this.produceBeginningDate(standingOrder);
@@ -97,7 +91,7 @@ export class StandingOrderExecutor {
             beginningDate.setDate(dayOfStartDate);
         }
 
- 
+
         beginningDate.setHours(standingOrder.last_executed.getHours());
         beginningDate.setMinutes(standingOrder.last_executed.getMinutes());
         beginningDate.setSeconds(standingOrder.last_executed.getSeconds());

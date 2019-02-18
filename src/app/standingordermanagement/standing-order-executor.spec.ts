@@ -133,7 +133,7 @@ describe('standing-order-executor', function () {
     it('should produce 1 entry and all attribues for entries are valid', () => {
         // prepare
 
-        const startDate = new Date(2018, 1, 1);
+        const startDate = new Date(2018, 1, 2);
         const endDate = new Date(2019, 1, 1);
 
         monthlyStandingOrder.start_at = startDate;
@@ -151,7 +151,7 @@ describe('standing-order-executor', function () {
         expect(entry.tags).toBe(tags);
     });
 
-    it('should produce 12 entry with monthlyStrategy', () => {
+    it('should produce 13 entry with monthlyStrategy', () => {
         // prepare
 
         const startDate = new Date(2018, 1, 1);
@@ -164,10 +164,10 @@ describe('standing-order-executor', function () {
         const entries: Entry[] = standingOrderExecutor.generateEntries(today, monthlyStandingOrder);
 
         // validate
-        expect(entries.length).toBe(12);
+        expect(entries.length).toBe(13);
     });
 
-    it('should produce 2 entry with yearlyStrategy', () => {
+    it('should produce 3 entry with yearlyStrategy', () => {
         // prepare
 
         const startDate = new Date(2018, 1, 1);
@@ -180,10 +180,10 @@ describe('standing-order-executor', function () {
         const entries: Entry[] = standingOrderExecutor.generateEntries(today, yearlyStandingOrder);
 
         // validate
-        expect(entries.length).toBe(2);
+        expect(entries.length).toBe(3);
     });
 
-    it('should produce 6 entry with quarterStrategy', () => {
+    it('should produce 7 entry with quarterStrategy', () => {
         // prepare
         const startDate = new Date(2018, 1, 1);
         const endDate = new Date(2022, 1, 1);
@@ -195,7 +195,26 @@ describe('standing-order-executor', function () {
         const entries: Entry[] = standingOrderExecutor.generateEntries(today, quarterStandingOrder);
 
         // validate
-        expect(entries.length).toBe(6);
+        expect(entries.length).toBe(7);
+    });
+
+    it('should produce 7 entry with quarterStrategy', () => {
+        // prepare
+        const startDate = new Date(2018, 1, 1);
+        const lastExecuted = new Date(2018, 4, 1);
+        const today = new Date(2019, 7, 8);
+        const endDate = new Date(2022, 1, 1);
+
+        quarterStandingOrder.start_at = startDate;
+        quarterStandingOrder.last_executed = lastExecuted;
+        quarterStandingOrder.end_at = endDate;
+
+
+        // execute
+        const entries: Entry[] = standingOrderExecutor.generateEntries(today, quarterStandingOrder);
+
+        // validate
+        expect(entries.length).toBe(5);
     });
 
 

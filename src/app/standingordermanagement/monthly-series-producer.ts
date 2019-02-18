@@ -21,7 +21,7 @@ export class MonthlySeriesProducer implements DateSeriesStrategy {
     public produceDateSeries(from: Date, to: Date): Date[] {
         LogUtil.info(this, 'Starttime: ' + from);
         LogUtil.info(this, 'Endtime  : ' + to);
-        
+
         const dates: Date[] = [];
         const differenceInMonth: number = DateUtil.differenceInMonth(from, to);
 
