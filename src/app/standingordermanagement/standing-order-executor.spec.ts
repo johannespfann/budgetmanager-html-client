@@ -167,14 +167,69 @@ describe('standing-order-executor', function () {
         expect(entries.length).toBe(13);
     });
 
+    it('should produce 11 entry with monthlyStrategy  + last executed', () => {
+        // prepare
+
+        const startDate = new Date(2018, 1, 1);
+        const lastExecuted = new Date(2018, 2, 1);
+        const endDate = new Date(2022, 1, 1);
+        monthlyStandingOrder.start_at = startDate;
+        monthlyStandingOrder.last_executed = lastExecuted;
+        monthlyStandingOrder.end_at = endDate;
+        const today = new Date(2019, 1, 1);
+
+        // execute
+        const entries: Entry[] = standingOrderExecutor.generateEntries(today, monthlyStandingOrder);
+
+        // validate
+        expect(entries.length).toBe(11);
+    });
+
+    it('should produce 2 entry with monthlyStrategy', () => {
+        // prepare
+
+        const startDate = new Date(2018, 0, 31);
+        const today = new Date(2018, 1, 28);
+        const endDate = new Date(2022, 1, 1);
+        monthlyStandingOrder.start_at = startDate;
+        monthlyStandingOrder.end_at = endDate;
+
+
+        // execute
+        const entries: Entry[] = standingOrderExecutor.generateEntries(today, monthlyStandingOrder);
+
+        // validate
+        expect(entries.length).toBe(2);
+    });
+
+    it('should produce 2 entry with monthlyStrategy - over feb 28 Problem + last executed', () => {
+        // prepare
+        const startDate = new Date(2018, 0, 31);
+        const lastExecuted = new Date(2018, 1, 28);
+        const today = new Date(2018, 3, 30);
+        const endDate = new Date(2022, 1, 1);
+        monthlyStandingOrder.start_at = startDate;
+        monthlyStandingOrder.last_executed = lastExecuted;
+        monthlyStandingOrder.end_at = endDate;
+
+
+        // execute
+        const entries: Entry[] = standingOrderExecutor.generateEntries(today, monthlyStandingOrder);
+
+        // validate
+        expect(entries.length).toBe(2);
+    });
+
+
     it('should produce 3 entry with yearlyStrategy', () => {
         // prepare
 
         const startDate = new Date(2018, 1, 1);
+        const today = new Date(2020, 1, 1);
         const endDate = new Date(2022, 1, 1);
         yearlyStandingOrder.start_at = startDate;
         yearlyStandingOrder.end_at = endDate;
-        const today = new Date(2020, 1, 1);
+
 
         // execute
         const entries: Entry[] = standingOrderExecutor.generateEntries(today, yearlyStandingOrder);
@@ -183,13 +238,33 @@ describe('standing-order-executor', function () {
         expect(entries.length).toBe(3);
     });
 
+    it('should produce 1 entry with yearlyStrategy', () => {
+        // prepare
+
+        const startDate = new Date(2018, 1, 1);
+        const lastExecuted = new Date(2019, 1, 1);
+        const today = new Date(2020, 1, 1);
+        const endDate = new Date(2022, 1, 1);
+        yearlyStandingOrder.start_at = startDate;
+        yearlyStandingOrder.last_executed = lastExecuted;
+        yearlyStandingOrder.end_at = endDate;
+
+
+        // execute
+        const entries: Entry[] = standingOrderExecutor.generateEntries(today, yearlyStandingOrder);
+
+        // validate
+        expect(entries.length).toBe(1);
+    });
+
     it('should produce 7 entry with quarterStrategy', () => {
         // prepare
         const startDate = new Date(2018, 1, 1);
         const endDate = new Date(2022, 1, 1);
+        const today = new Date(2019, 7, 8);
         quarterStandingOrder.start_at = startDate;
         quarterStandingOrder.end_at = endDate;
-        const today = new Date(2019, 7, 8);
+
 
         // execute
         const entries: Entry[] = standingOrderExecutor.generateEntries(today, quarterStandingOrder);
@@ -216,6 +291,5 @@ describe('standing-order-executor', function () {
         // validate
         expect(entries.length).toBe(5);
     });
-
 
 });

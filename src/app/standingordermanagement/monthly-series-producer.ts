@@ -25,6 +25,7 @@ export class MonthlySeriesProducer implements DateSeriesStrategy {
         const dates: Date[] = [];
         const differenceInMonth: number = DateUtil.differenceInMonth(from, to);
 
+
         for (let index = 1; index <= differenceInMonth; index++) {
             const newDate = DateUtil.plusMonth(from, index);
             dates.push(newDate);

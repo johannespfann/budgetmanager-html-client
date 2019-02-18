@@ -40,7 +40,7 @@ describe('yearly-series-producer tests', function () {
         expect(entries.length).toBe(0);
     });
 
-    it('should produce 1 erntries because distance is one year', () => {
+    it('should produce 2 erntries because distance is one year', () => {
 
         const lastExecuted = new Date(2018, 7, 15);
         const today = new Date(2019, 7, 15);
