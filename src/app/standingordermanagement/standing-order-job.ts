@@ -18,21 +18,19 @@ export class StandingOrderJob {
     }
 
     public executeStandingOrders(accountItem: AccountItem): void {
-
+        LogUtil.info(this, 'process standingorders');
         this.standingOrderService.getRotationEntries(accountItem).subscribe(
             (standingOrders: RotationEntry[]) => {
                 standingOrders.forEach( (standingOrder: RotationEntry) => {
-                    LogUtil.info(this, 'prepare following standingOrders: ' + standingOrder.memo);
                     const entries = this.standingOrderExecutor.generateEntries(new Date(), standingOrder);
 
-                    LogUtil.info(this, 'Generate Entries ' + JSON.stringify(entries));
 
                     if (entries.length === 0) {
-                        LogUtil.debug(this, 'Nothing to save');
+                        LogUtil.debug(this, 'nothing to save');
                         return;
                     }
 
-                    LogUtil.debug(this, 'neue entries: ' + entries.length);
+                    LogUtil.debug(this, 'generate and save ' + entries.length + ' entries');
 
                     const lastExecutedDate = SortUtil.getLatestCreatedEntry(entries).created_at;
                     const lastDate = new Date();
