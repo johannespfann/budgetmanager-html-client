@@ -52,7 +52,6 @@ export class StandingOrderApiService {
                         newEntries.push(rotationEntryTranformer.transformRotationEntryServer(encryptionKey, rotServerEntry));
                     });
 
-                    LogUtil.info(this, 'Returning orders: ' + JSON.stringify(newEntries));
                     return newEntries;
                 })
             );

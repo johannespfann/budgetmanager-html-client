@@ -6,6 +6,7 @@ import { RotationEntry } from '../models/rotationentry';
 import { LogUtil } from '../utils/log-util';
 import { Observable } from 'rxjs';
 import { SortUtil } from '../utils/sort-util';
+import { last } from '@angular/router/src/utils/collection';
 
 
 export class StandingOrderJob {
@@ -21,20 +22,27 @@ export class StandingOrderJob {
         this.standingOrderService.getRotationEntries(accountItem).subscribe(
             (standingOrders: RotationEntry[]) => {
                 standingOrders.forEach( (standingOrder: RotationEntry) => {
-                    LogUtil.info(this, 'prepare following standingORders: ' + JSON.stringify(standingOrder));
+                    LogUtil.info(this, 'prepare following standingOrders: ' + standingOrder.memo);
                     const entries = this.standingOrderExecutor.generateEntries(new Date(), standingOrder);
 
                     LogUtil.info(this, 'Generate Entries ' + JSON.stringify(entries));
 
                     if (entries.length === 0) {
-                        LogUtil.debug(this, 'nothing to save');
+                        LogUtil.debug(this, 'Nothing to save');
                         return;
                     }
 
                     LogUtil.debug(this, 'neue entries: ' + entries.length);
 
                     const lastExecutedDate = SortUtil.getLatestCreatedEntry(entries).created_at;
-                    standingOrder.last_executed = lastExecutedDate;
+                    const lastDate = new Date();
+                    lastDate.setFullYear(lastExecutedDate.getFullYear());
+                    lastDate.setMonth(lastExecutedDate.getMonth());
+                    lastDate.setDate(lastExecutedDate.getDate());
+                    lastDate.setHours(lastExecutedDate.getHours());
+                    lastDate.setMinutes(lastExecutedDate.getMinutes());
+
+                    standingOrder.last_executed = lastDate;
 
                     this.entryService.addEntries(accountItem, entries).subscribe(
                         success => {

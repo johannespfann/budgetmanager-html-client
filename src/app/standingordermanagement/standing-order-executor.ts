@@ -2,7 +2,6 @@ import { RotationEntry } from '../models/rotationentry';
 import { Entry } from '../models/entry';
 import { DateUtil } from '../utils/date-util';
 import { DateSeriesStrategy } from './date-series-strategy';
-import { LogUtil } from '../utils/log-util';
 import { HashUtil } from '../utils/hash-util';
 
 
@@ -25,12 +24,9 @@ export class StandingOrderExecutor {
 
         this.dateSeriesStrategies.forEach( strategy => {
             if (strategy.isValidStrategyPattern(standingOrder.rotation_strategy)) {
-                LogUtil.info(this, 'Using strategy: ' + strategy.getStrategyName());
                 const from: Date = this.produceBeginningDate(standingOrder);
                 const collectedDates: Date[] = [];
 
-                LogUtil.info(this, 'StartTime    : ' + JSON.stringify(from));
-                LogUtil.info(this, 'Endtime      : ' + JSON.stringify(today));
 
                 if (DateUtil.sameDate(from, standingOrder.start_at)) {
                     collectedDates.push(from);
@@ -40,8 +36,6 @@ export class StandingOrderExecutor {
                     collectedDates.push(date);
                 });
 
-
-                LogUtil.info(this, 'Defined dates: ' + JSON.stringify(collectedDates));
                 generatedEntries = this.produceEntries(collectedDates, standingOrder);
             }
         });
@@ -65,9 +59,6 @@ export class StandingOrderExecutor {
     }
 
     private produceBeginningDate(standingOrder: RotationEntry): Date {
-        LogUtil.info(this, 'Produsing beginning date');
-        LogUtil.info(this,  'start: ' + JSON.stringify(standingOrder.start_at));
-        LogUtil.info(this,  'laste  : ' + JSON.stringify(standingOrder.last_executed));
         const beginningDate: Date = new Date();
 
         if (!standingOrder.last_executed) {
@@ -75,7 +66,6 @@ export class StandingOrderExecutor {
         }
 
         if (DateUtil.firstIsAfterSecond(standingOrder.start_at, standingOrder.last_executed)) {
-            LogUtil.info(this, 'start was after last_executed');
             standingOrder.last_executed = standingOrder.start_at;
         }
 
@@ -91,14 +81,11 @@ export class StandingOrderExecutor {
             beginningDate.setDate(dayOfStartDate);
         }
 
-
         beginningDate.setHours(standingOrder.last_executed.getHours());
         beginningDate.setMinutes(standingOrder.last_executed.getMinutes());
         beginningDate.setSeconds(standingOrder.last_executed.getSeconds());
         beginningDate.setMilliseconds(standingOrder.last_executed.getMilliseconds());
 
-
-        LogUtil.info(this, 'beginning date: ' + JSON.stringify(beginningDate));
         return beginningDate;
     }
 

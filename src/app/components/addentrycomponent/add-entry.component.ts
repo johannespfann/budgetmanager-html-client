@@ -10,6 +10,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AccountService } from '../../services/account-service';
 import { AccountItem } from '../../models/account-item';
 import { StandingOrderService } from '../../services/standing-order.service';
+import { MessagingService } from '../../messages/message.service';
+import { AddedNewStandingOrderMessage } from '../../messages/added-new-standing-order-message';
 
 @Component({
     selector: 'app-newentry',
@@ -31,6 +33,7 @@ export class AddEntryComponent implements OnInit {
     public selectedAccount: AccountItem;
 
     constructor(
+        private messageService: MessagingService,
         private accountService: AccountService,
         private entryService: EntryV2Service,
         private rotationService: StandingOrderService,
@@ -110,7 +113,6 @@ export class AddEntryComponent implements OnInit {
             },
             error => {
                 LogUtil.error(this, 'failed to persist entry -> ' + JSON.stringify(aEntry));
-                LogUtil.error(this, ' ...  -> ' + JSON.stringify(error));
                 this.spinner.hide();
             }
         );
@@ -121,6 +123,7 @@ export class AddEntryComponent implements OnInit {
         this.rotationService.addRotationEntry(this.selectedAccount, aStandingOrder).subscribe(
             data => {
                 LogUtil.debug(this, 'Persist StandingOrder' + JSON.stringify(aStandingOrder));
+                this.messageService.publish(new AddedNewStandingOrderMessage(this.selectedAccount));
                 this.spinner.hide();
             },
             error => {
