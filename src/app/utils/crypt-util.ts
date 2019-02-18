@@ -42,12 +42,7 @@ export class CryptUtil {
     }
 
     public static encryptionKeyIsValid(encryptionKey: string, encryptionText): boolean {
-        LogUtil.debug(this, 'IsKeyValid:');
-        LogUtil.debug(this, 'Key : ' + encryptionKey);
-        LogUtil.debug(this, 'Text: ' + encryptionText);
-
         const plainText = CryptUtil.decryptString(encryptionKey, encryptionText);
-        LogUtil.debug(this, 'result of plainText ' + plainText);
 
         let isValid = true;
 
