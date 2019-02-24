@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Entry } from '../models/entry';
 import { ApplicationService } from '../application/application.service';
 import { User } from '../models/user';
-import { V2EntryTransformer } from '../utils/v2-entry-transformer';
+import { EntryTransformer } from '../utils/entry-transformer';
 import { EntryServer } from '../modelv2/entry-server';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,14 +15,14 @@ import { AccountItem } from '../models/account-item';
 @Injectable()
 export class EntryAPIV2Service {
 
-    private entryTransformer: V2EntryTransformer;
+    private entryTransformer: EntryTransformer;
 
     constructor(
         private http: HttpClient,
         private appService: ApplicationService) {
 
         LogUtil.logInits(this, 'Init EntryAPIService');
-        this.entryTransformer = new V2EntryTransformer();
+        this.entryTransformer = new EntryTransformer();
     }
 
     public getEntries(accountItem: AccountItem, aUser: User): Observable<Array<Entry>> {

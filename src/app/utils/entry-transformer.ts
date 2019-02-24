@@ -4,7 +4,7 @@ import { EntryPayload } from '../modelv2/entry-payload';
 import { CryptUtil } from './crypt-util';
 import { LogUtil } from './log-util';
 
-export class V2EntryTransformer {
+export class EntryTransformer {
 
     public transformEntry(aPassword: string, aEntry: Entry, aUsername: string): EntryServer {
         const entryServer = new EntryServer();
