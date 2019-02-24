@@ -49,7 +49,7 @@ import { AccountItemComponent } from './components/account/account-item.componen
 import { ListAccountComponent } from './components/account/list-account.component';
 import { AccountCachingService } from './services/account-caching-service';
 import { EntryService } from './services/entry.service';
-import { EntryAPIV2Service } from './rest/entry-api-v2.service';
+import { EntryAPIV2Service } from './rest/entry-api.service';
 import { StandingOrderApiService } from './rest/standing-order-api.service';
 import { StandingOrderService } from './services/standing-order.service';
 

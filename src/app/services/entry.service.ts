@@ -5,7 +5,7 @@ import { AccountService } from './account-service';
 import { LogUtil } from '../utils/log-util';
 import { AccountItem } from '../models/account-item';
 import { Entry } from '../models/entry';
-import { EntryAPIV2Service } from '../rest/entry-api-v2.service';
+import { EntryAPIV2Service } from '../rest/entry-api.service';
 
 
 @Injectable()
