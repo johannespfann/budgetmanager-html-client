@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 import { LogUtil } from '../../utils/log-util';
-import { LoginV2Service } from '../../rest/login-api-v2.service';
+import { LoginApiService } from '../../rest/login-api.service';
 import { ApplicationService } from '../../application/application.service';
 
 
@@ -10,7 +10,7 @@ import { ApplicationService } from '../../application/application.service';
     selector: 'app-activate',
     templateUrl: './activate.component.html'
 })
-export class ActivateComponent{
+export class ActivateComponent {
 
     public username: string;
     public email: string;
@@ -20,7 +20,7 @@ export class ActivateComponent{
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private loginService: LoginV2Service,
+        private loginService: LoginApiService,
         private appService: ApplicationService) {
 
         LogUtil.logInits(this, 'Init ActivateComponent');

@@ -5,14 +5,14 @@ import { AccountService } from './account-service';
 import { LogUtil } from '../utils/log-util';
 import { AccountItem } from '../models/account-item';
 import { Entry } from '../models/entry';
-import { EntryAPIV2Service } from '../rest/entry-api.service';
+import { EntryAPIService } from '../rest/entry-api.service';
 
 
 @Injectable()
 export class EntryService {
 
     constructor(
-        private entryApiService: EntryAPIV2Service,
+        private entryApiService: EntryAPIService,
         private appService: ApplicationService,
         private accountService: AccountService ) {
         LogUtil.logInits(this, 'Init EntryService');

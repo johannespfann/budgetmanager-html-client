@@ -7,7 +7,7 @@ import { LogUtil } from './utils/log-util';
 import { User } from './models/user';
 import { ApplicationService } from './application/application.service';
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
-import { LoginV2Service } from './rest/login-api-v2.service';
+import { LoginApiService } from './rest/login-api.service';
 import { AccountService } from './services/account-service';
 import { LogedOutMessage } from './messages/logedout-message';
 import { AccountItem } from './models/account-item';
@@ -49,7 +49,7 @@ export class AppComponent implements OnDestroy, OnInit {
 
   constructor(
       private router: Router,
-      private loginServcie: LoginV2Service,
+      private loginServcie: LoginApiService,
       private messageService: MessagingService,
       private applicationService: ApplicationService,
       private accountService: AccountService,

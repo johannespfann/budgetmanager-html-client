@@ -10,7 +10,6 @@ import { LoginComponent } from './components/logincomponent/login.component';
 import { BalanceComponent } from './components/balancecomponent/balance.component';
 import { MessagingService } from './messages/message.service';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginService } from './rest/login-api.service';
 import { RegisterComponent } from './components/logincomponent/register.component';
 import { ActivateComponent } from './components/logincomponent/activate.component';
 import { ApplicationService } from './application/application.service';
@@ -39,7 +38,7 @@ import { ContactApiService } from './rest/contact-api.service';
 import { ContactService } from './services/contact-service';
 import { StandingOrderListComponent } from './components/standingorderlistcomponent/standingorder-list.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { LoginV2Service } from './rest/login-api-v2.service';
+import { LoginApiService } from './rest/login-api.service';
 import { AccountApiService } from './rest/account-api.service';
 import { AccountService } from './services/account-service';
 import { AccountHelpComponent } from './components/account/account-help.component';
@@ -49,7 +48,7 @@ import { AccountItemComponent } from './components/account/account-item.componen
 import { ListAccountComponent } from './components/account/list-account.component';
 import { AccountCachingService } from './services/account-caching-service';
 import { EntryService } from './services/entry.service';
-import { EntryAPIV2Service } from './rest/entry-api.service';
+import { EntryAPIService } from './rest/entry-api.service';
 import { StandingOrderApiService } from './rest/standing-order-api.service';
 import { StandingOrderService } from './services/standing-order.service';
 
@@ -102,8 +101,7 @@ export function initApplication(appService: ApplicationService) {
     UserApiService,
     UserService,
     MessagingService,
-    LoginService,
-    LoginV2Service,
+    LoginApiService,
     EncryptApiSerice,
     ApplicationService,
     { provide: APP_INITIALIZER, useFactory: initApplication, deps: [ApplicationService], multi: true },
@@ -114,7 +112,7 @@ export function initApplication(appService: ApplicationService) {
     AccountApiService,
     AccountCachingService,
     AccountService,
-    EntryAPIV2Service,
+    EntryAPIService,
     EntryService,
     StandingOrderApiService,
     StandingOrderService

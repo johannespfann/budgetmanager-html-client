@@ -2,7 +2,7 @@ import { LogUtil } from '../utils/log-util';
 import { User } from '../models/user';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { LoginV2Service } from '../rest/login-api-v2.service';
+import { LoginApiService } from '../rest/login-api.service';
 import { AuthenticationFacade } from '../utils/authentication-facade';
 import { environment } from '../../environments/environment';
 
@@ -17,7 +17,7 @@ export class ApplicationService {
     private authfacade: AuthenticationFacade;
 
     constructor(
-        private loginService: LoginV2Service) {
+        private loginService: LoginApiService) {
 
         LogUtil.logInits(this, 'Init ApplicationService');
         this.authfacade = new AuthenticationFacade();

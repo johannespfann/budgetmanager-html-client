@@ -2,13 +2,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 import { LogUtil } from '../../utils/log-util';
-import { LoginService } from '../../rest/login-api.service';
 import { MessagingService } from '../../messages/message.service';
 import { LogedInMessage } from '../../messages/logedin-message';
 import { User } from '../../models/user';
 import { AuthenticationFacade } from '../../utils/authentication-facade';
 import { ApplicationService } from '../../application/application.service';
-import { LoginV2Service } from '../../rest/login-api-v2.service';
+import { LoginApiService } from '../../rest/login-api.service';
 
 @Component({
     selector: 'app-login',
@@ -26,8 +25,7 @@ export class LoginComponent {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private loginService: LoginService,
-        private loginV2Service: LoginV2Service,
+        private loginService: LoginApiService,
         private messageService: MessagingService,
         private appService: ApplicationService) {
 
@@ -45,7 +43,7 @@ export class LoginComponent {
 
         const baseUrl = this.appService.getBaseUrl();
 
-        this.loginV2Service.login(baseUrl, this.identifier, this.password).subscribe( data => {
+        this.loginService.login(baseUrl, this.identifier, this.password).subscribe( data => {
             const user: User = new User();
             LogUtil.info(this, JSON.stringify(data));
             user.name = data.username;

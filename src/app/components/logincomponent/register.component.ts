@@ -1,10 +1,9 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
-import { LoginService } from '../../rest/login-api.service';
 import { User } from '../../models/user';
 import { ApplicationService } from '../../application/application.service';
-import { LoginV2Service } from '../../rest/login-api-v2.service';
+import { LoginApiService } from '../../rest/login-api.service';
 
 
 @Component({
@@ -24,8 +23,7 @@ export class RegisterComponent{
 
     constructor(
         private appService: ApplicationService,
-        private loginService: LoginService,
-        private loginV2Service: LoginV2Service,
+        private loginService: LoginApiService,
         private router: Router) {
             this.showPasswordIsIncorrectMessage = false;
             this.showCommonAlert = false;
@@ -44,7 +42,7 @@ export class RegisterComponent{
 
         const baseUrl = this.appService.getBaseUrl();
 
-        this.loginV2Service.registerUser(baseUrl, user, this.password)
+        this.loginService.registerUser(baseUrl, user, this.password)
             .subscribe(
                 m => {
                 this.router.navigate(['/bm-activate', m.name, 'email', user.email]);

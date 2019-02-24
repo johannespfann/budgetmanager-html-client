@@ -13,7 +13,7 @@ import { AccountItem } from '../models/account-item';
 
 
 @Injectable()
-export class EntryAPIV2Service {
+export class EntryAPIService {
 
     private entryTransformer: EntryTransformer;
 
