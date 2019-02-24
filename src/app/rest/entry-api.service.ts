@@ -38,13 +38,11 @@ export class EntryAPIService {
             .pipe(
                 map((serverEntries: Array<EntryServer>) => {
                     const entries = new Array<Entry>();
-                    LogUtil.info(this, 'Get entries from server: ' + JSON.stringify(serverEntries));
 
                     serverEntries.forEach((entry: EntryServer) => {
                         entries.push(this.entryTransformer.transformEntryV2Server(encryptionKey, entry));
                     });
 
-                    LogUtil.info(this, 'retured transformed entries: ' + JSON.stringify(entries));
                     return entries;
                 })
             );

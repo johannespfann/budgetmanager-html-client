@@ -6,8 +6,6 @@ import { RotationEntry } from '../models/rotationentry';
 import { LogUtil } from '../utils/log-util';
 import { Observable } from 'rxjs';
 import { SortUtil } from '../utils/sort-util';
-import { last } from '@angular/router/src/utils/collection';
-import { JSONP_ERR_WRONG_METHOD } from '@angular/common/http/src/jsonp';
 
 
 export class StandingOrderJob {
@@ -22,18 +20,16 @@ export class StandingOrderJob {
         LogUtil.info(this, 'process standingorders');
         this.standingOrderService.getRotationEntries(accountItem).subscribe(
             (standingOrders: RotationEntry[]) => {
-                LogUtil.info(this, 'Get All rotationEntries: ' + JSON.stringify(standingOrders.length));
+                LogUtil.debug(this, 'Get All rotationEntries: ' + JSON.stringify(standingOrders.length));
                 standingOrders.forEach( (standingOrder: RotationEntry) => {
-                    LogUtil.info(this, 'Process StandingOrder ' + JSON.stringify(standingOrder));
+                    LogUtil.debug(this, 'Process StandingOrder ' + standingOrder.memo);
                     const entries = this.standingOrderExecutor.generateEntries(new Date(), standingOrder);
-
-
 
                     if (entries.length === 0) {
                         LogUtil.debug(this, 'nothing to save');
                         return;
                     }
-                    LogUtil.debug(this, '############');
+
                     LogUtil.debug(this, 'generate and save ' + entries.length + ' entries for ' + standingOrder.memo);
 
                     const lastExecutedDate = SortUtil.getLatestCreatedEntry(entries).created_at;
