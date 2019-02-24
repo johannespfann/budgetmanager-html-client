@@ -49,15 +49,14 @@ export class VersionComponent implements OnInit  {
 
 
     public copyEntries(): void {
-        LogUtil.info(this, 'Clicked copyEntry');
+        LogUtil.info(this, 'Clicked copyEntry!');
         this.showOldEntries();
     }
 
     public copyStandingOrders(): void {
-        LogUtil.info(this, 'Clicked copyStandingOders');
+        LogUtil.info(this, 'Clicked copyStandingOders!');
         this.showOldStandingOrders();
     }
-
 
     public showOldEntries(): void {
         this.oldEntryService.getEntries().subscribe((data: Entry[]) => {
