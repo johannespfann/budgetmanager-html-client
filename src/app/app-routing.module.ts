@@ -16,7 +16,6 @@ import { DataProtectionComponent } from './components/dataprotection/dataprotect
 import { ContactComponent } from './components/contact/contact.component';
 import { AccountHelpComponent } from './components/account/account-help.component';
 import { AccountComponent } from './components/account/account.component';
-import { VersionComponent } from './components/version/version.component';
 // standingorder
 
 
@@ -37,7 +36,6 @@ const appRoutes: Routes = [
   { path: 'contact', component: ContactComponent},
   { path: 'noaccount', component: AccountHelpComponent},
   { path: 'accounts', component: AccountComponent},
-  { path: 'versions', component: VersionComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

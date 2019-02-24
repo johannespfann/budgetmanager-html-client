@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RotationEntryService } from '../../services/rotation-entry.service';
 import { RotationEntry } from '../../models/rotationentry';
 import { LogUtil } from '../../utils/log-util';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -82,7 +81,7 @@ export class StandingOrderComponent implements OnInit {
 
     private updateStandingOrders(accountItem: AccountItem) {
 
-        if (!accountItem){
+        if (!accountItem) {
             LogUtil.info(this, 'Accountitem was undefined');
             return;
         }

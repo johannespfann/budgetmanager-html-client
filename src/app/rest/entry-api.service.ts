@@ -52,7 +52,7 @@ export class EntryAPIService {
 
         const baseUrl = this.appService.getBaseUrl();
         //const encryptionKey = this.appService.getEncryptionKey();
-        const encryptionKey = '';
+        const encryptionKey = 'pw4pfan4';
         const username = 'johannes-7587';
 
         return this.http.get<Array<EntryServer>>(baseUrl + 'entries/owner/' + username + '/all', { headers : headers})

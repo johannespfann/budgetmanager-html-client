@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+
 import { ApplicationService } from '../application/application.service';
 import { LogUtil } from '../utils/log-util';
 import { User } from '../models/user';

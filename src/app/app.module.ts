@@ -16,8 +16,6 @@ import { RegisterComponent } from './components/logincomponent/register.componen
 import { ActivateComponent } from './components/logincomponent/activate.component';
 import { ApplicationService } from './application/application.service';
 import { EntryAPIService } from './rest/entry-api.service';
-import { RotationEntryService } from './services/rotation-entry.service';
-import { RotationEntryRestApiService } from './rest/orders-api.service';
 import { TagsComponent } from './components/tags';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FirstAddEncryptionComponent } from './components/profile/first-add-encryption.component';
@@ -56,7 +54,6 @@ import { EntryV2Service } from './services/entryV2.service';
 import { EntryAPIV2Service } from './rest/entry-api-v2.service';
 import { StandingOrderApiService } from './rest/standing-order-api.service';
 import { StandingOrderService } from './services/standing-order.service';
-import { VersionComponent } from './components/version/version.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -101,8 +98,7 @@ export function initApplication(appService: ApplicationService) {
     AccountComponent,
     AddAccountComponent,
     AccountItemComponent,
-    ListAccountComponent,
-    VersionComponent
+    ListAccountComponent
   ],
   providers: [
     UserApiService,
@@ -112,8 +108,6 @@ export function initApplication(appService: ApplicationService) {
     EntryAPIService,
     LoginService,
     LoginV2Service,
-    RotationEntryService,
-    RotationEntryRestApiService,
     EncryptApiSerice,
     ApplicationService,
     { provide: APP_INITIALIZER, useFactory: initApplication, deps: [ApplicationService], multi: true },

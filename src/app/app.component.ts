@@ -86,6 +86,7 @@ export class AppComponent implements OnDestroy, OnInit {
     this.loginMessageSubscription.unsubscribe();
     this.modifiedAccountsMessageSubscription.unsubscribe();
     this.newAccountAvailableMessageSubscritption.unsubscribe();
+    this.addedNewStandingOrderMessageSubscritption.unsubscribe();
   }
 
   /**
