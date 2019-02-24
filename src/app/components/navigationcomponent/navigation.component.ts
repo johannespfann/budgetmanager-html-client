@@ -44,7 +44,7 @@ export class NavigationComponent {
 
     private registerNoEncryptedKeyMessage(): Subscription {
         LogUtil.logMessages(this, 'register ' + NoEncryptedKeyAvailableMessage.name);
-        return this.messagingService.of(NoEncryptedKeyAvailableMessage).subscribe(
+        return this.messagingService.of(new NoEncryptedKeyAvailableMessage()).subscribe(
             message => {
             LogUtil.logMessages(this, 'received ' + NoEncryptedKeyAvailableMessage.name);
             this.userHasValidKeys = false;
@@ -54,7 +54,7 @@ export class NavigationComponent {
 
     private registerEncryptionKeyAvailableMessage(): Subscription {
         LogUtil.logMessages(this, 'register ' + EncryptionKeyAvailableMessage.name);
-        return this.messagingService.of(EncryptionKeyAvailableMessage).subscribe(
+        return this.messagingService.of(new EncryptionKeyAvailableMessage()).subscribe(
             message => {
                 LogUtil.logMessages(this, 'received ' + EncryptionKeyAvailableMessage.name);
                 this.userHasValidKeys = true;
@@ -64,7 +64,7 @@ export class NavigationComponent {
 
     private registerLogOutMessage(): Subscription {
         LogUtil.logMessages(this, 'register ' + LogedOutMessage.name);
-        return this.messagingService.of(LogedOutMessage).subscribe(
+        return this.messagingService.of(new LogedOutMessage()).subscribe(
             message => {
                 LogUtil.logMessages(this, 'received ' + LogedOutMessage.name);
                 this.navBarIsOpen = false;
@@ -76,7 +76,7 @@ export class NavigationComponent {
 
     private registerLogInMessage(): Subscription {
         LogUtil.logMessages(this, 'register ' + LogedInMessage.name);
-        return this.messagingService.of(LogedInMessage).subscribe(
+        return this.messagingService.of(new LogedInMessage(null)).subscribe(
             message => {
                 LogUtil.logMessages(this, 'received ' + LogedInMessage.name);
                 this.navBarIsOpen = false;

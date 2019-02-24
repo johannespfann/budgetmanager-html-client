@@ -1,12 +1,12 @@
 import { User } from '../models/user';
-import { LogUtil } from '../utils/log-util';
+import { Message } from './message';
 
-export class LogedInMessage {
+export class LogedInMessage extends Message {
 
     private user: User;
 
     constructor(aUser: User) {
-        LogUtil.logMessages(this, 'init login-message');
+        super('LogedInMessage');
         this.user = aUser;
     }
 

@@ -1,16 +1,12 @@
 import { AccountItem } from '../models/account-item';
-import { LogUtil } from '../utils/log-util';
 import { Message } from './message';
 
-export class AddedNewStandingOrderMessage implements Message {
-    
-    public channel: string;
-    data: any;
+export class AddedNewStandingOrderMessage extends Message {
 
     private accountItem: AccountItem;
 
     constructor(aAccountItem: AccountItem) {
-        LogUtil.logMessages(this, 'init added-new-standingorder-message');
+        super('AddedNewStandingOrderMessage');
         this.accountItem = aAccountItem;
     }
 

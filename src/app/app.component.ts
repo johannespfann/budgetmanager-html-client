@@ -101,7 +101,7 @@ export class AppComponent implements OnDestroy, OnInit {
       const baseUrl = this.applicationService.getBaseUrl();
       this.loginServcie.logout(baseUrl, this.user.name, this.user.accesstoken);
     }
-    this.messageService.publish(LogedOutMessage);
+    this.messageService.publish(new LogedOutMessage());
     this.applicationService.logout();
     this.hideLoginAccount();
     this.router.navigate(['/welcome']);
@@ -127,7 +127,7 @@ export class AppComponent implements OnDestroy, OnInit {
   private registerLogedInMessage(): Subscription {
     LogUtil.logMessages(this, 'register ' + LogedInMessage.name);
     return this.messageService
-      .of(LogedInMessage)
+      .of(new LogedInMessage(null))
       .subscribe((message: LogedInMessage) => {
         LogUtil.logMessages(this, 'received ' + LogedInMessage.name);
         this.router.navigate(['/welcome']);
@@ -141,7 +141,7 @@ export class AppComponent implements OnDestroy, OnInit {
 
   private registerAccountChanged(): Subscription {
     LogUtil.logMessages(this, 'register ' + ModifiedAccountsMessage.name);
-    return this.messageService.of(ModifiedAccountsMessage).subscribe(
+    return this.messageService.of(new ModifiedAccountsMessage()).subscribe(
       message => {
         LogUtil.logMessages(this, 'received ' + ModifiedAccountsMessage.name);
         this.updateCurrentAccountState();
@@ -152,7 +152,7 @@ export class AppComponent implements OnDestroy, OnInit {
   private addNewStandingOrderMessage(): Subscription {
     LogUtil.logMessages(this, 'register ' + AddedNewStandingOrderMessage.name);
     return this.messageService
-    .of(AddedNewStandingOrderMessage)
+    .of(new AddedNewStandingOrderMessage(null))
     .subscribe(
       (message: AddedNewStandingOrderMessage) => {
         LogUtil.logMessages(this, 'received ' + AddedNewStandingOrderMessage.name);
@@ -164,7 +164,7 @@ export class AppComponent implements OnDestroy, OnInit {
   private registerNewAccountItemAvailableMessage(): Subscription {
     LogUtil.logMessages(this, 'register ' + NewAccountItemAvailableMessage.name);
     return this.messageService
-    .of(NewAccountItemAvailableMessage)
+    .of(new NewAccountItemAvailableMessage(null))
     .subscribe(
       (message: NewAccountItemAvailableMessage) => {
         LogUtil.logMessages(this, 'received ' + NewAccountItemAvailableMessage.name);

@@ -1,10 +1,10 @@
-import { LogUtil } from '../utils/log-util';
+import { Message } from './message';
 
 
-export class NoEncryptedKeyAvailableMessage {
+export class NoEncryptedKeyAvailableMessage extends Message {
 
     constructor() {
-        LogUtil.logMessages(this, 'init no-encrypted-key-available-message');
+        super('NoEncryptedKeyAvailableMessage');
     }
 
 }

@@ -6,8 +6,8 @@
 export const environment = {
   production: false,
   resturl: 'http://localhost:8090/budget/',
-  logmessages: false,
-  loginits: false,
+  logmessages: true,
+  loginits: true,
   logdebugs: true,
   loginfos: true
 };

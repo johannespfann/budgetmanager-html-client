@@ -1,10 +1,9 @@
-import { LogUtil } from '../utils/log-util';
+import { Message } from './message';
 
-
-export class EncryptionKeyAvailableMessage {
+export class EncryptionKeyAvailableMessage extends Message {
 
     constructor() {
-        LogUtil.logMessages(this, 'init encryption-key-available-message');
+        super('EncryptionKeyAvailableMessage');
     }
 
 }

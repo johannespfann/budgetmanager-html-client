@@ -1,10 +1,12 @@
 import { AccountItem } from '../models/account-item';
+import { Message } from './message';
 
-export class NewAccountItemAvailableMessage {
+export class NewAccountItemAvailableMessage extends Message {
 
     private accountItem: AccountItem;
 
     constructor(aAccountItem: AccountItem) {
+        super('NewAccountItemAvailableMessage');
         this.accountItem = aAccountItem;
     }
 

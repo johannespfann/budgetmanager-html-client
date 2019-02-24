@@ -1,9 +1,11 @@
-import { LogUtil } from '../utils/log-util';
+import { Message } from './message';
 
+export class ModifiedAccountsMessage extends Message {
 
-export class ModifiedAccountsMessage {
+    public messagename: string;
 
     constructor() {
-        LogUtil.logMessages(this, 'init modified-account-message');
+        super('ModifiedAccountsMessage');
+        this.messagename = 'modifiedaccountmessage';
     }
 }

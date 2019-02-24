@@ -1,9 +1,10 @@
-import { LogUtil } from '../utils/log-util';
+import { Message } from './message';
 
-export class LogedOutMessage {
+export class LogedOutMessage extends Message {
+
 
     constructor() {
-        LogUtil.logMessages(this, 'init logout-message');
+        super('LogedOutMessage');
     }
 
 }

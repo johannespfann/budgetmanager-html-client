@@ -1,8 +1,8 @@
-import { LogUtil } from '../utils/log-util';
+import { Message } from './message';
 
-export class EntryUpdatedMessage {
+export class EntryUpdatedMessage extends Message {
 
     constructor() {
-        LogUtil.logMessages(this, 'Init EntryUpdatedMessage');
+        super('EntryUpdatedMessage');
     }
 }
