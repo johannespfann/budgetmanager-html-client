@@ -80,12 +80,12 @@ export class AppComponent implements OnDestroy, OnInit {
       return;
     }
     this.messageService.publish(new LogedInMessage(this.applicationService.getCurrentUser()));
-    this.handleLogedIn();
   }
 
   public ngOnDestroy(): void {
     this.loginMessageSubscription.unsubscribe();
     this.modifiedAccountsMessageSubscription.unsubscribe();
+    this.newAccountAvailableMessageSubscritption.unsubscribe();
   }
 
   /**

@@ -8,6 +8,7 @@ import { RotationEntryTransformer } from '../utils/rotation-entry-transformer';
 import { RotationEntryServer } from '../models/rotationentry-server';
 import { Observable, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { StandingOrderServer } from '../modelv2/standing-order-server';
 
 @Injectable()
 export class RotationEntryRestApiService {
@@ -32,16 +33,19 @@ export class RotationEntryRestApiService {
             rotEntryTransformer.transformRotationEntry(this.applicationService.getEncryptionKey(), aRotationEntry), { headers : headers});
     }
 
+
     public getRotationEntries(aUser: User): Observable<Array<RotationEntry>> {
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
         const baseUrl = this.applicationService.getBaseUrl();
-        const encryptionKey = this.applicationService.getEncryptionKey();
+        // const encryptionKey = this.applicationService.getEncryptionKey();
+        const encryptionKey = '';
+        const username = 'johannes-7587';
 
         const rotationEntryTranformer = new RotationEntryTransformer();
-        return this.http.get<Array<RotationEntryServer>>(baseUrl + 'jobs/owner/' + aUser.name + '/all', { headers : headers})
+        return this.http.get<Array<RotationEntryServer>>(baseUrl + 'jobs/owner/' + username + '/all', { headers : headers})
             .pipe(
                 map((entries: RotationEntryServer[]) => {
                     const newEntries: RotationEntry[] = new Array<RotationEntry>();

@@ -51,9 +51,11 @@ export class EntryAPIService {
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
         const baseUrl = this.appService.getBaseUrl();
-        const encryptionKey = this.appService.getEncryptionKey();
+        //const encryptionKey = this.appService.getEncryptionKey();
+        const encryptionKey = '';
+        const username = 'johannes-7587';
 
-        return this.http.get<Array<EntryServer>>(baseUrl + 'entries/owner/' + aUser.name + '/all', { headers : headers})
+        return this.http.get<Array<EntryServer>>(baseUrl + 'entries/owner/' + username + '/all', { headers : headers})
             .pipe(
                 map((serverEntries: Array<EntryServer>) => {
                     const entries = new Array<Entry>();

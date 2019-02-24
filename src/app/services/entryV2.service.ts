@@ -29,9 +29,6 @@ export class EntryV2Service {
         if (!this.isReadyToUse(account)) {
             return Observable.create(result => { result.error('No restservice available! addEntry'); });
         }
-        LogUtil.info(this, 'Service ready to use and try to persist entry -> '
-        + JSON.stringify(aEntry) + ' with Account -> '
-        + JSON.stringify(account));
         return this.entryApiService.save(this.appService.getCurrentUser(), account, aEntry);
     }
 
@@ -39,9 +36,6 @@ export class EntryV2Service {
         if (!this.isReadyToUse(account)) {
             return Observable.create(result => { result.error('No restservice available! addEntry'); });
         }
-        LogUtil.info(this, 'Service ready to use and try to persist entries -> '
-        + JSON.stringify(aEntries) + ' with Account -> '
-        + JSON.stringify(account));
         return this.entryApiService.saveAll(this.appService.getCurrentUser(), account, aEntries);
     }
 
@@ -62,8 +56,6 @@ export class EntryV2Service {
     public isReadyToUse(accountItem: AccountItem): boolean {
         const isReadyForRestServices = this.appService.isReadyForRestServices();
         const isAccountReadyToUse = this.accountService.isAccountReadyToUse(accountItem);
-        LogUtil.info(this, 'IsReadyForRestService: ' + JSON.stringify(isReadyForRestServices));
-        LogUtil.info(this, 'isAccountReadyToUse: ' + JSON.stringify(isAccountReadyToUse));
         if (isReadyForRestServices && isAccountReadyToUse) {
             return true;
         }

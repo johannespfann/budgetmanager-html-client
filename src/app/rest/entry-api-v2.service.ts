@@ -54,8 +54,6 @@ export class EntryAPIV2Service {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
-        LogUtil.info(this, JSON.stringify(aEntry));
-
         const baseUrl = this.appService.getBaseUrl();
         const encryptionKey = accountItem.key;
 
@@ -69,8 +67,6 @@ export class EntryAPIV2Service {
     public saveAll(aUser: User, accountItem: AccountItem, aEntries: Entry[]): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
-
-        LogUtil.info(this, JSON.stringify(aEntries));
 
         const baseUrl = this.appService.getBaseUrl();
         const encryptionKey = accountItem.key;

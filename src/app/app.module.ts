@@ -56,6 +56,7 @@ import { EntryV2Service } from './services/entryV2.service';
 import { EntryAPIV2Service } from './rest/entry-api-v2.service';
 import { StandingOrderApiService } from './rest/standing-order-api.service';
 import { StandingOrderService } from './services/standing-order.service';
+import { VersionComponent } from './components/version/version.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -100,7 +101,8 @@ export function initApplication(appService: ApplicationService) {
     AccountComponent,
     AddAccountComponent,
     AccountItemComponent,
-    ListAccountComponent
+    ListAccountComponent,
+    VersionComponent
   ],
   providers: [
     UserApiService,

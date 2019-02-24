@@ -90,10 +90,11 @@ export class StandingOrderComponent implements OnInit {
         this.spinner.show();
         this.rotationEntryService.getRotationEntries(accountItem).subscribe(
             (aRotationEntries: RotationEntry[]) => {
-                LogUtil.info(this, 'get all standingOrders: ' + JSON.stringify(aRotationEntries));
                 this.rotationEntries = aRotationEntries;
+
+                aRotationEntries.forEach( x => LogUtil.info(this, JSON.stringify(x)));
+
                 this.spinner.hide();
-                LogUtil.info(this, 'size: ' + this.rotationEntries.length);
             },
             error => {
                 LogUtil.error(this, 'Error was found! -> ' + JSON.stringify(error));

@@ -33,6 +33,28 @@ export class StandingOrderApiService {
             rotEntryTransformer.transformRotationEntry(encryptionKey, aRotationEntry), { headers : headers});
     }
 
+    public addRotationEntries(aUser: User, aAccountItem: AccountItem, aRotationEntries: RotationEntry[]): Observable<any> {
+
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
+
+        const baseUrl = this.applicationService.getBaseUrl();
+        const encryptionKey = aAccountItem.key;
+
+        const rotEntryTransformer = new StandingOrderTransformer();
+
+        const body: StandingOrderServer[] = [];
+
+        aRotationEntries.forEach(
+            x => {
+                body.push(rotEntryTransformer.transformRotationEntry(encryptionKey, x));
+            }
+        );
+
+        return this.http.post(baseUrl + 'jobs/owner/' + aUser.name + '/account/' + aAccountItem.account.hash + '/add/list',
+            body, { headers : headers});
+    }
+
     public getRotationEntries(aUser: User, aAccountItem: AccountItem): Observable<Array<RotationEntry>> {
 
         let headers = new HttpHeaders();

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/user';
 import { LogUtil } from '../../utils/log-util';
 
 @Component({
@@ -17,7 +16,6 @@ export class ProfileComponent {
         this.setupAccountInfos();
     }
 
-
     private setupAccountInfos(): void {
         this.userService.getUserInfo().subscribe(
             (user: any) => {
@@ -30,7 +28,5 @@ export class ProfileComponent {
             }
         );
     }
-
-
 
 }

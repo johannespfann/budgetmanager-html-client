@@ -24,7 +24,6 @@ export class V2EntryTransformer {
             JSON.stringify(entryPayload));
 
         entryServer.data = encryptedPayload;
-        LogUtil.info(this, 'TransformtEntry: ' + JSON.stringify(entryServer));
         return entryServer;
     }
 
