@@ -8,14 +8,12 @@ import { WelcomeComponent } from './components/welcomecomponent/welcome.componen
 import { PageNotFoundComponent } from './components/errorcomponents/page-not-found.component';
 import { LoginComponent } from './components/logincomponent/login.component';
 import { BalanceComponent } from './components/balancecomponent/balance.component';
-import { EntryService } from './services/entry.service';
 import { MessagingService } from './messages/message.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './rest/login-api.service';
 import { RegisterComponent } from './components/logincomponent/register.component';
 import { ActivateComponent } from './components/logincomponent/activate.component';
 import { ApplicationService } from './application/application.service';
-import { EntryAPIService } from './rest/entry-api.service';
 import { TagsComponent } from './components/tags';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FirstAddEncryptionComponent } from './components/profile/first-add-encryption.component';
@@ -103,9 +101,7 @@ export function initApplication(appService: ApplicationService) {
   providers: [
     UserApiService,
     UserService,
-    EntryService,
     MessagingService,
-    EntryAPIService,
     LoginService,
     LoginV2Service,
     EncryptApiSerice,
