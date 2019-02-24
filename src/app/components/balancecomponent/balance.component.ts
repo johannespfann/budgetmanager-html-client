@@ -7,7 +7,7 @@ import { BalanceManager } from './balance-manager';
 import { SortUtil } from '../../utils/sort-util';
 import { DateUtil } from '../../utils/date-util';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { EntryV2Service } from '../../services/entryV2.service';
+import { EntryService } from '../../services/entry.service';
 import { AccountService } from '../../services/account-service';
 import { AccountItem } from '../../models/account-item';
 
@@ -25,7 +25,7 @@ export class BalanceComponent {
     public selectedAccountItem: AccountItem;
 
     constructor(
-        private entryService: EntryV2Service,
+        private entryService: EntryService,
         private accountService: AccountService,
         private spinner: NgxSpinnerService) {
             LogUtil.logInits(this, 'init balance-compoent');

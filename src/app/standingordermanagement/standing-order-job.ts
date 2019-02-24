@@ -1,4 +1,4 @@
-import { EntryV2Service } from '../services/entryV2.service';
+import { EntryService } from '../services/entry.service';
 import { StandingOrderService } from '../services/standing-order.service';
 import { StandingOrderExecutor } from './standing-order-executor';
 import { AccountItem } from '../models/account-item';
@@ -14,7 +14,7 @@ export class StandingOrderJob {
 
     constructor(
         private standingOrderExecutor: StandingOrderExecutor,
-        private entryService: EntryV2Service,
+        private entryService: EntryService,
         private standingOrderService: StandingOrderService) {
     }
 

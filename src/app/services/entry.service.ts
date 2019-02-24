@@ -9,7 +9,7 @@ import { EntryAPIV2Service } from '../rest/entry-api-v2.service';
 
 
 @Injectable()
-export class EntryV2Service {
+export class EntryService {
 
     constructor(
         private entryApiService: EntryAPIV2Service,

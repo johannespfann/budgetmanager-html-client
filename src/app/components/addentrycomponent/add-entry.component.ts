@@ -4,7 +4,7 @@ import { EntryInfoComponent } from '../entryinfocomponent/entry-info.component';
 import { StandingOrderInfoComponent } from '../standingorderinfocomponent/standing-order-info.component';
 import { RotationEntry } from '../../models/rotationentry';
 import { Entry } from '../../models/entry';
-import { EntryV2Service } from '../../services/entryV2.service';
+import { EntryService } from '../../services/entry.service';
 import { DateUtil } from '../../utils/date-util';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AccountService } from '../../services/account-service';
@@ -35,7 +35,7 @@ export class AddEntryComponent implements OnInit {
     constructor(
         private messageService: MessagingService,
         private accountService: AccountService,
-        private entryService: EntryV2Service,
+        private entryService: EntryService,
         private rotationService: StandingOrderService,
         private spinner: NgxSpinnerService) {
         LogUtil.logInits(this, 'init add-entry-component');

@@ -17,7 +17,7 @@ import { EncryptionKeyAvailableMessage } from './messages/encryption-key-availab
 import { StandingOrderJob } from './standingordermanagement/standing-order-job';
 import { StandingOrderExecutor } from './standingordermanagement/standing-order-executor';
 import { DateSeriesStrategy } from './standingordermanagement/date-series-strategy';
-import { EntryV2Service } from './services/entryV2.service';
+import { EntryService } from './services/entry.service';
 import { StandingOrderService } from './services/standing-order.service';
 import { NewAccountItemAvailableMessage } from './messages/new-account-item-available-message';
 import { MonthlySeriesProducer } from './standingordermanagement/monthly-series-producer';
@@ -53,7 +53,7 @@ export class AppComponent implements OnDestroy, OnInit {
       private messageService: MessagingService,
       private applicationService: ApplicationService,
       private accountService: AccountService,
-      entryService: EntryV2Service,
+      entryService: EntryService,
       standingOrderService: StandingOrderService) {
 
     LogUtil.debug(this, 'Start Application');

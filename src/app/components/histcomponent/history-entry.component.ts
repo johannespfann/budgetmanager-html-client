@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { EntryV2Service } from '../../services/entryV2.service';
+import { EntryService } from '../../services/entry.service';
 import { LogUtil } from '../../utils/log-util';
 import { Entry } from '../../models/entry';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -23,7 +23,7 @@ export class HistoryEntryComponent {
 
     constructor(
         private accountService: AccountService,
-        private entryService: EntryV2Service,
+        private entryService: EntryService,
         private spinner: NgxSpinnerService) {
         LogUtil.logInits(this, 'init history-entry-component');
         this.entries = [];

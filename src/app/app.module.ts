@@ -48,7 +48,7 @@ import { AddAccountComponent } from './components/account/add-account.component'
 import { AccountItemComponent } from './components/account/account-item.component';
 import { ListAccountComponent } from './components/account/list-account.component';
 import { AccountCachingService } from './services/account-caching-service';
-import { EntryV2Service } from './services/entryV2.service';
+import { EntryService } from './services/entry.service';
 import { EntryAPIV2Service } from './rest/entry-api-v2.service';
 import { StandingOrderApiService } from './rest/standing-order-api.service';
 import { StandingOrderService } from './services/standing-order.service';
@@ -115,7 +115,7 @@ export function initApplication(appService: ApplicationService) {
     AccountCachingService,
     AccountService,
     EntryAPIV2Service,
-    EntryV2Service,
+    EntryService,
     StandingOrderApiService,
     StandingOrderService
   ],
