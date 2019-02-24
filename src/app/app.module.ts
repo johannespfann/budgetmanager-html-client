@@ -19,7 +19,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FirstAddEncryptionComponent } from './components/profile/first-add-encryption.component';
 import { SetEncryptionKeyComponent } from './components/profile/set-encryption-key.component';
 import { EncryptApiSerice } from './rest/encrypt-api.service';
-
 import { TagStatisticService } from './services/tag-statistic.service';
 import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';
 import { StandingOrderInfoComponent } from './components/standingorderinfocomponent/standing-order-info.component';
