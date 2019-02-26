@@ -1,7 +1,7 @@
 import { TagStatisticServer } from '../models/tagstatistic-server';
 import { TagStatistic } from '../models/tagstatistic';
-import { LogUtil } from './log-util';
-import { CryptUtil } from './crypt-util';
+import { LogUtil } from '../utils/log-util';
+import { CryptUtil } from '../utils/crypt-util';
 
 export class TagStatisticTransformer {
 

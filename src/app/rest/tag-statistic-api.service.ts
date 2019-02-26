@@ -4,7 +4,7 @@ import { TagStatistic } from '../models/tagstatistic';
 import { TagStatisticServer } from '../models/tagstatistic-server';
 import { ApplicationService } from '../application/application.service';
 import { LogUtil } from '../utils/log-util';
-import { TagStatisticTransformer } from '../utils/tagstatistic-transformer';
+import { TagStatisticTransformer } from './tagstatistic-transformer';
 import { User } from '../models/user';
 import { Observable, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';

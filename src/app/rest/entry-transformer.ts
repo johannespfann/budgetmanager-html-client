@@ -1,8 +1,8 @@
 import { EntryServer } from '../models/entry-server';
 import { Entry } from '../models/entry';
 import { EntryPayload } from '../models/entry-payload';
-import { CryptUtil } from './crypt-util';
-import { LogUtil } from './log-util';
+import { CryptUtil } from '../utils/crypt-util';
+import { LogUtil } from '../utils/log-util';
 
 export class EntryTransformer {
 

@@ -1,8 +1,8 @@
 import { StandingOrderServer } from '../models/standing-order-server';
 import { StandingOrderPayload } from '../models/standing-order-payload';
 import { RotationEntry } from '../models/standingorder';
-import { CryptUtil } from './crypt-util';
-import { LogUtil } from './log-util';
+import { CryptUtil } from '../utils/crypt-util';
+import { LogUtil } from '../utils/log-util';
 
 export class StandingOrderTransformer {
 

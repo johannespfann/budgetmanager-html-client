@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { AccountItem } from '../models/account-item';
-import { StandingOrderTransformer } from '../utils/standing-order-transformer';
+import { StandingOrderTransformer } from './standing-order-transformer';
 import { StandingOrderServer } from '../models/standing-order-server';
 
 @Injectable()
