@@ -1,6 +1,6 @@
-import { EntryServer } from '../modelv2/entry-server';
+import { EntryServer } from '../models/entry-server';
 import { Entry } from '../models/entry';
-import { EntryPayload } from '../modelv2/entry-payload';
+import { EntryPayload } from '../models/entry-payload';
 import { CryptUtil } from './crypt-util';
 import { LogUtil } from './log-util';
 

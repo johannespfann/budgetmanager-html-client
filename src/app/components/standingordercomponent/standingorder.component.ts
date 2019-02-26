@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RotationEntry } from '../../models/rotationentry';
+import { RotationEntry } from '../../models/standingorder';
 import { LogUtil } from '../../utils/log-util';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { StandingOrderService } from '../../services/standing-order.service';

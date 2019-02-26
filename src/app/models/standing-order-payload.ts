@@ -1,4 +1,4 @@
-import { Tag } from '../models/tag';
+import { Tag } from './tag';
 
 export class StandingOrderPayload {
 

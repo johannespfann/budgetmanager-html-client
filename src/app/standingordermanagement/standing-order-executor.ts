@@ -1,4 +1,4 @@
-import { RotationEntry } from '../models/rotationentry';
+import { RotationEntry } from '../models/standingorder';
 import { Entry } from '../models/entry';
 import { DateUtil } from '../utils/date-util';
 import { DateSeriesStrategy } from './date-series-strategy';

@@ -6,7 +6,7 @@ import { Entry } from '../models/entry';
 import { ApplicationService } from '../application/application.service';
 import { User } from '../models/user';
 import { EntryTransformer } from '../utils/entry-transformer';
-import { EntryServer } from '../modelv2/entry-server';
+import { EntryServer } from '../models/entry-server';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccountItem } from '../models/account-item';

@@ -2,13 +2,13 @@ import { LogUtil } from '../utils/log-util';
 import { Injectable } from '@angular/core';
 import { ApplicationService } from '../application/application.service';
 import { User } from '../models/user';
-import { RotationEntry } from '../models/rotationentry';
+import { RotationEntry } from '../models/standingorder';
 import { Observable } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { AccountItem } from '../models/account-item';
 import { StandingOrderTransformer } from '../utils/standing-order-transformer';
-import { StandingOrderServer } from '../modelv2/standing-order-server';
+import { StandingOrderServer } from '../models/standing-order-server';
 
 @Injectable()
 export class StandingOrderApiService {

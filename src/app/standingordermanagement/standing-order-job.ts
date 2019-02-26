@@ -2,7 +2,7 @@ import { EntryService } from '../services/entry.service';
 import { StandingOrderService } from '../services/standing-order.service';
 import { StandingOrderExecutor } from './standing-order-executor';
 import { AccountItem } from '../models/account-item';
-import { RotationEntry } from '../models/rotationentry';
+import { RotationEntry } from '../models/standingorder';
 import { LogUtil } from '../utils/log-util';
 import { Observable } from 'rxjs';
 import { SortUtil } from '../utils/sort-util';

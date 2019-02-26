@@ -1,6 +1,6 @@
-import { StandingOrderServer } from '../modelv2/standing-order-server';
-import { StandingOrderPayload } from '../modelv2/standing-order-payload';
-import { RotationEntry } from '../models/rotationentry';
+import { StandingOrderServer } from '../models/standing-order-server';
+import { StandingOrderPayload } from '../models/standing-order-payload';
+import { RotationEntry } from '../models/standingorder';
 import { CryptUtil } from './crypt-util';
 import { LogUtil } from './log-util';
 

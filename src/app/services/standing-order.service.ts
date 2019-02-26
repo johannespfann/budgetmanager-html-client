@@ -1,7 +1,7 @@
 import { LogUtil } from '../utils/log-util';
 import { StandingOrderApiService } from '../rest/standing-order-api.service';
 import { ApplicationService } from '../application/application.service';
-import { RotationEntry } from '../models/rotationentry';
+import { RotationEntry } from '../models/standingorder';
 import { Observable } from 'rxjs';
 import { AccountItem } from '../models/account-item';
 import { Injectable } from '@angular/core';

@@ -1,5 +1,5 @@
 
-import { RotationEntry } from '../models/rotationentry';
+import { RotationEntry } from '../models/standingorder';
 import { StandingOrderExecutor } from './standing-order-executor';
 import { Entry } from '../models/entry';
 import { HashUtil } from '../utils/hash-util';
