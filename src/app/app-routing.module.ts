@@ -15,7 +15,9 @@ import { ImpressumComponent } from './components/impressum/impressum.component';
 import { DataProtectionComponent } from './components/dataprotection/dataprotection.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { AccountHelpComponent } from './components/account/account-help.component';
-import { AccountComponent } from './components/account/account.component';
+import { AccountComponent } from './components/account/accountcomponent/account.component';
+import { AccountWelcomeComponent } from './components/account/account-welcome.component';
+import { AccountMenueComponent } from './components/account/account-menue.component';
 // standingorder
 
 
@@ -36,6 +38,8 @@ const appRoutes: Routes = [
   { path: 'contact', component: ContactComponent},
   { path: 'noaccount', component: AccountHelpComponent},
   { path: 'accounts', component: AccountComponent},
+  { path: 'accountwelcome', component: AccountWelcomeComponent},
+  { path: 'accountsmenue', component: AccountMenueComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

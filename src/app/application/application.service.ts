@@ -5,12 +5,15 @@ import { Injectable } from '@angular/core';
 import { LoginApiService } from '../rest/login-api.service';
 import { AuthenticationFacade } from '../utils/authentication-facade';
 import { environment } from '../../environments/environment';
+import { AccountItem } from '../models/account-item';
 
 @Injectable()
 export class ApplicationService {
 
+
     private user: User;
     private baseUrl = environment.resturl;
+    private currentAccountItem: AccountItem;
 
 
 
@@ -27,6 +30,14 @@ export class ApplicationService {
         return this.baseUrl;
     }
 
+    public setCurrentAccount(accountItem: AccountItem): void {
+        this.currentAccountItem = accountItem;
+    }
+
+    public getCurrentAccount(): AccountItem {
+        return this.currentAccountItem;
+    }
+
     public currentUserExists(): boolean {
         if (this.user) {
             return true;
@@ -34,10 +45,6 @@ export class ApplicationService {
         return false;
     }
 
-
-    public getEncryptionKey(): string {
-        return '';
-    }
 
     public getCurrentUser(): User {
         return this.user;

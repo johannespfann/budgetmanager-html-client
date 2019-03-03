@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LogUtil } from '../../utils/log-util';
-import { AccountService } from '../../services/account-service';
-import { ApplicationService } from '../../application/application.service';
-import { AccountItem } from '../../models/account-item';
-import { AccountStorageFacade } from '../../utils/account-storage-facade';
-import { MessagingService } from '../../messages/message.service';
-import { ModifiedAccountsMessage } from '../../messages/modified-accounts-message';
-import { NewAccountItemAvailableMessage } from '../../messages/new-account-item-available-message';
+import { LogUtil } from '../../../utils/log-util';
+import { AccountService } from '../../../services/account-service';
+import { ApplicationService } from '../../../application/application.service';
+import { AccountItem } from '../../../models/account-item';
+import { AccountStorageFacade } from '../../../utils/account-storage-facade';
+import { MessagingService } from '../../../messages/message.service';
+import { ModifiedAccountsMessage } from '../../../messages/modified-accounts-message';
+import { NewAccountItemAvailableMessage } from '../../../messages/new-account-item-available-message';
 
 @Component({
     selector: 'app-account',

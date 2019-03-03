@@ -1,0 +1,19 @@
+<div class="jumbotron" style="overflow: hidden">
+
+    <h1 class="mb-5">Willkommen {{username}}</h1>
+
+    <p>wählen Sie zwischen den Konten</p>
+
+
+    <ul class="list-group">
+        
+        <li *ngFor="let accountItem of accountItems" class="list-group-item row" (click)="selectAccount(accountItem)">{{accountItem.account.name}}</li>
+        
+
+    </ul>
+
+
+</div>
+
+
+

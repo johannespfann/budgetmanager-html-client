@@ -19,7 +19,6 @@ import { StandingOrderExecutor } from './standingordermanagement/standing-order-
 import { DateSeriesStrategy } from './standingordermanagement/date-series-strategy';
 import { EntryService } from './services/entry.service';
 import { StandingOrderService } from './services/standing-order.service';
-import { NewAccountItemAvailableMessage } from './messages/new-account-item-available-message';
 import { MonthlySeriesProducer } from './standingordermanagement/monthly-series-producer';
 import { QuarterSeriesProducer } from './standingordermanagement/quarter-series-producer';
 import { YearlySeriesProducer } from './standingordermanagement/yearly-series-producer';
@@ -38,7 +37,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
   private loginMessageSubscription: Subscription;
   private modifiedAccountsMessageSubscription: Subscription;
-  private newAccountAvailableMessageSubscritption: Subscription;
   private addedNewStandingOrderMessageSubscritption: Subscription;
 
 
@@ -59,7 +57,6 @@ export class AppComponent implements OnDestroy, OnInit {
     LogUtil.debug(this, 'Start Application');
     this.loginMessageSubscription = this.registerLogedInMessage();
     this.modifiedAccountsMessageSubscription = this.registerAccountChanged();
-    this.newAccountAvailableMessageSubscritption = this.registerNewAccountItemAvailableMessage();
     this.addedNewStandingOrderMessageSubscritption = this.addNewStandingOrderMessage();
     const strategies: DateSeriesStrategy[] = [];
     strategies.push(new MonthlySeriesProducer());
@@ -85,7 +82,6 @@ export class AppComponent implements OnDestroy, OnInit {
   public ngOnDestroy(): void {
     this.loginMessageSubscription.unsubscribe();
     this.modifiedAccountsMessageSubscription.unsubscribe();
-    this.newAccountAvailableMessageSubscritption.unsubscribe();
     this.addedNewStandingOrderMessageSubscritption.unsubscribe();
   }
 
@@ -162,18 +158,6 @@ export class AppComponent implements OnDestroy, OnInit {
     );
   }
 
-  private registerNewAccountItemAvailableMessage(): Subscription {
-    LogUtil.logMessages(this, 'register ' + NewAccountItemAvailableMessage.name);
-    return this.messageService
-    .of(new NewAccountItemAvailableMessage(null))
-    .subscribe(
-      (message: NewAccountItemAvailableMessage) => {
-        LogUtil.logMessages(this, 'received ' + NewAccountItemAvailableMessage.name);
-        this.standingOrderJob.executeStandingOrders(message.getAccountItem());
-      }
-    );
-  }
-
   private updateCurrentAccountState(): void {
     this.accountService.getAllUseableAccounts().subscribe(
       (accounts: AccountItem[] ) => {
@@ -181,10 +165,7 @@ export class AppComponent implements OnDestroy, OnInit {
           this.messageService.publish(new NoEncryptedKeyAvailableMessage());
           this.router.navigate(['/noaccount']);
         } else {
-          accounts.forEach((accountItem: AccountItem) => {
-          this.messageService.publish(new NewAccountItemAvailableMessage(accountItem));
-        });
-
+          this.router.navigate(['/accountsmenue']);
           this.messageService.publish(new EncryptionKeyAvailableMessage());
         }
 

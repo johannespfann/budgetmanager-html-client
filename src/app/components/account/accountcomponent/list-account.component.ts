@@ -1,7 +1,7 @@
 
 import { Component, Input, Output, EventEmitter, AfterViewChecked, AfterViewInit } from '@angular/core';
-import { LogUtil } from '../../utils/log-util';
-import { AccountItem } from '../../models/account-item';
+import { LogUtil } from '../../../utils/log-util';
+import { AccountItem } from '../../../models/account-item';
 
 @Component({
     selector: 'app-list-accounts',

@@ -26,7 +26,7 @@ export class TagStatisticRestApiService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
-        const encryptKey = this.appService.getEncryptionKey();
+        const encryptKey = '';
         const basePath = this.appService.getBaseUrl();
 
         return this.http.get<Array<TagStatisticServer>>(basePath + 'tagstatistic/owner/' + aUser.name + '/all', { headers : headers})
@@ -48,7 +48,7 @@ export class TagStatisticRestApiService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
 
-        const encryptKey = this.appService.getEncryptionKey();
+        const encryptKey = '';
         const basePath = this.appService.getBaseUrl();
 
         const tagStatisticServers: TagStatisticServer[] = new Array<TagStatisticServer>();

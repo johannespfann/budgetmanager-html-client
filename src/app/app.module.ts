@@ -40,15 +40,18 @@ import { LoginApiService } from './rest/login-api.service';
 import { AccountApiService } from './rest/account-api.service';
 import { AccountService } from './services/account-service';
 import { AccountHelpComponent } from './components/account/account-help.component';
-import { AccountComponent } from './components/account/account.component';
-import { AddAccountComponent } from './components/account/add-account.component';
-import { AccountItemComponent } from './components/account/account-item.component';
-import { ListAccountComponent } from './components/account/list-account.component';
+import { AccountComponent } from './components/account/accountcomponent/account.component';
+import { AddAccountComponent } from './components/account/accountcomponent/add-account.component';
+import { AccountItemComponent } from './components/account/accountcomponent/account-item.component';
+import { ListAccountComponent } from './components/account/accountcomponent/list-account.component';
 import { AccountCachingService } from './services/account-caching-service';
 import { EntryService } from './services/entry.service';
 import { EntryAPIService } from './rest/entry-api.service';
 import { StandingOrderApiService } from './rest/standing-order-api.service';
 import { StandingOrderService } from './services/standing-order.service';
+import { AccountWelcomeComponent } from './components/account/account-welcome.component';
+import { AccountMenueComponent } from './components/account/account-menue.component';
+import { CashTrackComponent } from './cash-track.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -91,7 +94,10 @@ export function initApplication(appService: ApplicationService) {
     AccountComponent,
     AddAccountComponent,
     AccountItemComponent,
-    ListAccountComponent
+    ListAccountComponent,
+    AccountWelcomeComponent,
+    AccountMenueComponent,
+    CashTrackComponent
   ],
   providers: [
     UserApiService,

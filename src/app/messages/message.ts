@@ -5,6 +5,7 @@ export abstract class Message {
     protected channelName: string;
 
     constructor(aChannelName: string) {
+        LogUtil.logMessages(this, 'init message: ' + this.channelName);
         this.channelName = aChannelName;
     }
 
