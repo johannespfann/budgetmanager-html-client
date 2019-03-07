@@ -44,7 +44,6 @@ export class AccountCachingService {
     }
 
     public cleanCaching(): void {
-        LogUtil.debug(this, '====> Cleanded caching!');
         this.cachedAccountItems = [];
     }
 

@@ -75,7 +75,6 @@ export class StandingOrderComponent implements OnInit {
     }
 
     private updateStandingOrders(accountItem: AccountItem) {
-
         if (!accountItem) {
             LogUtil.info(this, 'Accountitem was undefined');
             return;
@@ -85,9 +84,6 @@ export class StandingOrderComponent implements OnInit {
         this.rotationEntryService.getRotationEntries(accountItem).subscribe(
             (aRotationEntries: RotationEntry[]) => {
                 this.rotationEntries = aRotationEntries;
-
-                aRotationEntries.forEach( x => LogUtil.info(this, JSON.stringify(x)));
-
                 this.spinner.hide();
             },
             error => {
