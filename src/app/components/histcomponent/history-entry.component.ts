@@ -32,7 +32,7 @@ export class HistoryEntryComponent {
         this.selectedEntry = new Entry();
         this.closeEditView();
         this.updateAccountItems();
-        this.updateEntries();
+        this.initView();
     }
 
     private updateAccountItems(): void {

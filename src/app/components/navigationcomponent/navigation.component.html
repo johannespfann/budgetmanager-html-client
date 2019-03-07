@@ -4,42 +4,50 @@
 
 <div class="sidebar bg-secondary" *ngIf="navBarIsOpen">
   <div class="sidebar-header">
-    <a (click)="closeSidebar()"><i class="fa fa-caret-square-o-left fa-2x float-right mt-3 mr-3"></i></a>
+    <a (click)="closeSidebar()"><i class="fa fa-times-circle fa-2x float-right mt-3 mr-3"></i></a>
   </div>
 
   <ul *ngIf="accountviewIsVisible" class="sidebar-content">
 
-    <li class="navlink-bm pb-3 font-weight-bold">
-      <a routerLink="/accountmenue" (click)="closeSidebar()">
-        <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> {{accountname}}
+    <li class="navlink-bm pb-2">
+      <a routerLink="/accountmenue" (click)="closeSidebar()" class="font-weight-bold nav-menue-account-item">
+        <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Kontenübersicht
       </a>
+      <p class="text-white">({{accountname}})</p>
     </li>
+
     <li *ngIf="userIsLogedIn && userHasValidKeys" class="navlink-bm">
       <a routerLink="/newentry" (click)="closeSidebar()">
         <i class="fa fa-plus" aria-hidden="true"></i> Neuer Eintrag
       </a>
     </li>
+
     <li *ngIf="userIsLogedIn && userHasValidKeys" class="navlink-bm">
       <a routerLink="/standingorder" (click)="closeSidebar()">
         <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Daueraufträge</a>
     </li>
+
     <li *ngIf="userIsLogedIn && userHasValidKeys" class="navlink-bm">
       <a routerLink="/balance" (click)="closeSidebar()">
         <i class="fa fa-balance-scale" aria-hidden="true"></i> Bilanz</a>
     </li>
+
     <li *ngIf="userIsLogedIn && userHasValidKeys" class="navlink-bm">
       <a routerLink="/history" (click)="closeSidebar()">
         <i class="fa fa-history" aria-hidden="true"></i> Verlauf</a>
     </li>
+
     <li *ngIf="userIsLogedIn" class="navlink-bm">
       <a routerLink="/accounts" (click)="closeSidebar()">
         <i class="fa fa-credit-card" aria-hidden="true"></i> Kontensettings</a>
     </li>
+
     <li *ngIf="userIsLogedIn" class="navlink-bm">
-      <a routerLink="/accounts" (click)="closeSidebar()">
-        <i class="fa fa-credit-card" aria-hidden="true"></i> Rules
+      <a routerLink="/rules" (click)="closeSidebar()">
+        <i class="fa fa-tags" aria-hidden="true"></i> Tag-Regeln
       </a>
     </li>
+
     <li  *ngIf="userIsLogedIn" class="navlink-bm">
       <a routerLink="/profile" (click)="closeSidebar()">
         <i class="fa fa-user" aria-hidden="true"></i> Profil
@@ -50,14 +58,24 @@
 
   <ul *ngIf="!accountviewIsVisible" class="sidebar-content">
 
-    <li class="navlink-bm">
-      <a routerLink="/accountmenue" (click)="closeSidebar()">
-        <i class="fa fa-caret-square-o-left" aria-hidden="true"> Konten</i></a>
+    <li *ngIf="!userIsLogedIn" class="navlink-bm">
+      <a routerLink="/welcome" (click)="closeSidebar()">
+        <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Willkommen
+      </a>
     </li>
+
+    <li *ngIf="userIsLogedIn" class="navlink-bm">
+      <a routerLink="/accountmenue" (click)="closeSidebar()">
+        <i class="fa fa-list-ul" aria-hidden="true"></i> Kontenübersicht
+      </a>
+    </li>
+
     <li *ngIf="userIsLogedIn" class="navlink-bm">
       <a routerLink="/accounts" (click)="closeSidebar()">
-        <i class="fa fa-credit-card" aria-hidden="true"></i> Settings</a>
+        <i class="fa fa-credit-card" aria-hidden="true"></i> Settings
+      </a>
     </li>
+
     <li  *ngIf="userIsLogedIn" class="navlink-bm">
       <a routerLink="/profile" (click)="closeSidebar()">
         <i class="fa fa-user" aria-hidden="true"></i> Profil</a>
