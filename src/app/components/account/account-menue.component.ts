@@ -16,7 +16,6 @@ import { ApplicationService } from '../../application/application.service';
 })
 export class AccountMenueComponent implements OnInit, OnDestroy {
 
-
     public accountItems: AccountItem[];
 
     constructor(
@@ -25,10 +24,22 @@ export class AccountMenueComponent implements OnInit, OnDestroy {
         private applicationService: ApplicationService,
         private accountService: AccountService) {
         this.accountItems = [];
-        messagingService.publish(new RefreshSelectedAccountItemMessage());
-        this.applicationService.setCurrentAccount(null);
     }
 
+
+    public ngOnInit(): void {
+        this.resetSelectedAccount();
+        this.updateAccountItems();
+    }
+
+    public ngOnDestroy(): void {
+        // TODO
+    }
+
+    private resetSelectedAccount(): void {
+        this.messagingService.publish(new RefreshSelectedAccountItemMessage());
+        this.applicationService.setCurrentAccount(null);
+    }
 
     public selectAccount(accountItem: AccountItem): void {
         this.messagingService.publish(new SelectAccountItemMessage(accountItem));
@@ -36,19 +47,14 @@ export class AccountMenueComponent implements OnInit, OnDestroy {
         this.router.navigate(['/accountwelcome']);
     }
 
-    public ngOnInit(): void {
+    private updateAccountItems(): void {
         this.accountService.getAllUseableAccounts().subscribe(
             (accountItems: AccountItem[]) => {
-                LogUtil.info(this, 'got Accounts');
                 this.accountItems = accountItems;
             },
             error => {
                 LogUtil.error(this, 'failed to load accounts ' + JSON.stringify(error));
             }
         );
-    }
-
-    public ngOnDestroy(): void {
-        // TODO
     }
 }
