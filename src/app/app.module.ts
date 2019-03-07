@@ -51,6 +51,7 @@ import { StandingOrderApiService } from './rest/standing-order-api.service';
 import { StandingOrderService } from './services/standing-order.service';
 import { AccountWelcomeComponent } from './components/account/account-welcome.component';
 import { AccountMenueComponent } from './components/account/account-menue.component';
+import { RulesComponent } from './components/rulescomponent/rules.component';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -95,7 +96,8 @@ export function initApplication(appService: ApplicationService) {
     AccountItemComponent,
     ListAccountComponent,
     AccountWelcomeComponent,
-    AccountMenueComponent
+    AccountMenueComponent,
+    RulesComponent
   ],
   providers: [
     UserApiService,

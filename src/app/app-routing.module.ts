@@ -18,6 +18,7 @@ import { AccountHelpComponent } from './components/account/account-help.componen
 import { AccountComponent } from './components/account/accountcomponent/account.component';
 import { AccountWelcomeComponent } from './components/account/account-welcome.component';
 import { AccountMenueComponent } from './components/account/account-menue.component';
+import { RulesComponent } from './components/rulescomponent/rules.component';
 // standingorder
 
 
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
   { path: 'accounts', component: AccountComponent},
   { path: 'accountwelcome', component: AccountWelcomeComponent},
   { path: 'accountmenue', component: AccountMenueComponent},
+  { path: 'rules', component: RulesComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
