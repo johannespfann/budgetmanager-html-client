@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { StandingOrderService } from '../../services/standing-order.service';
 import { AccountService } from '../../services/account-service';
 import { AccountItem } from '../../models/account-item';
+import { ApplicationService } from '../../application/application.service';
 
 @Component({
     selector: 'app-standingorder-component',
@@ -23,6 +24,7 @@ export class StandingOrderComponent implements OnInit {
     public isViewVisible: boolean;
 
     constructor(
+        private applicationService: ApplicationService,
         private accountService: AccountService,
         private rotationEntryService: StandingOrderService,
         private spinner: NgxSpinnerService) {
@@ -32,6 +34,7 @@ export class StandingOrderComponent implements OnInit {
     public ngOnInit(): void {
         this.cleanView();
         this.updateAccountItems();
+        this.updateStandingOrders(this.selectedAccountItem);
     }
 
     public onEditPressed(entry: RotationEntry): void {
@@ -44,15 +47,7 @@ export class StandingOrderComponent implements OnInit {
     }
 
     private updateAccountItems(): void {
-        this.accountService.getAllUseableAccounts().subscribe(
-            (accountItems: AccountItem[]) => {
-                this.accountItems = accountItems;
-                accountItems.forEach( x => JSON.stringify(x));
-                this.selectedAccountItem = accountItems[0];
-                this.updateStandingOrders(accountItems[0]);
-            },
-            error => LogUtil.error(this, 'error when getting all useable accounts: ' + JSON.stringify(error))
-        );
+        this.selectedAccountItem = this.applicationService.getCurrentAccount();
     }
 
     public onChangedPressed(event: RotationEntry): void {

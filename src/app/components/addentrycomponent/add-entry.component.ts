@@ -12,6 +12,7 @@ import { AccountItem } from '../../models/account-item';
 import { StandingOrderService } from '../../services/standing-order.service';
 import { MessagingService } from '../../messages/message.service';
 import { AddedNewStandingOrderMessage } from '../../messages/added-new-standing-order-message';
+import { ApplicationService } from '../../application/application.service';
 
 @Component({
     selector: 'app-newentry',
@@ -33,6 +34,7 @@ export class AddEntryComponent implements OnInit {
     public selectedAccount: AccountItem;
 
     constructor(
+        private applicationService: ApplicationService,
         private messageService: MessagingService,
         private accountService: AccountService,
         private entryService: EntryService,
@@ -48,14 +50,7 @@ export class AddEntryComponent implements OnInit {
     }
 
     private updateAccountItems(): void {
-        this.accountService.getAllUseableAccounts().subscribe(
-            (accountItems: AccountItem[]) => {
-                this.accountItems = accountItems;
-                accountItems.forEach( x => JSON.stringify(x));
-                this.selectedAccount = accountItems[0];
-            },
-            error => LogUtil.error(this, 'error when getting all useable accounts: ' + JSON.stringify(error))
-        );
+        this.selectedAccount = this.applicationService.getCurrentAccount();
     }
 
     public saveEntry(): void {

@@ -10,6 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { EntryService } from '../../services/entry.service';
 import { AccountService } from '../../services/account-service';
 import { AccountItem } from '../../models/account-item';
+import { ApplicationService } from '../../application/application.service';
 
 @Component({
     selector : 'app-balance',
@@ -25,24 +26,18 @@ export class BalanceComponent {
     public selectedAccountItem: AccountItem;
 
     constructor(
+        private applicationSerice: ApplicationService,
         private entryService: EntryService,
         private accountService: AccountService,
         private spinner: NgxSpinnerService) {
             LogUtil.logInits(this, 'init balance-compoent');
 
         this.updateAccountItems();
+        this.updateEntries();
     }
 
     private updateAccountItems(): void {
-        this.accountService.getAllUseableAccounts().subscribe(
-            (accountItems: AccountItem[]) => {
-                this.accountItems = accountItems;
-                accountItems.forEach( x => JSON.stringify(x));
-                this.selectedAccountItem = accountItems[0];
-                this.updateEntries();
-            },
-            error => LogUtil.error(this, 'error when getting all useable accounts: ' + JSON.stringify(error))
-        );
+        this.selectedAccountItem = this.applicationSerice.getCurrentAccount();
     }
 
     private updateEntries(): void {

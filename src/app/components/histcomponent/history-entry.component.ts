@@ -5,6 +5,7 @@ import { Entry } from '../../models/entry';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AccountService } from '../../services/account-service';
 import { AccountItem } from '../../models/account-item';
+import { ApplicationService } from '../../application/application.service';
 
 @Component({
     selector : 'app-history-entry',
@@ -22,6 +23,7 @@ export class HistoryEntryComponent {
     public selectedAccount: AccountItem;
 
     constructor(
+        private applicationService: ApplicationService,
         private accountService: AccountService,
         private entryService: EntryService,
         private spinner: NgxSpinnerService) {
@@ -30,18 +32,11 @@ export class HistoryEntryComponent {
         this.selectedEntry = new Entry();
         this.closeEditView();
         this.updateAccountItems();
+        this.updateEntries();
     }
 
     private updateAccountItems(): void {
-        this.accountService.getAllUseableAccounts().subscribe(
-            (accountItems: AccountItem[]) => {
-                this.accountItems = accountItems;
-                accountItems.forEach( x => JSON.stringify(x));
-                this.selectedAccount = accountItems[0];
-                this.initView();
-            },
-            error => LogUtil.error(this, 'error when getting all useable accounts: ' + JSON.stringify(error))
-        );
+        this.selectedAccount = this.applicationService.getCurrentAccount();
     }
 
     private initView(): void {

@@ -26,7 +26,6 @@ export class AccountMenueComponent implements OnInit, OnDestroy {
         this.accountItems = [];
     }
 
-
     public ngOnInit(): void {
         this.resetSelectedAccount();
         this.updateAccountItems();

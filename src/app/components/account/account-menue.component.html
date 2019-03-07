@@ -4,8 +4,10 @@
 
     <p>wählen Sie zwischen den Konten</p>
 
-    <a *ngFor="let accountItem of accountItems" (click)="selectAccount(accountItem)" class="text-success">{{accountItem.account.name}}</a>
-    
+    <div *ngFor="let accountItem of accountItems" class="pl-3 pb-1">
+        <a (click)="selectAccount(accountItem)" class="text-success">{{accountItem.account.name}}</a>
+    </div>
+
 </div>
 
 
