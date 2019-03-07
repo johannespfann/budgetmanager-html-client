@@ -15,17 +15,13 @@ import { ApplicationService } from '../../application/application.service';
 export class StandingOrderComponent implements OnInit {
 
     public rotationEntries: RotationEntry[];
-
     public selectedStandingOrder: RotationEntry;
-
     public accountItems: AccountItem[];
     public selectedAccountItem: AccountItem;
-
     public isViewVisible: boolean;
 
     constructor(
         private applicationService: ApplicationService,
-        private accountService: AccountService,
         private rotationEntryService: StandingOrderService,
         private spinner: NgxSpinnerService) {
         LogUtil.logInits(this, 'init standingorders');
