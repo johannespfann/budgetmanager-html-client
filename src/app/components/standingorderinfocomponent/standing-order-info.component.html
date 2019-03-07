@@ -1,5 +1,5 @@
 <div class="form-group row">
-  <label for="example-date-input" class="col-2 col-form-label text-primary font-weight-bold">Beginnt am:</label>
+  <label for="example-date-input" class="col-2 col-form-label text-primary font-weight-bold text-dark">Beginnt am:</label>
   <div class="col-10">
     <input class="form-control" type="date" [ngModel]="startRotationDate | date:'yyyy-MM-dd'" (ngModelChange)="startRotationDate=$event"
       id="example-date-input" name="rotationStartDate">
@@ -8,17 +8,17 @@
 
 <fieldset class="form-group">
   <div class="form-check">
-    <label class="form-check-label">
+    <label class="form-check-label text-dark">
       <input type="radio" (click)="setMonthly()" class="form-check-input" name="optionsRadios" id="optionsRadios1"value="option1" [checked]="isMonthly"> Monatlich
     </label>
   </div>
   <div class="form-check">
-    <label class="form-check-label">
+    <label class="form-check-label text-dark">
       <input type="radio" (click)="setQuarterly()" class="form-check-input" name="optionsRadios" id="optionsRadios2"value="option2" [checked]="isQuarterly"> Quartalsweise
     </label>
   </div>
   <div class="form-check">
-    <label class="form-check-label">
+    <label class="form-check-label text-dark">
       <input type="radio" (click)="setYearly()" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" [checked]="isYearly" > Järhlich
     </label>
   </div>

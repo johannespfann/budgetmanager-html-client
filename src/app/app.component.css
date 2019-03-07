@@ -3,6 +3,11 @@
     background-color: #eceeef;
 }
 
+.nav-btn-mod {
+    color: white !important;
+    border-color: white !important;
+}   
+
 a {
     color: white !important;
 }

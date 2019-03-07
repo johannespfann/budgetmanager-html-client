@@ -5,7 +5,7 @@
     <app-entry-info></app-entry-info>
 
     <div *ngIf="!isPeriodical" class="form-group">
-      <label class="text-primary font-weight-bold" for="example-date-input">Erstellen für den:</label>
+      <label class="text-primary font-weight-bold text-dark" for="example-date-input">Erstellen für den:</label>
       <div>
         <input class="form-control" type="date" [ngModel]="createEntryDate | date:'yyyy-MM-dd'" (ngModelChange)="createEntryDate=$event"
           id="example-date-input" name="rotationStartDate">
@@ -13,7 +13,7 @@
     </div>
 
     <div class="pt-2">
-      <label class="text-primary font-weight-bold pr-3">Wiederkehrend</label>
+      <label class="text-primary font-weight-bold pr-3 text-dark">Wiederkehrend</label>
       <input type="checkbox" (click)="changePeriodical()" [checked]="isPeriodical">
     </div>
 

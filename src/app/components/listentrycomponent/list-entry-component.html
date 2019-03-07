@@ -2,7 +2,7 @@
 
     <div *ngFor="let entryPackage of entryPackages" class="" style="margin-top: 0.2rem">
 
-        <p class="mt-2">{{entryPackage.packagename}} - {{entryPackage.entries.length}}</p>
+        <p class="mt-5 mb-3 font-weight-bold">{{entryPackage.packagename}} - {{entryPackage.entries.length}}</p>
 
         <li *ngFor="let entry of entryPackage.entries" class="list-group-item row" style="margin-top: 0.2rem">
             <div class="col-12 col-sm-12 list-text" (click)="editEntry(entry)">

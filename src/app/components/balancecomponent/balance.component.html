@@ -3,7 +3,7 @@
     <div *ngFor="let balanceManager of balanceManagers" class="" style="margin-top: 0.2rem">
 
         <div class="balance-header">
-            <span class="balance-identifier">Bilanz für {{balanceManager.name}}</span>
+            <span class="balance-identifier mt-5 mb-3 font-weight-bold">Bilanz für {{balanceManager.name}}</span>
             <span *ngIf="balanceManager.balance >= 0" class="text-success p-3 balance-sum">{{balanceManager.balance}} €</span>
             <span *ngIf="balanceManager.balance < 0" class="text-danger p-3 balance-sum">{{balanceManager.balance}} €</span>
         </div>
