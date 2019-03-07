@@ -10,20 +10,17 @@ import { AccountItem } from '../models/account-item';
 @Injectable()
 export class ApplicationService {
 
-
     private user: User;
     private baseUrl = environment.resturl;
     private currentAccountItem: AccountItem;
 
-
-
-    private authfacade: AuthenticationFacade;
+    private authenticationfacade: AuthenticationFacade;
 
     constructor(
         private loginService: LoginApiService) {
 
         LogUtil.logInits(this, 'Init ApplicationService');
-        this.authfacade = new AuthenticationFacade();
+        this.authenticationfacade = new AuthenticationFacade();
     }
 
     public getBaseUrl(): string {
@@ -44,7 +41,6 @@ export class ApplicationService {
         }
         return false;
     }
-
 
     public getCurrentUser(): User {
         return this.user;
@@ -67,7 +63,7 @@ export class ApplicationService {
     }
 
     public logout(): void {
-        this.authfacade.cleanSavedCredentials();
+        this.authenticationfacade.cleanSavedCredentials();
         this.user = null;
     }
 
@@ -75,18 +71,17 @@ export class ApplicationService {
 
         LogUtil.info(this, 'Prepare Application');
 
-        if (!this.authfacade.isUserCredentialsSaved()) {
+        if (!this.authenticationfacade.isUserCredentialsSaved()) {
             LogUtil.info(this, 'No user was saved!');
             return Promise.resolve();
         }
 
-        const username = this.authfacade.getUserNames();
-        const password = this.authfacade.getPassword();
+        const username = this.authenticationfacade.getUserNames();
+        const password = this.authenticationfacade.getPassword();
 
         return this.loginService.login(this.baseUrl, username , password )
             .pipe(
                 map( (data: any) => {
-
                     const user: User = new User();
                     user.name = data.username;
                     user.email = data.email;

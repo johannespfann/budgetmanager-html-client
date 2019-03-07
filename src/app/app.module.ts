@@ -31,7 +31,7 @@ import { UserApiService } from './rest/user-api.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { DataProtectionComponent } from './components/dataprotection/dataprotection.component';
-import { ContactComponent } from './components/contact/contact.component';
+import { ContactComponent } from './components/contactcomponent/contact.component';
 import { ContactApiService } from './rest/contact-api.service';
 import { ContactService } from './services/contact-service';
 import { StandingOrderListComponent } from './components/standingorderlistcomponent/standingorder-list.component';

@@ -13,7 +13,7 @@ import { StandingOrderComponent } from './components/standingordercomponent/stan
 import { HistoryEntryComponent } from './components/histcomponent/history-entry.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { DataProtectionComponent } from './components/dataprotection/dataprotection.component';
-import { ContactComponent } from './components/contact/contact.component';
+import { ContactComponent } from './components/contactcomponent/contact.component';
 import { AccountHelpComponent } from './components/account/account-help.component';
 import { AccountComponent } from './components/account/accountcomponent/account.component';
 import { AccountWelcomeComponent } from './components/account/account-welcome.component';
