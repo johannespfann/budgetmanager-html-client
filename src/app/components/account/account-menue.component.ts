@@ -18,12 +18,15 @@ export class AccountMenueComponent implements OnInit, OnDestroy {
 
     public accountItems: AccountItem[];
 
+    public remotAccountItems: AccountItem[];
+
     constructor(
         private router: Router,
         private messagingService: MessagingService,
         private applicationService: ApplicationService,
         private accountService: AccountService) {
         this.accountItems = [];
+        this.remotAccountItems = [];
     }
 
     public ngOnInit(): void {

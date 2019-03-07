@@ -2,18 +2,22 @@
 
     <h1 class="mb-5">Kontoauswahl</h1>
 
-    <h4>Eigene Konten</h4>
+
+    <p>Falls nicht alle Konten angezeigt werden, müssen diese erst aktiviert werden. </p>
+
+
+    <h4>Eigene Konten ({{accountItems.length}})</h4>
     <hr>
 
     <ul class="list-group">
         <li *ngFor="let accountItem of accountItems" (click)="selectAccount(accountItem)" class="list-group-item mb-2">
-        {{accountItem.account.name}}
+            {{accountItem.account.name}}
         </li>
 
-      </ul>
+    </ul>
 
-      <h4>eingeladene Konten</h4>
-      <hr>
+    <h4>eingeladene Konten ({{remotAccountItems.length}})</h4>
+    <hr>
 
 </div>
 
