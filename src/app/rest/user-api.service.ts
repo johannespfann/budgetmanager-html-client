@@ -14,7 +14,7 @@ export class UserApiService {
     public getUserInfo(aBaseUrl: string, aUser: User, aAccessToken: string): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aAccessToken);
-        return this.http.get(aBaseUrl + 'user/info/' + aUser.name, { headers : headers});
+        return this.http.get(aBaseUrl + 'v2/user/info/' + aUser.name, { headers : headers});
     }
 
 }

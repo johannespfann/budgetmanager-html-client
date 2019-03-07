@@ -20,7 +20,7 @@ export class ProfileComponent {
         this.userService.getUserInfo().subscribe(
             (user: any) => {
                 this.name = user.name;
-                this.email = user.email;
+                this.email = user.emails[0];
                 LogUtil.info(this, JSON.stringify(user));
             },
             (error: any) => {
