@@ -4,15 +4,8 @@
 
     <p>wählen Sie zwischen den Konten</p>
 
-
-    <ul class="list-group">
-        
-        <li *ngFor="let accountItem of accountItems" class="list-group-item row" (click)="selectAccount(accountItem)">{{accountItem.account.name}}</li>
-        
-
-    </ul>
-
-
+    <a *ngFor="let accountItem of accountItems" (click)="selectAccount(accountItem)" class="text-success">{{accountItem.account.name}}</a>
+    
 </div>
 
 

@@ -165,7 +165,7 @@ export class AppComponent implements OnDestroy, OnInit {
           this.messageService.publish(new NoEncryptedKeyAvailableMessage());
           this.router.navigate(['/noaccount']);
         } else {
-          this.router.navigate(['/accountsmenue']);
+          this.router.navigate(['/accountmenue']);
           this.messageService.publish(new EncryptionKeyAvailableMessage());
         }
 

@@ -39,7 +39,7 @@ const appRoutes: Routes = [
   { path: 'noaccount', component: AccountHelpComponent},
   { path: 'accounts', component: AccountComponent},
   { path: 'accountwelcome', component: AccountWelcomeComponent},
-  { path: 'accountsmenue', component: AccountMenueComponent},
+  { path: 'accountmenue', component: AccountMenueComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

@@ -26,6 +26,7 @@ export class AccountMenueComponent implements OnInit, OnDestroy {
         private accountService: AccountService) {
         this.accountItems = [];
         messagingService.publish(new RefreshSelectedAccountItemMessage());
+        this.applicationService.setCurrentAccount(null);
     }
 
 
