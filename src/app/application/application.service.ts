@@ -6,6 +6,7 @@ import { LoginApiService } from '../rest/login-api.service';
 import { AuthenticationFacade } from '../utils/authentication-facade';
 import { environment } from '../../environments/environment';
 import { AccountItem } from '../models/account-item';
+import { AccountRememberFacade } from '../utils/account-remember-facade';
 
 @Injectable()
 export class ApplicationService {
@@ -15,6 +16,7 @@ export class ApplicationService {
     private currentAccountItem: AccountItem;
 
     private authenticationfacade: AuthenticationFacade;
+    private accountRememberFacade: AccountRememberFacade;
 
     constructor(
         private loginService: LoginApiService) {
@@ -65,6 +67,14 @@ export class ApplicationService {
     public logout(): void {
         this.authenticationfacade.cleanSavedCredentials();
         this.user = null;
+    }
+
+    public isAccountRememberActive(): boolean {
+        return false;
+    }
+
+    public getRemebertAccountItemHash(): string {
+        return '';
     }
 
     public initAppService(): Promise<any> {

@@ -7,6 +7,8 @@ import { MessagingService } from '../../messages/message.service';
 import { SelectAccountItemMessage } from '../../messages/select-accountitem-message';
 import { RefreshSelectedAccountItemMessage } from '../../messages/refresh-selected-accountitem-message';
 import { ApplicationService } from '../../application/application.service';
+import { AccountRememberFacade } from '../../utils/account-remember-facade';
+import { Observable } from 'rxjs/internal/Observable';
 
 
 @Component({
@@ -20,13 +22,23 @@ export class AccountMenueComponent implements OnInit, OnDestroy {
 
     public remotAccountItems: AccountItem[];
 
+
+    private accountRememberFacade: AccountRememberFacade;
+
     constructor(
-        private router: Router,
-        private messagingService: MessagingService,
-        private applicationService: ApplicationService,
-        private accountService: AccountService) {
+            private router: Router,
+            private messagingService: MessagingService,
+            private applicationService: ApplicationService,
+            private accountService: AccountService) {
         this.accountItems = [];
         this.remotAccountItems = [];
+        LogUtil.logInits(this, 'init account-menue-component');
+        this.accountRememberFacade = new AccountRememberFacade(this.applicationService.getCurrentUser());
+
+        if (this.accountRememberFacade.isRememberFunctionActive()) {
+            this.selectAccountByHash(this.accountRememberFacade.getAccountRemeber());
+        }
+
     }
 
     public ngOnInit(): void {
@@ -46,6 +58,7 @@ export class AccountMenueComponent implements OnInit, OnDestroy {
     public selectAccount(accountItem: AccountItem): void {
         this.messagingService.publish(new SelectAccountItemMessage(accountItem));
         this.applicationService.setCurrentAccount(accountItem);
+        this.accountRememberFacade.setAccountRemember(accountItem);
         this.router.navigate(['/accountwelcome']);
     }
 
@@ -53,6 +66,21 @@ export class AccountMenueComponent implements OnInit, OnDestroy {
         this.accountService.getAllUseableAccounts().subscribe(
             (accountItems: AccountItem[]) => {
                 this.accountItems = accountItems;
+            },
+            error => {
+                LogUtil.error(this, 'failed to load accounts ' + JSON.stringify(error));
+            }
+        );
+    }
+
+    private selectAccountByHash(aHash: string): void {
+        this.accountService.getAllUseableAccounts().subscribe(
+            (accountItems: AccountItem[]) => {
+                accountItems.forEach( (accountItem: AccountItem) => {
+                    if (accountItem.account.hash === aHash) {
+                        this.selectAccount(accountItem);
+                    }
+                });
             },
             error => {
                 LogUtil.error(this, 'failed to load accounts ' + JSON.stringify(error));

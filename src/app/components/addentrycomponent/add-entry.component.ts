@@ -36,7 +36,6 @@ export class AddEntryComponent implements OnInit {
     constructor(
         private applicationService: ApplicationService,
         private messageService: MessagingService,
-        private accountService: AccountService,
         private entryService: EntryService,
         private rotationService: StandingOrderService,
         private spinner: NgxSpinnerService) {

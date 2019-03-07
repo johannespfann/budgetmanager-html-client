@@ -9,6 +9,9 @@ import { LogedInMessage } from '../../messages/logedin-message';
 import { SelectAccountItemMessage } from '../../messages/select-accountitem-message';
 import { AccountItem } from '../../models/account-item';
 import { RefreshSelectedAccountItemMessage } from '../../messages/refresh-selected-accountitem-message';
+import { Router } from '@angular/router';
+import { ApplicationService } from '../../application/application.service';
+import { AccountRememberFacade } from '../../utils/account-remember-facade';
 
 @Component({
     selector: 'app-navigation',
@@ -18,6 +21,8 @@ import { RefreshSelectedAccountItemMessage } from '../../messages/refresh-select
 export class NavigationComponent implements OnInit, OnDestroy {
 
     private accountItem: AccountItem;
+    private accountname: string;
+    private accountRememberFacade: AccountRememberFacade;
 
     private noEncryptedKeyMessageSubscription: Subscription;
     private logInMessageSubscription: Subscription;
@@ -26,13 +31,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private refreshSelectAccountItemMessageSubscription: Subscription;
     private encryptionKeyAvailableMessageSubscription: Subscription;
 
-    public accountname = '';
     public navBarIsOpen: boolean;
     public userIsLogedIn: boolean;
     public userHasValidKeys: boolean;
     public accountviewIsVisible = false;
 
     constructor(
+        private applicationService: ApplicationService,
+        private router: Router,
         private messagingService: MessagingService) {
         LogUtil.logInits(this, 'init navigation-component');
         this.navBarIsOpen = false;
@@ -45,6 +51,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.selectAccountItemMessageSubscription = this.registerSelectAccountItemMessage();
         this.refreshSelectAccountItemMessageSubscription = this.registerRefreshSelectAccountItemMessage();
         this.encryptionKeyAvailableMessageSubscription = this.registerEncryptionKeyAvailableMessage();
+
+        this.accountRememberFacade = new AccountRememberFacade(this.applicationService.getCurrentUser());
     }
 
     public ngOnInit(): void {
@@ -68,6 +76,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
     public closeSidebar(): void {
         LogUtil.info(this, 'close navbar');
         this.navBarIsOpen = false;
+    }
+
+    public goBackToAccountManue(): void {
+        this.accountRememberFacade.cleanAccountRemeber();
+        this.router.navigate(['/accountmenue']);
     }
 
     private registerNoEncryptedKeyMessage(): Subscription {
@@ -98,6 +111,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
                 this.navBarIsOpen = false;
                 this.userIsLogedIn = false;
                 this.userHasValidKeys = false;
+                this.accountviewIsVisible = false;
             }
         );
     }

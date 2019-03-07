@@ -9,8 +9,8 @@
 
   <ul *ngIf="accountviewIsVisible" class="sidebar-content">
 
-    <li class="navlink-bm pb-2">
-      <a routerLink="/accountmenue" (click)="closeSidebar()" class="font-weight-bold nav-menue-account-item">
+    <li  *ngIf="userIsLogedIn" class="navlink-bm pb-2">
+      <a (click)="goBackToAccountManue()" class="font-weight-bold nav-menue-account-item">
         <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Kontenübersicht
       </a>
       <p class="text-white">({{accountname}})</p>
@@ -39,7 +39,7 @@
 
     <li *ngIf="userIsLogedIn" class="navlink-bm">
       <a routerLink="/accounts" (click)="closeSidebar()">
-        <i class="fa fa-credit-card" aria-hidden="true"></i> Kontensettings</a>
+        <i class="fa fa-credit-card" aria-hidden="true"></i> Kontoeinstellungen</a>
     </li>
 
     <li *ngIf="userIsLogedIn" class="navlink-bm">

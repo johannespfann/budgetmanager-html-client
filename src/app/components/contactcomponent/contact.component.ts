@@ -15,7 +15,7 @@ export class ContactComponent {
     public message: string;
 
     constructor(private contactService: ContactService) {
-        LogUtil.logInits(this, 'init contactcomponent')
+        LogUtil.logInits(this, 'init contactcomponent');
     }
 
     public sendMessage(): void {
