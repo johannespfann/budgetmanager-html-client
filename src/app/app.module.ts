@@ -15,7 +15,6 @@ import { ActivateComponent } from './components/logincomponent/activate.componen
 import { ApplicationService } from './application/application.service';
 import { TagsComponent } from './components/tags';
 import { ProfileComponent } from './components/profile/profile.component';
-import { EncryptApiSerice } from './rest/encrypt-api.service';
 import { TagStatisticService } from './services/tag-statistic.service';
 import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';
 import { StandingOrderInfoComponent } from './components/standingorderinfocomponent/standing-order-info.component';
@@ -104,7 +103,6 @@ export function initApplication(appService: ApplicationService) {
     UserService,
     MessagingService,
     LoginApiService,
-    EncryptApiSerice,
     ApplicationService,
     { provide: APP_INITIALIZER, useFactory: initApplication, deps: [ApplicationService], multi: true },
     TagStatisticService,
