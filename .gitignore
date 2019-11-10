@@ -8,6 +8,12 @@
 # dependencies
 /node_modules
 
+
+# angular and node
+
+package-lock
+
+
 # IDEs and editors
 /.idea
 .project

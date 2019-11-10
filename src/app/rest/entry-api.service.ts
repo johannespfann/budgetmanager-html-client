@@ -48,6 +48,29 @@ export class EntryAPIService {
             );
     }
 
+    public getLasthalfYearEntries(accountItem: AccountItem, aUser: User): Observable<Array<Entry>> {
+
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
+
+        const baseUrl = this.appService.getBaseUrl();
+        const requestUrl = baseUrl + 'entries/owner/' + aUser.name + '/account/' + accountItem.account.hash + '/lasthalfyear';
+        const encryptionKey = accountItem.key;
+
+        return this.http.get<Array<EntryServer>>(requestUrl, { headers : headers})
+            .pipe(
+                map((serverEntries: Array<EntryServer>) => {
+                    const entries = new Array<Entry>();
+
+                    serverEntries.forEach((entry: EntryServer) => {
+                        entries.push(this.entryTransformer.transformEntryV2Server(encryptionKey, entry));
+                    });
+
+                    return entries;
+                })
+            );
+    }
+
     public save(aUser: User, accountItem: AccountItem, aEntry: Entry): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);

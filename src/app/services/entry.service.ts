@@ -25,6 +25,14 @@ export class EntryService {
         return this.entryApiService.getEntries(accountItem, this.appService.getCurrentUser());
     }
 
+
+    public getLastHalfYearEntries(accountItem: AccountItem): Observable<Entry[]> {
+        if (!this.isReadyToUse(accountItem)) {
+            return Observable.create(result => { result.error('No restservice available! getEntries'); });
+        }
+        return this.entryApiService.getEntries(accountItem, this.appService.getCurrentUser());
+    }
+
     public addEntry(account: AccountItem, aEntry: Entry): Observable<any> {
         if (!this.isReadyToUse(account)) {
             return Observable.create(result => { result.error('No restservice available! addEntry'); });
@@ -38,6 +46,7 @@ export class EntryService {
         }
         return this.entryApiService.saveAll(this.appService.getCurrentUser(), account, aEntries);
     }
+
 
     public deleteEntry(account: AccountItem, aEntry: Entry): Observable<any> {
         if (!this.isReadyToUse(account)) {
