@@ -160,7 +160,7 @@ describe('date-util', function () {
         expect(result).toBe(0);
     });
 
-    it('should define 2 year because first ist 2017-10-15 and second 2019-10-15', () => {
+    it('should define 2 year because first is 2017-10-15 and second 2019-10-15', () => {
         // prepare
         const firstDate = new Date(2017, 9, 15);
         const secondDate = new Date(2019, 9 , 15);

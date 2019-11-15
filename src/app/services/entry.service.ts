@@ -30,7 +30,7 @@ export class EntryService {
         if (!this.isReadyToUse(accountItem)) {
             return Observable.create(result => { result.error('No restservice available! getEntries'); });
         }
-        return this.entryApiService.getEntries(accountItem, this.appService.getCurrentUser());
+        return this.entryApiService.getLasthalfYearEntries(accountItem, this.appService.getCurrentUser());
     }
 
     public addEntry(account: AccountItem, aEntry: Entry): Observable<any> {

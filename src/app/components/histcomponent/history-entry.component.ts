@@ -95,7 +95,7 @@ export class HistoryEntryComponent {
 
     private updateEntries(): void {
         this.spinner.show();
-        this.entryService.getEntries(this.selectedAccount).subscribe(
+        this.entryService.getLastHalfYearEntries(this.selectedAccount).subscribe(
             (data: Entry[]) => {
                 this.entries = data;
                 this.spinner.hide();

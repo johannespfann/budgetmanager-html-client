@@ -42,14 +42,13 @@ export class BalanceComponent {
 
     private updateEntries(): void {
         this.spinner.show();
-        this.entryService.getEntries(this.selectedAccountItem).subscribe(
+        this.entryService.getLastHalfYearEntries(this.selectedAccountItem).subscribe(
             (entries: Entry[] ) => {
             const entryPackagers = this.splitEntriesInPackages(entries);
             const packagerMangeres = this.convertPackagesInPackageManager(entryPackagers);
             this.balanceManagers = packagerMangeres;
             this.spinner.hide();
         }, error => {
-
             this.spinner.hide();
         });
     }
