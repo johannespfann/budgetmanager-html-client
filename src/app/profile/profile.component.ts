@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { LogUtil } from '../../utils/log-util';
+import { UserService } from '../services/user.service';
+import { LogUtil } from '../utils/log-util';
 
 @Component({
     selector: 'app-profile',

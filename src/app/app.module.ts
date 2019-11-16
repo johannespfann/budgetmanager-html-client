@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/logincomponent/register.component';
 import { ActivateComponent } from './components/logincomponent/activate.component';
 import { ApplicationService } from './application/application.service';
-import { ProfileComponent } from './components/profile/profile.component';
 import { TagStatisticService } from './services/tag-statistic.service';
 import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';;
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
@@ -45,6 +44,7 @@ import { EntryHistoryModule } from './entry-history/entry-history.module';
 import { StandingOrderHistoryModule } from './standing-order-history/standing-order-history.module';
 import { BalanceModule } from './balance/balance.module';
 import { TagRulesModule } from './tag-rules/tag-rules.module';
+import { ProfileModule } from './profile/profile.module';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -62,11 +62,11 @@ export function initApplication(appService: ApplicationService) {
     StandingOrderHistoryModule,
     BalanceModule,
     TagRulesModule,
+    ProfileModule,
     SharedModule
   ],
   declarations: [
-    AppComponent,
-    ProfileComponent,
+    AppComponent,    
     WelcomeComponent,
     PageNotFoundComponent,
     LoginComponent,

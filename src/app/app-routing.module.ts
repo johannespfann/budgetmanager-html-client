@@ -8,7 +8,7 @@ import { LoginComponent } from './components/logincomponent/login.component';
 import { BalanceComponent } from './balance/balance.component';
 import { RegisterComponent } from './components/logincomponent/register.component';
 import { ActivateComponent } from './components/logincomponent/activate.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './profile/profile.component';
 import { StandingOrderComponent } from './standing-order-history/standingorder.component';
 import { HistoryEntryComponent } from './entry-history/history-entry.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
