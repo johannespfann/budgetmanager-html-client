@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ApplicationService } from '../../application/application.service';
-import { User } from '../../models/user';
-import { DateSeriesStrategy } from '../../standingordermanagement/date-series-strategy';
-import { MonthlySeriesProducer } from '../../standingordermanagement/monthly-series-producer';
-import { QuarterSeriesProducer } from '../../standingordermanagement/quarter-series-producer';
-import { YearlySeriesProducer } from '../../standingordermanagement/yearly-series-producer';
-import { StandingOrderExecutor } from '../../standingordermanagement/standing-order-executor';
-import { StandingOrderJob } from '../../standingordermanagement/standing-order-job';
-import { EntryService } from '../../services/entry.service';
-import { StandingOrderService } from '../../services/standing-order.service';
-import { AccountItem } from '../../models/account-item';
+import { ApplicationService } from '../application/application.service';
+import { User } from '../models/user';
+import { DateSeriesStrategy } from '../standingordermanagement/date-series-strategy';
+import { MonthlySeriesProducer } from '../standingordermanagement/monthly-series-producer';
+import { QuarterSeriesProducer } from '../standingordermanagement/quarter-series-producer';
+import { YearlySeriesProducer } from '../standingordermanagement/yearly-series-producer';
+import { StandingOrderExecutor } from '../standingordermanagement/standing-order-executor';
+import { StandingOrderJob } from '../standingordermanagement/standing-order-job';
+import { EntryService } from '../services/entry.service';
+import { StandingOrderService } from '../services/standing-order.service';
+import { AccountItem } from '../models/account-item';
 
 @Component({
     selector: 'app-account-weclome',

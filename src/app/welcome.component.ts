@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LogUtil } from '../../utils/log-util';
+import { LogUtil } from './utils/log-util';
 
 @Component({
     selector: 'app-welcome',

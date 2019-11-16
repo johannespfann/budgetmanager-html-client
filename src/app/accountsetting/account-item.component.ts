@@ -1,12 +1,11 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit, AfterViewChecked, OnInit } from '@angular/core';
-import { LogUtil } from '../../../utils/log-util';
-import { AccountItem } from '../../../models/account-item';
-import { CryptUtil } from '../../../utils/crypt-util';
+import { LogUtil } from '../utils/log-util';
+import { AccountItem } from '../models/account-item';
+import { CryptUtil } from '../utils/crypt-util';
 
 @Component({
     selector: 'app-account-item',
     templateUrl: './account-item.component.html',
-    styleUrls: ['./account-item.component.css']
 })
 export class AccountItemComponent implements OnInit {
 

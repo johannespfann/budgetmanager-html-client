@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { WelcomeComponent } from './components/welcomecomponent/welcome.component';
+import { WelcomeComponent } from './welcome.component';
 import { AddEntryComponent } from './add-entry/add-entry.component';
 import { PageNotFoundComponent } from './components/errorcomponents/page-not-found.component';
-import { LoginComponent } from './components/logincomponent/login.component';
+import { LoginComponent } from './authentication/login.component';
 import { BalanceComponent } from './balance/balance.component';
-import { RegisterComponent } from './components/logincomponent/register.component';
-import { ActivateComponent } from './components/logincomponent/activate.component';
+import { RegisterComponent } from './authentication/register.component';
+import { ActivateComponent } from './authentication/activate.component';
 import { ProfileComponent } from './profile/profile.component';
 import { StandingOrderComponent } from './standing-order-history/standingorder.component';
 import { HistoryEntryComponent } from './entry-history/history-entry.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { DataProtectionComponent } from './components/dataprotection/dataprotection.component';
 import { ContactComponent } from './components/contactcomponent/contact.component';
-import { AccountHelpComponent } from './components/account/account-help.component';
-import { AccountComponent } from './components/account/accountcomponent/account.component';
-import { AccountWelcomeComponent } from './components/account/account-welcome.component';
-import { AccountMenueComponent } from './components/account/account-menue.component';
+import { AccountHelpComponent } from './user-welcome/account-help.component';
+import { AccountComponent } from './accountsetting/account.component';
+import { AccountWelcomeComponent } from './account-welcome/account-welcome.component';
+import { AccountMenueComponent } from './user-welcome/account-menue.component';
 import { RulesComponent } from './tag-rules/rules.component';
 // standingorder
 

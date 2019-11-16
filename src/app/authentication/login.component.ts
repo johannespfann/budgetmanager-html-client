@@ -1,13 +1,13 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 
-import { LogUtil } from '../../utils/log-util';
-import { MessagingService } from '../../messages/message.service';
-import { LogedInMessage } from '../../messages/logedin-message';
-import { User } from '../../models/user';
-import { AuthenticationFacade } from '../../utils/authentication-facade';
-import { ApplicationService } from '../../application/application.service';
-import { LoginApiService } from '../../rest/login-api.service';
+import { LogUtil } from '../utils/log-util';
+import { MessagingService } from '../messages/message.service';
+import { LogedInMessage } from '../messages/logedin-message';
+import { User } from '../models/user';
+import { AuthenticationFacade } from '../utils/authentication-facade';
+import { ApplicationService } from '../application/application.service';
+import { LoginApiService } from '../rest/login-api.service';
 
 @Component({
     selector: 'app-login',

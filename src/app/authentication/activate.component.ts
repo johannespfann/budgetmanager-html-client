@@ -1,9 +1,9 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 
-import { LogUtil } from '../../utils/log-util';
-import { LoginApiService } from '../../rest/login-api.service';
-import { ApplicationService } from '../../application/application.service';
+import { LogUtil } from '../utils/log-util';
+import { LoginApiService } from '../rest/login-api.service';
+import { ApplicationService } from '../application/application.service';
 
 
 @Component({

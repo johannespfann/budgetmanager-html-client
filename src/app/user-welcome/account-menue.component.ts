@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccountService } from '../../services/account-service';
-import { AccountItem } from '../../models/account-item';
-import { LogUtil } from '../../utils/log-util';
-import { MessagingService } from '../../messages/message.service';
-import { SelectAccountItemMessage } from '../../messages/select-accountitem-message';
-import { RefreshSelectedAccountItemMessage } from '../../messages/refresh-selected-accountitem-message';
-import { ApplicationService } from '../../application/application.service';
-import { AccountRememberFacade } from '../../utils/account-remember-facade';
+import { AccountService } from '../services/account-service';
+import { AccountItem } from '../models/account-item';
+import { LogUtil } from '../utils/log-util';
+import { MessagingService } from '../messages/message.service';
+import { SelectAccountItemMessage } from '../messages/select-accountitem-message';
+import { RefreshSelectedAccountItemMessage } from '../messages/refresh-selected-accountitem-message';
+import { ApplicationService } from '../application/application.service';
+import { AccountRememberFacade } from '../utils/account-remember-facade';
 import { Observable } from 'rxjs/internal/Observable';
 
 
@@ -21,7 +21,6 @@ export class AccountMenueComponent implements OnInit, OnDestroy {
     public accountItems: AccountItem[];
 
     public remotAccountItems: AccountItem[];
-
 
     private accountRememberFacade: AccountRememberFacade;
 

@@ -3,13 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { WelcomeComponent } from './components/welcomecomponent/welcome.component';
+import { WelcomeComponent } from './welcome.component';
 import { PageNotFoundComponent } from './components/errorcomponents/page-not-found.component';
-import { LoginComponent } from './components/logincomponent/login.component';
+import { LoginComponent } from './authentication/login.component';
 import { MessagingService } from './messages/message.service';
 import { HttpClientModule } from '@angular/common/http';
-import { RegisterComponent } from './components/logincomponent/register.component';
-import { ActivateComponent } from './components/logincomponent/activate.component';
+import { RegisterComponent } from './authentication/register.component';
+import { ActivateComponent } from './authentication/activate.component';
 import { ApplicationService } from './application/application.service';
 import { TagStatisticService } from './services/tag-statistic.service';
 import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';;
@@ -26,18 +26,18 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoginApiService } from './rest/login-api.service';
 import { AccountApiService } from './rest/account-api.service';
 import { AccountService } from './services/account-service';
-import { AccountHelpComponent } from './components/account/account-help.component';
-import { AccountComponent } from './components/account/accountcomponent/account.component';
-import { AddAccountComponent } from './components/account/accountcomponent/add-account.component';
-import { AccountItemComponent } from './components/account/accountcomponent/account-item.component';
-import { ListAccountComponent } from './components/account/accountcomponent/list-account.component';
+import { AccountHelpComponent } from './user-welcome/account-help.component';
+import { AccountComponent } from './accountsetting/account.component';
+import { AddAccountComponent } from './accountsetting/add-account.component';
+import { AccountItemComponent } from './accountsetting/account-item.component';
+import { ListAccountComponent } from './accountsetting/list-account.component';
 import { AccountCachingService } from './services/account-caching-service';
 import { EntryService } from './services/entry.service';
 import { EntryAPIService } from './rest/entry-api.service';
 import { StandingOrderApiService } from './rest/standing-order-api.service';
 import { StandingOrderService } from './services/standing-order.service';
-import { AccountWelcomeComponent } from './components/account/account-welcome.component';
-import { AccountMenueComponent } from './components/account/account-menue.component';
+import { AccountWelcomeComponent } from './account-welcome/account-welcome.component';
+import { AccountMenueComponent } from './user-welcome/account-menue.component';
 import { SharedModule } from './shared/shared.module';
 import { AddEntryModule } from './add-entry/add-entry.module';
 import { EntryHistoryModule } from './entry-history/entry-history.module';
@@ -45,6 +45,9 @@ import { StandingOrderHistoryModule } from './standing-order-history/standing-or
 import { BalanceModule } from './balance/balance.module';
 import { TagRulesModule } from './tag-rules/tag-rules.module';
 import { ProfileModule } from './profile/profile.module';
+import { AccountWelcomeModule } from './account-welcome/account-welcome.module';
+import { AccountModule } from './accountsetting/account.module';
+import { UserWelcomeModule } from './user-welcome/user-welcome.module';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -63,6 +66,9 @@ export function initApplication(appService: ApplicationService) {
     BalanceModule,
     TagRulesModule,
     ProfileModule,
+    AccountWelcomeModule,
+    AccountModule,
+    UserWelcomeModule,
     SharedModule
   ],
   declarations: [
@@ -77,14 +83,7 @@ export function initApplication(appService: ApplicationService) {
     DataProtectionComponent,
     ContactComponent,
     FooterComponent,
-    PageNotFoundComponent,
-    AccountHelpComponent,
-    AccountComponent,
-    AddAccountComponent,
-    AccountItemComponent,
-    ListAccountComponent,
-    AccountWelcomeComponent,
-    AccountMenueComponent,
+    PageNotFoundComponent
   ],
   providers: [
     UserApiService,

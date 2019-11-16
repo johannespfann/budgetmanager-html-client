@@ -5,7 +5,7 @@ import { LogUtil } from '../utils/log-util';
 import { Account } from '../models/account';
 import { AccountItem } from '../models/account-item';
 import { AccountStorageFacade } from '../utils/account-storage-facade';
-import { AccountItemProducer } from '../components/account/accountcomponent/account-item-producer';
+import { AccountItemProducer } from '../accountsetting/account-item-producer';
 import { map } from 'rxjs/operators';
 import { AccountCachingService } from './account-caching-service';
 import { CryptUtil } from '../utils/crypt-util';
