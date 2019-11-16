@@ -1,8 +1,8 @@
 import { Component, ViewChild, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { LogUtil } from '../../utils/log-util';
-import { EntryInfoComponent } from '../../shared/entryinfocomponent/entry-info.component';
-import { Entry } from '../../models/entry';
-import { EntryInfo } from '../../shared/entryinfocomponent/entry-info';
+import { LogUtil } from '../utils/log-util';
+import { EntryInfoComponent } from '../shared/entryinfocomponent/entry-info.component';
+import { Entry } from '../models/entry';
+import { EntryInfo } from '../shared/entryinfocomponent/entry-info';
 
 @Component({
     selector: 'app-edit-entry',

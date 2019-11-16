@@ -10,7 +10,7 @@ import { RegisterComponent } from './components/logincomponent/register.componen
 import { ActivateComponent } from './components/logincomponent/activate.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
-import { HistoryEntryComponent } from './components/histcomponent/history-entry.component';
+import { HistoryEntryComponent } from './history/history-entry.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { DataProtectionComponent } from './components/dataprotection/dataprotection.component';
 import { ContactComponent } from './components/contactcomponent/contact.component';

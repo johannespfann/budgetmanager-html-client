@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { EntryService } from '../../services/entry.service';
-import { LogUtil } from '../../utils/log-util';
-import { Entry } from '../../models/entry';
+import { EntryService } from '../services/entry.service';
+import { LogUtil } from '../utils/log-util';
+import { Entry } from '../models/entry';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AccountService } from '../../services/account-service';
-import { AccountItem } from '../../models/account-item';
-import { ApplicationService } from '../../application/application.service';
+import { AccountItem } from '../models/account-item';
+import { ApplicationService } from '../application/application.service';
 
 @Component({
     selector : 'app-history-entry',
@@ -24,7 +23,6 @@ export class HistoryEntryComponent {
 
     constructor(
         private applicationService: ApplicationService,
-        private accountService: AccountService,
         private entryService: EntryService,
         private spinner: NgxSpinnerService) {
         LogUtil.logInits(this, 'init history-entry-component');

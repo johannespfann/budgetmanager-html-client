@@ -18,9 +18,6 @@ import { TagStatisticService } from './services/tag-statistic.service';
 import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';;
 import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
 import { EditStandingOrderComponent } from './components/editstandingordercomponent/edit-standingorder.component';
-import { ListEntryComponent } from './components/listentrycomponent/list-entry-component';
-import { HistoryEntryComponent } from './components/histcomponent/history-entry.component';
-import { EditEntryComponent } from './components/editentrycomponent/edit-entry.component';
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
 import { UserService } from './services/user.service';
 import { UserApiService } from './rest/user-api.service';
@@ -50,6 +47,7 @@ import { AccountMenueComponent } from './components/account/account-menue.compon
 import { RulesComponent } from './components/rulescomponent/rules.component';
 import { SharedModule } from './shared/shared.module';
 import { AddEntryModule } from './add-entry/add-entry.module';
+import { HistoryModule } from './history/history.module';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -63,6 +61,7 @@ export function initApplication(appService: ApplicationService) {
     AppRoutingModule,
     NgxSpinnerModule,
     AddEntryModule,
+    HistoryModule,
     SharedModule
   ],
   declarations: [
@@ -76,9 +75,6 @@ export function initApplication(appService: ApplicationService) {
     ActivateComponent,
     StandingOrderComponent,
     EditStandingOrderComponent,
-    ListEntryComponent,
-    EditEntryComponent,
-    HistoryEntryComponent,
     NavigationComponent,
     ImpressumComponent,
     DataProtectionComponent,
