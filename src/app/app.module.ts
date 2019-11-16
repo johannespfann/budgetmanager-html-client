@@ -47,7 +47,7 @@ import { AccountMenueComponent } from './components/account/account-menue.compon
 import { RulesComponent } from './components/rulescomponent/rules.component';
 import { SharedModule } from './shared/shared.module';
 import { AddEntryModule } from './add-entry/add-entry.module';
-import { HistoryModule } from './entry-history/history.module';
+import { EntryHistoryModule } from './entry-history/entry-history.module';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -61,7 +61,7 @@ export function initApplication(appService: ApplicationService) {
     AppRoutingModule,
     NgxSpinnerModule,
     AddEntryModule,
-    HistoryModule,
+    EntryHistoryModule,
     SharedModule
   ],
   declarations: [

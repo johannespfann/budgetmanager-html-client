@@ -21,4 +21,4 @@ import { FormsModule } from '@angular/forms';
     HistoryEntryComponent
   ]
 })
-export class HistoryModule {}
+export class EntryHistoryModule {}
