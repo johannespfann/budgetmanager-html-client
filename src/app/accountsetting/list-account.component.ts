@@ -1,5 +1,5 @@
 
-import { Component, Input, Output, EventEmitter, AfterViewChecked, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
 import { LogUtil } from '../utils/log-util';
 import { AccountItem } from '../models/account-item';
 
