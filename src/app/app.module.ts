@@ -47,7 +47,7 @@ import { AccountMenueComponent } from './components/account/account-menue.compon
 import { RulesComponent } from './components/rulescomponent/rules.component';
 import { SharedModule } from './shared/shared.module';
 import { AddEntryModule } from './add-entry/add-entry.module';
-import { HistoryModule } from './history/history.module';
+import { HistoryModule } from './entry-history/history.module';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
