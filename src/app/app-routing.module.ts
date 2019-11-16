@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WelcomeComponent } from './components/welcomecomponent/welcome.component';
-import { AddEntryComponent } from './components/addentrycomponent/add-entry.component';
+import { AddEntryComponent } from './add-entry/add-entry.component';
 import { PageNotFoundComponent } from './components/errorcomponents/page-not-found.component';
 import { LoginComponent } from './components/logincomponent/login.component';
 import { BalanceComponent } from './components/balancecomponent/balance.component';

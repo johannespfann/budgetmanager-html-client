@@ -1,18 +1,18 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { LogUtil } from '../../utils/log-util';
-import { EntryInfoComponent } from '../../shared/entryinfocomponent/entry-info.component';
-import { StandingOrderInfoComponent } from '../../shared/standingorderinfocomponent/standing-order-info.component';
-import { RotationEntry } from '../../models/standingorder';
-import { Entry } from '../../models/entry';
-import { EntryService } from '../../services/entry.service';
-import { DateUtil } from '../../utils/date-util';
+import { LogUtil } from '../utils/log-util';
+import { EntryInfoComponent } from '../shared/entryinfocomponent/entry-info.component';
+import { StandingOrderInfoComponent } from '../shared/standingorderinfocomponent/standing-order-info.component';
+import { RotationEntry } from '../models/standingorder';
+import { Entry } from '../models/entry';
+import { EntryService } from '../services/entry.service';
+import { DateUtil } from '../utils/date-util';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AccountService } from '../../services/account-service';
-import { AccountItem } from '../../models/account-item';
-import { StandingOrderService } from '../../services/standing-order.service';
-import { MessagingService } from '../../messages/message.service';
-import { AddedNewStandingOrderMessage } from '../../messages/added-new-standing-order-message';
-import { ApplicationService } from '../../application/application.service';
+import { AccountService } from '../services/account-service';
+import { AccountItem } from '../models/account-item';
+import { StandingOrderService } from '../services/standing-order.service';
+import { MessagingService } from '../messages/message.service';
+import { AddedNewStandingOrderMessage } from '../messages/added-new-standing-order-message';
+import { ApplicationService } from '../application/application.service';
 
 @Component({
     selector: 'app-newentry',

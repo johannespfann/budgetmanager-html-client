@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AddEntryComponent } from './components/addentrycomponent/add-entry.component';
+import { AddEntryComponent } from './add-entry/add-entry.component';
 import { WelcomeComponent } from './components/welcomecomponent/welcome.component';
 import { PageNotFoundComponent } from './components/errorcomponents/page-not-found.component';
 import { LoginComponent } from './components/logincomponent/login.component';
@@ -49,6 +49,7 @@ import { AccountWelcomeComponent } from './components/account/account-welcome.co
 import { AccountMenueComponent } from './components/account/account-menue.component';
 import { RulesComponent } from './components/rulescomponent/rules.component';
 import { SharedModule } from './shared/shared.module';
+import { AddEntryModule } from './add-entry/add-entry.module';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -61,13 +62,13 @@ export function initApplication(appService: ApplicationService) {
     FormsModule,
     AppRoutingModule,
     NgxSpinnerModule,
+    AddEntryModule,
     SharedModule
   ],
   declarations: [
     AppComponent,
     ProfileComponent,
     WelcomeComponent,
-    AddEntryComponent,
     PageNotFoundComponent,
     BalanceComponent,
     LoginComponent,
@@ -116,6 +117,7 @@ export function initApplication(appService: ApplicationService) {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
-  }
+  
+  constructor() {}
+
 }

@@ -15,7 +15,7 @@ import { TagsComponent } from './tags';
     CommonModule,
     FormsModule
   ],
-  exports: [
+  exports: [ 
     StandingOrderInfoComponent,
     EntryInfoComponent,
     TagsComponent

@@ -38,11 +38,8 @@ export class AppComponent implements OnDestroy, OnInit {
   private loginMessageSubscription: Subscription;
   private modifiedAccountsMessageSubscription: Subscription;
   private addedNewStandingOrderMessageSubscritption: Subscription;
-
-
   private standingOrderJob: StandingOrderJob;
   public isLogedIn = false;
-
   private user: User;
 
   constructor(
