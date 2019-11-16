@@ -39,12 +39,12 @@ import { StandingOrderApiService } from './rest/standing-order-api.service';
 import { StandingOrderService } from './services/standing-order.service';
 import { AccountWelcomeComponent } from './components/account/account-welcome.component';
 import { AccountMenueComponent } from './components/account/account-menue.component';
-import { RulesComponent } from './components/rulescomponent/rules.component';
 import { SharedModule } from './shared/shared.module';
 import { AddEntryModule } from './add-entry/add-entry.module';
 import { EntryHistoryModule } from './entry-history/entry-history.module';
 import { StandingOrderHistoryModule } from './standing-order-history/standing-order-history.module';
 import { BalanceModule } from './balance/balance.module';
+import { TagRulesModule } from './tag-rules/tag-rules.module';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -61,6 +61,7 @@ export function initApplication(appService: ApplicationService) {
     EntryHistoryModule,
     StandingOrderHistoryModule,
     BalanceModule,
+    TagRulesModule,
     SharedModule
   ],
   declarations: [
@@ -84,7 +85,6 @@ export function initApplication(appService: ApplicationService) {
     ListAccountComponent,
     AccountWelcomeComponent,
     AccountMenueComponent,
-    RulesComponent
   ],
   providers: [
     UserApiService,

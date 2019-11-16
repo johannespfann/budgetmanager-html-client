@@ -18,7 +18,7 @@ import { AccountHelpComponent } from './components/account/account-help.componen
 import { AccountComponent } from './components/account/accountcomponent/account.component';
 import { AccountWelcomeComponent } from './components/account/account-welcome.component';
 import { AccountMenueComponent } from './components/account/account-menue.component';
-import { RulesComponent } from './components/rulescomponent/rules.component';
+import { RulesComponent } from './tag-rules/rules.component';
 // standingorder
 
 

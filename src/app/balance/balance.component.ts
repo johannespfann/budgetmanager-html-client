@@ -8,7 +8,6 @@ import { SortUtil } from '../utils/sort-util';
 import { DateUtil } from '../utils/date-util';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EntryService } from '../services/entry.service';
-import { AccountService } from '../services/account-service';
 import { AccountItem } from '../models/account-item';
 import { ApplicationService } from '../application/application.service';
 
@@ -28,7 +27,6 @@ export class BalanceComponent {
     constructor(
         private applicationSerice: ApplicationService,
         private entryService: EntryService,
-        private accountService: AccountService,
         private spinner: NgxSpinnerService) {
             LogUtil.logInits(this, 'init balance-compoent');
 
