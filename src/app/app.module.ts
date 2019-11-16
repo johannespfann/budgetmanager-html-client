@@ -13,12 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/logincomponent/register.component';
 import { ActivateComponent } from './components/logincomponent/activate.component';
 import { ApplicationService } from './application/application.service';
-import { TagsComponent } from './components/tags';
 import { ProfileComponent } from './components/profile/profile.component';
 import { TagStatisticService } from './services/tag-statistic.service';
-import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';
-import { StandingOrderInfoComponent } from './components/standingorderinfocomponent/standing-order-info.component';
-import { EntryInfoComponent } from './components/entryinfocomponent/entry-info.component';
+import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';;
 import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
 import { EditStandingOrderComponent } from './components/editstandingordercomponent/edit-standingorder.component';
 import { ListEntryComponent } from './components/listentrycomponent/list-entry-component';
@@ -51,6 +48,7 @@ import { StandingOrderService } from './services/standing-order.service';
 import { AccountWelcomeComponent } from './components/account/account-welcome.component';
 import { AccountMenueComponent } from './components/account/account-menue.component';
 import { RulesComponent } from './components/rulescomponent/rules.component';
+import { SharedModule } from './shared/shared.module';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -62,7 +60,8 @@ export function initApplication(appService: ApplicationService) {
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    SharedModule
   ],
   declarations: [
     AppComponent,
@@ -74,9 +73,6 @@ export function initApplication(appService: ApplicationService) {
     LoginComponent,
     RegisterComponent,
     ActivateComponent,
-    TagsComponent,
-    StandingOrderInfoComponent,
-    EntryInfoComponent,
     StandingOrderComponent,
     EditStandingOrderComponent,
     ListEntryComponent,

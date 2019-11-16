@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { LogUtil } from '../../utils/log-util';
-import { EntryInfoComponent } from '../entryinfocomponent/entry-info.component';
-import { StandingOrderInfoComponent } from '../standingorderinfocomponent/standing-order-info.component';
+import { EntryInfoComponent } from '../../shared/entryinfocomponent/entry-info.component';
+import { StandingOrderInfoComponent } from '../../shared/standingorderinfocomponent/standing-order-info.component';
 import { RotationEntry } from '../../models/standingorder';
 import { Entry } from '../../models/entry';
 import { EntryService } from '../../services/entry.service';
