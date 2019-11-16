@@ -6,7 +6,7 @@ import { LogedInMessage } from './messages/logedin-message';
 import { LogUtil } from './utils/log-util';
 import { User } from './models/user';
 import { ApplicationService } from './application/application.service';
-import { NavigationComponent } from './components/navigationcomponent/navigation.component';
+import { NavigationComponent } from './navigation/navigation.component';
 import { LoginApiService } from './rest/login-api.service';
 import { AccountService } from './services/account-service';
 import { LogedOutMessage } from './messages/logedout-message';

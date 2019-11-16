@@ -13,7 +13,7 @@ import { ActivateComponent } from './components/logincomponent/activate.componen
 import { ApplicationService } from './application/application.service';
 import { TagStatisticService } from './services/tag-statistic.service';
 import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';;
-import { NavigationComponent } from './components/navigationcomponent/navigation.component';
+import { NavigationComponent } from './navigation/navigation.component';
 import { UserService } from './services/user.service';
 import { UserApiService } from './rest/user-api.service';
 import { FooterComponent } from './components/footer/footer.component';

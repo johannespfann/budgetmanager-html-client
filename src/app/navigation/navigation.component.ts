@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { LogUtil } from '../../utils/log-util';
-import { MessagingService } from '../../messages/message.service';
+import { LogUtil } from '../utils/log-util';
+import { MessagingService } from '../messages/message.service';
 import { Subscription } from 'rxjs';
-import { NoEncryptedKeyAvailableMessage } from '../../messages/no-encrypted-key-available-message';
-import { EncryptionKeyAvailableMessage } from '../../messages/encryption-key-available-message';
-import { LogedOutMessage } from '../../messages/logedout-message';
-import { LogedInMessage } from '../../messages/logedin-message';
-import { SelectAccountItemMessage } from '../../messages/select-accountitem-message';
-import { AccountItem } from '../../models/account-item';
-import { RefreshSelectedAccountItemMessage } from '../../messages/refresh-selected-accountitem-message';
+import { NoEncryptedKeyAvailableMessage } from '../messages/no-encrypted-key-available-message';
+import { EncryptionKeyAvailableMessage } from '../messages/encryption-key-available-message';
+import { LogedOutMessage } from '../messages/logedout-message';
+import { LogedInMessage } from '../messages/logedin-message';
+import { SelectAccountItemMessage } from '../messages/select-accountitem-message';
+import { AccountItem } from '../models/account-item';
+import { RefreshSelectedAccountItemMessage } from '../messages/refresh-selected-accountitem-message';
 import { Router } from '@angular/router';
-import { ApplicationService } from '../../application/application.service';
-import { AccountRememberFacade } from '../../utils/account-remember-facade';
+import { ApplicationService } from '../application/application.service';
+import { AccountRememberFacade } from '../utils/account-remember-facade';
 
 @Component({
     selector: 'app-navigation',
