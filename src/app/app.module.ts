@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { WelcomeComponent } from './components/welcomecomponent/welcome.component';
 import { PageNotFoundComponent } from './components/errorcomponents/page-not-found.component';
 import { LoginComponent } from './components/logincomponent/login.component';
-import { BalanceComponent } from './components/balancecomponent/balance.component';
 import { MessagingService } from './messages/message.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/logincomponent/register.component';
@@ -45,6 +44,7 @@ import { SharedModule } from './shared/shared.module';
 import { AddEntryModule } from './add-entry/add-entry.module';
 import { EntryHistoryModule } from './entry-history/entry-history.module';
 import { StandingOrderHistoryModule } from './standing-order-history/standing-order-history.module';
+import { BalanceModule } from './balance/balance.module';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -60,6 +60,7 @@ export function initApplication(appService: ApplicationService) {
     AddEntryModule,
     EntryHistoryModule,
     StandingOrderHistoryModule,
+    BalanceModule,
     SharedModule
   ],
   declarations: [
@@ -67,7 +68,6 @@ export function initApplication(appService: ApplicationService) {
     ProfileComponent,
     WelcomeComponent,
     PageNotFoundComponent,
-    BalanceComponent,
     LoginComponent,
     RegisterComponent,
     ActivateComponent,

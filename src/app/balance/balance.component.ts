@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { LogUtil } from '../../utils/log-util';
-import { Entry } from '../../models/entry';
-import { EntryPackage } from '../../models/entry-package';
-import { Packager } from '../../utils/packager';
+import { LogUtil } from '../utils/log-util';
+import { Entry } from '../models/entry';
+import { EntryPackage } from '../models/entry-package';
+import { Packager } from '../utils/packager';
 import { BalanceManager } from './balance-manager';
-import { SortUtil } from '../../utils/sort-util';
-import { DateUtil } from '../../utils/date-util';
+import { SortUtil } from '../utils/sort-util';
+import { DateUtil } from '../utils/date-util';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { EntryService } from '../../services/entry.service';
-import { AccountService } from '../../services/account-service';
-import { AccountItem } from '../../models/account-item';
-import { ApplicationService } from '../../application/application.service';
+import { EntryService } from '../services/entry.service';
+import { AccountService } from '../services/account-service';
+import { AccountItem } from '../models/account-item';
+import { ApplicationService } from '../application/application.service';
 
 @Component({
     selector : 'app-balance',

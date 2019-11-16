@@ -5,7 +5,7 @@ import { WelcomeComponent } from './components/welcomecomponent/welcome.componen
 import { AddEntryComponent } from './add-entry/add-entry.component';
 import { PageNotFoundComponent } from './components/errorcomponents/page-not-found.component';
 import { LoginComponent } from './components/logincomponent/login.component';
-import { BalanceComponent } from './components/balancecomponent/balance.component';
+import { BalanceComponent } from './balance/balance.component';
 import { RegisterComponent } from './components/logincomponent/register.component';
 import { ActivateComponent } from './components/logincomponent/activate.component';
 import { ProfileComponent } from './components/profile/profile.component';
