@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AddEntryComponent } from './add-entry/add-entry.component';
 import { WelcomeComponent } from './components/welcomecomponent/welcome.component';
 import { PageNotFoundComponent } from './components/errorcomponents/page-not-found.component';
 import { LoginComponent } from './components/logincomponent/login.component';
@@ -16,8 +15,6 @@ import { ApplicationService } from './application/application.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { TagStatisticService } from './services/tag-statistic.service';
 import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';;
-import { StandingOrderComponent } from './components/standingordercomponent/standingorder.component';
-import { EditStandingOrderComponent } from './components/editstandingordercomponent/edit-standingorder.component';
 import { NavigationComponent } from './components/navigationcomponent/navigation.component';
 import { UserService } from './services/user.service';
 import { UserApiService } from './rest/user-api.service';
@@ -27,7 +24,6 @@ import { DataProtectionComponent } from './components/dataprotection/dataprotect
 import { ContactComponent } from './components/contactcomponent/contact.component';
 import { ContactApiService } from './rest/contact-api.service';
 import { ContactService } from './services/contact-service';
-import { StandingOrderListComponent } from './components/standingorderlistcomponent/standingorder-list.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoginApiService } from './rest/login-api.service';
 import { AccountApiService } from './rest/account-api.service';
@@ -48,6 +44,7 @@ import { RulesComponent } from './components/rulescomponent/rules.component';
 import { SharedModule } from './shared/shared.module';
 import { AddEntryModule } from './add-entry/add-entry.module';
 import { EntryHistoryModule } from './entry-history/entry-history.module';
+import { StandingOrderHistoryModule } from './standing-order-history/standing-order-history.module';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -62,6 +59,7 @@ export function initApplication(appService: ApplicationService) {
     NgxSpinnerModule,
     AddEntryModule,
     EntryHistoryModule,
+    StandingOrderHistoryModule,
     SharedModule
   ],
   declarations: [
@@ -73,14 +71,11 @@ export function initApplication(appService: ApplicationService) {
     LoginComponent,
     RegisterComponent,
     ActivateComponent,
-    StandingOrderComponent,
-    EditStandingOrderComponent,
     NavigationComponent,
     ImpressumComponent,
     DataProtectionComponent,
     ContactComponent,
     FooterComponent,
-    StandingOrderListComponent,
     PageNotFoundComponent,
     AccountHelpComponent,
     AccountComponent,

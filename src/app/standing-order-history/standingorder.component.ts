@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RotationEntry } from '../../models/standingorder';
-import { LogUtil } from '../../utils/log-util';
+import { RotationEntry } from '../models/standingorder';
+import { LogUtil } from '../utils/log-util';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { StandingOrderService } from '../../services/standing-order.service';
-import { AccountService } from '../../services/account-service';
-import { AccountItem } from '../../models/account-item';
-import { ApplicationService } from '../../application/application.service';
+import { StandingOrderService } from '../services/standing-order.service';
+import { AccountItem } from '../models/account-item';
+import { ApplicationService } from '../application/application.service';
 
 @Component({
     selector: 'app-standingorder-component',
