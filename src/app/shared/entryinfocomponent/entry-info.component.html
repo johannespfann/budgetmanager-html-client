@@ -18,4 +18,9 @@
   <textarea [(ngModel)]="memo" name="memo" class="form-control" id="memo" placeholder="Notiz" rows="2"></textarea>
 </div>
 
-<app-tags [tags]="tags" [possibleTags]="possibleTags" (tagAdded)="onAddedTag($event)" (tagDeleted)="onTagDeleted($event)"></app-tags>
+<app-tags 
+  [tags]="tags" 
+  [possibleTags]="possibleTags" 
+  (tagAdded)="onAddedTag($event)" 
+  (tagDeleted)="onTagDeleted($event)">
+</app-tags>

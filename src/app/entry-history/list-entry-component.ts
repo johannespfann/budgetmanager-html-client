@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Entry } from '../models/entry';
 import { LogUtil } from '../utils/log-util';
-import { EntryPackage } from '../models/entry-package';
+import { EntryPackage } from '../balance/entry-package';
 import { Packager } from '../utils/packager';
 import { SortUtil } from '../utils/sort-util';
 

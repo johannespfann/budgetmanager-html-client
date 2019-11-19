@@ -1,7 +1,7 @@
 
 import { Entry } from '../models/entry';
 import { SortUtil } from './sort-util';
-import { EntryPackage } from '../models/entry-package';
+import { EntryPackage } from '../balance/entry-package';
 
 
 

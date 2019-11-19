@@ -1,6 +1,6 @@
 import { Packager } from './packager';
 import { Entry } from '../models/entry';
-import { EntryPackage } from '../models/entry-package';
+import { EntryPackage } from '../balance/entry-package';
 
 describe('packager', function () {
 

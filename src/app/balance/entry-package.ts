@@ -1,4 +1,4 @@
-import { Entry } from './entry';
+import { Entry } from '../models/entry';
 
 export class EntryPackage {
 

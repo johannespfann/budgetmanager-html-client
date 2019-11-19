@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LogUtil } from '../utils/log-util';
 import { Entry } from '../models/entry';
-import { EntryPackage } from '../models/entry-package';
+import { EntryPackage } from './entry-package';
 import { Packager } from '../utils/packager';
 import { BalanceManager } from './balance-manager';
 import { SortUtil } from '../utils/sort-util';
