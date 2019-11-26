@@ -5,46 +5,56 @@ import { AccountService } from './account-service';
 import { LogUtil } from '../utils/log-util';
 import { AccountItem } from '../models/account-item';
 import { Entry } from '../models/entry';
-import { EntryAPIService } from '../rest/entry-api.service';
+import { EntryLogStep } from './entry-log-step';
+import { EntryRestStep } from './entry-rest.step';
+import { HttpClient } from '@angular/common/http';
+import { EntryCacheStep } from './entry-cache';
+import { EntryServiceStep } from './entry-service-step';
 
 
 @Injectable()
 export class EntryService {
 
+    private entryServiceStep: EntryServiceStep;
+
     constructor(
-        private entryApiService: EntryAPIService,
-        private appService: ApplicationService,
-        private accountService: AccountService ) {
-        LogUtil.logInits(this, 'Init EntryService');
+            private httpClient: HttpClient,
+            private appService: ApplicationService,
+            private accountService: AccountService ) {
+        LogUtil.logInits(this, 'init EntryService');
+
+        const entryRestStep = new EntryRestStep(appService.getBaseUrl(), httpClient);        
+        const entryCacheStep = new EntryCacheStep(entryRestStep)
+        this.entryServiceStep = new EntryLogStep(entryCacheStep)
     }
 
     public getEntries(accountItem: AccountItem): Observable<Entry[]> {
         if (!this.isReadyToUse(accountItem)) {
             return Observable.create(result => { result.error('No restservice available! getEntries'); });
         }
-        return this.entryApiService.getEntries(accountItem, this.appService.getCurrentUser());
+        return this.entryServiceStep.getEntries(this.appService.getCurrentUser(), accountItem);
     }
-
 
     public getLastHalfYearEntries(accountItem: AccountItem): Observable<Entry[]> {
         if (!this.isReadyToUse(accountItem)) {
             return Observable.create(result => { result.error('No restservice available! getEntries'); });
         }
-        return this.entryApiService.getLasthalfYearEntries(accountItem, this.appService.getCurrentUser());
+        
+        return this.entryServiceStep.getLasthalfYearEntries(this.appService.getCurrentUser(), accountItem);
     }
 
     public addEntry(account: AccountItem, aEntry: Entry): Observable<any> {
         if (!this.isReadyToUse(account)) {
             return Observable.create(result => { result.error('No restservice available! addEntry'); });
         }
-        return this.entryApiService.save(this.appService.getCurrentUser(), account, aEntry);
+        return this.entryServiceStep.saveEntry(this.appService.getCurrentUser(), account, aEntry);
     }
 
     public addEntries(account: AccountItem, aEntries: Entry[]): Observable<any> {
         if (!this.isReadyToUse(account)) {
             return Observable.create(result => { result.error('No restservice available! addEntry'); });
         }
-        return this.entryApiService.saveAll(this.appService.getCurrentUser(), account, aEntries);
+        return this.entryServiceStep.saveEntries(this.appService.getCurrentUser(), account, aEntries);
     }
 
 
@@ -52,14 +62,14 @@ export class EntryService {
         if (!this.isReadyToUse(account)) {
             return Observable.create(result => { result.error('No restservice available! deleteEntry'); });
         }
-        return this.entryApiService.delete(this.appService.getCurrentUser(), account, aEntry);
+        return this.entryServiceStep.delete(this.appService.getCurrentUser(), account, aEntry);
     }
 
     public update(account: AccountItem, aEntry: Entry): Observable<any> {
         if (!this.isReadyToUse(account)) {
             return Observable.create(result => { result.error('No restservice available! updateEntry'); });
         }
-        return this.entryApiService.update(this.appService.getCurrentUser(), account, aEntry);
+        return this.entryServiceStep.update(this.appService.getCurrentUser(), account, aEntry);
     }
 
     public isReadyToUse(accountItem: AccountItem): boolean {

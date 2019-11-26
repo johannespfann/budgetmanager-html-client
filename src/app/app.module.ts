@@ -28,7 +28,6 @@ import { AccountApiService } from './rest/account-api.service';
 import { AccountService } from './services/account-service';
 import { AccountCachingService } from './services/account-caching-service';
 import { EntryService } from './services/entry.service';
-import { EntryAPIService } from './rest/entry-api.service';
 import { StandingOrderApiService } from './rest/standing-order-api.service';
 import { StandingOrderService } from './services/standing-order.service';
 import { SharedModule } from './shared/shared.module';
@@ -92,7 +91,6 @@ export function initApplication(appService: ApplicationService) {
     AccountApiService,
     AccountCachingService,
     AccountService,
-    EntryAPIService,
     EntryService,
     StandingOrderApiService,
     StandingOrderService
