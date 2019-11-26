@@ -1,7 +1,7 @@
 import { HashUtil } from '../utils/hash-util';
 import { Tag } from './tag';
 
-export class RotationEntry {
+export class StandingOrder {
 
     /**
      * RotationEntry attributes
@@ -37,8 +37,8 @@ export class RotationEntry {
         // default;
     }
 
-    public static create(aAmount: number, aCurrency: string, aRotation_strategy: string): RotationEntry {
-        const rotationEntry: RotationEntry = new RotationEntry();
+    public static create(aAmount: number, aCurrency: string, aRotation_strategy: string): StandingOrder {
+        const rotationEntry: StandingOrder = new StandingOrder();
         rotationEntry.amount = aAmount;
         rotationEntry.currency = aCurrency;
         rotationEntry.rotation_strategy = aRotation_strategy;
@@ -47,8 +47,8 @@ export class RotationEntry {
     }
 
 
-    public static copy(aStandingOrder: RotationEntry): RotationEntry {
-        const standingOrder: RotationEntry = new RotationEntry();
+    public static copy(aStandingOrder: StandingOrder): StandingOrder {
+        const standingOrder: StandingOrder = new StandingOrder();
 
         standingOrder.hash = aStandingOrder.hash;
         standingOrder.amount = aStandingOrder.amount;

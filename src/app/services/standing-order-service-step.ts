@@ -1,18 +1,18 @@
 import { User } from "../models/user";
 import { AccountItem } from "../models/account-item";
-import { RotationEntry } from "../models/standingorder";
+import { StandingOrder } from "../models/standingorder";
 import { Observable } from "rxjs";
 
 export interface StandingOrderServiceStep {
 
-    addStandingOrder(user: User, accountItem: AccountItem, standingOrder: RotationEntry): Observable<any>;
+    addStandingOrder(user: User, accountItem: AccountItem, standingOrder: StandingOrder): Observable<any>;
 
-    addStandingOrders(user: User, accountItem: AccountItem, standingOrders: RotationEntry[]): Observable<any>;
+    addStandingOrders(user: User, accountItem: AccountItem, standingOrders: StandingOrder[]): Observable<any>;
 
-    getStandingOrder(user: User, accountItem: AccountItem): Observable<Array<RotationEntry>>;
+    getStandingOrder(user: User, accountItem: AccountItem): Observable<Array<StandingOrder>>;
 
-    deleteStandingOrder(user: User, accountItem: AccountItem, standingOrder: RotationEntry): Observable<any>;
+    deleteStandingOrder(user: User, accountItem: AccountItem, standingOrder: StandingOrder): Observable<any>;
 
-    updateStandingOrder(user: User, accountItem: AccountItem, standingOrder: RotationEntry): Observable<any>;
+    updateStandingOrder(user: User, accountItem: AccountItem, standingOrder: StandingOrder): Observable<any>;
    
 }

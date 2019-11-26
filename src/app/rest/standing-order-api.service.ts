@@ -2,7 +2,7 @@ import { LogUtil } from '../utils/log-util';
 import { Injectable } from '@angular/core';
 import { ApplicationService } from '../application/application.service';
 import { User } from '../models/user';
-import { RotationEntry } from '../models/standingorder';
+import { StandingOrder } from '../models/standingorder';
 import { Observable } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class StandingOrderApiService {
         LogUtil.logInits(this, 'init standing-order-api-service');
     }
 
-    public addRotationEntry(aUser: User, aAccountItem: AccountItem, aRotationEntry: RotationEntry): Observable<any> {
+    public addRotationEntry(aUser: User, aAccountItem: AccountItem, aRotationEntry: StandingOrder): Observable<any> {
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
@@ -33,7 +33,7 @@ export class StandingOrderApiService {
             rotEntryTransformer.transformRotationEntry(encryptionKey, aRotationEntry), { headers : headers});
     }
 
-    public addRotationEntries(aUser: User, aAccountItem: AccountItem, aRotationEntries: RotationEntry[]): Observable<any> {
+    public addRotationEntries(aUser: User, aAccountItem: AccountItem, aRotationEntries: StandingOrder[]): Observable<any> {
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
@@ -55,7 +55,7 @@ export class StandingOrderApiService {
             body, { headers : headers});
     }
 
-    public getRotationEntries(aUser: User, aAccountItem: AccountItem): Observable<Array<RotationEntry>> {
+    public getRotationEntries(aUser: User, aAccountItem: AccountItem): Observable<Array<StandingOrder>> {
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
@@ -68,7 +68,7 @@ export class StandingOrderApiService {
         return this.http.get<Array<StandingOrderServer>>(requestURL, { headers : headers})
             .pipe(
                 map((entries: StandingOrderServer[]) => {
-                    const newEntries: RotationEntry[] = new Array<RotationEntry>();
+                    const newEntries: StandingOrder[] = new Array<StandingOrder>();
 
                     entries.forEach((rotServerEntry: StandingOrderServer) => {
                         newEntries.push(rotationEntryTranformer.transformRotationEntryServer(encryptionKey, rotServerEntry));
@@ -79,7 +79,7 @@ export class StandingOrderApiService {
             );
     }
 
-    public deleteRotationEntry(aUser: User, aAccountItem: AccountItem, aRotationEntry: RotationEntry): Observable<any> {
+    public deleteRotationEntry(aUser: User, aAccountItem: AccountItem, aRotationEntry: StandingOrder): Observable<any> {
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);
@@ -96,7 +96,7 @@ export class StandingOrderApiService {
         return this.http.delete(requestURL, { headers : headers});
     }
 
-    public updateRotationEntry(aUser: User, aAccountItem: AccountItem, aRotationEntry: RotationEntry): Observable<any> {
+    public updateRotationEntry(aUser: User, aAccountItem: AccountItem, aRotationEntry: StandingOrder): Observable<any> {
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', aUser.name + ':' + aUser.accesstoken);

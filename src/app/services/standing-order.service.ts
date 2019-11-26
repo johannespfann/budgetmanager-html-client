@@ -1,7 +1,7 @@
 import { LogUtil } from '../utils/log-util';
 import { StandingOrderApiService } from '../rest/standing-order-api.service';
 import { ApplicationService } from '../application/application.service';
-import { RotationEntry } from '../models/standingorder';
+import { StandingOrder } from '../models/standingorder';
 import { Observable } from 'rxjs';
 import { AccountItem } from '../models/account-item';
 import { Injectable } from '@angular/core';
@@ -17,35 +17,35 @@ export class StandingOrderService {
             LogUtil.logInits(this, 'init standing-order-service');
     }
 
-    public addRotationEntry(aAccountItem: AccountItem, aRotationEntry: RotationEntry): Observable<any> {
+    public addRotationEntry(aAccountItem: AccountItem, aRotationEntry: StandingOrder): Observable<any> {
         if (!this.isReadyToUse(aAccountItem)) {
             return Observable.create(result => { result.error('No restservice available!'); });
         }
         return this.rotationEntryRestApiService.addRotationEntry(this.appService.getCurrentUser(), aAccountItem, aRotationEntry);
     }
 
-    public addStandingOrders(aAccountItem: AccountItem, aStandingOrders: RotationEntry[]): Observable<any> {
+    public addStandingOrders(aAccountItem: AccountItem, aStandingOrders: StandingOrder[]): Observable<any> {
         if (!this.isReadyToUse(aAccountItem)) {
             return Observable.create(result => { result.error('No restservice available!'); });
         }
         return this.rotationEntryRestApiService.addRotationEntries(this.appService.getCurrentUser(), aAccountItem, aStandingOrders);
     }
 
-    public getRotationEntries(aAccountItem: AccountItem): Observable<Array<RotationEntry>> {
+    public getRotationEntries(aAccountItem: AccountItem): Observable<Array<StandingOrder>> {
         if (!this.isReadyToUse(aAccountItem)) {
             return Observable.create(result => { result.error('No restservice available!'); });
         }
         return this.rotationEntryRestApiService.getRotationEntries(this.appService.getCurrentUser(), aAccountItem);
     }
 
-    public deleteRotationEntry(aAccountItem: AccountItem, aRotationEntry: RotationEntry): Observable<any> {
+    public deleteRotationEntry(aAccountItem: AccountItem, aRotationEntry: StandingOrder): Observable<any> {
         if (!this.isReadyToUse(aAccountItem)) {
             return Observable.create(result => { result.error('No restservice available!'); });
         }
         return this.rotationEntryRestApiService.deleteRotationEntry(this.appService.getCurrentUser(), aAccountItem , aRotationEntry);
     }
 
-    public updateRotationEntry(aAccountItem: AccountItem, aRotationEntry: RotationEntry): Observable<any> {
+    public updateRotationEntry(aAccountItem: AccountItem, aRotationEntry: StandingOrder): Observable<any> {
         if (!this.isReadyToUse(aAccountItem)) {
             return Observable.create(result => { result.error('No restservice available!'); });
         }

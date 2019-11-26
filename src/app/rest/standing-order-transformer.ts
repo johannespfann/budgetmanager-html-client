@@ -1,13 +1,13 @@
 import { StandingOrderServer } from '../models/standing-order-server';
 import { StandingOrderPayload } from '../models/standing-order-payload';
-import { RotationEntry } from '../models/standingorder';
+import { StandingOrder } from '../models/standingorder';
 import { CryptUtil } from '../utils/crypt-util';
 
 
 export class StandingOrderTransformer {
 
-    public transformRotationEntryServer(aPassword: string, aServerEntry: StandingOrderServer): RotationEntry {
-        const rotationEntry: RotationEntry = new RotationEntry();
+    public transformRotationEntryServer(aPassword: string, aServerEntry: StandingOrderServer): StandingOrder {
+        const rotationEntry: StandingOrder = new StandingOrder();
         rotationEntry.hash = aServerEntry.hash.toString();
         rotationEntry.username = aServerEntry.username;
 
@@ -34,7 +34,7 @@ export class StandingOrderTransformer {
      * @param aPassword
      * @param aEntry
      */
-    public transformRotationEntry(aPassword: string, aEntry: RotationEntry): StandingOrderServer {
+    public transformRotationEntry(aPassword: string, aEntry: StandingOrder): StandingOrderServer {
         const rotationEntryServer: StandingOrderServer = new StandingOrderServer();
         rotationEntryServer.hash = aEntry.hash.toString();
         rotationEntryServer.username = aEntry.username;

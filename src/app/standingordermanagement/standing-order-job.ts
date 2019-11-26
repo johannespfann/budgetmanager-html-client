@@ -2,7 +2,7 @@ import { EntryService } from '../services/entry.service';
 import { StandingOrderService } from '../services/standing-order.service';
 import { StandingOrderExecutor } from './standing-order-executor';
 import { AccountItem } from '../models/account-item';
-import { RotationEntry } from '../models/standingorder';
+import { StandingOrder } from '../models/standingorder';
 import { LogUtil } from '../utils/log-util';
 import { Observable } from 'rxjs';
 import { SortUtil } from '../utils/sort-util';
@@ -19,9 +19,9 @@ export class StandingOrderJob {
     public executeStandingOrders(accountItem: AccountItem): void {
         LogUtil.info(this, 'process standingorders');
         this.standingOrderService.getRotationEntries(accountItem).subscribe(
-            (standingOrders: RotationEntry[]) => {
+            (standingOrders: StandingOrder[]) => {
                 LogUtil.debug(this, 'Get All rotationEntries: ' + JSON.stringify(standingOrders.length));
-                standingOrders.forEach( (standingOrder: RotationEntry) => {
+                standingOrders.forEach( (standingOrder: StandingOrder) => {
                     LogUtil.debug(this, 'Process StandingOrder ' + standingOrder.memo);
                     const entries = this.standingOrderExecutor.generateEntries(new Date(), standingOrder);
 
@@ -62,7 +62,7 @@ export class StandingOrderJob {
     }
 
 
-    private updateStandingOrder(aAccountItem: AccountItem, aStandingOrder: RotationEntry): void {
+    private updateStandingOrder(aAccountItem: AccountItem, aStandingOrder: StandingOrder): void {
         this.standingOrderService.updateRotationEntry(aAccountItem, aStandingOrder).subscribe(
             standingOrderResponse => {
                 LogUtil.debug(this, 'Updated standingOrder: ' + JSON.stringify(aStandingOrder));

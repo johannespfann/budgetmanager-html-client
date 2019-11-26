@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, Input, OnChanges, SimpleChanges, Output, 
 import { LogUtil } from '../utils/log-util';
 import { EntryInfoComponent } from '../shared/entryinfocomponent/entry-info.component';
 import { StandingOrderInfoComponent } from '../shared/standingorderinfocomponent/standing-order-info.component';
-import { RotationEntry } from '../models/standingorder';
+import { StandingOrder } from '../models/standingorder';
 import { EntryInfo } from '../shared/entryinfocomponent/entry-info';
 import { StandingOrderInfo } from '../shared/standingorderinfocomponent/standing-order-info';
 
@@ -20,16 +20,16 @@ export class EditStandingOrderComponent implements OnInit, OnChanges {
     public standingOrderComponent: StandingOrderInfoComponent;
 
     @Input()
-    public standingorder: RotationEntry;
+    public standingorder: StandingOrder;
 
     @Output()
     public cancelPressed = new EventEmitter<boolean>();
 
     @Output()
-    public deletedPressed = new EventEmitter<RotationEntry>();
+    public deletedPressed = new EventEmitter<StandingOrder>();
 
     @Output()
-    public changedPressed = new EventEmitter<RotationEntry>();
+    public changedPressed = new EventEmitter<StandingOrder>();
 
     constructor() {
         LogUtil.logInits(this, 'init standingorder-edit-component');
@@ -55,7 +55,7 @@ export class EditStandingOrderComponent implements OnInit, OnChanges {
         this.cancelPressed.emit(true);
     }
 
-    private initStandingOrderView(standingOrder: RotationEntry) {
+    private initStandingOrderView(standingOrder: StandingOrder) {
         const entryInfo = new EntryInfo();
         entryInfo.amount = standingOrder.amount;
         entryInfo.currency = 'EUR';
@@ -70,8 +70,8 @@ export class EditStandingOrderComponent implements OnInit, OnChanges {
         this.standingOrderComponent.initStandingOrderView(standingOrderInfo);
     }
 
-    private createUpdatedStandingOrder(): RotationEntry {
-        const newStandingOrder = new RotationEntry();
+    private createUpdatedStandingOrder(): StandingOrder {
+        const newStandingOrder = new StandingOrder();
         const entryInfo = this.entryComponent.getEntryInfo();
         const standingOrderInfo = this.standingOrderComponent.getStandingOrderInfo();
         newStandingOrder.hash = this.standingorder.hash;

@@ -1,5 +1,5 @@
 
-import { RotationEntry } from '../models/standingorder';
+import { StandingOrder } from '../models/standingorder';
 import { StandingOrderExecutor } from './standing-order-executor';
 import { Entry } from '../models/entry';
 import { HashUtil } from '../utils/hash-util';
@@ -16,10 +16,10 @@ describe('standing-order-executor', function () {
      * attributes - standingorderss
      */
 
-    let simpleStandingOrder: RotationEntry;
-    let monthlyStandingOrder: RotationEntry;
-    let yearlyStandingOrder: RotationEntry;
-    let quarterStandingOrder: RotationEntry;
+    let simpleStandingOrder: StandingOrder;
+    let monthlyStandingOrder: StandingOrder;
+    let yearlyStandingOrder: StandingOrder;
+    let quarterStandingOrder: StandingOrder;
 
     /**
      * attributes example entry
@@ -52,7 +52,7 @@ describe('standing-order-executor', function () {
          * prepare simplestandingorder
          */
 
-        simpleStandingOrder = new RotationEntry();
+        simpleStandingOrder = new StandingOrder();
         simpleStandingOrder.amount = amount;
         simpleStandingOrder.currency = currency;
         simpleStandingOrder.tags = tags;
@@ -70,7 +70,7 @@ describe('standing-order-executor', function () {
          * prepare montlyStandingOrder
          */
 
-        monthlyStandingOrder = new RotationEntry();
+        monthlyStandingOrder = new StandingOrder();
         monthlyStandingOrder.amount = amount;
         monthlyStandingOrder.currency = currency;
         monthlyStandingOrder.tags = tags;
@@ -82,7 +82,7 @@ describe('standing-order-executor', function () {
          * prepare yearlyStandingOrder
          */
 
-        yearlyStandingOrder = new RotationEntry();
+        yearlyStandingOrder = new StandingOrder();
         yearlyStandingOrder.amount = amount;
         yearlyStandingOrder.currency = currency;
         yearlyStandingOrder.tags = tags;
@@ -93,7 +93,7 @@ describe('standing-order-executor', function () {
          * prepare quarterStandingOrder
          */
 
-        quarterStandingOrder = new RotationEntry();
+        quarterStandingOrder = new StandingOrder();
         quarterStandingOrder.amount = amount;
         quarterStandingOrder.currency = currency;
         quarterStandingOrder.tags = tags;

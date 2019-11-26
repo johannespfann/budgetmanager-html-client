@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { LogUtil } from '../utils/log-util';
 import { EntryInfoComponent } from '../shared/entryinfocomponent/entry-info.component';
 import { StandingOrderInfoComponent } from '../shared/standingorderinfocomponent/standing-order-info.component';
-import { RotationEntry } from '../models/standingorder';
+import { StandingOrder } from '../models/standingorder';
 import { Entry } from '../models/entry';
 import { EntryService } from '../services/entry.service';
 import { DateUtil } from '../utils/date-util';
@@ -67,7 +67,7 @@ export class AddEntryComponent implements OnInit {
         const standingOrderInfo = this.standingOrderComponent.getStandingOrderInfo();
         const entryInfo = this.entryComponent.getEntryInfo();
 
-        const rotationEntry = RotationEntry.create(entryInfo.amount, 'EUR', standingOrderInfo.rotation_strategy);
+        const rotationEntry = StandingOrder.create(entryInfo.amount, 'EUR', standingOrderInfo.rotation_strategy);
         rotationEntry.amount = entryInfo.amount;
         rotationEntry.memo = entryInfo.memo;
         rotationEntry.tags = entryInfo.tags;
@@ -112,7 +112,7 @@ export class AddEntryComponent implements OnInit {
         );
     }
 
-    private persistStandingOrder(aStandingOrder: RotationEntry): void {
+    private persistStandingOrder(aStandingOrder: StandingOrder): void {
         this.spinner.show();
         this.rotationService.addRotationEntry(this.selectedAccount, aStandingOrder).subscribe(
             data => {

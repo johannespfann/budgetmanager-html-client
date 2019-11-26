@@ -1,4 +1,4 @@
-import { RotationEntry } from '../models/standingorder';
+import { StandingOrder } from '../models/standingorder';
 import { Entry } from '../models/entry';
 import { DateUtil } from '../utils/date-util';
 import { DateSeriesStrategy } from './date-series-strategy';
@@ -14,7 +14,7 @@ export class StandingOrderExecutor {
     }
 
 
-    public generateEntries(today: Date, standingOrder: RotationEntry): Entry[] {
+    public generateEntries(today: Date, standingOrder: StandingOrder): Entry[] {
 
         let generatedEntries: Entry[] = [];
 
@@ -43,7 +43,7 @@ export class StandingOrderExecutor {
         return generatedEntries;
     }
 
-    private produceEntries(generatedDatesTemp: Date[], standingOrder: RotationEntry): Entry[] {
+    private produceEntries(generatedDatesTemp: Date[], standingOrder: StandingOrder): Entry[] {
         const entries: Entry[] = [];
         generatedDatesTemp.forEach( (date: Date) => {
             const entry = new Entry();
@@ -58,7 +58,7 @@ export class StandingOrderExecutor {
         return entries;
     }
 
-    private produceBeginningDate(standingOrder: RotationEntry): Date {
+    private produceBeginningDate(standingOrder: StandingOrder): Date {
         const beginningDate: Date = new Date();
 
         if (!standingOrder.last_executed) {
@@ -89,7 +89,7 @@ export class StandingOrderExecutor {
         return beginningDate;
     }
 
-    private isInScope(today: Date, standingOrder: RotationEntry): boolean {
+    private isInScope(today: Date, standingOrder: StandingOrder): boolean {
         let result = true;
 
         if (DateUtil.firstIsBeforeSecond(today, standingOrder.start_at)) {

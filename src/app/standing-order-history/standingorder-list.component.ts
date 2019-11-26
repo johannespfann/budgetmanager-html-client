@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter, SimpleChanges, OnInit } from '@angular/core';
-import { RotationEntry } from '../models/standingorder';
+import { StandingOrder } from '../models/standingorder';
 import { LogUtil } from '../utils/log-util';
 import { StandingOrderConst } from '../standingordermanagement/standing-order-const';
 
@@ -11,20 +11,20 @@ import { StandingOrderConst } from '../standingordermanagement/standing-order-co
 export class StandingOrderListComponent implements OnChanges, OnInit {
 
     @Input()
-    public standingOrders: RotationEntry[];
+    public standingOrders: StandingOrder[];
 
-    public monthlyStandingOrders: RotationEntry[];
-    public quarterlyStandOrder: RotationEntry[];
-    public yeartlyStandingOrder: RotationEntry[];
+    public monthlyStandingOrders: StandingOrder[];
+    public quarterlyStandOrder: StandingOrder[];
+    public yeartlyStandingOrder: StandingOrder[];
 
     @Output()
-    public editPressed = new EventEmitter<RotationEntry>();
+    public editPressed = new EventEmitter<StandingOrder>();
 
     constructor() {
         LogUtil.logInits(this, 'init standingorder-list-component');
     }
 
-    public editStandingOrder(aStandingOrder: RotationEntry): void {
+    public editStandingOrder(aStandingOrder: StandingOrder): void {
         this.editPressed.emit(aStandingOrder);
     }
 
@@ -46,7 +46,7 @@ export class StandingOrderListComponent implements OnChanges, OnInit {
             return;
         }
 
-        this.standingOrders.forEach( (aRotatatinEntry: RotationEntry) => {
+        this.standingOrders.forEach( (aRotatatinEntry: StandingOrder) => {
             if (aRotatatinEntry.rotation_strategy === StandingOrderConst.MONTHLY_PATTERN) {
                 this.monthlyStandingOrders.push(aRotatatinEntry);
             }
