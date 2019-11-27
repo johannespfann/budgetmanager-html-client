@@ -5,7 +5,6 @@ import { LogUtil } from '../../utils/log-util';
 import { TagStatisticFacade } from '../../utils/tag-statistic-facade';
 import { TagStatistic } from '../../models/tagstatistic';
 import { ApplicationService } from '../../application/application.service';
-import { TagStatisticService } from '../../services/tag-statistic.service';
 import { MathUtil } from '../../utils/math-util';
 
 @Component({
@@ -25,7 +24,6 @@ export class EntryInfoComponent {
     private tagStatisticBrowserStorageFacade: TagStatisticFacade;
 
     constructor(
-        private tagStatisticService: TagStatisticService,
         private applicationService: ApplicationService) {
 
         LogUtil.logInits(this, 'init entrycomponent');
@@ -33,7 +31,6 @@ export class EntryInfoComponent {
     }
 
     public cleanEntryView(): void {
-        this.updateTagStatistics();
         this.algebraicSignIsMinus = true;
         this.amount = null;
         this.memo = '';
@@ -53,7 +50,6 @@ export class EntryInfoComponent {
     }
 
     public getEntryInfo(): EntryInfo {
-        this.persistTagToStatistic();
         let amountValue: number;
         if (this.algebraicSignIsMinus) {
             amountValue = MathUtil.convertToNegativ(this.amount);
@@ -94,14 +90,4 @@ export class EntryInfoComponent {
         });
     }
 
-    private persistTagToStatistic(): void {
-        //this.tagStatisticService.persistTagStatistic(this.tagStatisticBrowserStorageFacade.getTagStatisticValues()).subscribe();
-    }
-
-    private updateTagStatistics(): void {
-        //this.tagStatisticService.getTagStatistic().subscribe((tags: TagStatistic[]) => {
-        //   this.tagStatisticBrowserStorageFacade.persistTagStatisctics(tags);
-        //   this.refreshPossibleTags();
-        //});
-    }
 }

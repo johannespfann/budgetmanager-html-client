@@ -85,13 +85,29 @@ export class EntryCacheStep implements EntryServiceStep{
     }
  
     delete(user: User, accountItem: AccountItem, entry: Entry): Observable<any> {
-        // TODO
-        return this.entryServiceStep.delete(user, accountItem, entry);
+        this.currentEntries = this.currentEntries.filter( element => element.hash != entry.hash);
+        return this.entryServiceStep.delete(user, accountItem, entry).pipe(
+            catchError(error => {
+                this.isCacheValid = false;
+                return error;
+            })
+        );
     }
  
     update(user: User, accountItem: AccountItem, entry: Entry): Observable<any> {
-        // TODO
-        return this.entryServiceStep.update(user, accountItem, entry);
+        this.currentEntries = this.currentEntries.map( element => {
+            if(element.hash == entry.hash){
+                return entry;
+            }
+            return element;
+        });
+        
+        return this.entryServiceStep.update(user, accountItem, entry).pipe(
+            catchError( error => {
+                this.isCacheValid = false;
+                return error;
+            })
+        );
     }
 
 

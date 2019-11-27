@@ -5,7 +5,6 @@ import { AccountService } from './account-service';
 import { LogUtil } from '../utils/log-util';
 import { AccountItem } from '../models/account-item';
 import { Entry } from '../models/entry';
-import { EntryLogStep } from './entry-log-step';
 import { EntryRestStep } from './entry-rest.step';
 import { HttpClient } from '@angular/common/http';
 import { EntryCacheStep } from './entry-cache';
@@ -24,8 +23,7 @@ export class EntryService {
         LogUtil.logInits(this, 'init EntryService');
 
         const entryRestStep = new EntryRestStep(appService.getBaseUrl(), httpClient);        
-        const entryCacheStep = new EntryCacheStep(entryRestStep)
-        this.entryServiceStep = new EntryLogStep(entryCacheStep)
+        this.entryServiceStep = new EntryCacheStep(entryRestStep)
     }
 
     public getEntries(accountItem: AccountItem): Observable<Entry[]> {
