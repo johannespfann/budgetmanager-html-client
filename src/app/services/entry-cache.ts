@@ -81,7 +81,12 @@ export class EntryCacheStep implements EntryServiceStep{
  
     saveEntries(user: User, accountItem: AccountItem, entries: Entry[]): Observable<any> {
         entries.forEach( entry => this.currentEntries.push(entry));
-        return this.entryServiceStep.saveEntries(user, accountItem, entries);
+        return this.entryServiceStep.saveEntries(user, accountItem, entries).pipe(
+            catchError( error => {
+                this.isCacheValid = false;
+                return error;
+            })
+        );
     }
  
     delete(user: User, accountItem: AccountItem, entry: Entry): Observable<any> {
