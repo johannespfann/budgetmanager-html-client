@@ -19,9 +19,7 @@ export class StandingOrderTransformer {
         rotationEntry.currency = standingOrderPayload.currency;
         rotationEntry.memo = standingOrderPayload.memo;
         rotationEntry.tags = standingOrderPayload.tags;
-
         rotationEntry.rotation_strategy = standingOrderPayload.rotation_strategy;
-
         rotationEntry.start_at = new Date(standingOrderPayload.start_at);
         rotationEntry.last_executed = new Date(standingOrderPayload.last_executed);
         rotationEntry.end_at = new Date(standingOrderPayload.end_at);
@@ -38,6 +36,7 @@ export class StandingOrderTransformer {
         const rotationEntryServer: StandingOrderServer = new StandingOrderServer();
         rotationEntryServer.hash = aEntry.hash.toString();
         rotationEntryServer.username = aEntry.username;
+
         const standingOrderPayload = new StandingOrderPayload();
         standingOrderPayload.amount = aEntry.amount;
         standingOrderPayload.currency = aEntry.currency;
@@ -47,6 +46,7 @@ export class StandingOrderTransformer {
         standingOrderPayload.last_executed = aEntry.last_executed;
         standingOrderPayload.end_at = aEntry.end_at;
         standingOrderPayload.tags = aEntry.tags;
+
         const encryptedPayload = CryptUtil.encryptString(
             aPassword,
             JSON.stringify(standingOrderPayload));

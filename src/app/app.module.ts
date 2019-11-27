@@ -11,8 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './authentication/register.component';
 import { ActivateComponent } from './authentication/activate.component';
 import { ApplicationService } from './application/application.service';
-import { TagStatisticService } from './services/tag-statistic.service';
-import { TagStatisticRestApiService } from './rest/tag-statistic-api.service';;
 import { NavigationComponent } from './navigation/navigation.component';
 import { UserService } from './services/user.service';
 import { UserApiService } from './rest/user-api.service';
@@ -84,8 +82,6 @@ export function initApplication(appService: ApplicationService) {
     LoginApiService,
     ApplicationService,
     { provide: APP_INITIALIZER, useFactory: initApplication, deps: [ApplicationService], multi: true },
-    TagStatisticService,
-    TagStatisticRestApiService,
     ContactService,
     ContactApiService,
     AccountApiService,
