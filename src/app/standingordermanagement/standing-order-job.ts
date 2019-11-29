@@ -4,7 +4,7 @@ import { StandingOrderExecutor } from './standing-order-executor';
 import { AccountItem } from '../models/account-item';
 import { StandingOrder } from '../models/standingorder';
 import { LogUtil } from '../utils/log-util';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { SortUtil } from '../utils/sort-util';
 
 
@@ -16,7 +16,7 @@ export class StandingOrderJob {
         private standingOrderService: StandingOrderService) {
     }
 
-    public executeStandingOrders(accountItem: AccountItem): void {
+    public executeStandingOrders(accountItem: AccountItem): Observable<boolean> {
         LogUtil.info(this, 'process standingorders');
         this.standingOrderService.getRotationEntries(accountItem).subscribe(
             (standingOrders: StandingOrder[]) => {
@@ -59,6 +59,7 @@ export class StandingOrderJob {
                 LogUtil.error(this, 'Failed to load standingOrders from account: ' + JSON.stringify(accountItem.account));
             }
         );
+        return of(true);
     }
 
 

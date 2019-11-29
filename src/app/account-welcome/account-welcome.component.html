@@ -1,8 +1,81 @@
 <div class="jumbotron" style="overflow: hidden">
 
-    <h1 class="mb-5">Übersicht für Konto {{accountname}}</h1>
+    <h1 class="mb-5">Übersicht für Konto <span class="font-weight-bold">{{accountname}}</span></h1>
+    
+    <h4 class="pt-5">Status</h4>
+    <hr>
+    
+    
+   <!-- Entries -->
+    <div *ngIf="isEntryLoading">
+        <span class="fa fa-spinner fa-spin fa-2x fa-fw" aria-hidden="true"></span> 
+        <span class="pl-3" style="font-size: 1.3rem">Einträge werden geladen</span>
+    </div>
+    <div *ngIf="isEntryLoaded && !isEntryLoading">
+        <span class="fa fa-check fa-2x text-success" aria-hidden="true"></span> 
+        <span class="pl-4" style="font-size: 1.3rem">Alle Einträge wurden geladen</span>
+    </div>
+    <div *ngIf="!isEntryLoaded && !isEntryLoading">        
+        <span class="fa fa-times fa-2x text-danger pl-1" aria-hidden="true"></span>
+        <span class="pl-4" style="font-size: 1.3rem">Einträge konnten nicht geladen werden</span>
+    </div>
 
 
-    <h4>Status</h4>
+       <!-- Tag-Analyse -->
+
+    <div *ngIf="isTagsAnalyseProcessing">
+        <span class="fa fa-spinner fa-spin fa-2x fa-fw" aria-hidden="true"></span> 
+        <span class="pl-3" style="font-size: 1.3rem">Tags werden analysiert</span>
+    </div>
+    <div *ngIf="isTagsAnalysed && !isTagsAnalyseProcessing">
+        <span class="fa fa-check fa-2x text-success" aria-hidden="true"></span> 
+        <span class="pl-4" style="font-size: 1.3rem">Tags wurden analysiert</span>
+    </div>
+    <div *ngIf="!isTagsAnalysed && !isTagsAnalyseProcessing">        
+        <span class="fa fa-times fa-2x text-danger pl-1" aria-hidden="true"></span>
+        <span class="pl-4" style="font-size: 1.3rem">Tags konnten nicht analysiert werden</span>
+    </div>
+
+
+   <!-- StandingOrders -->
+
+   <div *ngIf="isStandingOrdersLoading">
+        <span class="fa fa-spinner fa-spin fa-2x fa-fw" aria-hidden="true"></span> 
+        <span class="pl-3" style="font-size: 1.3rem">Daueraufträge werden geladen</span>
+    </div>
+    <div *ngIf="isStandingOrdersLoaded && !isStandingOrdersLoading">
+        <span class="fa fa-check fa-2x text-success" aria-hidden="true"></span> 
+        <span class="pl-4" style="font-size: 1.3rem">Daueraufträge wurden geladen</span>
+    </div>
+    <div *ngIf="!isStandingOrdersLoaded && !isStandingOrdersLoading">        
+        <span class="fa fa-times fa-2x text-danger pl-1" aria-hidden="true"></span>
+        <span class="pl-4" style="font-size: 1.3rem">Daueraufträge konnten nicht geladen werden</span>
+    </div>
+
+   <!-- StandingOrders -->
+
+    <div *ngIf="isStandingOrderProcessing">
+        <span class="fa fa-spinner fa-spin fa-2x fa-fw" aria-hidden="true"></span> 
+        <span class="pl-3" style="font-size: 1.3rem">Daueraufträge werden bearbeitet</span>
+    </div>
+    <div *ngIf="isStandingOrderProcessed && !isStandingOrderProcessing">
+        <span class="fa fa-check fa-2x text-success" aria-hidden="true"></span> 
+        <span class="pl-4" style="font-size: 1.3rem">Daueraufträge wurden bearbeitet</span>
+    </div>
+    <div *ngIf="!isStandingOrderProcessed && !isStandingOrderProcessing">        
+        <span class="fa fa-times fa-2x text-danger pl-1" aria-hidden="true"></span>
+        <span class="pl-4" style="font-size: 1.3rem">Daueraufträge konnten nicht bearbeitet werden</span>
+    </div>
+
+
+    <h4 class="pt-5">Statistik</h4>
+    <hr>
+
+    <div style="font-size: 1.3rem" class="pt-2">Einträge gesamt <span class="font-weight-bold">{{sizeOfEntries}}</span></div>
+    <div style="font-size: 1.3rem" class="pt-2">Daueraufträge gesamt: <span class="font-weight-bold">{{sizeOfStandingOrders}}</span></div>
+    <div style="font-size: 1.3rem" class="pt-2">- monatlich <span class="font-weight-bold ">{{sizeOfMonthly}}</span></div>
+    <div style="font-size: 1.3rem" class="pt-2">- quartalsweise <span class="font-weight-bold ">{{sizeOfQuartal}}</span></div>
+    <div style="font-size: 1.3rem" class="pt-2">- jährlich <span class="font-weight-bold ">{{sizeOfYearly}}</span></div>
+
 
 </div>
