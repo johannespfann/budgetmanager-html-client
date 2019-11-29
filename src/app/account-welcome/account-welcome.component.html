@@ -21,8 +21,7 @@
     </div>
 
 
-       <!-- Tag-Analyse -->
-
+    <!-- Tag-Analyse -->
     <div *ngIf="isTagsAnalyseProcessing">
         <span class="fa fa-spinner fa-spin fa-2x fa-fw" aria-hidden="true"></span> 
         <span class="pl-3" style="font-size: 1.3rem">Tags werden analysiert</span>
@@ -38,7 +37,6 @@
 
 
    <!-- StandingOrders -->
-
    <div *ngIf="isStandingOrdersLoading">
         <span class="fa fa-spinner fa-spin fa-2x fa-fw" aria-hidden="true"></span> 
         <span class="pl-3" style="font-size: 1.3rem">Daueraufträge werden geladen</span>
@@ -52,8 +50,8 @@
         <span class="pl-4" style="font-size: 1.3rem">Daueraufträge konnten nicht geladen werden</span>
     </div>
 
-   <!-- StandingOrders -->
 
+   <!-- StandingOrders -->
     <div *ngIf="isStandingOrderProcessing">
         <span class="fa fa-spinner fa-spin fa-2x fa-fw" aria-hidden="true"></span> 
         <span class="pl-3" style="font-size: 1.3rem">Daueraufträge werden bearbeitet</span>
@@ -76,6 +74,5 @@
     <div style="font-size: 1.3rem" class="pt-2">- monatlich <span class="font-weight-bold ">{{sizeOfMonthly}}</span></div>
     <div style="font-size: 1.3rem" class="pt-2">- quartalsweise <span class="font-weight-bold ">{{sizeOfQuartal}}</span></div>
     <div style="font-size: 1.3rem" class="pt-2">- jährlich <span class="font-weight-bold ">{{sizeOfYearly}}</span></div>
-
 
 </div>
