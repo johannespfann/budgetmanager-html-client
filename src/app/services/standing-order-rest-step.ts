@@ -4,7 +4,6 @@ import { AccountItem } from "../models/account-item";
 import { StandingOrder } from "../models/standingorder";
 import { Observable } from "rxjs";
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { LogUtil } from "../utils/log-util";
 import { StandingOrderTransformer } from "../rest/standing-order-transformer";
 import { StandingOrderServer } from "../models/standing-order-server";
 import { map } from "rxjs/operators";
@@ -15,7 +14,6 @@ export class StandingOrderRestStep implements StandingOrderServiceStep {
     constructor(
             private baseUrl: String,
             private httpClient: HttpClient) {
-        LogUtil.logInits(this, 'init standing-order-api-service');
     }
 
     public addStandingOrder(user: User, accountItem: AccountItem, standingOrder: StandingOrder): Observable<any> {

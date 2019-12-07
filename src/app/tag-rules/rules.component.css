@@ -1,0 +1,35 @@
+.tag-item {
+
+    padding: 5px;
+    font-size: 1.1rem;
+    border-width: thin;
+    border-style: solid;
+    border-color: back;
+    border-radius: 10px;
+
+
+
+}
+
+
+.tags-input {
+    background-color: transparent;
+    padding: 5px;
+    border: none;
+}
+
+.tags-input:focus {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+
+.newWhenTagRuleItem {
+    font-size: 1.2rem
+}
+
+.newThenTagRuleItem {
+    font-size: 1.2rem;
+    padding-right: 10px;
+}

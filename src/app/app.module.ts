@@ -38,6 +38,7 @@ import { ProfileModule } from './profile/profile.module';
 import { AccountWelcomeModule } from './account-welcome/account-welcome.module';
 import { AccountModule } from './accountsetting/account.module';
 import { UserWelcomeModule } from './user-welcome/user-welcome.module';
+import { TagRuleService } from './services/tag-rule.service';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -89,7 +90,8 @@ export function initApplication(appService: ApplicationService) {
     AccountService,
     EntryService,
     StandingOrderApiService,
-    StandingOrderService
+    StandingOrderService,
+    TagRuleService
   ],
   bootstrap: [AppComponent]
 })
