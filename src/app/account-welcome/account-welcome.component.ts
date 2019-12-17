@@ -10,9 +10,7 @@ import { StandingOrderJob } from '../standingordermanagement/standing-order-job'
 import { EntryService } from '../services/entry.service';
 import { StandingOrderService } from '../services/standing-order.service';
 import { LogUtil } from '../utils/log-util';
-import { tap } from 'rxjs/operators';
-import { StandingOrder } from '../models/standingorder';
-import { StandingOrderConst } from '../standingordermanagement/standing-order-const';
+
 
 @Component({
     selector: 'app-account-weclome',
@@ -31,9 +29,6 @@ export class AccountWelcomeComponent implements OnInit {
     isEntryLoaded = false;
     isEntryLoading = true;
 
-    isTagsAnalysed = false;
-    isTagsAnalyseProcessing = true;
-
     isStandingOrdersLoaded = false;
     isStandingOrdersLoading = true;
 
@@ -42,10 +37,6 @@ export class AccountWelcomeComponent implements OnInit {
 
     sizeOfEntries = 0;
     sizeOfStandingOrders = 0;
-
-    sizeOfMonthly = 0;
-    sizeOfQuartal = 0;
-    sizeOfYearly = 0;
 
 
     constructor(
@@ -68,20 +59,12 @@ export class AccountWelcomeComponent implements OnInit {
                 this.sizeOfEntries = data.length
                 this.isEntryLoaded = true;
                 this.isEntryLoading = false;
-
-                this.isTagsAnalyseProcessing = false;
-                this.isTagsAnalysed = true;
             }
         )
     }
 
     loadStandingOrders(): void {
-        this.sizeOfMonthly = 0;
-        this.sizeOfQuartal = 0;
-        this.sizeOfYearly = 0;
-        this.standingOrderService.getRotationEntries(this.accountItem).pipe(
-            tap( entry => this.analizeRotationsOfStandingOrders(entry))
-        ).subscribe( 
+        this.standingOrderService.getRotationEntries(this.accountItem).subscribe( 
             data => {
                 this.sizeOfStandingOrders = data.length;
                 this.isStandingOrdersLoaded = true;
@@ -89,28 +72,6 @@ export class AccountWelcomeComponent implements OnInit {
             }
         )
     }
-
-    analizeRotationsOfStandingOrders(standingOrders: StandingOrder[]): void {
-        standingOrders.forEach( standingOrder => {
-
-            if(standingOrder.rotation_strategy == StandingOrderConst.MONTHLY_PATTERN) {
-
-                this.sizeOfMonthly = this.sizeOfMonthly + 1;
-            } 
-
-            if(standingOrder.rotation_strategy == StandingOrderConst.QUARTER_PATTERN) {
-
-                this.sizeOfQuartal = this.sizeOfQuartal + 1;
-            }
-
-            if(standingOrder.rotation_strategy == StandingOrderConst.YEARLY_PATTERN) {
-
-                this.sizeOfYearly = this.sizeOfYearly + 1;
-            }
-
-        })
-    }
-
 
     public ngOnInit(): void {
         this.user = this.applicationService.getCurrentUser();
