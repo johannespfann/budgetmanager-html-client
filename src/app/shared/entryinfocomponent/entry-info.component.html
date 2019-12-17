@@ -20,7 +20,8 @@
 
 <app-tags 
   [tags]="tags" 
-  [possibleTags]="possibleTags" 
+  [suggestedTags]="suggestedTags" 
   (tagAdded)="onAddedTag($event)" 
-  (tagDeleted)="onTagDeleted($event)">
+  (tagDeleted)="onTagDeleted($event)"
+  (suggestedTagSelected)="onSuggestedTagSelected($event)">
 </app-tags>

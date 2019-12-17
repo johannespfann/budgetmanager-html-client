@@ -26,11 +26,11 @@ export class RulesComponent implements OnInit {
 
     inputFieldWhenTagIsVisible = true;
     nextwhenTagName: string = '';
-    whenTagName: string[];
+    whenTagName: string[] = [];
 
 
-    nextThenTagRule: string;
-    newThenTagRules: string[];
+    nextThenTagRule: string = '';
+    newThenTagRules: string[] = [];
     
 
     private selectedAccount: AccountItem;
@@ -38,10 +38,7 @@ export class RulesComponent implements OnInit {
     constructor(
             private applicationService: ApplicationService,
             private tagRuleService: TagRuleService) {
-            LogUtil.logInits(this, 'init tagrulecomponent');
-        
-        this.newThenTagRules = [];
-        this.whenTagName = [];
+        LogUtil.logInits(this, 'init tagrulecomponent');
     }
 
     ngOnInit(): void {
@@ -53,19 +50,16 @@ export class RulesComponent implements OnInit {
     deleteTagRule(tagRule: TagRule): void {
         LogUtil.debug(this, 'pressed delete ' + JSON.stringify(tagRule))
 
-
         this.tagRuleService.deleteTagRule(this.selectedAccount, tagRule).subscribe(
             data => {
                 LogUtil.info(this, 'deleted ' + JSON.stringify(tagRule));
                 this.updateTagRules();
             }
         )
-        
     }
 
-
     addTagRule(): void {
-        LogUtil.debug(this, 'pressed add ');
+        LogUtil.debug(this, 'pressed addTagRule');
         
         const tagRule = new TagRule();
         const whenTagName =  this.whenTagName[0]
@@ -80,7 +74,7 @@ export class RulesComponent implements OnInit {
 
         this.tagRuleService.saveTagRule(this.selectedAccount, tagRule).subscribe(
             data => {
-                LogUtil.info(this, 'added rule');
+                LogUtil.debug(this, 'added rule');
                 this.updateTagRules();
             }
         );
@@ -94,15 +88,8 @@ export class RulesComponent implements OnInit {
 
   
     }
-    private updateTagRules() {
-        this.tagRuleService.getTagRules(this.selectedAccount)
-        .subscribe(data => this.tagRuleList = data);
-    }
-
 
     addWhenTag(event: KeyboardEvent): void {
-        LogUtil.debug(this, 'pressed addWhenTag with ' + event.key);
-
         if (this.nextwhenTagName.includes(' ')) {
             this.whenTagName.push(this.nextwhenTagName);
             this.nextwhenTagName =  '';
@@ -111,8 +98,6 @@ export class RulesComponent implements OnInit {
     }
 
     addThenTags(event: any): void {
-        LogUtil.debug(this, 'pressed addThenTags');
-
         if (this.nextThenTagRule.includes(' ')) {
 
             const temp: Array<string> = this.nextThenTagRule.split(' ');
@@ -146,6 +131,10 @@ export class RulesComponent implements OnInit {
         this.newThenTagRules = this.newThenTagRules.filter( element => element != event)
     }
 
+    private updateTagRules() {
+        this.tagRuleService.getTagRules(this.selectedAccount)
+        .subscribe(data => this.tagRuleList = data);
+    }
 
     private updateAccountItems(): void {
         this.selectedAccount = this.applicationService.getCurrentAccount();

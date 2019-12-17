@@ -20,3 +20,17 @@
     border: none;
     outline: none;
 }
+
+.suggestedTag-container{
+    margin-bottom: 1rem;  
+}
+
+
+.suggestedTag-item {
+    padding: 0.3rem;
+    margin: 0.5rem;
+    border-width: thin;
+    border-style: solid;
+    border-color: back;
+    border-radius: 10px;
+}

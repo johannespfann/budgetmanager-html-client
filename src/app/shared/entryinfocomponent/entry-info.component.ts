@@ -1,33 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EntryInfo } from './entry-info';
 import { Tag } from '../../models/tag';
 import { LogUtil } from '../../utils/log-util';
-import { TagStatisticFacade } from '../../utils/tag-statistic-facade';
-import { TagStatistic } from '../../models/tagstatistic';
 import { ApplicationService } from '../../application/application.service';
 import { MathUtil } from '../../utils/math-util';
+import { TagRuleService } from '../../services/tag-rule.service';
+import { TagRule } from '../../models/tag-rule';
+
 
 @Component({
     selector: 'app-entry-info',
     templateUrl: './entry-info.component.html',
     styleUrls: ['./entry-info.component.css']
 })
-export class EntryInfoComponent {
+export class EntryInfoComponent implements OnInit{
 
-    public algebraicSignIsMinus = true;
-    public amount: number;
-    public memo: string;
 
-    public tags: Tag[];
-    public possibleTags: Tag[];
+    algebraicSignIsMinus = true;
+    amount: number;
+    memo: string;
 
-    private tagStatisticBrowserStorageFacade: TagStatisticFacade;
+    tags: Tag[];
+    suggestedTags: Tag[] = [];
+
+    tagRules: TagRule[] = [];
 
     constructor(
+        private tagRuleService: TagRuleService,
         private applicationService: ApplicationService) {
-
         LogUtil.logInits(this, 'init entrycomponent');
-        this.tagStatisticBrowserStorageFacade = new TagStatisticFacade(this.applicationService.getCurrentUser());
+    }
+
+    ngOnInit(): void {
+        this.updateTagRules()
+    }
+
+    updateTagRules() {
+        this.tagRuleService.getTagRules(this.applicationService.getCurrentAccount()).subscribe(
+            loadedTagRules => {
+                this.tagRules = loadedTagRules;
+            }
+        );
     }
 
     public cleanEntryView(): void {
@@ -35,6 +48,7 @@ export class EntryInfoComponent {
         this.amount = null;
         this.memo = '';
         this.tags = [];
+        this.suggestedTags = [];
     }
 
     public initEntryView(aEntryInfo: EntryInfo): void {
@@ -73,21 +87,42 @@ export class EntryInfoComponent {
     }
 
     public onAddedTag(tag: Tag): void {
-        LogUtil.debug(this, 'onAddedTag ' + tag);
+        LogUtil.debug(this, 'onAddedTag ' + JSON.stringify(tag));
+
+        const tagRule = this.tagRules.find( tagRule => tagRule.whenTag.trim() == tag.name.trim());
+
+        if(tagRule) {
+            this.suggestedTags = [];
+            tagRule.thenTags.forEach( tagName => {
+                const tag = new Tag();
+                tag.name = tagName;
+                LogUtil.debug(this, 'fill suggestedTags - ' + this.suggestedTags);
+                this.suggestedTags.push(tag);
+            })
+        }
+
     }
 
     public onTagDeleted(tag: Tag): void {
         LogUtil.debug(this, 'onTagDeleted ' + tag);
     }
 
-    private refreshPossibleTags(): void {
-        const tagStatisticList: TagStatistic[] = this.tagStatisticBrowserStorageFacade.getTagStatisticValues();
-        this.possibleTags = [];
-        tagStatisticList.forEach((tagStatistic: TagStatistic) => {
-            const tag: Tag = new Tag();
-            tag.name = tagStatistic.name;
-            this.possibleTags.push(tag);
-        });
+    public onSuggestedTagSelected(selectedTag: Tag): void {
+        LogUtil.debug(this, 'onSuggestedTagSelected ' + JSON.stringify(selectedTag));
+
+        const suggestedTag = this.suggestedTags.find( tag => tag.name.trim() == selectedTag.name.trim());
+
+        this.suggestedTags = this.suggestedTags.filter( tag => {
+            if(tag.name == selectedTag.name){
+                return false;
+            }
+            return true;
+        })
+
+        LogUtil.debug(this, 'Push suggestedTag to tags ->  ' + suggestedTag);
+
+        this.tags.push(suggestedTag);
+
     }
 
 }
