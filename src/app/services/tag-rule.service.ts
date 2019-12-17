@@ -49,13 +49,6 @@ export class TagRuleService {
         return this.tagRuleService.deleteTagRule(this.applicationService.getCurrentUser(), accountItem, tagRule);
     }
 
-    public updateTagRule(accountItem: AccountItem, tagRule: TagRule): Observable<any> {
-        if (!this.isReadyToUse(accountItem)) {
-            return Observable.create(result => { result.error('No restservice available! updateEntry'); });
-        }
-        return this.tagRuleService.updateTagRule(this.applicationService.getCurrentUser(), accountItem, tagRule);
-    }
-
     public isReadyToUse(accountItem: AccountItem): boolean {
         const isReadyForRestServices = this.applicationService.isReadyForRestServices();
         const isAccountReadyToUse = this.accountService.isAccountReadyToUse(accountItem);

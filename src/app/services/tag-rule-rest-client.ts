@@ -51,14 +51,4 @@ export class TagRuleRestclient implements TagRuleServiceStep {
         return this.httpClient.delete(requestURL, {headers: headers});
     }
 
-    updateTagRule(user: User, accountItem: AccountItem, tagRule: TagRule): Observable<any> {
-        let headers = new HttpHeaders();
-        headers = headers.set('Authorization', user.name + ':' + user.accesstoken);
-        
-        const baseUrl = this.baseUrl;
-        const requestURL = baseUrl + 'tagrule/owner/' + user.name + '/account/' + accountItem.account.hash + '/update';
-    
-        return this.httpClient.patch(requestURL, tagRule, {headers: headers});
-    }
-
 }

@@ -10,7 +10,5 @@ export interface TagRuleServiceStep {
     saveTagRule(user: User, accountItem: AccountItem, tagRule: TagRule): Observable<any> 
 
     deleteTagRule(user: User, accountItem: AccountItem, tagRule: TagRule): Observable<any> 
-
-    updateTagRule(user: User, accountItem: AccountItem, tagRule: TagRule): Observable<any> 
-    
+  
 }

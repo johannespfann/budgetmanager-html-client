@@ -30,9 +30,5 @@ export class TagRuleCache implements TagRuleServiceStep {
     return this.tagRuleServiceStep.deleteTagRule(user, accountItem, tagRule);
     }
 
-    updateTagRule(user: User, accountItem: AccountItem, tagRule: TagRule): Observable<any> {
-        return this.tagRuleServiceStep.updateTagRule(user, accountItem, tagRule);
-    }
-
 
 }
