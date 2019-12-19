@@ -5,9 +5,6 @@
     <input (keyup)="saveTag($event)" list="tags-datalist" name="taginput"
         [(ngModel)]="currentTag" class="tags-input" type="text" value=""
         placeholder=" ... ">
-    <datalist id="tags-datalist">
-      <option *ngFor="let item of possibleTags">{{item.name}}</option>
-    </datalist>
 </div>
 
 <div class="suggestedTag-container">

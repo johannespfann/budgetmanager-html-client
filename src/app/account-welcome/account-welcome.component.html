@@ -35,20 +35,6 @@
     </div>
 
 
-   <!-- StandingOrders -->
-    <div *ngIf="isStandingOrderProcessing">
-        <span class="fa fa-spinner fa-spin fa-2x fa-fw" aria-hidden="true"></span> 
-        <span class="pl-3" style="font-size: 1.3rem">Daueraufträge werden bearbeitet</span>
-    </div>
-    <div *ngIf="isStandingOrderProcessed && !isStandingOrderProcessing">
-        <span class="fa fa-check fa-2x text-success" aria-hidden="true"></span> 
-        <span class="pl-4" style="font-size: 1.3rem">Daueraufträge wurden bearbeitet</span>
-    </div>
-    <div *ngIf="!isStandingOrderProcessed && !isStandingOrderProcessing">        
-        <span class="fa fa-times fa-2x text-danger pl-1" aria-hidden="true"></span>
-        <span class="pl-4" style="font-size: 1.3rem">Daueraufträge konnten nicht bearbeitet werden</span>
-    </div>
-
 
     <h4 class="pt-5">Statistik</h4>
     <hr>

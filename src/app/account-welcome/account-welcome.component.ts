@@ -32,8 +32,6 @@ export class AccountWelcomeComponent implements OnInit {
     isStandingOrdersLoaded = false;
     isStandingOrdersLoading = true;
 
-    isStandingOrderProcessed = false;
-    isStandingOrderProcessing = true;
 
     sizeOfEntries = 0;
     sizeOfStandingOrders = 0;
@@ -85,8 +83,6 @@ export class AccountWelcomeComponent implements OnInit {
             this.standingOrderJob.executeStandingOrders(this.accountItem).subscribe(
                 _ => {
                     LogUtil.debug(this, "Analyse standingOrder done!");
-                    this.isStandingOrderProcessed = true;
-                    this.isStandingOrderProcessing = false;
                 }
             );
             this.loadEntries();
