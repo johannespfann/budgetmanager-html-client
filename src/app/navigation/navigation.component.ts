@@ -21,8 +21,8 @@ import { AccountRememberFacade } from '../utils/account-remember-facade';
 export class NavigationComponent implements OnInit, OnDestroy {
 
     private accountItem: AccountItem;
-    private accountname: string;
     private accountRememberFacade: AccountRememberFacade;
+    private accountname: string;
 
     private noEncryptedKeyMessageSubscription: Subscription;
     private logInMessageSubscription: Subscription;
@@ -37,9 +37,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     public accountviewIsVisible = false;
 
     constructor(
-        private applicationService: ApplicationService,
-        private router: Router,
-        private messagingService: MessagingService) {
+            private applicationService: ApplicationService,
+            private router: Router,
+            private messagingService: MessagingService) {
         LogUtil.logInits(this, 'init navigation-component');
         this.navBarIsOpen = false;
         this.userIsLogedIn = false;
@@ -81,6 +81,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     public goBackToAccountManue(): void {
         this.accountRememberFacade.cleanAccountRemeber();
         this.router.navigate(['/accountmenue']);
+        this.closeSidebar();
     }
 
     private registerNoEncryptedKeyMessage(): Subscription {

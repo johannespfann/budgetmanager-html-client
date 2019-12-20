@@ -8,7 +8,6 @@ import { SelectAccountItemMessage } from '../messages/select-accountitem-message
 import { RefreshSelectedAccountItemMessage } from '../messages/refresh-selected-accountitem-message';
 import { ApplicationService } from '../application/application.service';
 import { AccountRememberFacade } from '../utils/account-remember-facade';
-import { Observable } from 'rxjs/internal/Observable';
 
 
 @Component({
