@@ -3,9 +3,12 @@ import { Entry } from '../models/entry';
 import { DateUtil } from '../utils/date-util';
 import { DateSeriesStrategy } from './date-series-strategy';
 import { HashUtil } from '../utils/hash-util';
+import { Tag } from '../models/tag';
 
 
 export class StandingOrderExecutor {
+
+    public static PRODUCER_PREFIX = 'automatic-order:'
 
     private dateSeriesStrategies: DateSeriesStrategy[];
 
@@ -52,6 +55,9 @@ export class StandingOrderExecutor {
             entry.hash = HashUtil.getUniqueHash().toString();
             entry.memo = standingOrder.memo;
             entry.tags = standingOrder.tags;
+            const tag = new Tag()
+            tag.name = StandingOrderExecutor.PRODUCER_PREFIX + standingOrder.hash;
+            entry.tags.push(tag)
             entry.created_at = date;
             entries.push(entry);
         });

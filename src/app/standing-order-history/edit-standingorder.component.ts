@@ -36,7 +36,7 @@ export class EditStandingOrderComponent implements OnInit, OnChanges {
     }
 
     public ngOnInit(): void {
-        this.initStandingOrderView(this.standingorder);
+       this.initStandingOrderView(this.standingorder);
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
