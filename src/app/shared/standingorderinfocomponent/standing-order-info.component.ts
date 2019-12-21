@@ -32,6 +32,7 @@ export class StandingOrderInfoComponent implements OnInit {
         standingOrderInfo.start_at = this.startRotationDate;
         standingOrderInfo.end_at = this.endRotrationDate;
         standingOrderInfo.rotation_strategy = this.getRotationStrategy();
+        LogUtil.debug(this, 'return StandingOrderInfo: ' + JSON.stringify(standingOrderInfo));
         return standingOrderInfo;
     }
 
@@ -44,7 +45,6 @@ export class StandingOrderInfoComponent implements OnInit {
 
     public cleanStandOrderView(): void {
         this.setMonthly();
-        this.startRotationDate = new Date();
     }
 
     private setRotationStrategy(aValue: string): void {
