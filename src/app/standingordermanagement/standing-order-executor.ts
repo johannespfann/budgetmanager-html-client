@@ -40,7 +40,7 @@ export class StandingOrderExecutor {
                 });
 
                 generatedEntries = this.produceEntries(collectedDates, standingOrder);
-            }
+            } 
         });
 
         return generatedEntries;
@@ -67,6 +67,7 @@ export class StandingOrderExecutor {
     private produceBeginningDate(standingOrder: StandingOrder): Date {
         const beginningDate: Date = new Date();
 
+        // falls noch nie ausgeführt
         if (!standingOrder.last_executed) {
             standingOrder.last_executed = standingOrder.start_at;
         }
@@ -78,14 +79,12 @@ export class StandingOrderExecutor {
         beginningDate.setFullYear(standingOrder.last_executed.getFullYear());
         beginningDate.setMonth(standingOrder.last_executed.getMonth());
 
-        const dayOfStartDate = standingOrder.start_at.getDate();
-        const dayOfLastDate = standingOrder.last_executed.getDate();
+        const dayOfLastExecuted = standingOrder.last_executed.getDate();
 
-        if (dayOfLastDate < dayOfStartDate) {
-            beginningDate.setDate(dayOfLastDate);
-        } else {
-            beginningDate.setDate(dayOfStartDate);
-        }
+        // lastexecuted ist ab jetzt immer der ausführungstag -> beginnen immer bei der letzten ausführung oder immer am starttag?
+
+        beginningDate.setDate(dayOfLastExecuted);
+        
 
         beginningDate.setHours(standingOrder.last_executed.getHours());
         beginningDate.setMinutes(standingOrder.last_executed.getMinutes());

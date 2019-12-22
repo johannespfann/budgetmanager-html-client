@@ -49,6 +49,7 @@ export class StandingOrderComponent implements OnInit {
         this.rotationEntryService.updateRotationEntry(this.selectedAccountItem, event).subscribe(
             data => {
                 this.cleanView();
+                LogUtil.debug(this, 'onChangedPressed: ' + JSON.stringify(this.selectedAccountItem));
                 this.updateStandingOrders(this.selectedAccountItem);
             },
             error => {

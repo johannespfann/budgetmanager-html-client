@@ -23,6 +23,8 @@ export class StandingOrderJob {
                 LogUtil.debug(this, 'Get All rotationEntries: ' + JSON.stringify(standingOrders.length));
                 standingOrders.forEach( (standingOrder: StandingOrder) => {
                     LogUtil.debug(this, 'Process StandingOrder ' + standingOrder.memo);
+
+                    const today = new Date();
                     const entries = this.standingOrderExecutor.generateEntries(new Date(), standingOrder);
 
                     if (entries.length === 0) {
@@ -32,15 +34,7 @@ export class StandingOrderJob {
 
                     LogUtil.debug(this, 'generate and save ' + entries.length + ' entries for ' + standingOrder.memo);
 
-                    const lastExecutedDate = SortUtil.getLatestCreatedEntry(entries).created_at;
-                    const lastDate = new Date();
-                    lastDate.setFullYear(lastExecutedDate.getFullYear());
-                    lastDate.setMonth(lastExecutedDate.getMonth());
-                    lastDate.setDate(lastExecutedDate.getDate());
-                    lastDate.setHours(lastExecutedDate.getHours());
-                    lastDate.setMinutes(lastExecutedDate.getMinutes());
-
-                    standingOrder.last_executed = lastDate;
+                    standingOrder.last_executed = today;
 
                     this.entryService.addEntries(accountItem, entries).subscribe(
                         success => {

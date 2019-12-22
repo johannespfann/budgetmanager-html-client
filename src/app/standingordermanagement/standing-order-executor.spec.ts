@@ -292,4 +292,24 @@ describe('standing-order-executor', function () {
         expect(entries.length).toBe(5);
     });
 
+    it('should produce in the second run 0 entries', () => {
+         // prepare
+         const startDate = new Date(2018, 0, 31);
+         const today = new Date(2018, 1, 28);
+         const dayOfSecondRun = new Date(2018, 1, 28);
+         const endDate = new Date(2022, 1, 1);
+         monthlyStandingOrder.start_at = startDate;
+         monthlyStandingOrder.end_at = endDate;
+ 
+         // execute
+         const entries: Entry[] = standingOrderExecutor.generateEntries(today, monthlyStandingOrder);
+         monthlyStandingOrder.last_executed = today
+         const secondEntries: Entry[] = standingOrderExecutor.generateEntries(dayOfSecondRun, monthlyStandingOrder);
+ 
+         // validate
+         expect(entries.length).toBe(2);
+         expect(secondEntries.length).toBe(0)
+
+    });
+
 });
