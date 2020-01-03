@@ -38,7 +38,8 @@ export class StandingOrderJob {
 
                     this.entryService.addEntries(accountItem, entries).subscribe(
                         success => {
-                            LogUtil.debug(this, 'saved all entries and try to perist standing-order');
+                            LogUtil.debug(this, 'saved all (' + entries.length + ') entries and try to perist standing-order');
+                            LogUtil.debug(this, ' -> ' + JSON.stringify(standingOrder));
                             this.updateStandingOrder(accountItem, standingOrder);
                         },
                         error => {
@@ -63,7 +64,6 @@ export class StandingOrderJob {
                 LogUtil.debug(this, 'Updated standingOrder: ' + JSON.stringify(aStandingOrder));
             },
             error => {
-                // was passiert wenn hier was passiert? möglichst alles abbrechen
                 LogUtil.error(this, 'Failed to update standingOrder: ' + JSON.stringify(aStandingOrder));
             }
         );
