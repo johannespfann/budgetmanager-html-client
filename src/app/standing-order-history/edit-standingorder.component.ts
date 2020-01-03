@@ -56,6 +56,7 @@ export class EditStandingOrderComponent implements OnInit, OnChanges {
     }
 
     private initStandingOrderView(standingOrder: StandingOrder) {
+        LogUtil.debug(this, 'StandingOrder: ' + JSON.stringify(standingOrder));
         const entryInfo = new EntryInfo();
         entryInfo.amount = standingOrder.amount;
         entryInfo.currency = 'EUR';
