@@ -54,7 +54,8 @@ export class StandingOrderExecutor {
             entry.currency = standingOrder.currency;
             entry.hash = HashUtil.getUniqueHash().toString();
             entry.memo = standingOrder.memo;
-            entry.tags = standingOrder.tags;
+            
+            entry.tags = Array.from(standingOrder.tags);
             const tag = new Tag()
             tag.name = StandingOrderExecutor.PRODUCER_PREFIX + standingOrder.hash;
             entry.tags.push(tag)
@@ -78,8 +79,8 @@ export class StandingOrderExecutor {
 
         beginningDate.setFullYear(standingOrder.last_executed.getFullYear());
         beginningDate.setMonth(standingOrder.last_executed.getMonth());
-
-        const dayOfLastExecuted = standingOrder.last_executed.getDate();
+ 
+        const dayOfLastExecuted = standingOrder.start_at.getDate();
 
         // lastexecuted ist ab jetzt immer der ausführungstag -> beginnen immer bei der letzten ausführung oder immer am starttag?
 
