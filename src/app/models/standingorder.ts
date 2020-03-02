@@ -4,16 +4,24 @@ import { Tag } from './tag';
 export class StandingOrder {
 
     /**
-     * RotationEntry attributes
+     * metadata
      */
 
     public hash: string;
 
     public username: string;
 
+
+    /**
+     * RotationEntry attributes
+     */
+
+
     public start_at: Date;
 
     public end_at: Date;
+
+    public last_modified: Date;
 
     public last_executed: Date;
 
@@ -58,6 +66,7 @@ export class StandingOrder {
         standingOrder.username = aStandingOrder.username;
         standingOrder.start_at = aStandingOrder.start_at;
         standingOrder.end_at = aStandingOrder.end_at;
+        standingOrder.last_modified = aStandingOrder.last_modified;
         standingOrder.last_executed = aStandingOrder.last_executed;
         standingOrder.rotation_strategy = aStandingOrder.rotation_strategy;
         return standingOrder;

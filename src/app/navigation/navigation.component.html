@@ -54,6 +54,12 @@
       </a>
     </li>
 
+    <li  *ngIf="userIsLogedIn" class="navlink-bm">
+      <a routerLink="/encrypt" (click)="closeSidebar()">
+        <i class="fa fa-user" aria-hidden="true"></i> Entschlüsseln
+      </a>
+    </li>
+
   </ul>
 
   <ul *ngIf="!accountviewIsVisible" class="sidebar-content">

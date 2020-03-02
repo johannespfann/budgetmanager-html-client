@@ -39,6 +39,8 @@ import { AccountWelcomeModule } from './account-welcome/account-welcome.module';
 import { AccountModule } from './accountsetting/account.module';
 import { UserWelcomeModule } from './user-welcome/user-welcome.module';
 import { TagRuleService } from './services/tag-rule.service';
+import { EncryptComponent } from './encrypt/encrypt.component';
+import { CopyRepositoryRest } from './services/copy-repository-rest';
 
 export function initApplication(appService: ApplicationService) {
   return () => appService.initAppService();
@@ -74,7 +76,8 @@ export function initApplication(appService: ApplicationService) {
     DataProtectionComponent,
     ContactComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    EncryptComponent
   ],
   providers: [
     UserApiService,
@@ -91,7 +94,8 @@ export function initApplication(appService: ApplicationService) {
     EntryService,
     StandingOrderApiService,
     StandingOrderService,
-    TagRuleService
+    TagRuleService,
+    CopyRepositoryRest
   ],
   bootstrap: [AppComponent]
 })

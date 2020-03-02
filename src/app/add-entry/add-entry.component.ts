@@ -30,7 +30,6 @@ export class AddEntryComponent implements OnInit {
     public createEntryDate: Date;
     public isPeriodical = false;
 
-    public accountItems: AccountItem[] = [];
     public selectedAccount: AccountItem;
 
     constructor(

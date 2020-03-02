@@ -19,6 +19,7 @@ import { AccountComponent } from './accountsetting/account.component';
 import { AccountWelcomeComponent } from './account-welcome/account-welcome.component';
 import { AccountMenueComponent } from './user-welcome/account-menue.component';
 import { RulesComponent } from './tag-rules/rules.component';
+import { EncryptComponent } from './encrypt/encrypt.component';
 // standingorder
 
 
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
   { path: 'accountwelcome', component: AccountWelcomeComponent},
   { path: 'accountmenue', component: AccountMenueComponent},
   { path: 'rules', component: RulesComponent},
+  { path: 'encrypt', component: EncryptComponent},
   { path: '',   redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
